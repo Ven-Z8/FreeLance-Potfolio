@@ -30,7 +30,16 @@ function initTabs() {
 // 2. Interactive Query Playground Data & Logic
 const QUERY_DATABASE = {
   "What is the 3-year average net sales growth rate for Apple from FY2023 to FY2025?": {
+    agent_react: {
+      answer: "FinancialAnalystAgent decomposed query into 2 sub-queries. MathSpecialistAgent calculated CAGR of 4.20%. ComplianceAuditorAgent verified claims against AAPL_2025_10K Item 7/8 chunks. Net sales grew from $383,285 million in FY2023 to $391,035 million in FY2024 (+2%), and $416,161 million in FY2025 (+6%), averaging 4%.",
+      citations: ["AAPL_2025_10K:Item7:c003", "AAPL_2025_10K:Item8:c000"],
+      confidence: "0.815 (Auditor Verified OK)",
+      latency: "4.5s",
+      cost: "$0.0151",
+      math: "Executed via MathSpecialistAgent: CAGR 4.20% / Avg YoY 4.0%"
+    },
     hybrid_rerank: {
+
       answer: "Apple's total net sales were $383,285 million in FY2023, $391,035 million in FY2024, and $416,161 million in FY2025. The year-over-year growth rates were 2% for FY2024 compared to FY2023, and 6% for FY2025 compared to FY2024. The average of these two annual growth rates is 4%.",
       citations: ["AAPL_2025_10K:Item7:c003", "AAPL_2025_10K:Item8:c015", "AAPL_2025_10K:Item8:c000"],
       confidence: "0.815 (Gated OK)",

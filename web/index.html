@@ -77,10 +77,12 @@
           <div class="strategy-selector">
             <label>Retrieval Strategy:</label>
             <select id="strategy-select">
-              <option value="hybrid_rerank" selected>Hybrid + CrossEncoder Rerank (NVIDIA Blueprint)</option>
+              <option value="agent_react" selected>Multi-Role Agentic Orchestrator (Analyst ➔ Math ➔ Auditor ReAct Loop)</option>
+              <option value="hybrid_rerank">Hybrid + CrossEncoder Rerank (NVIDIA Blueprint)</option>
               <option value="hybrid">Hybrid (Dense + BM25 Sparse RRF)</option>
               <option value="dense">Dense-Only (bge-small-en-v1.5)</option>
             </select>
+
           </div>
         </div>
 
