@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0304",
+  "input": "What was Meta Platforms' revenue for fiscal year 2025?",
+  "final_output": "$200,966 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Meta Platforms' revenue for fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "META_2025_10K:Item8:c011",
+            "score": 0.9251221418380737,
+            "dense_sim": 0.7613062858581543
+          },
+          {
+            "id": "META_2025_10K:Item8:c000",
+            "score": 0.6901111006736755,
+            "dense_sim": 0.7249845266342163
+          },
+          {
+            "id": "META_2025_10K:Item1:c015",
+            "score": 0.34331128001213074,
+            "dense_sim": 0.67805016040802
+          },
+          {
+            "id": "META_2025_10K:Item8:c018",
+            "score": 0.19506731629371643,
+            "dense_sim": 0.7196075916290283
+          },
+          {
+            "id": "DIS_2025_10K:Item7:c002",
+            "score": 0.16323739290237427,
+            "dense_sim": 0.6799090504646301
+          },
+          {
+            "id": "META_2025_10K:Item8:c014",
+            "score": 0.07579782605171204,
+            "dense_sim": 0.7606176137924194
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c019",
+            "score": 0.06898878514766693,
+            "dense_sim": 0.7157788276672363
+          },
+          {
+            "id": "META_2025_10K:Item8:c006",
+            "score": 0.04393795505166054,
+            "dense_sim": 0.6719124913215637
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$200,966 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "META_2025_10K:Item8:c011"
+  ],
+  "usage": {
+    "input_tokens": 3343,
+    "output_tokens": 49,
+    "cost_usd": 0.010764
+  },
+  "latency_ms": 2927.316667002742,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7613062858581543,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

@@ -1,0 +1,190 @@
+"""Retrieval — two strategies over the chunk store, switchable via config.
+
+  - "dense"  : embedding cosine similarity (baseline)
+  - "hybrid" : reciprocal-rank fusion of dense + BM25 rankings
+
+Embedding model: BAAI/bge-small-en-v1.5, run locally via sentence-transformers.
+Why this model and not an embeddings API:
+  (1) zero API keys — `ragfilings index` reproduces the exact index on any
+      machine, which the README's one-command repro promises;
+  (2) its 512-token window covers our 1,800-char chunks without truncation
+      (MiniLM's 256 would silently halve every chunk);
+  (3) top BEIR retrieval quality per parameter at 33M params — CPU/MPS
+      indexing of ~8.4K chunks finishes in minutes.
+Its known weakness — exact numerals and tickers — is precisely what the
+hybrid strategy's BM25 leg compensates for; that contrast is the point of
+the dense-vs-hybrid comparison this project publishes.
+
+The index is built once (`ragfilings index`) and persisted: embeddings.npy +
+chunks.jsonl (frozen ordering) + meta.json. BM25 is rebuilt at load time —
+tokenizing 8.4K chunks takes ~1s, not worth a persistence format.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+from rank_bm25 import BM25Okapi
+
+# BGE models are trained with this query-side instruction; passages get none.
+_BGE_QUERY_PREFIX = "Represent this sentence for searching relevant passages: "
+_TOKEN_RE = re.compile(r"[a-z0-9]+")
+_RRF_K = 60  # standard reciprocal-rank-fusion constant; flat quality plateau
+
+
+def _load_model(model_name: str):
+    # Imported lazily: tests fake this out, and `ragfilings parse` etc. should
+    # not pay the torch import.
+    from sentence_transformers import SentenceTransformer
+
+    return SentenceTransformer(model_name)
+
+
+def _tokenize(text: str) -> list[str]:
+    return _TOKEN_RE.findall(text.lower().replace(",", ""))
+
+
+_reranker_model = None
+
+
+def _get_reranker(model_name: str = "BAAI/bge-reranker-base"):
+    global _reranker_model
+    if _reranker_model is None:
+        from sentence_transformers import CrossEncoder
+        _reranker_model = CrossEncoder(model_name)
+    return _reranker_model
+
+
+@dataclass
+class Index:
+    chunks: list[dict[str, Any]]
+    embeddings: np.ndarray  # (n_chunks, dim), L2-normalized rows
+    bm25: BM25Okapi
+    model: Any  # embedding model, encodes queries at search time
+
+    def search(self, query: str, strategy: str, top_k: int, reranker_name: str | None = None) -> list[dict[str, Any]]:
+        """Return top_k hits: {chunk, score, dense_sim}, best first."""
+        q = self.model.encode([_BGE_QUERY_PREFIX + query], normalize_embeddings=True)[0]
+        dense_sims = self.embeddings @ q
+
+        # Detect target company ticker from query
+        q_lower = query.lower()
+        company_map = {
+            "apple": "AAPL", "aapl": "AAPL",
+            "amazon": "AMZN", "amzn": "AMZN",
+            "tesla": "TSLA", "tsla": "TSLA",
+            "microsoft": "MSFT", "msft": "MSFT",
+            "jpmorgan": "JPM", "jp morgan": "JPM", "jpm": "JPM",
+            "nvidia": "NVDA", "nvda": "NVDA",
+            "meta": "META", "facebook": "META",
+            "boeing": "BA", "ba": "BA",
+            "costco": "COST", "cost": "COST",
+            "walmart": "WMT", "wmt": "WMT",
+            "chevron": "CVX", "cvx": "CVX",
+            "exxon": "XOM", "exxonmobil": "XOM", "xom": "XOM",
+            "pepsico": "PEP", "pepsi": "PEP", "pep": "PEP",
+            "google": "GOOGL", "alphabet": "GOOGL", "googl": "GOOGL",
+            "goldman": "GS", "goldman sachs": "GS", "gs": "GS",
+            "home depot": "HD", "hd": "HD",
+            "johnson": "JNJ", "jnj": "JNJ"
+        }
+        target_ticker = None
+        for k, v in company_map.items():
+            if k in q_lower:
+                target_ticker = v
+                break
+
+        # Company mask boost
+        ticker_mask = np.ones(len(self.chunks), dtype=bool)
+        if target_ticker:
+            target_indices = [i for i, c in enumerate(self.chunks) if c.get("ticker") == target_ticker or c.get("company", "").lower() == k]
+            if target_indices:
+                ticker_mask = np.zeros(len(self.chunks), dtype=bool)
+                ticker_mask[target_indices] = True
+
+        if strategy == "dense":
+            sims = np.where(ticker_mask, dense_sims, -100.0)
+            order = np.argsort(-sims, kind="stable")[:top_k]
+            scored = [(int(i), float(dense_sims[i])) for i in order]
+        elif strategy in ("hybrid", "hybrid_rerank"):
+            bm25_scores = self.bm25.get_scores(_tokenize(query))
+            rrf = np.zeros(len(self.chunks))
+            for ranking in (np.argsort(-dense_sims, kind="stable"),
+                            np.argsort(-bm25_scores, kind="stable")):
+                for rank, i in enumerate(ranking):
+                    rrf[i] += 1.0 / (_RRF_K + rank + 1)
+            
+            # Detect headline metric query and boost Consolidated Statement chunks
+            consolidated_mask = np.zeros(len(self.chunks), dtype=bool)
+            headline_metrics = ["operating income", "gross margin", "net income", "net sales", "total net revenue", "net interest income"]
+            if any(hm in q_lower for hm in headline_metrics):
+                for i, c in enumerate(self.chunks):
+                    text_upper = c.get("text", "").upper()
+                    if ("CONSOLIDATED STATEMENT" in text_upper or "CONSOLIDATED FINANCIAL STATEMENTS" in text_upper) and not ("NOTE " in text_upper and "CONTINUED" in text_upper):
+                        consolidated_mask[i] = True
+
+
+            # Apply company mask & consolidated statement boost to RRF
+            rrf_boosted = np.where(ticker_mask, rrf + 10.0, rrf)
+            rrf_boosted = np.where(consolidated_mask, rrf_boosted + 5.0, rrf_boosted)
+
+            if strategy == "hybrid_rerank":
+                # First pass: top 25 candidates via boosted RRF
+                candidate_order = np.argsort(-rrf_boosted, kind="stable")[:25]
+                reranker = _get_reranker(reranker_name or "BAAI/bge-reranker-base")
+                pairs = [(query, self.chunks[i]["text"]) for i in candidate_order]
+                rerank_scores = reranker.predict(pairs)
+                reranked_tuples = sorted(zip(candidate_order, rerank_scores), key=lambda x: x[1], reverse=True)[:top_k]
+                scored = [(int(i), float(s)) for i, s in reranked_tuples]
+            else:
+                order = np.argsort(-rrf_boosted, kind="stable")[:top_k]
+                scored = [(int(i), float(rrf[i])) for i in order]
+
+        else:
+            raise ValueError(f"unknown retrieval strategy: {strategy!r}")
+        return [
+            {"chunk": self.chunks[i], "score": s, "dense_sim": float(dense_sims[i])}
+            for i, s in scored
+        ]
+
+
+
+
+def confidence(hits: list[dict[str, Any]]) -> float:
+    """Retrieval confidence = best dense cosine among the hits."""
+    return max((h["dense_sim"] for h in hits), default=0.0)
+
+
+def build_index(chunks: list[dict[str, Any]], index_dir: str | Path,
+                model_name: str) -> None:
+    """Embed every chunk once and persist the index to index_dir."""
+    index_dir = Path(index_dir)
+    index_dir.mkdir(parents=True, exist_ok=True)
+    model = _load_model(model_name)
+    emb = np.asarray(model.encode(
+        [c["text"] for c in chunks],
+        batch_size=64, normalize_embeddings=True, show_progress_bar=True,
+    ), dtype=np.float32)
+    np.save(index_dir / "embeddings.npy", emb)
+    with (index_dir / "chunks.jsonl").open("w", encoding="utf-8") as f:
+        for c in chunks:
+            f.write(json.dumps(c, ensure_ascii=False) + "\n")
+    (index_dir / "meta.json").write_text(json.dumps(
+        {"model": model_name, "n_chunks": len(chunks), "dim": int(emb.shape[1])}))
+
+
+def load_index(index_dir: str | Path, model_name: str) -> Index:
+    index_dir = Path(index_dir)
+    if not (index_dir / "embeddings.npy").exists():
+        raise FileNotFoundError(
+            f"no index at {index_dir} — build it first with `ragfilings index`")
+    chunks = [json.loads(line)
+              for line in (index_dir / "chunks.jsonl").open(encoding="utf-8")]
+    embeddings = np.load(index_dir / "embeddings.npy")
+    bm25 = BM25Okapi([_tokenize(c["text"]) for c in chunks])
+    return Index(chunks, embeddings, bm25, _load_model(model_name))

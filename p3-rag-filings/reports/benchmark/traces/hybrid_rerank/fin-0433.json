@@ -1,0 +1,108 @@
+{
+  "case_id": "fin-0433",
+  "input": "What was Tesla's Cybertruck-specific revenue in fiscal 2025?",
+  "final_output": "[REFUSED] model: The chunks provided do not contain Cybertruck-specific revenue figures. Chunk [TSLA_2025_10K:Item7:c023] shows Tesla's total automotive sales of $65,821 million for 2025, but this is aggregated across all vehicle models (Model 3, Y, S, X, and Cybertruck as mentioned in [TSLA_2025_10K:Item1:c001]). No breakdown by individual vehicle model is provided in the context.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Tesla's Cybertruck-specific revenue in fiscal 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "TSLA_2025_10K:Item1:c001",
+            "score": 0.8471049666404724,
+            "dense_sim": 0.6756486892700195
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c016",
+            "score": 0.27076780796051025,
+            "dense_sim": 0.6556806564331055
+          },
+          {
+            "id": "TSLA_2025_10K:Item1:c005",
+            "score": 0.13825322687625885,
+            "dense_sim": 0.5792127847671509
+          },
+          {
+            "id": "TSLA_2025_10K:Item1:c025",
+            "score": 0.11964550614356995,
+            "dense_sim": 0.644482433795929
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c002",
+            "score": 0.02776484191417694,
+            "dense_sim": 0.7212909460067749
+          },
+          {
+            "id": "DIS_2025_10K:Item7:c002",
+            "score": 0.014352603815495968,
+            "dense_sim": 0.6544432044029236
+          },
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.007448813412338495,
+            "dense_sim": 0.6680073738098145
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c023",
+            "score": 0.0036530173383653164,
+            "dense_sim": 0.6894547343254089
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The chunks provided do not contain Cybertruck-specific revenue figures. Chunk [TSLA_2025_10K:Item7:c023] shows Tesla's total automotive sales of $65,821 million for 2025, but this is aggregated across all vehicle models (Model 3, Y, S, X, and Cybertruck as mentioned in [TSLA_2025_10K:Item1:c001]). No breakdown by individual vehicle model is provided in the context.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 2947,
+    "output_tokens": 140,
+    "cost_usd": 0.010941
+  },
+  "latency_ms": 5163.146625000081,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": true,
+    "refusal_reason": "model: The chunks provided do not contain Cybertruck-specific revenue figures. Chunk [TSLA_2025_10K:Item7:c023] shows Tesla's total automotive sales of $65,821 million for 2025, but this is aggregated across all vehicle models (Model 3, Y, S, X, and Cybertruck as mentioned in [TSLA_2025_10K:Item1:c001]). No breakdown by individual vehicle model is provided in the context.",
+    "confidence": 0.7212909460067749,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

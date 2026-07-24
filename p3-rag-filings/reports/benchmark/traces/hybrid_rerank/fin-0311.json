@@ -1,0 +1,111 @@
+{
+  "case_id": "fin-0311",
+  "input": "What provision for credit losses did Goldman Sachs record in fiscal year 2025?",
+  "final_output": "Goldman Sachs recorded a net benefit (negative provision) of $1.11 billion for credit losses in fiscal year 2025.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What provision for credit losses did Goldman Sachs record in fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "GS_2025_10K:Item7:c027",
+            "score": 0.9970411658287048,
+            "dense_sim": 0.7567144632339478
+          },
+          {
+            "id": "GS_2025_10K:Item7:c049",
+            "score": 0.9880155920982361,
+            "dense_sim": 0.7195934057235718
+          },
+          {
+            "id": "GS_2025_10K:Item7:c004",
+            "score": 0.9524055123329163,
+            "dense_sim": 0.8157486319541931
+          },
+          {
+            "id": "BAC_2025_10K:Item8:c144",
+            "score": 0.950349748134613,
+            "dense_sim": 0.7302730083465576
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c045",
+            "score": 0.9478027820587158,
+            "dense_sim": 0.7319492101669312
+          },
+          {
+            "id": "GS_2025_10K:Item8:c154",
+            "score": 0.9272491335868835,
+            "dense_sim": 0.7774835824966431
+          },
+          {
+            "id": "GS_2025_10K:Item8:c079",
+            "score": 0.916852593421936,
+            "dense_sim": 0.7350946664810181
+          },
+          {
+            "id": "GS_2025_10K:Item7:c045",
+            "score": 0.8976890444755554,
+            "dense_sim": 0.7657246589660645
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Goldman Sachs recorded a net benefit (negative provision) of $1.11 billion for credit losses in fiscal year 2025.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "GS_2025_10K:Item7:c004",
+    "GS_2025_10K:Item7:c027"
+  ],
+  "usage": {
+    "input_tokens": 3445,
+    "output_tokens": 89,
+    "cost_usd": 0.01167
+  },
+  "latency_ms": 3969.236375000037,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.8157486319541931,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

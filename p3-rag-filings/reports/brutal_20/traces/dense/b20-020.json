@@ -1,0 +1,110 @@
+{
+  "case_id": "b20-020",
+  "input": "What were Amazon's total net sales in fiscal year 2025?",
+  "final_output": "$716,924 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What were Amazon's total net sales in fiscal year 2025?",
+          "strategy": "dense",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "HD_2026_10K:Item8:c040",
+            "score": 0.7908932566642761,
+            "dense_sim": 0.7908932566642761
+          },
+          {
+            "id": "AMZN_2025_10K:Item8:c087",
+            "score": 0.7893221378326416,
+            "dense_sim": 0.7893221378326416
+          },
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.7754532694816589,
+            "dense_sim": 0.7754532694816589
+          },
+          {
+            "id": "AMZN_2025_10K:Item7:c020",
+            "score": 0.7556738257408142,
+            "dense_sim": 0.7556738257408142
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c047",
+            "score": 0.7489794492721558,
+            "dense_sim": 0.7489794492721558
+          },
+          {
+            "id": "HD_2026_10K:Item8:c035",
+            "score": 0.747421383857727,
+            "dense_sim": 0.747421383857727
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c022",
+            "score": 0.7401412725448608,
+            "dense_sim": 0.7401412725448608
+          },
+          {
+            "id": "PG_2025_10K:Item7:c057",
+            "score": 0.7401057481765747,
+            "dense_sim": 0.7401057481765747
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$716,924 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AMZN_2025_10K:Item8:c087"
+  ],
+  "usage": {
+    "input_tokens": 2392,
+    "output_tokens": 52,
+    "cost_usd": 0.007956
+  },
+  "latency_ms": 1723.3537920001254,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "dense",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7908932566642761,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

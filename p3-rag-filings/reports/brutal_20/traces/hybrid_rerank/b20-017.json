@@ -1,0 +1,111 @@
+{
+  "case_id": "b20-017",
+  "input": "According to Chevron's fiscal 2025 10-K, how significant is Hess to Chevron's consolidated financials?",
+  "final_output": "As of December 31, 2025, Hess represents 24 percent of Chevron's total consolidated assets and 3 percent of total consolidated revenues. Additionally, the legacy Hess proved reserves represent approximately 13 percent of Chevron's total proved reserves at December 31, 2025.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "According to Chevron's fiscal 2025 10-K, how significant is Hess to Chevron's consolidated financials?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "CVX_2025_10K:Item8:c002",
+            "score": 0.9779752492904663,
+            "dense_sim": 0.7133296728134155
+          },
+          {
+            "id": "CVX_2025_10K:Item8:c128",
+            "score": 0.8864700198173523,
+            "dense_sim": 0.712891161441803
+          },
+          {
+            "id": "CVX_2025_10K:Item7:c036",
+            "score": 0.8693926334381104,
+            "dense_sim": 0.7811651825904846
+          },
+          {
+            "id": "CVX_2025_10K:Item8:c150",
+            "score": 0.8589795827865601,
+            "dense_sim": 0.7340410947799683
+          },
+          {
+            "id": "CVX_2025_10K:Item8:c130",
+            "score": 0.8435875177383423,
+            "dense_sim": 0.7501686215400696
+          },
+          {
+            "id": "CVX_2025_10K:Item1:c021",
+            "score": 0.7999889850616455,
+            "dense_sim": 0.6796786785125732
+          },
+          {
+            "id": "CVX_2025_10K:Item1A:c009",
+            "score": 0.7972046732902527,
+            "dense_sim": 0.7131966352462769
+          },
+          {
+            "id": "CVX_2025_10K:Item8:c127",
+            "score": 0.6548984050750732,
+            "dense_sim": 0.7261219024658203
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "As of December 31, 2025, Hess represents 24 percent of Chevron's total consolidated assets and 3 percent of total consolidated revenues. Additionally, the legacy Hess proved reserves represent approximately 13 percent of Chevron's total proved reserves at December 31, 2025.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "CVX_2025_10K:Item8:c002",
+    "CVX_2025_10K:Item8:c150"
+  ],
+  "usage": {
+    "input_tokens": 3308,
+    "output_tokens": 128,
+    "cost_usd": 0.011844
+  },
+  "latency_ms": 4094.7497919987654,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7811651825904846,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "case_id": "b20-011",
+  "input": "How did Boeing's total revenues change from fiscal year 2024 to 2025, and what does management attribute the change to?",
+  "final_output": "[REFUSED] model: The provided context chunks do not contain information about Boeing's total revenues for fiscal years 2024 and 2025, nor management's attribution for any revenue changes. The Boeing chunks present ([BA_2025_10K:Item1:c004] and [BA_2025_10K:Item15:c007]) discuss employee programs and executive compensation plans, but do not include revenue figures or financial performance data.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How did Boeing's total revenues change from fiscal year 2024 to 2025, and what does management attribute the change to?",
+          "strategy": "hybrid",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "DIS_2025_10K:Item7:c002",
+            "score": 0.02886002886002886,
+            "dense_sim": 0.7182630896568298
+          },
+          {
+            "id": "BA_2025_10K:Item1:c004",
+            "score": 0.02871794871794872,
+            "dense_sim": 0.7196725010871887
+          },
+          {
+            "id": "BA_2025_10K:Item15:c007",
+            "score": 0.024954072259644827,
+            "dense_sim": 0.6997380256652832
+          },
+          {
+            "id": "NFLX_2025_10K:Item7:c002",
+            "score": 0.023314014752370917,
+            "dense_sim": 0.6917612552642822
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c017",
+            "score": 0.021420389461626575,
+            "dense_sim": 0.7018184661865234
+          },
+          {
+            "id": "NFLX_2025_10K:Item7:c000",
+            "score": 0.0201912100456621,
+            "dense_sim": 0.6632068157196045
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c023",
+            "score": 0.01986447600482688,
+            "dense_sim": 0.7134547233581543
+          },
+          {
+            "id": "PFE_2025_10K:Item1A:c003",
+            "score": 0.019437877593905962,
+            "dense_sim": 0.677953839302063
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided context chunks do not contain information about Boeing's total revenues for fiscal years 2024 and 2025, nor management's attribution for any revenue changes. The Boeing chunks present ([BA_2025_10K:Item1:c004] and [BA_2025_10K:Item15:c007]) discuss employee programs and executive compensation plans, but do not include revenue figures or financial performance data.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 4149,
+    "output_tokens": 118,
+    "cost_usd": 0.014217
+  },
+  "latency_ms": 3379.3758749998233,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": true,
+    "refusal_reason": "model: The provided context chunks do not contain information about Boeing's total revenues for fiscal years 2024 and 2025, nor management's attribution for any revenue changes. The Boeing chunks present ([BA_2025_10K:Item1:c004] and [BA_2025_10K:Item15:c007]) discuss employee programs and executive compensation plans, but do not include revenue figures or financial performance data.",
+    "confidence": 0.7196725010871887,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

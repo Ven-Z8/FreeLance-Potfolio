@@ -1,0 +1,110 @@
+{
+  "case_id": "fb-003",
+  "input": "What was Amazon's operating income for the fiscal year ended December 31, 2025?",
+  "final_output": "$79,975 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Amazon's operating income for the fiscal year ended December 31, 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "NFLX_2025_10K:Item7:c001",
+            "score": 0.9944004416465759,
+            "dense_sim": 0.6866737604141235
+          },
+          {
+            "id": "AMZN_2025_10K:Item8:c007",
+            "score": 0.9932186007499695,
+            "dense_sim": 0.7554733753204346
+          },
+          {
+            "id": "AMZN_2025_10K:Item7:c028",
+            "score": 0.9864786267280579,
+            "dense_sim": 0.7252727150917053
+          },
+          {
+            "id": "NFLX_2025_10K:Item7:c010",
+            "score": 0.954272985458374,
+            "dense_sim": 0.7339926958084106
+          },
+          {
+            "id": "CVX_2025_10K:Item8:c082",
+            "score": 0.9507725238800049,
+            "dense_sim": 0.7036325931549072
+          },
+          {
+            "id": "AMZN_2025_10K:Item7:c029",
+            "score": 0.9262022376060486,
+            "dense_sim": 0.7505760192871094
+          },
+          {
+            "id": "GOOGL_2025_10K:Item7:c021",
+            "score": 0.8819674849510193,
+            "dense_sim": 0.6873083114624023
+          },
+          {
+            "id": "KO_2025_10K:Item7:c046",
+            "score": 0.8599210381507874,
+            "dense_sim": 0.645439088344574
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$79,975 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AMZN_2025_10K:Item8:c007"
+  ],
+  "usage": {
+    "input_tokens": 3818,
+    "output_tokens": 52,
+    "cost_usd": 0.012234
+  },
+  "latency_ms": 3307.3952499980805,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7554733753204346,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

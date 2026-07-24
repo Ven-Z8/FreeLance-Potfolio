@@ -1,0 +1,155 @@
+{
+  "case_id": "b20-002",
+  "input": "Did Nvidia's gross margin percentage increase or decrease in FY2025 compared to FY2024?",
+  "final_output": "Nvidia's gross margin percentage decreased from 75.0% in fiscal year 2025 to 71.1% in fiscal year 2026, representing a decline of 3.9 percentage points.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "Did Nvidia's gross margin percentage increase or decrease in FY2025 compared to FY2024?",
+          "strategy": "agent_react",
+          "top_k": 17
+        },
+        "result": [
+          {
+            "id": "NVDA_2026_10K:Item8:c073",
+            "score": 0.9689479470252991,
+            "dense_sim": 0.7123898267745972
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c011",
+            "score": 0.9477789998054504,
+            "dense_sim": 0.68178391456604
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.5088416337966919,
+            "dense_sim": 0.6784385442733765
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c016",
+            "score": 0.4822421371936798,
+            "dense_sim": 0.7205777168273926
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c005",
+            "score": 0.35428211092948914,
+            "dense_sim": 0.6293398141860962
+          },
+          {
+            "id": "COST_2025_10K:Item7:c010",
+            "score": 0.24975556135177612,
+            "dense_sim": 0.6732585430145264
+          },
+          {
+            "id": "PG_2025_10K:Item7:c027",
+            "score": 0.21533499658107758,
+            "dense_sim": 0.6446027755737305
+          },
+          {
+            "id": "COST_2025_10K:Item7:c009",
+            "score": 0.154942125082016,
+            "dense_sim": 0.6678035259246826
+          },
+          {
+            "id": "NVDA_2026_10K:Item5:c003",
+            "score": 0.8882232904434204,
+            "dense_sim": 0.7597881555557251
+          },
+          {
+            "id": "KO_2025_10K:Item7:c040",
+            "score": 0.5451588034629822,
+            "dense_sim": 0.6775507926940918
+          },
+          {
+            "id": "COST_2025_10K:Item7:c007",
+            "score": 0.4513530731201172,
+            "dense_sim": 0.6726124286651611
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c006",
+            "score": 0.9910407662391663,
+            "dense_sim": 0.6945030689239502
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c071",
+            "score": 0.9753795862197876,
+            "dense_sim": 0.7600131034851074
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c008",
+            "score": 0.9385088682174683,
+            "dense_sim": 0.831930935382843
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c013",
+            "score": 0.9295563101768494,
+            "dense_sim": 0.8405598402023315
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c042",
+            "score": 0.9115071892738342,
+            "dense_sim": 0.7094470858573914
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c047",
+            "score": 0.9069059491157532,
+            "dense_sim": 0.7309537529945374
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 2
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Nvidia's gross margin percentage decreased from 75.0% in fiscal year 2025 to 71.1% in fiscal year 2026, representing a decline of 3.9 percentage points.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "NVDA_2026_10K:Item7:c011"
+  ],
+  "usage": {
+    "input_tokens": 500,
+    "output_tokens": 100,
+    "cost_usd": 0.015
+  },
+  "latency_ms": 12692.035957999906,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "agent_react",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.8405598402023315,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

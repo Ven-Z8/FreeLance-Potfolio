@@ -1,0 +1,112 @@
+{
+  "case_id": "b20-017",
+  "input": "According to Chevron's fiscal 2025 10-K, how significant is Hess to Chevron's consolidated financials?",
+  "final_output": "Based on the 2025 10-K, Hess represents a substantial portion of Chevron's consolidated financials. The acquisition purchase price was approximately $48 billion, including 301.25 million shares of Chevron common stock issued as closing consideration and assumption of $8.8 billion in debt principal. At year-end 2025, legacy Hess proved reserves represented approximately 13 percent of Chevron's total proved reserves. The company assumed $10.0 billion of debt and finance lease liabilities as part of the acquisition (including approximately $3.7 billion related to Hess Midstream Operations LP that is non-recourse to Chevron Corporation). Total debt increased from $24.5 billion at year-end 2024 to $40.8 billion at year-end 2025, with the Hess acquisition being a major driver of this increase.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "According to Chevron's fiscal 2025 10-K, how significant is Hess to Chevron's consolidated financials?",
+          "strategy": "hybrid",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "CVX_2025_10K:Item8:c150",
+            "score": 0.03125,
+            "dense_sim": 0.7340410947799683
+          },
+          {
+            "id": "CVX_2025_10K:Item16:c004",
+            "score": 0.029551337359792925,
+            "dense_sim": 0.6946333050727844
+          },
+          {
+            "id": "CVX_2025_10K:Item1A:c009",
+            "score": 0.028814262023217248,
+            "dense_sim": 0.7131966352462769
+          },
+          {
+            "id": "CVX_2025_10K:Item7:c037",
+            "score": 0.02832415420928403,
+            "dense_sim": 0.7575339078903198
+          },
+          {
+            "id": "CVX_2025_10K:Item16:c000",
+            "score": 0.02724014336917563,
+            "dense_sim": 0.6773024797439575
+          },
+          {
+            "id": "CVX_2025_10K:Item1:c021",
+            "score": 0.026470588235294117,
+            "dense_sim": 0.6796786785125732
+          },
+          {
+            "id": "CVX_2025_10K:Item7:c038",
+            "score": 0.026153846153846153,
+            "dense_sim": 0.6928238868713379
+          },
+          {
+            "id": "CVX_2025_10K:Item8:c127",
+            "score": 0.02548562548562549,
+            "dense_sim": 0.7261219024658203
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 6
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Based on the 2025 10-K, Hess represents a substantial portion of Chevron's consolidated financials. The acquisition purchase price was approximately $48 billion, including 301.25 million shares of Chevron common stock issued as closing consideration and assumption of $8.8 billion in debt principal. At year-end 2025, legacy Hess proved reserves represented approximately 13 percent of Chevron's total proved reserves. The company assumed $10.0 billion of debt and finance lease liabilities as part of the acquisition (including approximately $3.7 billion related to Hess Midstream Operations LP that is non-recourse to Chevron Corporation). Total debt increased from $24.5 billion at year-end 2024 to $40.8 billion at year-end 2025, with the Hess acquisition being a major driver of this increase.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "CVX_2025_10K:Item8:c150",
+    "CVX_2025_10K:Item7:c037",
+    "CVX_2025_10K:Item8:c127"
+  ],
+  "usage": {
+    "input_tokens": 3624,
+    "output_tokens": 273,
+    "cost_usd": 0.014967
+  },
+  "latency_ms": 5838.749582999299,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7575339078903198,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

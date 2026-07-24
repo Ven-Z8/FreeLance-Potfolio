@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0214",
+  "input": "How do Disney's fiscal 2025 revenues split between services and products?",
+  "final_output": "Disney's fiscal 2025 revenues split as follows: Services revenue was $84,588 million and Products revenue was $9,837 million, for total revenues of $94,425 million.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How do Disney's fiscal 2025 revenues split between services and products?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "DIS_2025_10K:Item7:c002",
+            "score": 0.9989180564880371,
+            "dense_sim": 0.7596084475517273
+          },
+          {
+            "id": "DIS_2025_10K:Item7:c000",
+            "score": 0.8612919449806213,
+            "dense_sim": 0.6688072085380554
+          },
+          {
+            "id": "UNH_2025_10K:Item8:c086",
+            "score": 0.6334022879600525,
+            "dense_sim": 0.7021627426147461
+          },
+          {
+            "id": "DIS_2025_10K:Item8:c026",
+            "score": 0.46835148334503174,
+            "dense_sim": 0.6770378947257996
+          },
+          {
+            "id": "DIS_2025_10K:Item8:c027",
+            "score": 0.26681235432624817,
+            "dense_sim": 0.6751924157142639
+          },
+          {
+            "id": "DIS_2025_10K:Item7:c023",
+            "score": 0.20822295546531677,
+            "dense_sim": 0.6517242193222046
+          },
+          {
+            "id": "DIS_2025_10K:Item7:c003",
+            "score": 0.1563096046447754,
+            "dense_sim": 0.7333803176879883
+          },
+          {
+            "id": "DIS_2025_10K:Item7:c015",
+            "score": 0.082318015396595,
+            "dense_sim": 0.6587132215499878
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 3
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Disney's fiscal 2025 revenues split as follows: Services revenue was $84,588 million and Products revenue was $9,837 million, for total revenues of $94,425 million.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "DIS_2025_10K:Item7:c000"
+  ],
+  "usage": {
+    "input_tokens": 8683,
+    "output_tokens": 193,
+    "cost_usd": 0.028943999999999998
+  },
+  "latency_ms": 6432.081291997747,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7596084475517273,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "case_id": "b20-015",
+  "input": "Costco's fiscal 2025 had how many weeks, and why does that matter when comparing net sales growth to fiscal 2024?",
+  "final_output": "Costco's fiscal 2025 had 52 weeks. This matters when comparing to fiscal 2024 because fiscal 2024 had 53 weeks, meaning fiscal 2024 included an extra week of sales that fiscal 2025 did not have, affecting year-over-year comparisons.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "Costco's fiscal 2025 had how many weeks, and why does that matter when comparing net sales growth to fiscal 2024?",
+          "strategy": "hybrid",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.03278688524590164,
+            "dense_sim": 0.7821565866470337
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c025",
+            "score": 0.03128054740957967,
+            "dense_sim": 0.7485090494155884
+          },
+          {
+            "id": "COST_2025_10K:Item1:c000",
+            "score": 0.03125763125763126,
+            "dense_sim": 0.7264962196350098
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c008",
+            "score": 0.03057889822595705,
+            "dense_sim": 0.7293766736984253
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c022",
+            "score": 0.029418126757516764,
+            "dense_sim": 0.716923713684082
+          },
+          {
+            "id": "COST_2025_10K:Item8:c016",
+            "score": 0.029138513513513514,
+            "dense_sim": 0.7274666428565979
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c019",
+            "score": 0.02813852813852814,
+            "dense_sim": 0.7256259918212891
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c027",
+            "score": 0.02797067901234568,
+            "dense_sim": 0.6876000761985779
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Costco's fiscal 2025 had 52 weeks. This matters when comparing to fiscal 2024 because fiscal 2024 had 53 weeks, meaning fiscal 2024 included an extra week of sales that fiscal 2025 did not have, affecting year-over-year comparisons.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "COST_2025_10K:Item1:c000",
+    "COST_2025_10K:Item8:c016"
+  ],
+  "usage": {
+    "input_tokens": 3318,
+    "output_tokens": 128,
+    "cost_usd": 0.011874
+  },
+  "latency_ms": 3773.011666002276,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7821565866470337,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "case_id": "b20-007",
+  "input": "What does NVIDIA project its data center revenue will be in fiscal year 2027?",
+  "final_output": "[REFUSED] model: The provided context chunks contain historical data center revenue for fiscal years 2026, 2025, and 2024, but do not contain any projections or guidance for fiscal year 2027 data center revenue.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What does NVIDIA project its data center revenue will be in fiscal year 2027?",
+          "strategy": "dense",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "NVDA_2026_10K:Item8:c050",
+            "score": 0.7869255542755127,
+            "dense_sim": 0.7869255542755127
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c073",
+            "score": 0.7775800228118896,
+            "dense_sim": 0.7775800228118896
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c074",
+            "score": 0.770949125289917,
+            "dense_sim": 0.770949125289917
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c013",
+            "score": 0.7512773275375366,
+            "dense_sim": 0.7512773275375366
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c001",
+            "score": 0.7385178804397583,
+            "dense_sim": 0.7385178804397583
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c011",
+            "score": 0.7315841913223267,
+            "dense_sim": 0.7315841913223267
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c000",
+            "score": 0.7307685613632202,
+            "dense_sim": 0.7307685613632202
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c016",
+            "score": 0.7276082634925842,
+            "dense_sim": 0.7276082634925842
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided context chunks contain historical data center revenue for fiscal years 2026, 2025, and 2024, but do not contain any projections or guidance for fiscal year 2027 data center revenue.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 3150,
+    "output_tokens": 75,
+    "cost_usd": 0.010575
+  },
+  "latency_ms": 2622.5550409981224,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "dense",
+    "refused": true,
+    "refusal_reason": "model: The provided context chunks contain historical data center revenue for fiscal years 2026, 2025, and 2024, but do not contain any projections or guidance for fiscal year 2027 data center revenue.",
+    "confidence": 0.7869255542755127,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

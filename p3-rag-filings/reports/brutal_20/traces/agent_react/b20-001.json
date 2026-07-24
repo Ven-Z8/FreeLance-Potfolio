@@ -1,0 +1,163 @@
+{
+  "case_id": "b20-001",
+  "input": "What is the 3-year average net sales growth rate for Apple from FY2023 to FY2025?",
+  "final_output": "The 3-year average net sales growth rate for Apple from FY2023 to FY2025 is 4.20% (CAGR). Net sales grew from $383,285 million in FY2023 to $391,035 million in FY2024 (2% growth) and to $416,161 million in FY2025 (6% growth).",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What is the 3-year average net sales growth rate for Apple from FY2023 to FY2025?",
+          "strategy": "agent_react",
+          "top_k": 18
+        },
+        "result": [
+          {
+            "id": "AAPL_2025_10K:Item7:c003",
+            "score": 0.40857386589050293,
+            "dense_sim": 0.7266000509262085
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.25264444947242737,
+            "dense_sim": 0.6876981258392334
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c005",
+            "score": 0.07686122506856918,
+            "dense_sim": 0.7166497707366943
+          },
+          {
+            "id": "AMZN_2025_10K:Item7:c020",
+            "score": 0.05933510884642601,
+            "dense_sim": 0.6502442359924316
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c003",
+            "score": 0.034633900970220566,
+            "dense_sim": 0.6286500692367554
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c015",
+            "score": 0.028637045994400978,
+            "dense_sim": 0.6614106893539429
+          },
+          {
+            "id": "GS_2025_10K:Item8:c161",
+            "score": 0.021581415086984634,
+            "dense_sim": 0.6146224737167358
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c265",
+            "score": 0.01904153637588024,
+            "dense_sim": 0.5991581678390503
+          },
+          {
+            "id": "GS_2025_10K:Item7:c072",
+            "score": 0.9679642915725708,
+            "dense_sim": 0.6780851483345032
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c043",
+            "score": 0.9669354557991028,
+            "dense_sim": 0.6690546870231628
+          },
+          {
+            "id": "GS_2025_10K:Item7:c003",
+            "score": 0.9651914238929749,
+            "dense_sim": 0.753461480140686
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c016",
+            "score": 0.9181655049324036,
+            "dense_sim": 0.7357573509216309
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c000",
+            "score": 0.9145385026931763,
+            "dense_sim": 0.7119204998016357
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c030",
+            "score": 0.584535539150238,
+            "dense_sim": 0.7214155197143555
+          },
+          {
+            "id": "META_2025_10K:Item7:c029",
+            "score": 0.526511013507843,
+            "dense_sim": 0.6736083626747131
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c000",
+            "score": 0.34264692664146423,
+            "dense_sim": 0.7170235514640808
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c004",
+            "score": 0.1364912986755371,
+            "dense_sim": 0.7102959156036377
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c005",
+            "score": 0.10019298642873764,
+            "dense_sim": 0.6584501266479492
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 6
+        },
+        "result": {
+          "verified": false,
+          "failed": [
+            "4.20%"
+          ]
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "The 3-year average net sales growth rate for Apple from FY2023 to FY2025 is 4.20% (CAGR). Net sales grew from $383,285 million in FY2023 to $391,035 million in FY2024 (2% growth) and to $416,161 million in FY2025 (6% growth).",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AAPL_2025_10K:Item7:c003",
+    "AAPL_2025_10K:Item8:c015"
+  ],
+  "usage": {
+    "input_tokens": 500,
+    "output_tokens": 100,
+    "cost_usd": 0.015
+  },
+  "latency_ms": 24114.264874999208,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "agent_react",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.753461480140686,
+    "invalid_citations": [],
+    "verification_verified": false,
+    "golden_verification": "pending"
+  }
+}

@@ -5,19 +5,19 @@
   "query": "What were Apple's iPhone net sales in fiscal year 2025, according to the segment disaggregation table?",
   "answer": "$209,586 million",
   "citations": [
-    "AAPL_2025_10K:Item8:c015"
+    "AAPL_2025_10K:Item7:c004"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 2892.853291999927,
-  "cost_usd": 0.011223,
+  "latency_ms": 5073.2712499993795,
+  "cost_usd": 0.012231,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
     "answer": "$209,586 million",
     "citations": [
-      "AAPL_2025_10K:Item8:c015"
+      "AAPL_2025_10K:Item7:c004"
     ],
     "invalid_citations": [],
     "verification": {
@@ -33,13 +33,13 @@
     },
     "confidence": 0.8132858276367188,
     "usage": {
-      "input_tokens": 3481,
+      "input_tokens": 3817,
       "output_tokens": 52,
-      "cost_usd": 0.011223,
+      "cost_usd": 0.012231,
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 2892.853291999927,
+    "latency_ms": 5073.2712499993795,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -134,6 +134,28 @@
       },
       {
         "chunk": {
+          "id": "AAPL_2025_10K:Item7:c004",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "2025 | Change | 2024 | Change | 2023\niPhone | $209,586 | 4 | % | $201,183 | — | % | $200,583\nMac | 33,708 | 12 | % | 29,984 | 2 | % | 29,357\niPad | 28,023 | 5 | % | 26,694 | (6) | % | 28,300\nWearables, Home and Accessories | 35,686 | (4) | % | 37,005 | (7) | % | 39,845\nServices (1) | 109,158 | 14 | % | 96,169 | 13 | % | 85,200\nTotal net sales | $416,161 | 6 | % | $391,035 | 2 | % | $383,285",
+          "n_chars": 393
+        },
+        "score": 0.9470953345298767,
+        "dense_sim": 0.7558058500289917
+      },
+      {
+        "chunk": {
           "id": "AAPL_2025_10K:Item7:c006",
           "doc_id": "AAPL_2025_10K",
           "ticker": "AAPL",
@@ -156,11 +178,11 @@
       },
       {
         "chunk": {
-          "id": "HD_2026_10K:Item8:c040",
-          "doc_id": "HD_2026_10K",
-          "ticker": "HD",
-          "company": "Home Depot",
-          "fiscal_year": 2026,
+          "id": "AAPL_2025_10K:Item8:c002",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
           "item": "8",
           "section_id": "Item8",
           "part": "II",
@@ -170,55 +192,33 @@
           "note_refs": [],
           "has_table": true,
           "table_continuation": false,
-          "text": "Fiscal | Fiscal | Fiscal\nin millions | 2025 | 2024 | 2023\nNet sales – in the U.S. | $152,170 | $147,007 | $140,083\nNet sales – outside the U.S. | 12,513 | 12,507 | 12,586\nNet sales | $164,683 | $159,514 | $152,669",
-          "n_chars": 213
+          "text": "Earnings per share:\nBasic | $7.49 | $6.11 | $6.16\nDiluted | $7.46 | $6.08 | $6.13\nShares used in computing earnings per share:\nBasic | 14,948,500 | 15,343,783 | 15,744,231\nDiluted | 15,004,697 | 15,408,095 | 15,812,547\nSee accompanying Notes to Consolidated Financial Statements.\nApple Inc. | 2025 Form 10-K | 29\nApple Inc.\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(In millions)\nYears ended\nSeptember 27, 2025 | September 28, 2024 | September 30, 2023\nNet income | $112,010 | $93,736 | $96,995\nOther comprehensive income/(loss):\nChange in foreign currency translation, net of tax | ( 267 ) | 395 | ( 765 )\nChange in unrealized gains/losses on derivative instruments, net of tax:\nChange in fair value of derivative instruments | 849 | ( 832 ) | 323\nAdjustment for net (gains)/losses realized and included in net income | ( 212 ) | ( 1,337 ) | ( 1,717 )\nTotal change in unrealized gains/losses on derivative instruments | 637 | ( 2,169 ) | ( 1,394 )\nChange in unrealized gains/losses on marketable debt securities, net of tax:\nChange in fair value of marketable debt securities | 817 | 5,850 | 1,563\nAdjustment for net (gains)/losses realized and included in net income | 414 | 204 | 253\nTotal change in unrealized gains/losses on marketable debt securities | 1,231 | 6,054 | 1,816\nTotal other comprehensive income/(loss) | 1,601 | 4,280 | ( 343 )\nTotal comprehensive income | $113,611 | $98,016 | $96,652\nSee accompanying Notes to Consolidated Financial Statements.\nApple Inc. | 2025 Form 10-K | 30\nApple Inc.\nCONSOLIDATED BALANCE SHEETS\n(In millions, except number of shares, which are reflected in thousands, and par value)\nSeptember 27, 2025 | September 28, 2024\nASSETS:\nCurrent assets:",
+          "n_chars": 1695
         },
-        "score": 0.5308655500411987,
-        "dense_sim": 0.6964106559753418
+        "score": 0.19543181359767914,
+        "dense_sim": 0.6630386114120483
       },
       {
         "chunk": {
-          "id": "HD_2026_10K:Item7:c006",
-          "doc_id": "HD_2026_10K",
-          "ticker": "HD",
-          "company": "Home Depot",
-          "fiscal_year": 2026,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "FISCAL 2025 COMPARED TO FISCAL 2024\nSales\nWe assess our sales performance by evaluating both net sales and comparable sales. Fiscal 2025 consisted of 52 weeks compared to 53 weeks in fiscal 2024. For purposes of the following discussion, comparable sales, comparable customer transactions, and comparable average ticket are based upon the comparable 52-week period from fiscal 2024.\nNet Sales.\nNet sales for fiscal 2025 increased $5.2 billion, or 3.2%, to $164.7 billion. The increase in n\net s\nales for fiscal 2025 was primarily driven by SRS, which was acquired on June 18, 2024, and GMS, which was acquired on September 4, 2025. In aggregate, these acquisitions contributed approximately $6.3 billion of incremental net sales during fiscal 2025. Net sales also increased due to sales from new stores and the impact of a positive comparable sales environment. These increases were partially offset by the additional week in fiscal 2024 which contributed approximately $2.5 billion in net sales in fiscal 2024.\nFiscal 2025 Form 10-K\n29\nTable\nof\nContents\nOnline sales represented 15.9% of net sales during fiscal 2025 and increased by 8.7% compared to fiscal 2024. Calculated on a comparable week basis relative to fiscal 2024, online sales increased by 10.4%. Online sales consist of sales of products generated through websites and mobile applications and does not include results from HD Supply or SRS (including GMS).\nA stronger U.S. dollar compared to fiscal 2024 negatively impacted net sales by $307 million in fiscal 2025.\nComparable Sales.",
-          "n_chars": 1548
-        },
-        "score": 0.4183676540851593,
-        "dense_sim": 0.6967018246650696
-      },
-      {
-        "chunk": {
-          "id": "AAPL_2025_10K:Item1:c000",
+          "id": "AAPL_2025_10K:Item8:c004",
           "doc_id": "AAPL_2025_10K",
           "ticker": "AAPL",
           "company": "Apple",
           "fiscal_year": 2025,
-          "item": "1",
-          "section_id": "Item1",
-          "part": "I",
-          "title": "Business",
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
           "resolved_from": null,
           "note": null,
           "note_refs": [],
           "has_table": true,
           "table_continuation": false,
-          "text": "Item 1. Business\nCompany Background\nThe Company designs, manufactures and markets smartphones, personal computers, tablets, wearables and accessories, and sells a variety of related services. The Company’s fiscal year is the 52- or 53-week period that ends on the last Saturday of September.\nProducts\niPhone\niPhone\n®\nis the Company’s line of smartphones based on its iOS operating system. The iPhone line includes iPhone 17 Pro, iPhone Air™, iPhone 17, iPhone 16 and iPhone 16e.\nMac\nMac\n®\nis the Company’s line of personal computers based on its macOS\n®\noperating system. The Mac line includes laptops MacBook Air\n®\nand MacBook Pro\n®\n, as well as desktops iMac\n®\n, Mac mini\n®\n, Mac Studio\n®\nand Mac Pro\n®\n.\niPad\niPad\n®\nis the Company’s line of multipurpose tablets based on its iPadOS\n®\noperating system. The iPad line includes iPad Pro\n®\n, iPad Air\n®\n, iPad and iPad mini\n®\n.\nWearables, Home and Accessories\nWearables includes smartwatches, wireless headphones and spatial computers. The Company’s line of smartwatches, based on its watchOS\n®\noperating system, includes Apple Watch\n®\nSeries 11, Apple Watch SE\n®\n3 and Apple Watch Ultra\n®\n3. The Company’s line of wireless headphones includes AirPods\n®\n, AirPods Pro\n®\n, AirPods Max\n®\nand Beats\n®\nproducts. Apple Vision Pro™ is the Company’s spatial computer based on its visionOS\n®\noperating system.\nHome includes Apple TV 4K\n®\n, the Company’s media streaming and gaming device based on its tvOS\n®\noperating system, and HomePod\n®\nand HomePod mini\n®\n, high-fidelity wireless smart speakers.\nAccessories includes Apple-branded and third-party accessories.\nApple Inc. | 2025 Form 10-K | 1\nServices\nAdvertising\nThe Company’s advertising services include third-party licensing arrangements and the Company’s own advertising platforms.\nAppleCare",
-          "n_chars": 1790
+          "text": "Non-current assets:\nMarketable securities | 77,723 | 91,479\nProperty, plant and equipment, net | 49,834 | 45,680\nOther non-current assets | 83,727 | 74,834\nTotal non-current assets | 211,284 | 211,993\nTotal assets | $359,241 | $364,980\nLIABILITIES AND SHAREHOLDERS’ EQUITY:\nCurrent liabilities:\nAccounts payable | $69,860 | $68,960\nOther current liabilities | 66,387 | 78,304\nDeferred revenue | 9,055 | 8,249\nCommercial paper | 7,979 | 9,967\nTerm debt | 12,350 | 10,912\nTotal current liabilities | 165,631 | 176,392\nNon-current liabilities:\nTerm debt | 78,328 | 85,750\nOther non-current liabilities | 41,549 | 45,888\nTotal non-current liabilities | 119,877 | 131,638\nTotal liabilities | 285,508 | 308,030\nCommitments and contingencies\nShareholders’ equity:\nCommon stock and additional paid-in capital, $ 0.00001 par value: 50,400,000 shares authorized; 14,773,260 and 15,116,786 shares issued and outstanding, respectively | 93,568 | 83,276\nAccumulated deficit | ( 14,264 ) | ( 19,154 )\nAccumulated other comprehensive loss | ( 5,571 ) | ( 7,172 )\nTotal shareholders’ equity | 73,733 | 56,950\nTotal liabilities and shareholders’ equity | $359,241 | $364,980\nSee accompanying Notes to Consolidated Financial Statements.\nApple Inc. | 2025 Form 10-K | 31\nApple Inc.\nCONSOLIDATED STATEMENTS OF SHAREHOLDERS’ EQUITY\n(In millions, except per-share amounts)\nYears ended\nSeptember 27, 2025 | September 28, 2024 | September 30, 2023\nTotal shareholders’ equity, beginning balances | $56,950 | $62,146 | $50,672\nCommon stock and additional paid-in capital:",
+          "n_chars": 1545
         },
-        "score": 0.15255650877952576,
-        "dense_sim": 0.6888490915298462
+        "score": 0.19057227671146393,
+        "dense_sim": 0.6289451718330383
       }
     ],
     "model": "anthropic/claude-sonnet-4.5"

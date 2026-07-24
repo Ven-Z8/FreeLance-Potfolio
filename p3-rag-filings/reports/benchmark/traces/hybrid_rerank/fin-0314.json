@@ -1,0 +1,111 @@
+{
+  "case_id": "fin-0314",
+  "input": "What was Walmart's membership and other income in fiscal year 2026?",
+  "final_output": "$6,750 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Walmart's membership and other income in fiscal year 2026?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "WMT_2026_10K:Item8:c078",
+            "score": 0.9928712248802185,
+            "dense_sim": 0.764585018157959
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c018",
+            "score": 0.9907631278038025,
+            "dense_sim": 0.7204768061637878
+          },
+          {
+            "id": "WMT_2026_10K:Item8:c006",
+            "score": 0.9749578833580017,
+            "dense_sim": 0.6979964971542358
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c023",
+            "score": 0.9698885679244995,
+            "dense_sim": 0.7458950877189636
+          },
+          {
+            "id": "WMT_2026_10K:Item8:c008",
+            "score": 0.8975467085838318,
+            "dense_sim": 0.7202991247177124
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c021",
+            "score": 0.8866463303565979,
+            "dense_sim": 0.7785901427268982
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c022",
+            "score": 0.8203012347221375,
+            "dense_sim": 0.7640904784202576
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c017",
+            "score": 0.8170140385627747,
+            "dense_sim": 0.6756848096847534
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$6,750 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "WMT_2026_10K:Item8:c078",
+    "WMT_2026_10K:Item8:c006"
+  ],
+  "usage": {
+    "input_tokens": 4268,
+    "output_tokens": 68,
+    "cost_usd": 0.013824
+  },
+  "latency_ms": 4203.567833003035,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7785901427268982,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0305",
+  "input": "What were UnitedHealth Group's total revenues in fiscal year 2025?",
+  "final_output": "$447,567 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What were UnitedHealth Group's total revenues in fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "UNH_2025_10K:Item8:c006",
+            "score": 0.9924170970916748,
+            "dense_sim": 0.6927884817123413
+          },
+          {
+            "id": "UNH_2025_10K:Item15:c007",
+            "score": 0.9874835014343262,
+            "dense_sim": 0.7260299324989319
+          },
+          {
+            "id": "UNH_2025_10K:Item8:c011",
+            "score": 0.9684563279151917,
+            "dense_sim": 0.7489140033721924
+          },
+          {
+            "id": "UNH_2025_10K:Item7:c009",
+            "score": 0.9598568081855774,
+            "dense_sim": 0.788482129573822
+          },
+          {
+            "id": "UNH_2025_10K:Item1:c013",
+            "score": 0.9008568525314331,
+            "dense_sim": 0.6684227585792542
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c018",
+            "score": 0.8180113434791565,
+            "dense_sim": 0.6493958830833435
+          },
+          {
+            "id": "UNH_2025_10K:Item8:c008",
+            "score": 0.7972028255462646,
+            "dense_sim": 0.7295441627502441
+          },
+          {
+            "id": "UNH_2025_10K:Item15:c011",
+            "score": 0.6643558144569397,
+            "dense_sim": 0.7235143780708313
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$447,567 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "UNH_2025_10K:Item8:c006"
+  ],
+  "usage": {
+    "input_tokens": 3793,
+    "output_tokens": 51,
+    "cost_usd": 0.012144
+  },
+  "latency_ms": 3040.3633749992878,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.788482129573822,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

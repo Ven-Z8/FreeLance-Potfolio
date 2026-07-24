@@ -3,114 +3,33 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "What was JPMorgan Chase's net interest income as a percentage of total net revenue in fiscal 2025?",
-  "answer": "52.3%",
-  "citations": [
-    "JPM_2025_10K:Item7:c006"
-  ],
-  "refused": false,
-  "refusal_reason": null,
+  "answer": null,
+  "citations": [],
+  "refused": true,
+  "refusal_reason": "model: The provided chunks do not contain JPMorgan Chase's net interest income and total net revenue figures for fiscal 2025. While chunk [JPM_2025_10K:Item8:c415] references a 2025 table, it only shows headers without the actual data needed for this calculation.",
   "steps": [],
-  "latency_ms": 7217.518375000509,
-  "cost_usd": 0.028443000000000003,
+  "latency_ms": 8510.725500000262,
+  "cost_usd": 0.01614,
   "raw_response": {
-    "refused": false,
-    "refusal_reason": null,
-    "answer": "52.3%",
-    "citations": [
-      "JPM_2025_10K:Item7:c006"
-    ],
+    "refused": true,
+    "refusal_reason": "model: The provided chunks do not contain JPMorgan Chase's net interest income and total net revenue figures for fiscal 2025. While chunk [JPM_2025_10K:Item8:c415] references a 2025 table, it only shows headers without the actual data needed for this calculation.",
+    "answer": null,
+    "citations": [],
     "invalid_citations": [],
     "verification": {
-      "verified": false,
-      "claims": [
-        {
-          "raw": "52.3%",
-          "value": 52.3,
-          "is_pct": true,
-          "found": false
-        }
-      ]
+      "verified": true,
+      "claims": []
     },
-    "confidence": 0.7770970463752747,
+    "confidence": 0.7314541339874268,
     "usage": {
-      "input_tokens": 8336,
-      "output_tokens": 229,
-      "cost_usd": 0.028443000000000003,
-      "calls": 2
+      "input_tokens": 3435,
+      "output_tokens": 389,
+      "cost_usd": 0.01614,
+      "calls": 1
     },
-    "math_result": null,
-    "latency_ms": 7217.518375000509,
+    "latency_ms": 8510.725500000262,
     "strategy": "hybrid_rerank",
     "hits": [
-      {
-        "chunk": {
-          "id": "JPM_2025_10K:Item7:c006",
-          "doc_id": "JPM_2025_10K",
-          "ticker": "JPM",
-          "company": "JPMorgan Chase",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
-          "resolved_from": "15",
-          "note": null,
-          "note_refs": [
-            "4",
-            "13"
-          ],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "Refer to CCB segment results on pages 65–68, Capital Risk Management on pages 89–99 and Notes 4, 13, 27 and 28 for additional information.\nComparisons noted in the sections below are for the full year of 2025 versus the full year of 2024, unless otherwise specified.\nFirmwide overview\nJPMorganChase reported net income of $57.0 billion for 2025, down 2%, earnings per share of $20.02, ROE of 17% and ROTCE of 20%.\n•\nTotal net revenue\nwas $182.4 billion, up 3%, reflecting:\n–\nNet interest income\n(“NII”) of $95.4 billion, up 3%, driven by higher Markets net interest income, higher revolving balances in Card Services, higher wholesale deposit balances, and the impact of investment securities activity. These factors were largely offset by deposit margin compression and the impact of lower rates. NII excluding Markets was $92.6 billion, flat when compared with the prior year.\n–\nNoninterest revenue\n(“NIR”) was $87.0 billion, up 2%, reflecting higher Markets noninterest revenue, higher asset management fees in AWM and CCB, higher auto operating lease income, lower net investment securities losses in Treasury and CIO, higher Payments fees, higher investment banking fees, and a $588 million First Republic-related gain recorded in the first quarter of 2025. These increases were predominantly offset by the absence of the $7.9 billion net gain related to Visa shares recorded in the second quarter of 2024, as well as lower card income in the current year.\n•\nNoninterest expense",
-          "n_chars": 1483
-        },
-        "score": 0.9989098310470581,
-        "dense_sim": 0.7677563428878784
-      },
-      {
-        "chunk": {
-          "id": "JPM_2025_10K:Item7:c069",
-          "doc_id": "JPM_2025_10K",
-          "ticker": "JPM",
-          "company": "JPMorgan Chase",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
-          "resolved_from": "15",
-          "note": null,
-          "note_refs": [],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "Includes the gain on the original minority interest in China International Fund Management (“CIFM”) upon the Firm’s acquisition of the remaining 51% interest in the entity.\n2025 compared with 2024\nNet income was $6.5 billion, up 20%.\nNet revenue was $24.1 billion, up 12%. Net interest income was $6.8 billion, up 4%. Noninterest revenue was $17.2 billion, up 15%.\nRevenue from Asset Management was $11.7 billion, up 15%, predominantly driven by:\n•\nhigher asset management fees, reflecting strong net inflows and higher average market levels,\n•\nhigher investment valuation gains, and\n•\nperformance fees.\nRevenue from Global Private Bank was $12.4 billion, up 9%, driven by:\n•\nhigher noninterest revenue, reflecting:\n–\nhigher management fees due to strong net inflows and higher average market levels, as well as higher brokerage commissions,\npartially offset by\n–\na decline in the amortization of the fair value discount on certain acquired lending-related commitments associated with First Republic that have expired, and\n•\nhigher net interest income, driven by higher average loans and deposits, largely offset by narrower spreads on loans.\nNoninterest expense was $15.3 billion, up 6%, driven by:\n•\nhigher compensation, primarily higher revenue-related compensation and continued growth in private banking advisor teams, as well as higher distribution fees,\npartially offset by\n•\nlower legal expense.\nThe provision for credit losses was $97 million, largely driven by the impact of a charge-off related to a client-specific exposure in the third quarter of 2025. Net charge-offs were $92 million and the net addition to the allowance for credit losses was $5 million.\nIn the prior year, the provision was a net benefit of $68 million.\n76\nJPMorgan Chase & Co./2025 Form 10-K",
-          "n_chars": 1776
-        },
-        "score": 0.99427729845047,
-        "dense_sim": 0.7305261492729187
-      },
-      {
-        "chunk": {
-          "id": "JPM_2025_10K:Item8:c401",
-          "doc_id": "JPM_2025_10K",
-          "ticker": "JPM",
-          "company": "JPMorgan Chase",
-          "fiscal_year": 2025,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": "15",
-          "note": "32",
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "308\nJPMorgan Chase & Co./2025 Form 10-K\n(Table continued from previous page)\nAs of or for the year ended December 31, (in millions, except ratios) | Corporate | Reconciling Items (a) | Total\n2025 | 2024 | 2023 | 2025 | 2024 | 2023 | 2025 | 2024 | 2023\nNoninterest revenue | $911 | $7,608 | (g) | $132 | $( 2,709 ) | $( 2,560 ) | $( 3,782 ) | $87,004 | $84,973 | (g) | $68,837\nNet interest income | 6,114 | 9,786 | 7,906 | ( 425 ) | ( 477 ) | ( 480 ) | 95,443 | 92,583 | 89,267\nTotal net revenue | 7,025 | 17,394 | 8,038 | ( 3,134 ) | ( 3,037 ) | ( 4,262 ) | 182,447 | 177,556 | 158,104\nProvision for credit losses | 7 | 10 | 171 | — | — | — | 14,212 | 10,678 | 9,320\nTotal noninterest expense (d) | 1,825 | 3,994 | (h) | 5,601 | — | — | — | 95,640 | 91,797 | (h) | 87,172\nIncome/(loss) before income tax expense/(benefit) | 5,193 | 13,390 | 2,266 | ( 3,134 ) | ( 3,037 ) | ( 4,262 ) | 72,595 | 75,081 | 61,612\nIncome tax expense/(benefit) | 673 | (f) | 2,789 | ( 555 ) | ( 3,134 ) | ( 3,037 ) | ( 4,262 ) | 15,547 | 16,610 | 12,060\nNet income | $4,520 | $10,601 | $2,821 | $— | $— | $— | $57,048 | $58,471 | $49,552\nAverage equity | $111,254 | $110,370 | $73,529 | NA | NA | NA | $332,754 | $312,370 | $282,056\nTotal assets | 1,329,632 | 1,323,967 | 1,348,437 | NA | NA | NA | 4,424,900 | 4,002,814 | 3,875,393\nReturn on equity | NM | NM | NM | NM | NM | NM | 17 | % | 18 | % | 17 | %\nOverhead ratio | NM | NM | NM | NM | NM | NM | 52 | 52 | 55\n(a)",
-          "n_chars": 1448
-        },
-        "score": 0.9935688972473145,
-        "dense_sim": 0.7464574575424194
-      },
       {
         "chunk": {
           "id": "JPM_2025_10K:Item8:c415",
@@ -135,94 +54,159 @@
       },
       {
         "chunk": {
-          "id": "JPM_2025_10K:Item7:c078",
+          "id": "JPM_2025_10K:Item8:c392",
           "doc_id": "JPM_2025_10K",
           "ticker": "JPM",
           "company": "JPMorgan Chase",
           "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
+          "item": "8",
+          "section_id": "Item8",
           "part": "II",
-          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "title": "Financial Statements and Supplementary Data",
           "resolved_from": "15",
-          "note": null,
-          "note_refs": [
-            "6",
-            "34"
-          ],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "$182 million and $211 million for the years ended December 31, 2025, 2024 and 2023, respectively.\n(b)\nIncluded FDIC special assessment accrual releases of $763 million and an accrual increase of $725 million for the years ended December 31, 2025 and 2024, respectively, which are adjustments to the initial $2.9 billion estimate recorded in the fourth quarter of 2023.\n(c)\nPredominantly relates to the Firm's international consumer initiatives.\n(d)\nIncluded a $774 million income tax benefit recorded in the second quarter of 2025, driven by the resolution of certain tax audits and the impact of tax regulations related to foreign currency translation gains and losses finalized in 2024 and effective for 2025.\n(e)\nIn the first quarter of 2025, 768 employees were transferred from the LOBs to Corporate as a result of the centralization of certain functions.\n(f)\nIncluded the net gain related to Visa shares of $7.9 billion recorded in the second quarter of 2024. Refer to Note 6 for additional information.\n(g)\nIncluded a $1.0 billion contribution of Visa shares to the JPMorgan Chase Foundation recorded in the second quarter of 2024. Refer to Note 6 for additional information.\n(h)\nIncluded the estimated bargain purchase gain of $2.8 billion for the year ended December 31, 2023 associated with the First Republic acquisition. Refer to Notes 6 and 34 for additional information.\n(i)\nIncome taxes associated with the First Republic acquisition were reflected in the estimated bargain purchase gain.\n80\nJPMorgan Chase & Co./2025 Form 10-K\n2025 compared with 2024\nNet income was $4.5 billion, compared with $10.6 billion in the prior year.\nNet revenue was $7.0 billion, compared with $17.4 billion in the prior year.",
-          "n_chars": 1718
-        },
-        "score": 0.9824389219284058,
-        "dense_sim": 0.7180020809173584
-      },
-      {
-        "chunk": {
-          "id": "JPM_2025_10K:Item7:c055",
-          "doc_id": "JPM_2025_10K",
-          "ticker": "JPM",
-          "company": "JPMorgan Chase",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
-          "resolved_from": "15",
-          "note": null,
-          "note_refs": [],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "In the second quarter of 2025, amounts were reclassified from Other to Global Corporate Banking & Global Investment Banking reflecting the subsequent alignment of certain business activities after the Firm’s business segment reorganization in the second quarter of 2024. Prior-period amounts have been revised to conform with the current presentation.\n(b)\nIn the second quarter of 2025, the Middle Market Banking client coverage segment was renamed Commercial & Specialized Industries.\n70\nJPMorgan Chase & Co./2025 Form 10-K\n2025 compared with 2024\nNet income was $27.8 billion, up 12%.\nNet revenue was $78.5 billion, up 12%.\nBanking & Payments\nrevenue was $37.1 billion, up 5%.\n•\nInvestment Banking revenue was $10.2 billion, up 6%.\nInvestment Banking fees were up 7%, driven by higher fees across products. The Firm ranked #1 for Global Investment Banking fees, according to\nDealogic.\n–\nDebt underwriting fees were $4.5 billion, up 9%, predominantly driven by non-investment grade loans and investment grade bonds.\n–\nAdvisory fees were $3.5 billion, up 6%, driven by higher fees from deals in the Financial Institutions and Technology sectors, partially offset by lower fees from deals in the Media & Telecommunications sector.\n–\nEquity underwriting fees were $1.7 billion, up 2%, primarily driven by higher revenue from IPOs.\n•\nPayments revenue was $19.3 billion, up 7%. Excluding the net impact of equity investments, revenue was up 5%, driven by higher average deposits and fee growth, largely offset by deposit margin compression.\n•\nLending revenue was $7.6 billion, up 2%, driven by higher lending-related fees and lower fair value losses on credit protection purchased against certain retained loans and lending-related commitments.",
-          "n_chars": 1740
-        },
-        "score": 0.9807260632514954,
-        "dense_sim": 0.7770970463752747
-      },
-      {
-        "chunk": {
-          "id": "JPM_2025_10K:Item15:c017",
-          "doc_id": "JPM_2025_10K",
-          "ticker": "JPM",
-          "company": "JPMorgan Chase",
-          "fiscal_year": 2025,
-          "item": "15",
-          "section_id": "Item15",
-          "part": "IV",
-          "title": "Exhibits, Financial Statement Schedules",
-          "resolved_from": null,
-          "note": null,
+          "note": "31",
           "note_refs": [],
           "has_table": true,
           "table_continuation": false,
-          "text": "Supplementary Information:\nDistribution of assets, liabilities and stockholders’ equity; interest rates and interest differentials | 315\nGlossary of Terms and Acronyms | 320\nJPMorgan Chase & Co./2025 Form 10-K\n43\nFinancial\nTHREE-YEAR SUMMARY OF CONSOLIDATED FINANCIAL HIGHLIGHTS (unaudited)\nAs of or for the year ended December 31, (in millions, except per share, ratio, employee data and where otherwise noted)\n2025 | 2024 | 2023\nSelected income statement data\nTotal net revenue | $182,447 | $177,556 | (g) | $158,104\nTotal noninterest expense | 95,640 | 91,797 | (g) | 87,172\nPre-provision profit (a) | 86,807 | 85,759 | 70,932\nProvision for credit losses | 14,212 | (e) | 10,678 | 9,320\nIncome before income tax expense | 72,595 | 75,081 | 61,612\nIncome tax expense | 15,547 | 16,610 | 12,060\nNet income | $57,048 | $58,471 | $49,552\nEarnings per share data\nNet income: Basic | $20.05 | $19.79 | $16.25\nDiluted | 20.02 | 19.75 | 16.23\nAverage shares: Basic | 2,776.5 | 2,873.9 | 2,938.6\nDiluted | 2,781.5 | 2,879.0 | 2,943.1\nMarket and per common share data\nMarket capitalization | 868,793 | 670,618 | 489,320\nCommon shares at period-end | 2,696.2 | 2,797.6 | 2,876.6\nBook value per share | 126.99 | 116.07 | 104.45\nTangible book value per share (“TBVPS”) (a) | 107.56 | 97.30 | 86.08\nCash dividends declared per share | 5.80 | 4.80 | 4.10\nSelected ratios and metrics",
-          "n_chars": 1370
+          "text": "2023\nEurope/Middle East/Africa | $20,974 | $11,947 | $9,027 | $6,402 | $529,335 | (d)\nAsia-Pacific | 10,605 | 6,550 | 4,055 | 2,709 | 251,588\nLatin America/Caribbean | 3,294 | 1,971 | 1,323 | 994 | 83,003\nTotal international | 34,873 | 20,468 | 14,405 | 10,105 | 863,926\nNorth America (a) | 123,231 | 76,024 | 47,207 | 39,447 | 3,011,467\nTotal | $158,104 | $96,492 | $61,612 | $49,552 | $3,875,393\n(a)\nSubstantially reflects the U.S.\n(b)\nRevenue is composed of net interest income and noninterest revenue.\n(c)\nExpense is composed of noninterest expense and the provision for credit losses.\n(d)\nTotal assets for the U.K. were approximately $\n449\nbillion, $\n369\nbillion and $\n352\nbillion at December 31, 2025, 2024 and 2023, respectively.\nJPMorgan Chase & Co./2025 Form 10-K\n305\nNotes to consolidated financial statements",
+          "n_chars": 819
         },
-        "score": 0.9739614129066467,
-        "dense_sim": 0.7338112592697144
+        "score": 0.9742101430892944,
+        "dense_sim": 0.7064549922943115
       },
       {
         "chunk": {
-          "id": "JPM_2025_10K:Item7:c012",
+          "id": "JPM_2025_10K:Item8:c348",
           "doc_id": "JPM_2025_10K",
           "ticker": "JPM",
           "company": "JPMorgan Chase",
           "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
+          "item": "8",
+          "section_id": "Item8",
           "part": "II",
-          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "title": "Financial Statements and Supplementary Data",
           "resolved_from": "15",
-          "note": null,
+          "note": "25",
           "note_refs": [],
           "has_table": false,
           "table_continuation": false,
-          "text": "Management expects net interest income to be approximately $103 billion and net interest income excluding Markets to be approximately $95 billion, market dependent.\n•\nManagement expects adjusted expense to be approximately $105 billion, market dependent.\n•\nManagement expects the net charge-off rate in Card Services to be approximately 3.4%.\nNet interest income excluding Markets and adjusted expense are non-GAAP financial measures. Refer to Explanation and Reconciliation of the Firm’s Use of Non-GAAP Financial Measures on pages 59–61.\n50\nJPMorgan Chase & Co./2025 Form 10-K\nCONSOLIDATED RESULTS OF OPERATIONS\nThis section provides a comparative discussion of JPMorganChase’s Consolidated Results of Operations on a reported basis for the two-year period ended December 31, 2025, unless otherwise specified. Refer to Consolidated Results of Operations on pages 59-62 of the Firm’s Annual Report on Form 10-K for the year ended December 31, 2024 (the “2024 Form 10-K”) for a discussion of the 2024 versus 2023 results. Factors that relate primarily to a single business segment or Corporate are discussed in more detail in the results of that segment or Corporate. Refer to pages 154–157 for a discussion of the Critical Accounting Estimates Used by the Firm that affect the Consolidated Results of Operations.\nRevenue\nYear ended December 31, (in millions)",
-          "n_chars": 1359
+          "text": "241\nmillion, $\n288\nmillion and $\n229\nmillion for the years ended December 31, 2025, 2024 and 2023, respectively.\nAt December 31, 2025 and 2024, in addition to the liability for unrecognized tax benefits, the Firm had accrued $\n1.9\nbillion and $\n1.7\nbillion, respectively, for income tax-related interest and penaltie\ns.\nTax examination status\nJPMorganChase is continually under examination by the Internal Revenue Service, by taxing authorities throughout the world, and by many state and local jurisdictions throughout the U.S.\nThe following table summarizes the status of tax years that remain subject to income tax examination of JPMorganChase and its consolidated subsidiaries by significant jurisdictions as of December 31, 2025.\nPeriods under examination\nStatus\nJPMorganChase – U.S.\n2011 – 2013\nField examination of amended returns; certain matters at Appellate level\nJPMorganChase – U.S.\n2014 - 2020\nField examination of original and amended returns; certain matters at Appellate level\nJPMorganChase – New York City\n2015 - 2018\nField examination\nJPMorganChase – New York State\n2015 - 2018\nField examination\nJPMorganChase – U.K.\n2017 – 2023\nField examination of certain select entities\nJPMorgan Chase & Co./2025 Form 10-K\n291\nNotes to consolidated financial statements",
+          "n_chars": 1274
         },
-        "score": 0.9692955017089844,
-        "dense_sim": 0.7418347597122192
+        "score": 0.8046276569366455,
+        "dense_sim": 0.7138662338256836
+      },
+      {
+        "chunk": {
+          "id": "JPM_2025_10K:Item8:c136",
+          "doc_id": "JPM_2025_10K",
+          "ticker": "JPM",
+          "company": "JPMorgan Chase",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "5",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Derivatives gains/(losses) recorded in income and other comprehensive income/(loss)\nYear ended December 31, 2023\n(in millions)\nAmounts reclassified\nfrom AOCI to income\nAmounts recorded\nin OCI\nTotal change\nin OCI for period\nContract type\nInterest rate\n(a)\n$\n(\n1,839\n)\n$\n274\n$\n2,113\nForeign exchange\n(b)\n64\n209\n145\nTotal\n$\n(\n1,775\n)\n$\n483\n$\n2,258\n(a)\nPrimarily consists of hedges of SOFR-indexed and Prime-indexed floating-rate assets. Gains and losses were recorded in net interest income.\n(b)\nPrimarily consists of hedges of the foreign currency risk of non-U.S. dollar-denominated revenue and expense. The income statement classification of gains and losses follows the hedged item – primarily noninterest revenue and compensation expense.\nThe Firm did not experience any forecasted transactions that failed to occur for the years ended 2025, 2024 and 2023.\nOver the next 12 months, the Firm expects that approximately $(\n926\n) million (after-tax) of net losses recorded in AOCI at December 31, 2025, related to cash flow hedges will be recognized in income. For cash flow hedges that have been terminated, the maximum length of time over which the derivative results recorded in AOCI will be recognized in earnings is approximately\nten years\n, corresponding to the timing of the originally hedged forecasted cash flows. For open cash flow hedges, the maximum length of time over which forecasted transactions are hedged is approximately\nten years\n. The Firm’s longer-dated forecasted transactions relate to core lending and borrowing activities.\nJPMorgan Chase & Co./2025 Form 10-K\n213\nNotes to consolidated financial statements\nNet investment hedge gains and losses",
+          "n_chars": 1668
+        },
+        "score": 0.7327978610992432,
+        "dense_sim": 0.6505527496337891
+      },
+      {
+        "chunk": {
+          "id": "JPM_2025_10K:Item8:c337",
+          "doc_id": "JPM_2025_10K",
+          "ticker": "JPM",
+          "company": "JPMorgan Chase",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "24",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "(a)\nThe pre-tax amount is reported in Investment securities gains/(losses) in the Consolidated statements of income.\n(b)\nReclassifications of pre-tax realized gains/(losses) on translation adjustments and related hedges are reported in other income/expense in the Consolidated statements of income. During the year ended December 31, 2025, the Firm reclassified a net pre-tax gain of $\n7\nmillion to other income/expense, of which $\n14\nmillion gain related to net investment hedges and $(\n7\n) million loss related to cumulative translation adjustments. During the year ended December 31, 2024, the Firm reclassified a net pre-tax gain of $\n7\nmillion. During the year ended December 31, 2023, the Firm reclassified a net pre-tax loss of $(\n3\n) million.\n(c)\nRepresents changes in fair value of cross-currency swaps attributable to changes in cross-currency basis spreads, which are excluded from the assessment of hedge effectiveness and recorded in other comprehensive income. The initial cost of cross-currency basis spreads is recognized in earnings as part of the accrual of interest on the cross-currency swaps.\n(d)\nThe pre-tax amounts are primarily recorded in noninterest revenue, net interest income and compensation expense in the Consolidated statements of income.\nJPMorgan Chase & Co./2025 Form 10-K\n287\nNotes to consolidated financial statements",
+          "n_chars": 1354
+        },
+        "score": 0.32311856746673584,
+        "dense_sim": 0.683272123336792
+      },
+      {
+        "chunk": {
+          "id": "JPM_2025_10K:Item8:c180",
+          "doc_id": "JPM_2025_10K",
+          "ticker": "JPM",
+          "company": "JPMorgan Chase",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "10",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "(b)\nThe Firm purchased $\n5.4\nbillion, $\n4.7\nbillion and $\n4.1\nbillion of HTM securities for the years ended December 31, 2025, 2024 and 2023, respectively.\n(c)\nThe amortized cost of investment securities is reported net of allowance for credit losses of $\n106\nmillion, $\n152\nmillion and $\n128\nmillion at December 31, 2025, 2024 and 2023, respectively.\n(d)\nExcludes $\n4.6\nbillion and $\n3.7\nbillion of accrued interest receivable at December 31, 2025 and 2024, respectively, included in accrued interest and accounts receivable on the Consolidated balance sheets. The Firm generally does not recognize an allowance for credit losses on accrued interest receivable, consistent with its policy to write them off no later than 90 days past due by reversing interest income. The Firm did\nno\nt reverse through interest income any accrued interest receivable for the years ended December 31, 2025 and 2024.\nJPMorgan Chase & Co./2025 Form 10-K\n229\nNotes to consolidated financial statements\nAt\nDecember 31, 2025\n, the investment securities portfolio consisted of debt securities with an average credit rating of AA+ (based upon external ratings where available, and where not available, based primarily upon internal risk ratings).\nRisk ratings are used to identify the credit quality of securities and differentiate risk within the portfolio.\nThe Firm’s internal risk ratings generally align with the qualitative characteristics (e.g., borrower capacity to meet financial commitments and vulnerability to changes in the economic environment) defined by S&P and\nMoody’s, however, the quantitative characteristics (e.g., probability of default (“PD”) and loss given default (“LGD”)) may differ as they reflect internal historical experiences and assumptions.",
+          "n_chars": 1748
+        },
+        "score": 0.2666207551956177,
+        "dense_sim": 0.6987892389297485
+      },
+      {
+        "chunk": {
+          "id": "JPM_2025_10K:Item8:c116",
+          "doc_id": "JPM_2025_10K",
+          "ticker": "JPM",
+          "company": "JPMorgan Chase",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "5",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "JPMorganChase uses cash flow hedges primarily to hedge the exposure to variability in forecasted cash flows from floating-rate assets and liabilities and foreign currency–denominated revenue and expense. For qualifying cash flow hedges, changes in the fair value of the derivative are recorded in OCI and recognized in earnings as the hedged item affects earnings. Derivative amounts affecting earnings are recognized consistent with the classification of the hedged item – primarily noninterest revenue, net interest income and compensation expense. If the hedge relationship is terminated, then the change in value of the derivative recorded in AOCI is recognized in earnings when the cash flows that were hedged affect earnings. For hedge relationships that are discontinued because a forecasted transaction is expected to not occur according to the original hedge forecast, any related derivative values recorded in AOCI are immediately recognized in earnings.\nJPMorganChase uses net investment hedges to protect the value of the Firm’s net investments in certain non-U.S. subsidiaries or branches whose functional currencies are not the U.S. dollar. For qualifying net investment hedges, changes in the fair value of the derivatives due to changes in spot foreign exchange rates are recorded in OCI as translation adjustments. Amounts excluded from the assessment of effectiveness are recorded directly in earnings.\nJPMorgan Chase & Co./2025 Form 10-K\n203\nNotes to consolidated financial statements\nThe following table outlines the Firm’s primary uses of derivatives and the related hedge accounting designation or disclosure category.\nType of Derivative\nUse of Derivative\nDesignation and disclosure\nAffected segment or unit\nPage reference",
+          "n_chars": 1744
+        },
+        "score": 0.26160237193107605,
+        "dense_sim": 0.6542390584945679
+      },
+      {
+        "chunk": {
+          "id": "JPM_2025_10K:Item8:c017",
+          "doc_id": "JPM_2025_10K",
+          "ticker": "JPM",
+          "company": "JPMorgan Chase",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": null,
+          "note_refs": [
+            "1"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Effective January 1, 2024, the Firm adopted the Equity Method and Joint Ventures: Accounting for Investments in Tax Credit Structures Using the Proportional Amortization Method accounting guidance. Effective January 1, 2023, the Firm adopted the Financial Instruments – Credit Losses: Troubled Debt Restructurings, and Derivatives and Hedging: Fair Value Hedging – Portfolio Layer Method accounting guidance. Refer to Note 1 for further information.\nThe Notes to Consolidated Financial Statements are an integral part of these statements.\n168\nJPMorgan Chase & Co./2025 Form 10-K\nJPMorgan Chase & Co.\nConsolidated statements of cash flows\nYear ended December 31, (in millions) | 2025 | 2024 | 2023\nOperating activities\nNet income | $57,048 | $58,471 | $49,552\nAdjustments to reconcile net income to net cash provided by operating activities:\nProvision for credit losses | 14,212 | 10,678 | 9,320\nDepreciation and amortization | 8,821 | 7,938 | 7,512\nDeferred tax (benefit)/expense | 5,611 | 2,004 | ( 4,534 )\nEstimated bargain purchase gain associated with the First Republic acquisition | — | ( 103 ) | ( 2,775 )\nInitial gain on the Visa share exchange | — | ( 7,990 ) | —\nOther | 1,309 | 1,985 | 4,301\nOriginations and purchases of loans held-for-sale | ( 260,772 ) | ( 212,238 ) | ( 115,245 )\nProceeds from sales, securitizations and paydowns of loans held-for-sale | 235,232 | 205,303 | 116,430\nNet change in:",
+          "n_chars": 1412
+        },
+        "score": 0.24553364515304565,
+        "dense_sim": 0.7071452736854553
       }
     ],
     "model": "anthropic/claude-sonnet-4.5"

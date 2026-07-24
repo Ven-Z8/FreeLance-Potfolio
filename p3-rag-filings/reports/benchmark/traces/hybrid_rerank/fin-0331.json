@@ -1,0 +1,108 @@
+{
+  "case_id": "fin-0331",
+  "input": "What was Goldman Sachs' assets under supervision at the end of March 2025?",
+  "final_output": "[REFUSED] model: The provided chunks do not contain information about Goldman Sachs' assets under supervision at the end of March 2025. The chunks discuss assets under supervision in general terms (e.g., 'higher average assets under supervision' in chunk GS_2025_10K:Item7:c057) and reference other balance sheet items as of December 2025 and December 2024, but no specific figure for assets under supervision at the end of March 2025 is provided in any of the context chunks.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Goldman Sachs' assets under supervision at the end of March 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "GS_2025_10K:Item8:c204",
+            "score": 0.25632309913635254,
+            "dense_sim": 0.7225265502929688
+          },
+          {
+            "id": "GS_2025_10K:Item1:c029",
+            "score": 0.17323192954063416,
+            "dense_sim": 0.6982032060623169
+          },
+          {
+            "id": "GS_2025_10K:Item8:c011",
+            "score": 0.1678885668516159,
+            "dense_sim": 0.7011479139328003
+          },
+          {
+            "id": "GS_2025_10K:Item7:c057",
+            "score": 0.1552116870880127,
+            "dense_sim": 0.6827265024185181
+          },
+          {
+            "id": "GS_2025_10K:Item7:c069",
+            "score": 0.13671047985553741,
+            "dense_sim": 0.7026426792144775
+          },
+          {
+            "id": "GS_2025_10K:Item8:c318",
+            "score": 0.12068445980548859,
+            "dense_sim": 0.7330930233001709
+          },
+          {
+            "id": "GS_2025_10K:Item8:c274",
+            "score": 0.11536507308483124,
+            "dense_sim": 0.6889536380767822
+          },
+          {
+            "id": "GS_2025_10K:Item8:c232",
+            "score": 0.08666455000638962,
+            "dense_sim": 0.6763549447059631
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided chunks do not contain information about Goldman Sachs' assets under supervision at the end of March 2025. The chunks discuss assets under supervision in general terms (e.g., 'higher average assets under supervision' in chunk GS_2025_10K:Item7:c057) and reference other balance sheet items as of December 2025 and December 2024, but no specific figure for assets under supervision at the end of March 2025 is provided in any of the context chunks.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 3756,
+    "output_tokens": 139,
+    "cost_usd": 0.013353
+  },
+  "latency_ms": 5334.604249997938,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": true,
+    "refusal_reason": "model: The provided chunks do not contain information about Goldman Sachs' assets under supervision at the end of March 2025. The chunks discuss assets under supervision in general terms (e.g., 'higher average assets under supervision' in chunk GS_2025_10K:Item7:c057) and reference other balance sheet items as of December 2025 and December 2024, but no specific figure for assets under supervision at the end of March 2025 is provided in any of the context chunks.",
+    "confidence": 0.7330930233001709,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

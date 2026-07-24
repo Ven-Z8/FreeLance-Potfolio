@@ -1,0 +1,151 @@
+"""Eval scoring: the numbers in the README come from this logic, so every
+scoring rule gets pinned — tolerance math, unit equivalence, the
+refusal/unanswerable matrix, citation prefix matching, and byte-level
+compatibility with the P1 harness trace format."""
+
+import importlib.util
+import sys
+import json
+from pathlib import Path
+
+import pytest
+
+from ragfilings import evaluation
+
+GOLDEN_DIR = Path(__file__).resolve().parent.parent / "golden"
+
+
+def _case(expected_answer, ctype="exact", rules=(), category="lookup",
+          citations=("AAPL_2025_10K:Item8",)):
+    return {
+        "id": "fin-9999", "input": "q?",
+        "expected": {"answer": expected_answer, "citations": list(citations),
+                     "type": ctype},
+        "variation_rules": list(rules), "difficulty": "easy",
+        "failure_category": category, "domain": "financial", "notes": "",
+    }
+
+
+def _result(answer, citations=("AAPL_2025_10K:Item8:c007",), refused=False,
+            hit_ids=("AAPL_2025_10K:Item8:c007", "PEP_2025_10K:Item1:c000")):
+    return {
+        "refused": refused, "refusal_reason": "low confidence" if refused else None,
+        "answer": answer, "citations": list(citations), "invalid_citations": [],
+        "verification": {"verified": True, "claims": []},
+        "confidence": 0.8, "latency_ms": 1200.0, "strategy": "dense",
+        "model": "test/model",
+        "usage": {"input_tokens": 100, "output_tokens": 20, "cost_usd": 0.001,
+                  "calls": 1},
+        "hits": [{"chunk": {"id": i}, "score": 0.5, "dense_sim": 0.5}
+                 for i in hit_ids],
+    }
+
+
+def test_exact_numeric_with_tolerance_and_unit_equivalence():
+    case = _case("$416,161 million", rules=["numeric_tolerance:0.1%", "unit_equivalence"])
+    ok = evaluation.score_case(case, _result("Net sales were $416.2 billion."), cfg=None)
+    assert ok["correct"] is True                   # billion-scale, within 0.1%
+    near = evaluation.score_case(case, _result("Net sales were $416,300 million."), cfg=None)
+    assert near["correct"] is True                 # 0.033% off < 0.1%
+    wrong = evaluation.score_case(case, _result("Net sales were $391,035 million."), cfg=None)
+    assert wrong["correct"] is False               # prior-year column
+
+
+def test_exact_without_unit_equivalence_requires_same_scale():
+    case = _case("$416,161 million", rules=["numeric_tolerance:0.1%"])
+    assert evaluation.score_case(case, _result("$416.2 billion"), cfg=None)["correct"] is False
+
+
+def test_contains_matches_key_figure_inside_longer_prose():
+    case = _case("$215,938 million (fiscal year 2026)", ctype="contains",
+                 rules=["numeric_tolerance:0.1%", "unit_equivalence"])
+    res = _result("Revenue was $215,938 million in FY2026, up 62% year over year.")
+    assert evaluation.score_case(case, res, cfg=None)["correct"] is True
+
+
+def test_unanswerable_matrix():
+    case = _case(None, citations=())
+    refusal = evaluation.score_case(case, _result(None, citations=(), refused=True), cfg=None)
+    assert refusal["correct"] is True and refusal["outcome"] == "correct_refusal"
+    halluc = evaluation.score_case(case, _result("$12,345 million"), cfg=None)
+    assert halluc["correct"] is False and halluc["outcome"] == "hallucination"
+
+
+def test_answerable_refusal_is_incorrect_refusal():
+    case = _case("$416,161 million")
+    scored = evaluation.score_case(case, _result(None, citations=(), refused=True), cfg=None)
+    assert scored["correct"] is False and scored["outcome"] == "incorrect_refusal"
+
+
+def test_citation_and_retrieval_hits_are_prefix_matches():
+    case = _case("$416,161 million")
+    scored = evaluation.score_case(case, _result("$416,161 million"), cfg=None)
+    assert scored["citation_hit"] is True          # cited chunk is inside Item8
+    assert scored["retrieval_hit"] is True         # a hit chunk is inside Item8
+    off = _result("$416,161 million", citations=("AAPL_2025_10K:Item7:c001",),
+                  hit_ids=("PEP_2025_10K:Item1:c000",))
+    scored2 = evaluation.score_case(case, off, cfg=None)
+    assert scored2["citation_hit"] is False and scored2["retrieval_hit"] is False
+
+
+def test_judge_type_uses_judge_model(monkeypatch):
+    calls = {}
+
+    def fake_judge(case, result, cfg):
+        calls["hit"] = True
+        return {"correct": True, "reason": "matches", "usage": {"cost_usd": 0.0}}
+
+    monkeypatch.setattr(evaluation, "_judge", fake_judge)
+    case = _case("Revenue grew on data center demand", ctype="judge")
+    scored = evaluation.score_case(case, _result("Growth driven by data center."),
+                                   cfg={"eval": {"judge_model": "m"}})
+    assert scored["correct"] is True and calls["hit"]
+
+
+def test_loads_all_61_golden_cases_and_never_mutates_them():
+    cases = evaluation.load_cases(GOLDEN_DIR)
+    assert len(cases) >= 61
+    assert all(c["expected"]["type"] in ("exact", "contains", "judge") for c in cases)
+
+
+
+def test_trace_roundtrips_through_p1_harness_format():
+    trace_dict = evaluation.build_trace(_case("$416,161 million"),
+                                        _result("Net sales were $416,161 million."))
+    # Byte-level compat: P1's own Trace.from_dict must accept our JSON as-is.
+    p1_trace = Path(__file__).resolve().parents[2] / "p1-eval-harness/src/harness/traces/trace.py"
+    if not p1_trace.exists():
+        pytest.skip("P1 harness not checked out")
+    spec = importlib.util.spec_from_file_location("p1_trace", p1_trace)
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules["p1_trace"] = mod  # dataclasses resolves annotations via sys.modules
+    spec.loader.exec_module(mod)
+    t = mod.Trace.from_dict(json.loads(json.dumps(trace_dict)))
+    assert t.case_id == "fin-9999"
+    assert t.citations == ["AAPL_2025_10K:Item8:c007"]
+    assert t.usage.cost_usd == pytest.approx(0.001)
+    kinds = [s.kind for s in t.steps]
+    assert "tool_call" in kinds and "response" in kinds
+    assert all(k in mod.STEP_KINDS for k in kinds)
+
+
+def test_aggregate_metrics():
+    rows = [
+        {"correct": True, "outcome": "answered", "citation_hit": True,
+         "retrieval_hit": True, "category": "lookup", "refused": False,
+         "latency_ms": 1000.0, "cost_usd": 0.002, "verified": True},
+        {"correct": False, "outcome": "hallucination", "citation_hit": False,
+         "retrieval_hit": True, "category": "unanswerable", "refused": False,
+         "latency_ms": 3000.0, "cost_usd": 0.004, "verified": True},
+        {"correct": True, "outcome": "correct_refusal", "citation_hit": None,
+         "retrieval_hit": None, "category": "unanswerable", "refused": True,
+         "latency_ms": 500.0, "cost_usd": 0.0, "verified": True},
+    ]
+    m = evaluation.aggregate(rows)
+    assert m["n"] == 3 and m["accuracy"] == pytest.approx(2 / 3)
+    assert m["hallucination_rate"] == pytest.approx(1 / 2)   # of 2 unanswerable
+    assert m["refusal_correctness"] == pytest.approx(1.0)    # 1 refusal, correct
+    assert m["citation_faithfulness"] == pytest.approx(1 / 2)  # of answered w/ cites
+    assert m["latency_p50_ms"] == 1000.0
+    assert m["cost_per_query_usd"] == pytest.approx(0.002)
+    assert m["by_category"]["unanswerable"]["n"] == 2

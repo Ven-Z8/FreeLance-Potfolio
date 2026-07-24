@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0211",
+  "input": "According to NVIDIA's geographic revenue table, what was revenue attributed to China (including Hong Kong) in fiscal year 2026?",
+  "final_output": "$19,677 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "According to NVIDIA's geographic revenue table, what was revenue attributed to China (including Hong Kong) in fiscal year 2026?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "NVDA_2026_10K:Item8:c072",
+            "score": 0.9763466119766235,
+            "dense_sim": 0.7069606781005859
+          },
+          {
+            "id": "NVDA_2026_10K:Item1A:c051",
+            "score": 0.818505048751831,
+            "dense_sim": 0.676662802696228
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c014",
+            "score": 0.7027851343154907,
+            "dense_sim": 0.6491745710372925
+          },
+          {
+            "id": "NVDA_2026_10K:Item1:c023",
+            "score": 0.6969059705734253,
+            "dense_sim": 0.6779272556304932
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c050",
+            "score": 0.6499540209770203,
+            "dense_sim": 0.7618144750595093
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c073",
+            "score": 0.6458516716957092,
+            "dense_sim": 0.7287923693656921
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c071",
+            "score": 0.5878194570541382,
+            "dense_sim": 0.7009863257408142
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c004",
+            "score": 0.5110278129577637,
+            "dense_sim": 0.6492668986320496
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$19,677 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "NVDA_2026_10K:Item8:c072"
+  ],
+  "usage": {
+    "input_tokens": 3824,
+    "output_tokens": 51,
+    "cost_usd": 0.012237
+  },
+  "latency_ms": 3312.5598340011493,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7618144750595093,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

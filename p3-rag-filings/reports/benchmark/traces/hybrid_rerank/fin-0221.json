@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0221",
+  "input": "How has JPMorgan Chase's net interest income trended over the three fiscal years 2023-2025?",
+  "final_output": "JPMorgan Chase's net interest income increased over the three fiscal years from 2023 to 2025. Net interest income was $89,267 million in 2023, increased to $92,583 million in 2024, and further increased to $95,443 million in 2025.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How has JPMorgan Chase's net interest income trended over the three fiscal years 2023-2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "JPM_2025_10K:Item8:c401",
+            "score": 0.9923762679100037,
+            "dense_sim": 0.7471990585327148
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c415",
+            "score": 0.9923107624053955,
+            "dense_sim": 0.7431265115737915
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c392",
+            "score": 0.9900261163711548,
+            "dense_sim": 0.7149001359939575
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c420",
+            "score": 0.9879952073097229,
+            "dense_sim": 0.6858980059623718
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c078",
+            "score": 0.981895387172699,
+            "dense_sim": 0.7422675490379333
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c136",
+            "score": 0.9660900235176086,
+            "dense_sim": 0.6671745181083679
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c012",
+            "score": 0.964245080947876,
+            "dense_sim": 0.7123116254806519
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c423",
+            "score": 0.9572021961212158,
+            "dense_sim": 0.7557970285415649
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 3
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "JPMorgan Chase's net interest income increased over the three fiscal years from 2023 to 2025. Net interest income was $89,267 million in 2023, increased to $92,583 million in 2024, and further increased to $95,443 million in 2025.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "JPM_2025_10K:Item8:c401"
+  ],
+  "usage": {
+    "input_tokens": 9638,
+    "output_tokens": 297,
+    "cost_usd": 0.033368999999999996
+  },
+  "latency_ms": 7680.303083998297,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7557970285415649,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

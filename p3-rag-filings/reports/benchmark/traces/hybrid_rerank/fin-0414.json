@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0414",
+  "input": "What was Exxon Mobil's crude oil and product purchases expense in fiscal year 2025?",
+  "final_output": "184,248 million dollars",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Exxon Mobil's crude oil and product purchases expense in fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "XOM_2025_10K:Item8:c008",
+            "score": 0.9969273209571838,
+            "dense_sim": 0.7115129232406616
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c042",
+            "score": 0.9016788601875305,
+            "dense_sim": 0.7007626295089722
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c039",
+            "score": 0.8975799679756165,
+            "dense_sim": 0.6988071203231812
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c045",
+            "score": 0.8203945159912109,
+            "dense_sim": 0.702041506767273
+          },
+          {
+            "id": "XOM_2025_10K:Item2:c019",
+            "score": 0.786703884601593,
+            "dense_sim": 0.64325350522995
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c087",
+            "score": 0.5751193761825562,
+            "dense_sim": 0.719230055809021
+          },
+          {
+            "id": "XOM_2025_10K:Item7:c075",
+            "score": 0.272575706243515,
+            "dense_sim": 0.730970025062561
+          },
+          {
+            "id": "XOM_2025_10K:Item7:c023",
+            "score": 0.19564136862754822,
+            "dense_sim": 0.7058981657028198
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "184,248 million dollars",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "XOM_2025_10K:Item8:c008"
+  ],
+  "usage": {
+    "input_tokens": 4362,
+    "output_tokens": 51,
+    "cost_usd": 0.013851
+  },
+  "latency_ms": 3380.038125000283,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.730970025062561,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

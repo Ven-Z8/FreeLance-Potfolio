@@ -1,0 +1,110 @@
+{
+  "case_id": "b20-006",
+  "input": "Did Apple's services business grow faster than its products business in fiscal year 2025? Support with figures.",
+  "final_output": "Yes, Apple's services business grew faster than its products business in fiscal year 2025. Services gross margin increased from $71,050 million in 2024 to $82,314 million in 2025. Products gross margin increased from $109,633 million in 2024 to $112,887 million in 2025.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "Did Apple's services business grow faster than its products business in fiscal year 2025? Support with figures.",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.600944459438324,
+            "dense_sim": 0.7769365310668945
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c005",
+            "score": 0.4814962148666382,
+            "dense_sim": 0.7696160674095154
+          },
+          {
+            "id": "AAPL_2025_10K:Item1A:c009",
+            "score": 0.47795677185058594,
+            "dense_sim": 0.6544667482376099
+          },
+          {
+            "id": "AAPL_2025_10K:Item1A:c016",
+            "score": 0.26925671100616455,
+            "dense_sim": 0.6506624221801758
+          },
+          {
+            "id": "AAPL_2025_10K:Item1:c003",
+            "score": 0.2689473032951355,
+            "dense_sim": 0.6477279663085938
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c003",
+            "score": 0.24534796178340912,
+            "dense_sim": 0.7121440172195435
+          },
+          {
+            "id": "AAPL_2025_10K:Item1:c000",
+            "score": 0.23972657322883606,
+            "dense_sim": 0.701516330242157
+          },
+          {
+            "id": "AAPL_2025_10K:Item1A:c038",
+            "score": 0.17746101319789886,
+            "dense_sim": 0.6308514475822449
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 4
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Yes, Apple's services business grew faster than its products business in fiscal year 2025. Services gross margin increased from $71,050 million in 2024 to $82,314 million in 2025. Products gross margin increased from $109,633 million in 2024 to $112,887 million in 2025.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AAPL_2025_10K:Item7:c005"
+  ],
+  "usage": {
+    "input_tokens": 7134,
+    "output_tokens": 260,
+    "cost_usd": 0.025301999999999998
+  },
+  "latency_ms": 6583.553791999293,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7769365310668945,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

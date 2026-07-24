@@ -1,0 +1,108 @@
+{
+  "case_id": "fin-0142",
+  "input": "How much did the company spend on research and development?",
+  "final_output": "[REFUSED] model: The question does not specify which company or which fiscal year. The context chunks contain R&D spending information for multiple companies across different years: Johnson & Johnson spent $14.7 billion in 2025; Microsoft increased R&D by $3.0 billion in 2025; Chevron spent $427 million in 2025, $353 million in 2024, and $320 million in 2023; and PepsiCo spent $839 million in 2025, $813 million in 2024, and $804 million in 2023. The question is too ambiguous to provide a single answer.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How much did the company spend on research and development?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "JNJ_2025_10K:Item7:c017",
+            "score": 0.9688287973403931,
+            "dense_sim": 0.7733780145645142
+          },
+          {
+            "id": "MSFT_2025_10K:Item8:c017",
+            "score": 0.9282784461975098,
+            "dense_sim": 0.7283132076263428
+          },
+          {
+            "id": "MSFT_2025_10K:Item7:c013",
+            "score": 0.8290135264396667,
+            "dense_sim": 0.728778600692749
+          },
+          {
+            "id": "JNJ_2025_10K:Item8:c021",
+            "score": 0.8213472366333008,
+            "dense_sim": 0.6962502002716064
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c002",
+            "score": 0.8147947788238525,
+            "dense_sim": 0.6674931049346924
+          },
+          {
+            "id": "CVX_2025_10K:Item8:c124",
+            "score": 0.6842339038848877,
+            "dense_sim": 0.6679827570915222
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c024",
+            "score": 0.5002446174621582,
+            "dense_sim": 0.6769444942474365
+          },
+          {
+            "id": "PEP_2025_10K:Item8:c030",
+            "score": 0.4828528165817261,
+            "dense_sim": 0.7015671730041504
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The question does not specify which company or which fiscal year. The context chunks contain R&D spending information for multiple companies across different years: Johnson & Johnson spent $14.7 billion in 2025; Microsoft increased R&D by $3.0 billion in 2025; Chevron spent $427 million in 2025, $353 million in 2024, and $320 million in 2023; and PepsiCo spent $839 million in 2025, $813 million in 2024, and $804 million in 2023. The question is too ambiguous to provide a single answer.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 2975,
+    "output_tokens": 169,
+    "cost_usd": 0.01146
+  },
+  "latency_ms": 5421.6317089994845,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": true,
+    "refusal_reason": "model: The question does not specify which company or which fiscal year. The context chunks contain R&D spending information for multiple companies across different years: Johnson & Johnson spent $14.7 billion in 2025; Microsoft increased R&D by $3.0 billion in 2025; Chevron spent $427 million in 2025, $353 million in 2024, and $320 million in 2023; and PepsiCo spent $839 million in 2025, $813 million in 2024, and $804 million in 2023. The question is too ambiguous to provide a single answer.",
+    "confidence": 0.7733780145645142,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

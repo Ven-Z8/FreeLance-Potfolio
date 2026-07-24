@@ -6,13 +6,13 @@
   "answer": null,
   "citations": [],
   "refused": true,
-  "refusal_reason": "model: The provided chunks do not contain any projections or forecasts of NVIDIA's data center revenue for fiscal year 2027. While the chunks discuss fiscal year 2026 data center revenue performance and mention some forward-looking commitments and obligations, they do not include specific revenue projections for fiscal year 2027.",
+  "refusal_reason": "model: The provided context chunks do not contain any projection or forecast of NVIDIA's data center revenue for fiscal year 2027. While the chunks discuss fiscal year 2026 data center revenue performance and mention supply constraints for Gaming in Q1 fiscal 2027, there is no specific numerical projection for data center revenue in fiscal year 2027.",
   "steps": [],
-  "latency_ms": 3828.0157499975758,
-  "cost_usd": 0.012483,
+  "latency_ms": 4169.893250000314,
+  "cost_usd": 0.012558,
   "raw_response": {
     "refused": true,
-    "refusal_reason": "model: The provided chunks do not contain any projections or forecasts of NVIDIA's data center revenue for fiscal year 2027. While the chunks discuss fiscal year 2026 data center revenue performance and mention some forward-looking commitments and obligations, they do not include specific revenue projections for fiscal year 2027.",
+    "refusal_reason": "model: The provided context chunks do not contain any projection or forecast of NVIDIA's data center revenue for fiscal year 2027. While the chunks discuss fiscal year 2026 data center revenue performance and mention supply constraints for Gaming in Q1 fiscal 2027, there is no specific numerical projection for data center revenue in fiscal year 2027.",
     "answer": null,
     "citations": [],
     "invalid_citations": [],
@@ -23,11 +23,11 @@
     "confidence": 0.7512774467468262,
     "usage": {
       "input_tokens": 3681,
-      "output_tokens": 96,
-      "cost_usd": 0.012483,
+      "output_tokens": 101,
+      "cost_usd": 0.012558,
       "calls": 1
     },
-    "latency_ms": 3828.0157499975758,
+    "latency_ms": 4169.893250000314,
     "strategy": "hybrid_rerank",
     "hits": [
       {

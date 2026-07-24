@@ -10,8 +10,8 @@
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 3664.7729579999577,
-  "cost_usd": 0.011382,
+  "latency_ms": 2850.011375001486,
+  "cost_usd": 0.011709,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
@@ -33,13 +33,13 @@
     },
     "confidence": 0.7391246557235718,
     "usage": {
-      "input_tokens": 3549,
+      "input_tokens": 3658,
       "output_tokens": 49,
-      "cost_usd": 0.011382,
+      "cost_usd": 0.011709,
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 3664.7729579999577,
+    "latency_ms": 2850.011375001486,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -66,72 +66,6 @@
       },
       {
         "chunk": {
-          "id": "JNJ_2025_10K:Item7:c017",
-          "doc_id": "JNJ_2025_10K",
-          "ticker": "JNJ",
-          "company": "Johnson & Johnson",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management’s discussion and analysis of results of operations and financial condition",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "Research and development activities represent a significant part of the Company's business. These expenditures relate to the processes of discovering, testing and developing new products, upfront payments and developmental milestones, improving existing products, as well as ensuring product efficacy and regulatory compliance prior to launch. The Company remains committed to investing in research and development with the aim of delivering high quality and innovative products.\nResearch and Development decreased as a percent to sales primarily driven by:\n•\nAcquired in-process research & development expense of $1.25 billion to secure the global rights to the NM26 bispecific antibody (Yellow Jersey acquisition) in the Innovative Medicine business in 2024\n•\nAcquired in-process research & development expense of $0.5 billion from the V-Wave acquisition and a Laminar milestone of $0.3 billion in the MedTech business in 2024\n•\nLeverage resulting from investment prioritization in the Innovative Medicine business\nIn-Process Research and Development Impairments (IPR&D):\nIn the fiscal year 2025, the Company recorded a charge of approximately $0.1 billion primarily related to a non-strategic asset acquired with Abiomed in 2022. In the fiscal year 2024, the Company recorded a charge of approximately $0.2 billion primarily associated with the M710 (biosimilar) asset acquired as part of the acquisition of Momenta Pharmaceuticals in 2020. There was also a partial impairment of this asset for $0.2 billion in the fiscal 2023. This asset is fully impaired.\n30\nOther (Income) Expense, Net:",
-          "n_chars": 1592
-        },
-        "score": 0.8438711166381836,
-        "dense_sim": 0.6923088431358337
-      },
-      {
-        "chunk": {
-          "id": "MSFT_2025_10K:Item7:c013",
-          "doc_id": "MSFT_2025_10K",
-          "ticker": "MSFT",
-          "company": "Microsoft",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Research and development expenses include payroll, employee benefits, stock-based compensation expense, and other headcount-related expenses associated with product development. Research and development expenses also include technology development costs, including AI training and other infrastructure costs, third-party development and programming costs, and the amortization of purchased software code and services content.\n40\nPART II\nItem 7\nFiscal Year 2025 Compared with Fiscal Year 2024\nResearch and development expenses increased $3.0 billion or 10% driven by investments in cloud and AI engineering and Gaming, including the impact of the Activision Blizzard acquisition.\nSales and Marketing\n(In millions, except percentages) | 2025 | 2024 | Percentage Change\nSales and marketing | $25,654 | $24,456 | 5%\nAs a percent of revenue | 9% | 10% | (1)ppt\nSales and marketing expenses include payroll, employee benefits, stock-based compensation expense, and other headcount-related expenses associated with sales and marketing personnel, and the costs of advertising, promotions, trade shows, seminars, and other programs.\nFiscal Year 2025 Compared with Fiscal Year 2024\nSales and marketing expenses increased $1.2 billion or 5% driven by investments in commercial sales and Gaming, including the impact of the Activision Blizzard acquisition.\nGeneral and Administrative\n(In millions, except percentages) | 2025 | 2024 | Percentage Change\nGeneral and administrative | $7,223 | $7,609 | (5)%\nAs a percent of revenue | 3% | 3% | 0ppt",
-          "n_chars": 1532
-        },
-        "score": 0.7288384437561035,
-        "dense_sim": 0.6910396218299866
-      },
-      {
-        "chunk": {
-          "id": "JNJ_2025_10K:Item8:c137",
-          "doc_id": "JNJ_2025_10K",
-          "ticker": "JNJ",
-          "company": "Johnson & Johnson",
-          "fiscal_year": 2025,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial statements and supplementary data",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "billion have been recorded since the restructuring was announced and the program has been substantially completed in the fiscal year 2025.\nIn fiscal 2023, the Company completed a prioritization of its research and development (R&D) investment within its Innovative Medicine segment to focus on the most promising medicines with the greatest benefit to patients. This resulted in the exit of certain programs within certain therapeutic areas. The R&D program exits are primarily in infectious diseases and vaccines including the discontinuation of its respiratory syncytial virus (RSV) adult vaccine program, hepatitis and HIV development. Pre-tax Restructuring expenses of $\n0.1\nbillion in the fiscal year 2024 included the termination of partnered and non-partnered development program costs, asset impairments and asset divestments. Pre-tax Restructuring expenses of $\n0.5\nbillion in the fiscal year 2023 included the termination of partnered and non-partnered development program costs and asset impairments. Total project costs of approximately $\n0.6\nbillion have been recorded since the restructuring was announced and the program was completed in the fiscal fourth quarter of 2024.\n104\nThe following table summarizes the restructuring expenses for the fiscal years 2025, 2024 and 2023:\n(Pre-tax Dollars in Millions) | 2025 | 2024 | 2023\nMedTech Segment Surgery franchise (1) | $ 205 | — | —\nMedTech Segment Orthopaedics franchise (2) | 307 | 167 | 319\nInnovative Medicine Segment (3) | — | 102 | 479\nTotal Programs | $ 512 | 269 | 798\n(1)\nThe fiscal year of 2025 included $\n76\nmillion in restructuring, $\n122\nmillion in Other income and expense and $\n7\nmillion in Cost of products sold on the Consolidated Statement of Earnings\n(2)\nThe fiscal year of 2025 included $\n152",
-          "n_chars": 1776
-        },
-        "score": 0.567651629447937,
-        "dense_sim": 0.6817015409469604
-      },
-      {
-        "chunk": {
           "id": "META_2025_10K:Item1:c015",
           "doc_id": "META_2025_10K",
           "ticker": "META",
@@ -154,50 +88,6 @@
       },
       {
         "chunk": {
-          "id": "CVX_2025_10K:Item8:c124",
-          "doc_id": "CVX_2025_10K",
-          "ticker": "CVX",
-          "company": "Chevron",
-          "fiscal_year": 2025,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": "14",
-          "note": "29",
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "2025 | 2024 | 2023\nTotal financing interest and debt costs | $1,392 | $773 | $617\nLess: Capitalized interest | 175 | 179 | 148\nInterest and debt expense | $1,217 | $594 | $469\nResearch and development expenses | $427 | $353 | $320\nExcess of replacement cost over the carrying value of inventories (LIFO method) | $4,808 | $5,997 | $6,455\nLIFO profits (losses) on inventory drawdowns included in earnings | $( 38 ) | $( 111 ) | $14\nForeign currency effects * | $( 469 ) | $520 | $( 224 )",
-          "n_chars": 486
-        },
-        "score": 0.3719317317008972,
-        "dense_sim": 0.693257212638855
-      },
-      {
-        "chunk": {
-          "id": "JNJ_2025_10K:Item7:c002",
-          "doc_id": "JNJ_2025_10K",
-          "ticker": "JNJ",
-          "company": "Johnson & Johnson",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management’s discussion and analysis of results of operations and financial condition",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "New products introduced within the past five years accounted for approximately 25% of 2025 sales. In 2025, $14.7 billion was invested in research and development reflecting management’s commitment to create life-enhancing innovations and to create value through partnerships that will profoundly impact of health for humanity.\nOur approximately 138,200 employees are critical drivers of the Company’s success. Employees are empowered and inspired to lead with Our Credo and purpose as guides. This allows every employee to use the Company’s reach and size to advance the Company’s purpose, and to also lead with agility and urgency. Leveraging the extensive resources across the enterprise enables the Company to innovate and execute with excellence. This ensures the Company can remain focused on addressing the unmet needs of society every day and invest for an enduring impact, ultimately delivering value to its patients, consumers and healthcare professionals, employees, communities and shareholders.\n22\nResearch &\ndevelopment\nAcquisitions*\n(net of cash acquired)\nDividends paid\nper share\n* Includes business combinations and asset acquisitions\nResults of operations\nAnalysis of consolidated sales\nFor discussion on results of operations and financial condition pertaining to the fiscal years 2024 and 2023 see the Company’s Annual Report on Form 10-K for the fiscal year ended December 29, 2024, Item 7. Management's discussion and analysis of results of operations and financial condition.\nIn 2025, worldwide sales increased 6.0% to $94.2 billion as compared to an increase of 4.3% in 2024. These sales changes consisted of the following:\nSales increase/(decrease) due to: | 2025 | 2024\nVolume | 8.4 | % | 5.9 | %\nPrice | (3.1) | 0.0\nCurrency | 0.7 | (1.6)\nTotal | 6.0 | % | 4.3 | %",
-          "n_chars": 1790
-        },
-        "score": 0.2529107332229614,
-        "dense_sim": 0.6738288402557373
-      },
-      {
-        "chunk": {
           "id": "META_2025_10K:Item8:c014",
           "doc_id": "META_2025_10K",
           "ticker": "META",
@@ -217,6 +107,118 @@
         },
         "score": 0.23025460541248322,
         "dense_sim": 0.7327723503112793
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item7:c030",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "1"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Cost of revenue in 2025 increased $6.01 billion, or 20%, compared to 2024. The increase was mainly due to higher operational expenses related to our data centers and technical infrastructure, which included decreases in the depreciation growth rate due to an extension in the useful lives of servers and network assets, effective January 1, 2025. To a lesser extent, higher costs associated with partner arrangements also contributed to the increase.\nSee Note 1 — Summary of Significant Accounting Policies in the notes to the consolidated financial statements included in Part II, Item 8, \"Financial Statements and Supplementary Data\" of this Annual Report on Form 10-K for additional information regarding changes in the estimated useful life of our servers and network assets.\nResearch and development\nYear Ended December 31,\n2025 | 2024 | 2023 | 2025 vs 2024 % change | 2024 vs 2023 % change\n(in millions, except percentages)\nResearch and development | $57,372 | $43,873 | $38,483 | 31 | % | 14 | %\nPercentage of revenue | 29 | % | 27 | % | 29 | %\nResearch and development expenses in 2025 increased $13.50 billion, or 31%, compared to 2024. The increase was mostly due to higher employee compensation and infrastructure costs related to research and development, including our AI initiatives.\nThe higher employee compensation was primarily from an 8% growth in employee headcount from 2024 to 2025 in engineering and other technical functions and an increase in share-based compensation expense.\nMarketing and sales\nYear Ended December 31,\n2025 | 2024 | 2023 | 2025 vs 2024 % change | 2024 vs 2023 % change\n(in millions, except percentages)\nMarketing and sales | $11,991 | $11,347 | $12,301 | 6 | % | (8) | %\nPercentage of revenue | 6 | % | 7 | % | 9 | %",
+          "n_chars": 1759
+        },
+        "score": 0.18788784742355347,
+        "dense_sim": 0.6732894778251648
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item8:c000",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Item 8.\nFinancial Statements and Supplementary Data\nMETA PLATFORMS, INC.\nINDEX TO CONSOLIDATED FINANCIAL STATEMENTS\nPage\nReports of Independent Registered Public Accounting Firm (PCAOB ID No. 42 ) | 83\nConsolidated Financial Statements:\nConsolidated Balance Sheets | 88\nConsolidated Statements of Income | 89\nConsolidated Statements of Comprehensive Income | 90\nConsolidated Statements of Stockholders' Equity | 91\nConsolidated Statements of Cash Flows | 92\nNotes to Consolidated Financial Statements | 94\n82\nTable of Contents\nReport of Independent Registered Public Accounting Firm\nTo the Stockholders and the Board of Directors of Meta Platforms, Inc.\nOpinion on the Financial Statements\nWe have audited the accompanying consolidated balance sheets of Meta Platforms, Inc. (the Company) as of December 31, 2025 and 2024, the related consolidated statements of income, comprehensive income, stockholders' equity and cash flows for each of the three years in the period ended December 31, 2025, and the related notes (collectively referred to as the \"consolidated financial statements\"). In our opinion, the consolidated financial statements present fairly, in all material respects, the financial position of the Company at December 31, 2025 and 2024, and the results of its operations and its cash flows for each of the three years in the period ended December 31, 2025, in conformity with U.S. generally accepted accounting principles.",
+          "n_chars": 1438
+        },
+        "score": 0.14612621068954468,
+        "dense_sim": 0.6957464218139648
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item1:c013",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "1",
+          "section_id": "Item1",
+          "part": "I",
+          "title": "Business",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "We value our investment in growing and keeping a highly skilled workforce. We aim to make AI utilization core to the way we operate by providing our personnel access to AI tools and training programs. We provide our employees with regular performance reviews twice a year as we believe it is an important part of how we support their growth and career development while also recognizing and rewarding their impact at Meta. We also offer career development opportunities and work experience programs that extend beyond the physical and virtual classroom. To do this, we utilize various learning modalities, such as live virtual and in-person learning experiences, on-demand e-learning, self-service resources, learning communities, and coaching engagements.\nThe Pulse of Our Workforce\nWe conduct company-wide employee surveys twice a year to help us understand how employees feel about working at Meta and what we can do to improve their experience. Our surveys help us measure company, manager, team, and personal experience over time. Further, our more frequent surveys, such as those that have been administered daily to an ongoing random sample of employees, allow us to measure real-time sentiment around emerging events and company changes. These surveys are designed to invite feedback and actionable suggestions, inform decisions, and drive change across the company.\nCompensation, Benefits, Health, and Well-being",
+          "n_chars": 1421
+        },
+        "score": 0.04077906534075737,
+        "dense_sim": 0.6389652490615845
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item8:c074",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "11",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Rickwalder, et al. v. Meta Platforms, Inc.\nin the Santa Clara County Superior Court). These cases are in different stages, but several of our motions to dismiss have been denied in whole or in part, while certain others have been granted in whole or in part. In\nRickwalder\n, the Superior Court denied plaintiffs' motion for class certification and the plaintiffs have appealed that decision. In\nFlo Health\n, on August 1, 2025, a jury returned a verdict on liability in favor of the plaintiffs and on behalf of a California subclass on the sole claim remaining against Meta under Section 632 of the California Invasion of Privacy Act. Plaintiffs are seeking $\n5,000\nin statutory damages per class member and have asserted that there are up to approximately\n1.6\nmillion class members. The amount of potential damages is uncertain at this time. In addition, we are subject to individual and class actions in Europe, as well as regulatory investigations in the United States, Europe, and elsewhere, relating to similar matters with regard to our business tools.\nCompetition\nWe are subject to various litigation and government inquiries and investigations, formal or informal, by competition authorities in the United States, Europe, and other jurisdictions. Such investigations, inquiries, and lawsuits concern, among other things, our business practices in the areas of social networking or social media services, digital advertising, and/or mobile or online applications, as well as our acquisitions. For example, in 2019 we became the subject of antitrust\n114\nTable of Contents\ninvestigations by the FTC and U.S. Department of Justice. On December 9, 2020, the FTC filed a complaint (\nFTC v. Meta Platforms, Inc.",
+          "n_chars": 1711
+        },
+        "score": 0.03975948691368103,
+        "dense_sim": 0.5983410477638245
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item1A:c088",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "section_id": "Item1A",
+          "part": "I",
+          "title": "Risk Factors",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "We are also subject to evolving laws and regulations that dictate whether, how, and under what circumstances we can transfer, process or receive certain data that is critical to our operations, including data shared between countries or regions in which we operate and data shared among our products and services. For example, the bases upon which we have relied for data transfers from the European Union to the United States have been subjected to regulatory and judicial scrutiny. The Court of Justice of the European Union (CJEU) invalidated the Privacy Shield in 2020 and also considered the validity of Standard Contractual Clauses (SCCs) as a basis to transfer user data from the European Union to the United States following a challenge brought by the Irish Data Protection Commission (IDPC). Although the CJEU upheld the validity of SCCs in 2020, in May 2023, the IDPC issued a Final Decision concluding that Meta Platforms Ireland’s reliance on SCCs in respect of certain transfers of European Economic Area (EEA) Facebook user data was not in compliance with the GDPR. The IDPC issued an administrative fine of EUR €1.2 billion as well as corrective orders requiring Meta Platforms Ireland to suspend the relevant transfers and to bring its processing operations into compliance with Chapter V GDPR by ceasing the unlawful processing, including storage, of such data in the United States. We are appealing this Final Decision and it is currently subject to a stay from the Irish High Court. We have also implemented steps to comply with the above corrective orders and are pending the IDPC's confirmation that these address the corrective orders. During the course of this matter, in 2022, the European Union and United States reached an agreement on a new EU-U.S. Data Privacy Framework (EU-U.S. DPF), which the European Commission deemed adequate in relation to U.S. data transfers in July 2023. The EU-U.S. DPF replaces two prior adequacy frameworks which were invalidated by the CJEU.",
+          "n_chars": 1999
+        },
+        "score": 0.038062021136283875,
+        "dense_sim": 0.6104750633239746
       }
     ],
     "model": "anthropic/claude-sonnet-4.5"

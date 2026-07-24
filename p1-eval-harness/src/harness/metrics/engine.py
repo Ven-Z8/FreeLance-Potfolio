@@ -25,15 +25,27 @@ def parse_numeric_tolerance(rules: List[str]) -> float:
 
 
 def check_numerical_match(expected: str, generated: str, tol: float = 0.01) -> bool:
-    """Compare numerical figures extracted from expected vs generated text."""
-    exp_nums = [float(x.replace(",", "")) for x in re.findall(r"\d+(?:\.\d+)?", expected or "")]
-    gen_nums = [float(x.replace(",", "")) for x in re.findall(r"\d+(?:\.\d+)?", generated or "")]
+    """Compare numerical figures extracted from expected vs generated text (supporting million/billion scale conversions)."""
+    exp_raw = [float(x.replace(",", "")) for x in re.findall(r"\d+(?:\.\d+)?", expected or "")]
+    gen_raw = [float(x.replace(",", "")) for x in re.findall(r"\d+(?:\.\d+)?", generated or "")]
+    exp_nums = [x for x in exp_raw if not (1900 <= x <= 2099 and x.is_integer())]
+    gen_nums = [x for x in gen_raw if not (1900 <= x <= 2099 and x.is_integer())]
     if not exp_nums or not gen_nums:
         return False
+
     for en in exp_nums:
-        if any(abs(gn - en) <= max(abs(en) * tol, 1e-4) for gn in gen_nums):
-            return True
+        for gn in gen_nums:
+            # Direct match or scale-converted match (e.g., $8.06 billion vs $8,060 million)
+            if abs(gn - en) <= max(abs(en) * tol, 1e-4):
+                return True
+            if abs(gn - (en * 1000.0)) <= max(abs(en * 1000.0) * tol, 1e-4):
+                return True
+            if abs((gn * 1000.0) - en) <= max(abs(en) * tol, 1e-4):
+                return True
+
     return False
+
+
 
 
 class Tier1DeterministicMetrics:
@@ -62,6 +74,7 @@ class Tier1DeterministicMetrics:
             match = (ans_str == exp_str) or check_numerical_match(exp_str, ans_str, tol)
         else:  # contains or judge
             match = (exp_str in ans_str) or check_numerical_match(exp_str, ans_str, tol)
+
 
         outcome = "correct_answer" if match else "incorrect_answer"
         return match, outcome, {"answer_accuracy": 1.0 if match else 0.0, "refusal_correctness": 1.0}

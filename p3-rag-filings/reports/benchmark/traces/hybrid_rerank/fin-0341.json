@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0341",
+  "input": "What was Walmart's revenue in 2025?",
+  "final_output": "$674,538 million (fiscal year ended January 31, 2025)",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Walmart's revenue in 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "WMT_2026_10K:Item8:c082",
+            "score": 0.9618774056434631,
+            "dense_sim": 0.7224391102790833
+          },
+          {
+            "id": "WMT_2026_10K:Item8:c081",
+            "score": 0.9395545721054077,
+            "dense_sim": 0.7487267255783081
+          },
+          {
+            "id": "WMT_2026_10K:Item8:c078",
+            "score": 0.9338212609291077,
+            "dense_sim": 0.6843557357788086
+          },
+          {
+            "id": "WMT_2026_10K:Item1A:c017",
+            "score": 0.8880310654640198,
+            "dense_sim": 0.714806079864502
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c021",
+            "score": 0.8664619326591492,
+            "dense_sim": 0.7606179714202881
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c025",
+            "score": 0.8379845023155212,
+            "dense_sim": 0.7724093198776245
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c023",
+            "score": 0.7032095193862915,
+            "dense_sim": 0.7687227725982666
+          },
+          {
+            "id": "WMT_2026_10K:Item8:c041",
+            "score": 0.570258378982544,
+            "dense_sim": 0.6961888074874878
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$674,538 million (fiscal year ended January 31, 2025)",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "WMT_2026_10K:Item8:c078"
+  ],
+  "usage": {
+    "input_tokens": 3705,
+    "output_tokens": 62,
+    "cost_usd": 0.012045
+  },
+  "latency_ms": 3386.48133300012,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7724093198776245,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

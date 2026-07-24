@@ -11,8 +11,8 @@
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 3272.493874999782,
-  "cost_usd": 0.012303,
+  "latency_ms": 3250.98062500183,
+  "cost_usd": 0.012582,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
@@ -35,13 +35,13 @@
     },
     "confidence": 0.7682726383209229,
     "usage": {
-      "input_tokens": 3761,
+      "input_tokens": 3854,
       "output_tokens": 68,
-      "cost_usd": 0.012303,
+      "cost_usd": 0.012582,
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 3272.493874999782,
+    "latency_ms": 3250.98062500183,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -112,28 +112,6 @@
       },
       {
         "chunk": {
-          "id": "PFE_2025_10K:Item8:c185",
-          "doc_id": "PFE_2025_10K",
-          "ticker": "PFE",
-          "company": "Pfizer",
-          "fiscal_year": 2025,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": null,
-          "note": "17",
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Year Ended December 31,\n(MILLIONS) | 2025 | 2024 | 2023\nUnited States | $37,078 | $38,691 | $28,145\nInternational:\nDeveloped Markets | 16,188 | 16,057 | 20,910\nEmerging Markets | 9,313 | 8,879 | 10,498\nTotal revenues (a) | $62,579 | $63,627 | $59,553\n(a)\nRevenues are primarily attributed to countries based on the location of the customer.\nRevenues exceeded $500 million in each of\n12\n,\n11\nand\n14\ncountries outside the U.S. in 2025, 2024 and 2023, respectively. The U.S. is the only country to contribute more than\n10\n% of total revenue in 2025, 2024 and 2023. As a percentage of\nTotal revenues\n, China was our largest market outside the U.S. (representing\n5\n% and\n4\n% of total revenues) in 2025 and 2024, respectively. Japan was our largest market outside the U.S. in 2023 (representing\n6\n% of total revenues).\nC.\nOther Revenue Information\nSignificant Customers",
-          "n_chars": 863
-        },
-        "score": 0.6045351624488831,
-        "dense_sim": 0.6776260137557983
-      },
-      {
-        "chunk": {
           "id": "MSFT_2025_10K:Item8:c059",
           "doc_id": "MSFT_2025_10K",
           "ticker": "MSFT",
@@ -181,28 +159,6 @@
       },
       {
         "chunk": {
-          "id": "WMT_2026_10K:Item7:c018",
-          "doc_id": "WMT_2026_10K",
-          "ticker": "WMT",
-          "company": "Walmart",
-          "fiscal_year": 2026,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management's Discussion and Analysis",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "(1)\nMembership and other income includes membership fees and other items such as rental and tenant income, recycling income, gift card breakage income, as well as other income from corporate campus facilities.\n(2)\nGross profit is defined as net sales less cost of sales. Operating expenses refers to operating, selling, general and administrative expenses.\nOur total revenues increased $32.2 billion or 4.7% and $32.9 billion or 5.1% for fiscal 2026 and 2025, respectively, when compared to the previous fiscal year. These increases in revenues were primarily due to increases in net sales, which increased $31.9 billion or 4.7% and $31.9 billion or 5.0% for fiscal 2026 and 2025, respectively, when compared to the previous fiscal year. The increases were primarily due to strong positive comparable sales across our U.S. segments and international markets. In fiscal 2026, growth was primarily driven by increases in average ticket and transactions, and also reflected growth in unit volumes, while fiscal 2025 growth was primarily driven by higher transactions and unit volumes. Both years include strength in eCommerce as well as strong sales in grocery and health and wellness, with fiscal 2026 also benefiting from improved sales in general merchandise. Net sales were negatively impacted by $2.8 billion and $3.2 billion of fluctuations in currency exchange rates during fiscal 2026 and 2025, respectively.\nMembership and other income increased $0.3 billion and $1.0 billion for fiscal 2026 and 2025, respectively, primarily driven by growth in membership fee revenue globally, partially offset by decreases in certain other income items, including a reduction in recycling income in fiscal 2026.",
-          "n_chars": 1703
-        },
-        "score": 0.22321943938732147,
-        "dense_sim": 0.6897646188735962
-      },
-      {
-        "chunk": {
           "id": "MSFT_2025_10K:Item8:c046",
           "doc_id": "MSFT_2025_10K",
           "ticker": "MSFT",
@@ -222,6 +178,50 @@
         },
         "score": 0.20278038084506989,
         "dense_sim": 0.7263615131378174
+      },
+      {
+        "chunk": {
+          "id": "MSFT_2025_10K:Item7:c013",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Research and development expenses include payroll, employee benefits, stock-based compensation expense, and other headcount-related expenses associated with product development. Research and development expenses also include technology development costs, including AI training and other infrastructure costs, third-party development and programming costs, and the amortization of purchased software code and services content.\n40\nPART II\nItem 7\nFiscal Year 2025 Compared with Fiscal Year 2024\nResearch and development expenses increased $3.0 billion or 10% driven by investments in cloud and AI engineering and Gaming, including the impact of the Activision Blizzard acquisition.\nSales and Marketing\n(In millions, except percentages) | 2025 | 2024 | Percentage Change\nSales and marketing | $25,654 | $24,456 | 5%\nAs a percent of revenue | 9% | 10% | (1)ppt\nSales and marketing expenses include payroll, employee benefits, stock-based compensation expense, and other headcount-related expenses associated with sales and marketing personnel, and the costs of advertising, promotions, trade shows, seminars, and other programs.\nFiscal Year 2025 Compared with Fiscal Year 2024\nSales and marketing expenses increased $1.2 billion or 5% driven by investments in commercial sales and Gaming, including the impact of the Activision Blizzard acquisition.\nGeneral and Administrative\n(In millions, except percentages) | 2025 | 2024 | Percentage Change\nGeneral and administrative | $7,223 | $7,609 | (5)%\nAs a percent of revenue | 3% | 3% | 0ppt",
+          "n_chars": 1532
+        },
+        "score": 0.1571321338415146,
+        "dense_sim": 0.6673722267150879
+      },
+      {
+        "chunk": {
+          "id": "MSFT_2025_10K:Item7:c011",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Operating income increased $6.8 billion or 18%.\n•\nCost of revenue increased $10.6 billion or 36% driven by growth in Azure.\n•\nGross margin increased $8.2 billion or 14% driven by growth in Azure. Gross margin percentage decreased driven by the impact of scaling our AI infrastructure, offset in part by efficiency gains in Azure.\n•\nOperating expenses increased $1.5 billion or 7% driven by investments in cloud and AI engineering.\nMore Personal Computing\nRevenue increased $3.8 billion or 7%.\n•\nWindows and Devices revenue increased $288 million or 2%. Windows OEM and Devices revenue increased 3% driven by growth in Windows OEM, offset in part by a decline in Devices.\n•\nGaming revenue increased $2.0 billion or 9% driven by growth in Xbox content and services, offset in part by a decline in Xbox hardware. Xbox content and services revenue increased 16% driven by the impact of the Activision Blizzard acquisition and Xbox Game Pass. Xbox hardware revenue decreased 25% driven by lower volume of consoles sold.\n•\nSearch and news advertising revenue increased $1.6 billion or 13%. Search and news advertising revenue excluding traffic acquisition costs increased 20% driven by higher search volume and higher revenue per search.\nOperating income increased $2.2 billion or 18%.\n•\nCost of revenue increased $346 million or 1% driven by growth in Search and news advertising.\n•\nGross margin increased $3.5 billion or 13% with growth across all businesses. Gross margin percentage increased with improvement across all businesses.\n•\nOperating expenses increased $1.3 billion or 9% driven by Gaming, including the impact of the Activision Blizzard acquisition.\nOPERATING EXPENSES\nResearch and Development",
+          "n_chars": 1702
+        },
+        "score": 0.07800895720720291,
+        "dense_sim": 0.7172210216522217
       }
     ],
     "model": "anthropic/claude-sonnet-4.5"

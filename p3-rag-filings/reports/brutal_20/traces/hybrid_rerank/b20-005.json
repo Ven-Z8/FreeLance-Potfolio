@@ -1,0 +1,131 @@
+{
+  "case_id": "b20-005",
+  "input": "What was the percentage change in Tesla's energy generation and storage revenue from fiscal 2024 to 2025?",
+  "final_output": "Energy generation and storage revenue increased 27% from fiscal 2024 to 2025 (from $10,086 million in 2024 to $12,771 million in 2025).",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was the percentage change in Tesla's energy generation and storage revenue from fiscal 2024 to 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 12
+        },
+        "result": [
+          {
+            "id": "TSLA_2025_10K:Item7:c023",
+            "score": 0.9975844621658325,
+            "dense_sim": 0.7095832824707031
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c025",
+            "score": 0.9972624778747559,
+            "dense_sim": 0.7565593719482422
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c029",
+            "score": 0.9968557357788086,
+            "dense_sim": 0.7190666794776917
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c002",
+            "score": 0.9906095862388611,
+            "dense_sim": 0.800570011138916
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c028",
+            "score": 0.9889377355575562,
+            "dense_sim": 0.6907095909118652
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c130",
+            "score": 0.9780228734016418,
+            "dense_sim": 0.7447139620780945
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c035",
+            "score": 0.9538516998291016,
+            "dense_sim": 0.6779966354370117
+          },
+          {
+            "id": "META_2025_10K:Item7:c030",
+            "score": 0.9461772441864014,
+            "dense_sim": 0.6882108449935913
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c012",
+            "score": 0.9948537945747375,
+            "dense_sim": 0.7198293209075928
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c129",
+            "score": 0.9883783459663391,
+            "dense_sim": 0.6679694652557373
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c054",
+            "score": 0.9619144797325134,
+            "dense_sim": 0.683351457118988
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c037",
+            "score": 0.9574831128120422,
+            "dense_sim": 0.7071852087974548
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 3
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Energy generation and storage revenue increased 27% from fiscal 2024 to 2025 (from $10,086 million in 2024 to $12,771 million in 2025).",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "TSLA_2025_10K:Item7:c023",
+    "TSLA_2025_10K:Item7:c025"
+  ],
+  "usage": {
+    "input_tokens": 5405,
+    "output_tokens": 108,
+    "cost_usd": 0.017835
+  },
+  "latency_ms": 10851.8899160008,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.800570011138916,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

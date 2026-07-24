@@ -1,0 +1,110 @@
+{
+  "case_id": "ragas-005",
+  "input": "How much did Meta Platforms spend on research and development in fiscal year 2025?",
+  "final_output": "$57,372 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How much did Meta Platforms spend on research and development in fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "META_2025_10K:Item8:c011",
+            "score": 0.9824920892715454,
+            "dense_sim": 0.7391246557235718
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c017",
+            "score": 0.8438695073127747,
+            "dense_sim": 0.692308783531189
+          },
+          {
+            "id": "MSFT_2025_10K:Item7:c013",
+            "score": 0.7288380861282349,
+            "dense_sim": 0.6910395622253418
+          },
+          {
+            "id": "JNJ_2025_10K:Item8:c137",
+            "score": 0.5676524043083191,
+            "dense_sim": 0.6817014813423157
+          },
+          {
+            "id": "META_2025_10K:Item1:c015",
+            "score": 0.4802149534225464,
+            "dense_sim": 0.6708853244781494
+          },
+          {
+            "id": "CVX_2025_10K:Item8:c124",
+            "score": 0.37193188071250916,
+            "dense_sim": 0.693257212638855
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c002",
+            "score": 0.25291144847869873,
+            "dense_sim": 0.6738287806510925
+          },
+          {
+            "id": "META_2025_10K:Item8:c014",
+            "score": 0.23025257885456085,
+            "dense_sim": 0.7327723503112793
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$57,372 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "META_2025_10K:Item8:c011"
+  ],
+  "usage": {
+    "input_tokens": 3549,
+    "output_tokens": 49,
+    "cost_usd": 0.011382
+  },
+  "latency_ms": 5612.008957999933,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7391246557235718,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

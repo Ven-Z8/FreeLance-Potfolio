@@ -1,0 +1,110 @@
+{
+  "case_id": "fb-006",
+  "input": "What was JPMorgan Chase's net interest income on a managed basis for fiscal year 2025?",
+  "final_output": "$95,868 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was JPMorgan Chase's net interest income on a managed basis for fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "JPM_2025_10K:Item8:c415",
+            "score": 0.9887847900390625,
+            "dense_sim": 0.7644541263580322
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c069",
+            "score": 0.9867616891860962,
+            "dense_sim": 0.7343297004699707
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c032",
+            "score": 0.9814527034759521,
+            "dense_sim": 0.7118102312088013
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c012",
+            "score": 0.9719712138175964,
+            "dense_sim": 0.759215235710144
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c401",
+            "score": 0.9670741558074951,
+            "dense_sim": 0.7704017162322998
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c420",
+            "score": 0.9640698432922363,
+            "dense_sim": 0.7031296491622925
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c078",
+            "score": 0.9465648531913757,
+            "dense_sim": 0.7458881735801697
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c033",
+            "score": 0.8447506427764893,
+            "dense_sim": 0.7367132306098938
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$95,868 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "JPM_2025_10K:Item7:c033"
+  ],
+  "usage": {
+    "input_tokens": 4049,
+    "output_tokens": 50,
+    "cost_usd": 0.012897
+  },
+  "latency_ms": 2846.87295799813,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7704017162322998,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

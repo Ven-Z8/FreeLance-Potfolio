@@ -1,0 +1,141 @@
+{
+  "case_id": "b20-001",
+  "input": "What is the 3-year average net sales growth rate for Apple from FY2023 to FY2025?",
+  "final_output": "The 3-year average net sales growth rate is 4%, calculated from the year-over-year growth rates shown: 2% growth from FY2023 ($383,285 million) to FY2024 ($391,035 million) and 6% growth from FY2024 to FY2025 ($416,161 million), yielding an average of (2% + 6%) / 2 = 4%.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What is the 3-year average net sales growth rate for Apple from FY2023 to FY2025?",
+          "strategy": "dense",
+          "top_k": 14
+        },
+        "result": [
+          {
+            "id": "AAPL_2025_10K:Item7:c003",
+            "score": 0.7266000509262085,
+            "dense_sim": 0.7266000509262085
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c005",
+            "score": 0.7166497707366943,
+            "dense_sim": 0.7166497707366943
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c004",
+            "score": 0.7135742902755737,
+            "dense_sim": 0.7135742902755737
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.6876981258392334,
+            "dense_sim": 0.6876981258392334
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c048",
+            "score": 0.6834444999694824,
+            "dense_sim": 0.6834444999694824
+          },
+          {
+            "id": "GS_2025_10K:Item7:c003",
+            "score": 0.6711702346801758,
+            "dense_sim": 0.6711702346801758
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c000",
+            "score": 0.6646761894226074,
+            "dense_sim": 0.6646761894226074
+          },
+          {
+            "id": "AAPL_2025_10K:Item5:c001",
+            "score": 0.6631173491477966,
+            "dense_sim": 0.6631173491477966
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c000",
+            "score": 0.8145303726196289,
+            "dense_sim": 0.8145303726196289
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c009",
+            "score": 0.7850438356399536,
+            "dense_sim": 0.7850438356399536
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c010",
+            "score": 0.7605497241020203,
+            "dense_sim": 0.7605497241020203
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c006",
+            "score": 0.7604639530181885,
+            "dense_sim": 0.7604639530181885
+          },
+          {
+            "id": "HD_2026_10K:Item8:c040",
+            "score": 0.7763319611549377,
+            "dense_sim": 0.7763319611549377
+          },
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.7641649842262268,
+            "dense_sim": 0.7641649842262268
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 9
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "The 3-year average net sales growth rate is 4%, calculated from the year-over-year growth rates shown: 2% growth from FY2023 ($383,285 million) to FY2024 ($391,035 million) and 6% growth from FY2024 to FY2025 ($416,161 million), yielding an average of (2% + 6%) / 2 = 4%.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AAPL_2025_10K:Item7:c003",
+    "AAPL_2025_10K:Item7:c004"
+  ],
+  "usage": {
+    "input_tokens": 13297,
+    "output_tokens": 234,
+    "cost_usd": 0.043401
+  },
+  "latency_ms": 13851.592625000194,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "dense",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.8145303726196289,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

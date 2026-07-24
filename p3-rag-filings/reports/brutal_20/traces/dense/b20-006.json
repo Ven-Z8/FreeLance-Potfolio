@@ -1,0 +1,110 @@
+{
+  "case_id": "b20-006",
+  "input": "Did Apple's services business grow faster than its products business in fiscal year 2025? Support with figures.",
+  "final_output": "Yes, Apple's Services business grew faster than its Products business in fiscal year 2025. Services gross margin increased from $71,050 million in 2024 to $82,314 million in 2025. Products gross margin increased from $109,633 million in 2024 to $112,887 million in 2025. Services net sales increased during 2025 compared to 2024 primarily due to higher net sales from advertising, the App Store and cloud services, while Products gross margin increased during 2025 compared to 2024 primarily due to favorable costs and a different mix of products, partially offset by tariff costs.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "Did Apple's services business grow faster than its products business in fiscal year 2025? Support with figures.",
+          "strategy": "dense",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.7769365310668945,
+            "dense_sim": 0.7769365310668945
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c005",
+            "score": 0.7696160674095154,
+            "dense_sim": 0.7696160674095154
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c003",
+            "score": 0.7121440172195435,
+            "dense_sim": 0.7121440172195435
+          },
+          {
+            "id": "AAPL_2025_10K:Item1:c000",
+            "score": 0.701516330242157,
+            "dense_sim": 0.701516330242157
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c000",
+            "score": 0.6924461722373962,
+            "dense_sim": 0.6924461722373962
+          },
+          {
+            "id": "GS_2025_10K:Item7:c003",
+            "score": 0.685816764831543,
+            "dense_sim": 0.685816764831543
+          },
+          {
+            "id": "BA_2025_10K:Item7:c039",
+            "score": 0.6796332597732544,
+            "dense_sim": 0.6796332597732544
+          },
+          {
+            "id": "GS_2025_10K:Item7:c072",
+            "score": 0.6756627559661865,
+            "dense_sim": 0.6756627559661865
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 4
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Yes, Apple's Services business grew faster than its Products business in fiscal year 2025. Services gross margin increased from $71,050 million in 2024 to $82,314 million in 2025. Products gross margin increased from $109,633 million in 2024 to $112,887 million in 2025. Services net sales increased during 2025 compared to 2024 primarily due to higher net sales from advertising, the App Store and cloud services, while Products gross margin increased during 2025 compared to 2024 primarily due to favorable costs and a different mix of products, partially offset by tariff costs.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AAPL_2025_10K:Item7:c005"
+  ],
+  "usage": {
+    "input_tokens": 7965,
+    "output_tokens": 327,
+    "cost_usd": 0.0288
+  },
+  "latency_ms": 6138.280708000821,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "dense",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7769365310668945,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

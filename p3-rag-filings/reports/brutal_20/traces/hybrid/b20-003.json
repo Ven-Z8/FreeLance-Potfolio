@@ -1,0 +1,108 @@
+{
+  "case_id": "b20-003",
+  "input": "What is Google's market share in quantum computing according to its 2025 10-K?",
+  "final_output": "[REFUSED] model: The provided chunks mention quantum computing only in passing contexts: as a moonshot technology that Google continues to invest in [GOOGL_2025_10K:Item1:c003] and as an emerging technology that may introduce cybersecurity risks [BAC_2025_10K:Item1A:c046]. No information about Google's market share in quantum computing is provided in any of the chunks.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What is Google's market share in quantum computing according to its 2025 10-K?",
+          "strategy": "hybrid",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "GOOGL_2025_10K:Item7:c000",
+            "score": 0.030798389007344232,
+            "dense_sim": 0.6400175094604492
+          },
+          {
+            "id": "BAC_2025_10K:Item1A:c046",
+            "score": 0.029030910609857977,
+            "dense_sim": 0.6205739974975586
+          },
+          {
+            "id": "GOOGL_2025_10K:Item1:c003",
+            "score": 0.026919758412424506,
+            "dense_sim": 0.6090953350067139
+          },
+          {
+            "id": "GOOGL_2025_10K:Item8:c075",
+            "score": 0.026387470207694927,
+            "dense_sim": 0.6115323305130005
+          },
+          {
+            "id": "GOOGL_2025_10K:Item1A:c004",
+            "score": 0.025914384123339348,
+            "dense_sim": 0.6284501552581787
+          },
+          {
+            "id": "GOOGL_2025_10K:Item7:c012",
+            "score": 0.02565284178187404,
+            "dense_sim": 0.6489980220794678
+          },
+          {
+            "id": "GOOGL_2025_10K:Item7:c016",
+            "score": 0.025245441795231416,
+            "dense_sim": 0.6258337497711182
+          },
+          {
+            "id": "GOOGL_2025_10K:Item7:c015",
+            "score": 0.024393624393624393,
+            "dense_sim": 0.6306063532829285
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided chunks mention quantum computing only in passing contexts: as a moonshot technology that Google continues to invest in [GOOGL_2025_10K:Item1:c003] and as an emerging technology that may introduce cybersecurity risks [BAC_2025_10K:Item1A:c046]. No information about Google's market share in quantum computing is provided in any of the chunks.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 3141,
+    "output_tokens": 116,
+    "cost_usd": 0.011163
+  },
+  "latency_ms": 3381.943666998268,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": true,
+    "refusal_reason": "model: The provided chunks mention quantum computing only in passing contexts: as a moonshot technology that Google continues to invest in [GOOGL_2025_10K:Item1:c003] and as an emerging technology that may introduce cybersecurity risks [BAC_2025_10K:Item1A:c046]. No information about Google's market share in quantum computing is provided in any of the chunks.",
+    "confidence": 0.6489980220794678,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

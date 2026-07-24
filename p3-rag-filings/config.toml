@@ -1,0 +1,43 @@
+# P3 RAG config. Loaded by ragfilings.config.load(). Nothing hardcoded in modules.
+
+[corpus]
+dir = "corpus"
+manifest = "corpus/manifest.csv"
+
+[ingestion]
+# Minimum characters for a detected section to count as real content (filters TOC stubs).
+min_section_chars = 200
+# Item 7/8 bodies under this are pointer stubs ("incorporated by reference") —
+# the parser resolves them to the real block elsewhere in the document.
+pointer_chars = 5000
+
+[chunking]
+# Target chunk size; tables split at row boundaries with column headers repeated.
+max_chars = 1800
+
+[embedding]
+# Local model — zero API keys, exact reproducibility. See retrieval.py docstring.
+model = "BAAI/bge-small-en-v1.5"
+index_dir = "corpus/index"
+
+[retrieval]
+# "dense" (baseline) or "hybrid" (dense + BM25 via reciprocal-rank fusion).
+strategy = "dense"
+top_k = 8
+# Optional third stage — config stub only, deliberately not implemented in v1.
+reranker = "none"
+
+[generation]
+# OpenRouter model slug (https://openrouter.ai/models). Set OPENROUTER_API_KEY.
+model = "anthropic/claude-sonnet-4.5"
+max_tokens = 1200
+# One corrective retry when a numerical claim fails verification.
+verify_retries = 1
+
+[eval]
+# Judge model for expected.type == "judge" scoring; may differ from generation.
+judge_model = "anthropic/claude-sonnet-4.5"
+
+[verification]
+# Refuse to answer below this retrieval confidence (top dense cosine).
+min_confidence = 0.35

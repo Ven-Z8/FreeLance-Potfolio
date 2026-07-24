@@ -1,0 +1,112 @@
+{
+  "case_id": "fb-002",
+  "input": "What was Microsoft's total revenue in fiscal year 2025?",
+  "final_output": "$281,724 million (or $281.724 billion)",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Microsoft's total revenue in fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "MSFT_2025_10K:Item7:c009",
+            "score": 0.8373673558235168,
+            "dense_sim": 0.7218730449676514
+          },
+          {
+            "id": "MSFT_2025_10K:Item8:c079",
+            "score": 0.7018751502037048,
+            "dense_sim": 0.7342188358306885
+          },
+          {
+            "id": "MSFT_2025_10K:Item8:c078",
+            "score": 0.696393609046936,
+            "dense_sim": 0.7682726383209229
+          },
+          {
+            "id": "PFE_2025_10K:Item8:c185",
+            "score": 0.6045351624488831,
+            "dense_sim": 0.6776259541511536
+          },
+          {
+            "id": "MSFT_2025_10K:Item8:c059",
+            "score": 0.31443601846694946,
+            "dense_sim": 0.7291431427001953
+          },
+          {
+            "id": "MSFT_2025_10K:Item7:c008",
+            "score": 0.2838495373725891,
+            "dense_sim": 0.7512966394424438
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c018",
+            "score": 0.22322100400924683,
+            "dense_sim": 0.6897646188735962
+          },
+          {
+            "id": "MSFT_2025_10K:Item8:c046",
+            "score": 0.20277996361255646,
+            "dense_sim": 0.7263615131378174
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 2
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$281,724 million (or $281.724 billion)",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "MSFT_2025_10K:Item7:c009",
+    "MSFT_2025_10K:Item8:c078",
+    "MSFT_2025_10K:Item7:c008"
+  ],
+  "usage": {
+    "input_tokens": 3761,
+    "output_tokens": 93,
+    "cost_usd": 0.012678
+  },
+  "latency_ms": 6959.6542500003125,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7682726383209229,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

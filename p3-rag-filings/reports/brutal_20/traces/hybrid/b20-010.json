@@ -1,0 +1,112 @@
+{
+  "case_id": "b20-010",
+  "input": "What proportion of Meta's total revenue in fiscal 2025 came from advertising?",
+  "final_output": "Advertising revenue was $196,175 million out of total revenue of $200,966 million in fiscal 2025, which represents approximately 97.6% of total revenue.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What proportion of Meta's total revenue in fiscal 2025 came from advertising?",
+          "strategy": "hybrid",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "META_2025_10K:Item7:c028",
+            "score": 0.032266458495966696,
+            "dense_sim": 0.7335485219955444
+          },
+          {
+            "id": "META_2025_10K:Item8:c018",
+            "score": 0.029083245521601686,
+            "dense_sim": 0.6751896739006042
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c016",
+            "score": 0.02750455373406193,
+            "dense_sim": 0.6634842753410339
+          },
+          {
+            "id": "META_2025_10K:Item7:c029",
+            "score": 0.027346637102734665,
+            "dense_sim": 0.6688213348388672
+          },
+          {
+            "id": "PEP_2025_10K:Item8:c028",
+            "score": 0.025837770122142185,
+            "dense_sim": 0.6543030142784119
+          },
+          {
+            "id": "META_2025_10K:Item7:c027",
+            "score": 0.02528560548362529,
+            "dense_sim": 0.6947822570800781
+          },
+          {
+            "id": "META_2025_10K:Item7:c008",
+            "score": 0.023328734478866173,
+            "dense_sim": 0.64666748046875
+          },
+          {
+            "id": "MSFT_2025_10K:Item7:c008",
+            "score": 0.02318840579710145,
+            "dense_sim": 0.6479669809341431
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 3
+        },
+        "result": {
+          "verified": false,
+          "failed": [
+            "97.6%"
+          ]
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Advertising revenue was $196,175 million out of total revenue of $200,966 million in fiscal 2025, which represents approximately 97.6% of total revenue.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "META_2025_10K:Item7:c027"
+  ],
+  "usage": {
+    "input_tokens": 6580,
+    "output_tokens": 223,
+    "cost_usd": 0.023085
+  },
+  "latency_ms": 6234.048624999559,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7335485219955444,
+    "invalid_citations": [],
+    "verification_verified": false,
+    "golden_verification": "pending"
+  }
+}

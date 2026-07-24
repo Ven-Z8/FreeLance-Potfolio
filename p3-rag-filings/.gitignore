@@ -1,0 +1,20 @@
+# Corpus filings are large + reproducible via scripts/download_corpus.py; keep the manifest.
+corpus/*.htm
+!corpus/manifest.csv
+# Derived artifacts (regenerate via scripts/dump_sections.py, dump_chunks.py, `ragfilings index`).
+corpus/parsed/
+corpus/chunks/
+corpus/index/
+# Per-question eval traces are bulky; the scorecard + failure analysis stay in git.
+reports/traces/
+
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.ruff_cache/
+.env
+.env.*
+!.env.example
+

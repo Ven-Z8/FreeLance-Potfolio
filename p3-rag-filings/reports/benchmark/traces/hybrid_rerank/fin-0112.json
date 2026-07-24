@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0112",
+  "input": "What was Apple's total cost of sales in fiscal year 2025, and how does it split between products and services?",
+  "final_output": "Apple's total cost of sales in fiscal year 2025 was $220,960 million. This splits into $194,116 million for Products and $26,844 million for Services.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Apple's total cost of sales in fiscal year 2025, and how does it split between products and services?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "AAPL_2025_10K:Item8:c000",
+            "score": 0.9637525081634521,
+            "dense_sim": 0.6967790126800537
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c005",
+            "score": 0.9103111028671265,
+            "dense_sim": 0.8035680055618286
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.784839928150177,
+            "dense_sim": 0.7944665551185608
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c003",
+            "score": 0.755632758140564,
+            "dense_sim": 0.7241135239601135
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c015",
+            "score": 0.7119601368904114,
+            "dense_sim": 0.7443851828575134
+          },
+          {
+            "id": "HD_2026_10K:Item8:c041",
+            "score": 0.6793529391288757,
+            "dense_sim": 0.6650250554084778
+          },
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.44140633940696716,
+            "dense_sim": 0.6881012916564941
+          },
+          {
+            "id": "MSFT_2025_10K:Item8:c078",
+            "score": 0.4341081976890564,
+            "dense_sim": 0.6668109893798828
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 3
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Apple's total cost of sales in fiscal year 2025 was $220,960 million. This splits into $194,116 million for Products and $26,844 million for Services.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AAPL_2025_10K:Item8:c000"
+  ],
+  "usage": {
+    "input_tokens": 4416,
+    "output_tokens": 88,
+    "cost_usd": 0.014568
+  },
+  "latency_ms": 4383.232791002229,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.8035680055618286,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

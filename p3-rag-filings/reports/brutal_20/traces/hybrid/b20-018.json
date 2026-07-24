@@ -1,0 +1,108 @@
+{
+  "case_id": "b20-018",
+  "input": "What oil price does Exxon Mobil assume for its 2026 planning in the 10-K?",
+  "final_output": "[REFUSED] model: The provided context chunks do not contain information about what oil price Exxon Mobil assumes for its 2026 planning. While chunk [CVX_2025_10K:Item7:c019] mentions that Chevron assumes a Brent crude oil price of $60 per barrel for 2026, this is Chevron's assumption, not ExxonMobil's. The ExxonMobil chunks provided discuss business planning processes and outlook methodology but do not specify an assumed oil price for 2026.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What oil price does Exxon Mobil assume for its 2026 planning in the 10-K?",
+          "strategy": "hybrid",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "XOM_2025_10K:Item8:c150",
+            "score": 0.030621785881252923,
+            "dense_sim": 0.7125213146209717
+          },
+          {
+            "id": "CAT_2025_10K:Item7:c003",
+            "score": 0.029631255487269532,
+            "dense_sim": 0.6920290589332581
+          },
+          {
+            "id": "CVX_2025_10K:Item7:c019",
+            "score": 0.028068137824235385,
+            "dense_sim": 0.7013593912124634
+          },
+          {
+            "id": "XOM_2025_10K:Item16:c000",
+            "score": 0.026830135039090264,
+            "dense_sim": 0.6530796885490417
+          },
+          {
+            "id": "XOM_2025_10K:Item2:c019",
+            "score": 0.02488425925925926,
+            "dense_sim": 0.6388020515441895
+          },
+          {
+            "id": "XOM_2025_10K:Item7:c022",
+            "score": 0.02470238095238095,
+            "dense_sim": 0.6885892152786255
+          },
+          {
+            "id": "XOM_2025_10K:Item1:c000",
+            "score": 0.02168444791395611,
+            "dense_sim": 0.6172890663146973
+          },
+          {
+            "id": "CVX_2025_10K:Item7:c017",
+            "score": 0.021578029642545772,
+            "dense_sim": 0.6341776847839355
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided context chunks do not contain information about what oil price Exxon Mobil assumes for its 2026 planning. While chunk [CVX_2025_10K:Item7:c019] mentions that Chevron assumes a Brent crude oil price of $60 per barrel for 2026, this is Chevron's assumption, not ExxonMobil's. The ExxonMobil chunks provided discuss business planning processes and outlook methodology but do not specify an assumed oil price for 2026.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 3664,
+    "output_tokens": 146,
+    "cost_usd": 0.013182
+  },
+  "latency_ms": 3413.994750000711,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": true,
+    "refusal_reason": "model: The provided context chunks do not contain information about what oil price Exxon Mobil assumes for its 2026 planning. While chunk [CVX_2025_10K:Item7:c019] mentions that Chevron assumes a Brent crude oil price of $60 per barrel for 2026, this is Chevron's assumption, not ExxonMobil's. The ExxonMobil chunks provided discuss business planning processes and outlook methodology but do not specify an assumed oil price for 2026.",
+    "confidence": 0.7125213146209717,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

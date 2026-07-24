@@ -1,0 +1,111 @@
+{
+  "case_id": "fin-0402",
+  "input": "What were Tesla's total revenues in fiscal year 2025?",
+  "final_output": "$94,827 million (or $94.827 billion)",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What were Tesla's total revenues in fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "TSLA_2025_10K:Item8:c012",
+            "score": 0.8803079724311829,
+            "dense_sim": 0.7223950624465942
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c128",
+            "score": 0.4154101312160492,
+            "dense_sim": 0.676430344581604
+          },
+          {
+            "id": "PFE_2025_10K:Item8:c185",
+            "score": 0.22177858650684357,
+            "dense_sim": 0.6981868743896484
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c002",
+            "score": 0.19275686144828796,
+            "dense_sim": 0.7981762290000916
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c023",
+            "score": 0.12576642632484436,
+            "dense_sim": 0.7534008622169495
+          },
+          {
+            "id": "DIS_2025_10K:Item8:c050",
+            "score": 0.10494225472211838,
+            "dense_sim": 0.6990381479263306
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c130",
+            "score": 0.08397236466407776,
+            "dense_sim": 0.7454220056533813
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c018",
+            "score": 0.06741651892662048,
+            "dense_sim": 0.6428253054618835
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 2
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$94,827 million (or $94.827 billion)",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "TSLA_2025_10K:Item8:c012",
+    "TSLA_2025_10K:Item7:c002"
+  ],
+  "usage": {
+    "input_tokens": 3743,
+    "output_tokens": 76,
+    "cost_usd": 0.012369
+  },
+  "latency_ms": 3393.2496669985994,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7981762290000916,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

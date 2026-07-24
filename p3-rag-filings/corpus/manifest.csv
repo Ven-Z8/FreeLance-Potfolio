@@ -1,0 +1,26 @@
+ticker,company,cik,filing_date,source_url,local_file
+AAPL,Apple,320193,2025-10-31,https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm,AAPL_2025-10-31_10K.htm
+MSFT,Microsoft,789019,2025-07-30,https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm,MSFT_2025-07-30_10K.htm
+AMZN,Amazon,1018724,2026-02-06,https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm,AMZN_2026-02-06_10K.htm
+GOOGL,Alphabet,1652044,2026-02-05,https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm,GOOGL_2026-02-05_10K.htm
+META,Meta Platforms,1326801,2026-01-29,https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm,META_2026-01-29_10K.htm
+NVDA,NVIDIA,1045810,2026-02-25,https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm,NVDA_2026-02-25_10K.htm
+TSLA,Tesla,1318605,2026-01-29,https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm,TSLA_2026-01-29_10K.htm
+JPM,JPMorgan Chase,19617,2026-02-13,https://www.sec.gov/Archives/edgar/data/19617/000162828026008131/jpm-20251231.htm,JPM_2026-02-13_10K.htm
+BAC,Bank of America,70858,2026-02-25,https://www.sec.gov/Archives/edgar/data/70858/000007085826000157/bac-20251231.htm,BAC_2026-02-25_10K.htm
+GS,Goldman Sachs,886982,2026-02-25,https://www.sec.gov/Archives/edgar/data/886982/000088698226000091/gs-20251231.htm,GS_2026-02-25_10K.htm
+WMT,Walmart,104169,2026-03-13,https://www.sec.gov/Archives/edgar/data/104169/000010416926000055/wmt-20260131.htm,WMT_2026-03-13_10K.htm
+COST,Costco,909832,2025-10-08,https://www.sec.gov/Archives/edgar/data/909832/000090983225000101/cost-20250831.htm,COST_2025-10-08_10K.htm
+JNJ,Johnson & Johnson,200406,2026-02-11,https://www.sec.gov/Archives/edgar/data/200406/000020040626000016/jnj-20251228.htm,JNJ_2026-02-11_10K.htm
+PFE,Pfizer,78003,2026-02-26,https://www.sec.gov/Archives/edgar/data/78003/000007800326000026/pfe-20251231.htm,PFE_2026-02-26_10K.htm
+UNH,UnitedHealth,731766,2026-03-02,https://www.sec.gov/Archives/edgar/data/731766/000073176626000062/unh-20251231.htm,UNH_2026-03-02_10K.htm
+XOM,Exxon Mobil,34088,2026-02-18,https://www.sec.gov/Archives/edgar/data/34088/000003408826000045/xom-20251231.htm,XOM_2026-02-18_10K.htm
+CVX,Chevron,93410,2026-02-24,https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm,CVX_2026-02-24_10K.htm
+KO,Coca-Cola,21344,2026-02-20,https://www.sec.gov/Archives/edgar/data/21344/000162828026010047/ko-20251231.htm,KO_2026-02-20_10K.htm
+PEP,PepsiCo,77476,2026-02-03,https://www.sec.gov/Archives/edgar/data/77476/000007747626000007/pep-20251227.htm,PEP_2026-02-03_10K.htm
+PG,Procter & Gamble,80424,2025-08-04,https://www.sec.gov/Archives/edgar/data/80424/000008042425000076/pg-20250630.htm,PG_2025-08-04_10K.htm
+DIS,Disney,1744489,2025-11-13,https://www.sec.gov/Archives/edgar/data/1744489/000174448925000155/dis-20250927.htm,DIS_2025-11-13_10K.htm
+NFLX,Netflix,1065280,2026-01-23,https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm,NFLX_2026-01-23_10K.htm
+BA,Boeing,12927,2026-01-30,https://www.sec.gov/Archives/edgar/data/12927/000162828026004357/ba-20251231.htm,BA_2026-01-30_10K.htm
+CAT,Caterpillar,18230,2026-02-13,https://www.sec.gov/Archives/edgar/data/18230/000001823026000008/cat-20251231.htm,CAT_2026-02-13_10K.htm
+HD,Home Depot,354950,2026-03-18,https://www.sec.gov/Archives/edgar/data/354950/000162828026019436/hd-20260201.htm,HD_2026-03-18_10K.htm

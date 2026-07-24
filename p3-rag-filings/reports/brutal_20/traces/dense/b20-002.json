@@ -1,0 +1,133 @@
+{
+  "case_id": "b20-002",
+  "input": "Did Nvidia's gross margin percentage increase or decrease in FY2025 compared to FY2024?",
+  "final_output": "[REFUSED] model: The provided context chunks do not contain gross margin percentage data or the cost of revenue/gross profit figures needed to calculate gross margin for FY2025 or FY2024.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "Did Nvidia's gross margin percentage increase or decrease in FY2025 compared to FY2024?",
+          "strategy": "dense",
+          "top_k": 13
+        },
+        "result": [
+          {
+            "id": "NVDA_2026_10K:Item5:c003",
+            "score": 0.7295264601707458,
+            "dense_sim": 0.7295264601707458
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c016",
+            "score": 0.7205777168273926,
+            "dense_sim": 0.7205777168273926
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c073",
+            "score": 0.7123898267745972,
+            "dense_sim": 0.7123898267745972
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c008",
+            "score": 0.7112404108047485,
+            "dense_sim": 0.7112404108047485
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c000",
+            "score": 0.7058578729629517,
+            "dense_sim": 0.7058578729629517
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c052",
+            "score": 0.7037394046783447,
+            "dense_sim": 0.7037394046783447
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c050",
+            "score": 0.6933221817016602,
+            "dense_sim": 0.6933221817016602
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c071",
+            "score": 0.6896235942840576,
+            "dense_sim": 0.6896235942840576
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c041",
+            "score": 0.7207931280136108,
+            "dense_sim": 0.7207931280136108
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c013",
+            "score": 0.8405598402023315,
+            "dense_sim": 0.8405598402023315
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c000",
+            "score": 0.8212775588035583,
+            "dense_sim": 0.8212775588035583
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c010",
+            "score": 0.7829589247703552,
+            "dense_sim": 0.7829589247703552
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c015",
+            "score": 0.7667104601860046,
+            "dense_sim": 0.7667104601860046
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided context chunks do not contain gross margin percentage data or the cost of revenue/gross profit figures needed to calculate gross margin for FY2025 or FY2024.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 4906,
+    "output_tokens": 299,
+    "cost_usd": 0.019203
+  },
+  "latency_ms": 14522.969290999754,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "dense",
+    "refused": true,
+    "refusal_reason": "model: The provided context chunks do not contain gross margin percentage data or the cost of revenue/gross profit figures needed to calculate gross margin for FY2025 or FY2024.",
+    "confidence": 0.8405598402023315,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

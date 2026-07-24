@@ -1,0 +1,127 @@
+{
+  "case_id": "b20-009",
+  "input": "What was the difference between Amazon's net product sales and net service sales in fiscal year 2025?",
+  "final_output": "In fiscal year 2025, Amazon's net service sales were $420,658 million and net product sales were $296,266 million. The difference between them was $124,392 million (with net service sales being higher).",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was the difference between Amazon's net product sales and net service sales in fiscal year 2025?",
+          "strategy": "hybrid",
+          "top_k": 11
+        },
+        "result": [
+          {
+            "id": "AMZN_2025_10K:Item7:c018",
+            "score": 0.030776515151515152,
+            "dense_sim": 0.7643190622329712
+          },
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.03036576949620428,
+            "dense_sim": 0.7721012830734253
+          },
+          {
+            "id": "PG_2025_10K:Item7:c021",
+            "score": 0.02904040404040404,
+            "dense_sim": 0.7288961410522461
+          },
+          {
+            "id": "AAPL_2025_10K:Item1:c008",
+            "score": 0.028629032258064516,
+            "dense_sim": 0.697911262512207
+          },
+          {
+            "id": "HD_2026_10K:Item8:c038",
+            "score": 0.028594771241830064,
+            "dense_sim": 0.7105064392089844
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c022",
+            "score": 0.028438886647841874,
+            "dense_sim": 0.7030643820762634
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c025",
+            "score": 0.027242401779095628,
+            "dense_sim": 0.7027068138122559
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c027",
+            "score": 0.026625704045058884,
+            "dense_sim": 0.6848456859588623
+          },
+          {
+            "id": "AMZN_2025_10K:Item8:c087",
+            "score": 0.032018442622950824,
+            "dense_sim": 0.8131709098815918
+          },
+          {
+            "id": "AMZN_2025_10K:Item8:c007",
+            "score": 0.0304147465437788,
+            "dense_sim": 0.7606964111328125
+          },
+          {
+            "id": "HD_2026_10K:Item8:c040",
+            "score": 0.026736111111111113,
+            "dense_sim": 0.7831227779388428
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 3
+        },
+        "result": {
+          "verified": false,
+          "failed": [
+            "$124,392 million"
+          ]
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "In fiscal year 2025, Amazon's net service sales were $420,658 million and net product sales were $296,266 million. The difference between them was $124,392 million (with net service sales being higher).",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AMZN_2025_10K:Item8:c007"
+  ],
+  "usage": {
+    "input_tokens": 9819,
+    "output_tokens": 181,
+    "cost_usd": 0.032172
+  },
+  "latency_ms": 13018.849750002119,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.8131709098815918,
+    "invalid_citations": [],
+    "verification_verified": false,
+    "golden_verification": "pending"
+  }
+}

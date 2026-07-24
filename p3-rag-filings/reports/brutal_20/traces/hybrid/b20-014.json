@@ -1,0 +1,108 @@
+{
+  "case_id": "b20-014",
+  "input": "How many retail branches did JPMorgan Chase close in California in fiscal 2025?",
+  "final_output": "[REFUSED] model: The provided context chunks do not contain information about the number of retail branches JPMorgan Chase closed in California in fiscal 2025. While the chunks mention that JPMorgan Chase Bank, N.A. has U.S. branches in 48 states and Washington, D.C., there is no specific data about branch closures in California or any other state during this period.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How many retail branches did JPMorgan Chase close in California in fiscal 2025?",
+          "strategy": "hybrid",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "JPM_2025_10K:Item1:c000",
+            "score": 0.03177805800756621,
+            "dense_sim": 0.6885930299758911
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c002",
+            "score": 0.026862026862026864,
+            "dense_sim": 0.6529111862182617
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c041",
+            "score": 0.025978407557354925,
+            "dense_sim": 0.6625745296478271
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c187",
+            "score": 0.024624624624624628,
+            "dense_sim": 0.653235673904419
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c109",
+            "score": 0.024489795918367346,
+            "dense_sim": 0.6487822532653809
+          },
+          {
+            "id": "JPM_2025_10K:Item1:c015",
+            "score": 0.02364782925054572,
+            "dense_sim": 0.6319307088851929
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c403",
+            "score": 0.023542445644647556,
+            "dense_sim": 0.6585277318954468
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c001",
+            "score": 0.022809278350515466,
+            "dense_sim": 0.6591434478759766
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided context chunks do not contain information about the number of retail branches JPMorgan Chase closed in California in fiscal 2025. While the chunks mention that JPMorgan Chase Bank, N.A. has U.S. branches in 48 states and Washington, D.C., there is no specific data about branch closures in California or any other state during this period.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 2886,
+    "output_tokens": 111,
+    "cost_usd": 0.010323
+  },
+  "latency_ms": 2652.6688750018366,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": true,
+    "refusal_reason": "model: The provided context chunks do not contain information about the number of retail branches JPMorgan Chase closed in California in fiscal 2025. While the chunks mention that JPMorgan Chase Bank, N.A. has U.S. branches in 48 states and Washington, D.C., there is no specific data about branch closures in California or any other state during this period.",
+    "confidence": 0.6885930299758911,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

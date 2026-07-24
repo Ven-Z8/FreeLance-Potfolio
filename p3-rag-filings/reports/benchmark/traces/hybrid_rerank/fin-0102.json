@@ -1,0 +1,111 @@
+{
+  "case_id": "fin-0102",
+  "input": "What were Boeing's total revenues in fiscal year 2025?",
+  "final_output": "$89,463 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What were Boeing's total revenues in fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "BA_2025_10K:Item8:c001",
+            "score": 0.9119167327880859,
+            "dense_sim": 0.7802746295928955
+          },
+          {
+            "id": "BA_2025_10K:Item8:c011",
+            "score": 0.8739014267921448,
+            "dense_sim": 0.7316899299621582
+          },
+          {
+            "id": "BA_2025_10K:Item8:c012",
+            "score": 0.27740585803985596,
+            "dense_sim": 0.7491909861564636
+          },
+          {
+            "id": "PFE_2025_10K:Item8:c185",
+            "score": 0.2177981287240982,
+            "dense_sim": 0.6833333969116211
+          },
+          {
+            "id": "DIS_2025_10K:Item8:c050",
+            "score": 0.09533511102199554,
+            "dense_sim": 0.6862218379974365
+          },
+          {
+            "id": "WMT_2026_10K:Item8:c080",
+            "score": 0.08464410156011581,
+            "dense_sim": 0.6373693943023682
+          },
+          {
+            "id": "BA_2025_10K:Item8:c004",
+            "score": 0.0470760352909565,
+            "dense_sim": 0.7488275766372681
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c018",
+            "score": 0.0424656942486763,
+            "dense_sim": 0.6406978368759155
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$89,463 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "BA_2025_10K:Item8:c001",
+    "BA_2025_10K:Item8:c011"
+  ],
+  "usage": {
+    "input_tokens": 3882,
+    "output_tokens": 64,
+    "cost_usd": 0.012606
+  },
+  "latency_ms": 4186.18916700143,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7802746295928955,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

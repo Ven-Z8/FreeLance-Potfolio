@@ -1,0 +1,108 @@
+{
+  "case_id": "b20-014",
+  "input": "How many retail branches did JPMorgan Chase close in California in fiscal 2025?",
+  "final_output": "[REFUSED] model: The context chunks do not contain information about branch closures in California specifically. Chunk [JPM_2025_10K:Item7:c048] shows that JPMorgan Chase had 5,083 branches at December 31, 2025 and 4,966 branches at December 31, 2024 (a net increase of 117 branches), but there is no geographic breakdown of branch activity by state that would allow me to determine how many branches were closed in California.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How many retail branches did JPMorgan Chase close in California in fiscal 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "JPM_2025_10K:Item7:c048",
+            "score": 0.3466934859752655,
+            "dense_sim": 0.6194952726364136
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c185",
+            "score": 0.2628914415836334,
+            "dense_sim": 0.6140941977500916
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c341",
+            "score": 0.2005707323551178,
+            "dense_sim": 0.6442359685897827
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c041",
+            "score": 0.17961126565933228,
+            "dense_sim": 0.6625745296478271
+          },
+          {
+            "id": "JPM_2025_10K:Item1:c000",
+            "score": 0.11240106076002121,
+            "dense_sim": 0.6885930299758911
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c017",
+            "score": 0.06094325706362724,
+            "dense_sim": 0.655156135559082
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c187",
+            "score": 0.055732131004333496,
+            "dense_sim": 0.653235673904419
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c012",
+            "score": 0.04638379439711571,
+            "dense_sim": 0.7299119234085083
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The context chunks do not contain information about branch closures in California specifically. Chunk [JPM_2025_10K:Item7:c048] shows that JPMorgan Chase had 5,083 branches at December 31, 2025 and 4,966 branches at December 31, 2024 (a net increase of 117 branches), but there is no geographic breakdown of branch activity by state that would allow me to determine how many branches were closed in California.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 3774,
+    "output_tokens": 137,
+    "cost_usd": 0.013377
+  },
+  "latency_ms": 4638.570207996963,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": true,
+    "refusal_reason": "model: The context chunks do not contain information about branch closures in California specifically. Chunk [JPM_2025_10K:Item7:c048] shows that JPMorgan Chase had 5,083 branches at December 31, 2025 and 4,966 branches at December 31, 2024 (a net increase of 117 branches), but there is no geographic breakdown of branch activity by state that would allow me to determine how many branches were closed in California.",
+    "confidence": 0.7299119234085083,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

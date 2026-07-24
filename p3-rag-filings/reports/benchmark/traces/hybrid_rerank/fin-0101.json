@@ -1,0 +1,111 @@
+{
+  "case_id": "fin-0101",
+  "input": "What was Apple's total net sales for fiscal year 2025?",
+  "final_output": "$416,161 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was Apple's total net sales for fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "HD_2026_10K:Item8:c040",
+            "score": 0.970898449420929,
+            "dense_sim": 0.7712878584861755
+          },
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.9602435827255249,
+            "dense_sim": 0.7408381700515747
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c003",
+            "score": 0.9513635039329529,
+            "dense_sim": 0.7939179539680481
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.8148922324180603,
+            "dense_sim": 0.7661494016647339
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c005",
+            "score": 0.7135105729103088,
+            "dense_sim": 0.7908594608306885
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c015",
+            "score": 0.5676845908164978,
+            "dense_sim": 0.6999967694282532
+          },
+          {
+            "id": "AAPL_2025_10K:Item5:c001",
+            "score": 0.15909498929977417,
+            "dense_sim": 0.7213414311408997
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c018",
+            "score": 0.12102487683296204,
+            "dense_sim": 0.6514315009117126
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$416,161 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "AAPL_2025_10K:Item7:c003",
+    "AAPL_2025_10K:Item8:c015"
+  ],
+  "usage": {
+    "input_tokens": 3630,
+    "output_tokens": 70,
+    "cost_usd": 0.01194
+  },
+  "latency_ms": 9211.824792000698,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7939179539680481,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

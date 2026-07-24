@@ -3,21 +3,25 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "What proportion of Meta's total revenue in fiscal 2025 came from advertising?",
-  "answer": "Advertising revenue was $196,175 million and total revenue was $200,966 million for the year ended December 31, 2025. This represents 97.6% of total revenue from advertising (calculated as $196,175 / $200,966).",
+  "answer": "Advertising revenue was $196,175 million out of total revenue of $200,966 million in fiscal 2025, which represents approximately 97.6% of total revenue.",
   "citations": [
-    "META_2025_10K:Item8:c043"
+    "META_2025_10K:Item7:c027",
+    "META_2025_10K:Item8:c043",
+    "META_2025_10K:Item8:c011"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 6201.97166700018,
-  "cost_usd": 0.025439999999999997,
+  "latency_ms": 6034.9521249991085,
+  "cost_usd": 0.025925999999999998,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
-    "answer": "Advertising revenue was $196,175 million and total revenue was $200,966 million for the year ended December 31, 2025. This represents 97.6% of total revenue from advertising (calculated as $196,175 / $200,966).",
+    "answer": "Advertising revenue was $196,175 million out of total revenue of $200,966 million in fiscal 2025, which represents approximately 97.6% of total revenue.",
     "citations": [
-      "META_2025_10K:Item8:c043"
+      "META_2025_10K:Item7:c027",
+      "META_2025_10K:Item8:c043",
+      "META_2025_10K:Item8:c011"
     ],
     "invalid_citations": [],
     "verification": {
@@ -40,30 +44,18 @@
           "value": 97.6,
           "is_pct": true,
           "found": false
-        },
-        {
-          "raw": "$196,175",
-          "value": 196175.0,
-          "is_pct": false,
-          "found": true
-        },
-        {
-          "raw": "$200,966",
-          "value": 200966.0,
-          "is_pct": false,
-          "found": true
         }
       ]
     },
     "confidence": 0.7335484027862549,
     "usage": {
-      "input_tokens": 7545,
-      "output_tokens": 187,
-      "cost_usd": 0.025439999999999997,
+      "input_tokens": 7512,
+      "output_tokens": 226,
+      "cost_usd": 0.025925999999999998,
       "calls": 2
     },
     "math_result": null,
-    "latency_ms": 6201.97166700018,
+    "latency_ms": 6034.9521249991085,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -158,54 +150,6 @@
       },
       {
         "chunk": {
-          "id": "NFLX_2025_10K:Item7:c002",
-          "doc_id": "NFLX_2025_10K",
-          "ticker": "NFLX",
-          "company": "Netflix",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management's Discussion and Analysis",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [
-            "8"
-          ],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Table of Contents\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except percentages)\nRevenues | $45,183,036 | $39,000,966 | $33,723,297 | $6,182,070 | 16 | %\nRevenues for the year ended December 31, 2025 increased 16% as compared to the year ended December 31, 2024, primarily due to the growth in memberships, price increases, and increased advertising revenue, partially offset by unfavorable changes in foreign exchange rates, net of hedging.\nThe following table summarizes streaming revenues by region for the years ended December 31, 2025, 2024 and 2023. Total streaming revenues are inclusive of hedging gains (losses) of $(91) million and $124 million for the years ended December 31, 2025 and 2024, respectively. No hedging gains and losses were recognized in total streaming revenues for the year ended December 31, 2023. See Note 8\nDerivative Financial Instruments and Hedging Activities\nto the consolidated financial statements for further information regarding the Company’s derivative and non-derivative financial instruments.\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except revenue per membership and percentages)\nUnited States and Canada (UCAN) | $19,957,152 | $17,359,369 | $14,873,783 | $2,597,783 | 15 | %\nEurope, Middle East, and Africa (EMEA) | 14,514,646 | 12,387,035 | 10,556,487 | 2,127,611 | 17 | %\nLatin America (LATAM) | 5,357,521 | 4,839,816 | 4,446,461 | 517,705 | 11 | %\nAsia-Pacific (APAC) | 5,353,717 | 4,414,746 | 3,763,727 | 938,971 | 21 | %\nTotal Streaming Revenues | $45,183,036 | $39,000,966 | $33,640,458 | $6,182,070 | 16 | %\nNon-GAAP Constant Currency Information",
-          "n_chars": 1680
-        },
-        "score": 0.3981029987335205,
-        "dense_sim": 0.669086754322052
-      },
-      {
-        "chunk": {
-          "id": "AAPL_2025_10K:Item8:c016",
-          "doc_id": "AAPL_2025_10K",
-          "ticker": "AAPL",
-          "company": "Apple",
-          "fiscal_year": 2025,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": null,
-          "note": "2",
-          "note_refs": [
-            "13"
-          ],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "The Company’s proportion of net sales by disaggregated revenue source was generally consistent for each reportable segment in Note 13, “Segment Information and Geographic Data” for 2025, 2024 and 2023, except in Greater China, where iPhone revenue represented a moderately higher proportion of net sales.\nAs of September 27, 2025 and September 28, 2024, the Company had total deferred revenue of $\n13.7\nbillion and $\n12.8\nbillion, respectively. As of September 27, 2025, the Company expects\n66\n% of total deferred revenue to be realized in less than a year,\n23\n% within one-to-two years,\n9\n% within two-to-three years and\n2\n% in greater than three years.",
-          "n_chars": 654
-        },
-        "score": 0.37973034381866455,
-        "dense_sim": 0.6634842157363892
-      },
-      {
-        "chunk": {
           "id": "META_2025_10K:Item8:c043",
           "doc_id": "META_2025_10K",
           "ticker": "META",
@@ -228,25 +172,69 @@
       },
       {
         "chunk": {
-          "id": "JNJ_2025_10K:Item8:c021",
-          "doc_id": "JNJ_2025_10K",
-          "ticker": "JNJ",
-          "company": "Johnson & Johnson",
+          "id": "META_2025_10K:Item8:c011",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
           "fiscal_year": 2025,
           "item": "8",
           "section_id": "Item8",
           "part": "II",
-          "title": "Financial statements and supplementary data",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See Accompanying Notes to Consolidated Financial Statements.\n88\nTable of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF INCOME\n(In millions, except per share amounts)\nYear Ended December 31,\n2025 | 2024 | 2023\nRevenue | $200,966 | $164,501 | $134,902\nCosts and expenses:\nCost of revenue | 36,175 | 30,161 | 25,959\nResearch and development | 57,372 | 43,873 | 38,483\nMarketing and sales | 11,991 | 11,347 | 12,301\nGeneral and administrative | 12,152 | 9,740 | 11,408\nTotal costs and expenses | 117,690 | 95,121 | 88,151\nIncome from operations | 83,276 | 69,380 | 46,751\nInterest and other income, net | 2,656 | 1,283 | 677\nIncome before provision for income taxes | 85,932 | 70,663 | 47,428\nProvision for income taxes | 25,474 | 8,303 | 8,330\nNet income | $60,458 | $62,360 | $39,098\nEarnings per share:\nBasic | $23.98 | $24.61 | $15.19\nDiluted | $23.49 | $23.86 | $14.87\nWeighted-average shares used to compute earnings per share:\nBasic | 2,521 | 2,534 | 2,574\nDiluted | 2,574 | 2,614 | 2,629\nSee Accompanying Notes to Consolidated Financial Statements.\n89\nTable of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(In millions)\nYear Ended December 31,\n2025 | 2024 | 2023\nNet income | $60,458 | $62,360 | $39,098\nOther comprehensive income (loss):\nChange in foreign currency translation adjustment, net of tax | 2,693 | ( 1,413 ) | 618\nChange in unrealized gain (loss) on available-for-sale investments and other, net of tax | 675 | 471 | 757\nComprehensive income | $63,826 | $61,418 | $40,473\nSee Accompanying Notes to Consolidated Financial Statements.\n90\nTable of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY\n(In millions, except per share amounts)",
+          "n_chars": 1723
+        },
+        "score": 0.13766494393348694,
+        "dense_sim": 0.6632575988769531
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item7:c003",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
           "resolved_from": null,
           "note": null,
           "note_refs": [],
           "has_table": false,
           "table_continuation": false,
-          "text": "* Milestones are capitalized as intangible assets and amortized to cost of products sold over the useful life.\nFor all years presented, there was no individual project that represented greater than\n5\n% of the total annual consolidated research and development expense other than the acquired in-process research & development expense of $\n1.25\nbillion to secure the global rights to the NM26 bispecific antibody (Yellow Jersey acquisition) in fiscal year 2024.\nThe Company has a number of products and compounds developed in collaboration with strategic partners including XARELTO, co-developed with Bayer HealthCare AG, IMBRUVICA, developed in collaboration and co-marketed with Pharmacyclics LLC, an AbbVie company and CARVYKTI, licensed and developed in collaboration with Legend Biotech USA Inc. and Legend Biotech Ireland Limited.\nSeparately, the Company has a number of licensing arrangements for products and compounds including DARZALEX, licensed from Genmab A/S.\n2025 Annual Report\n53\nAdvertising\nCosts associated with advertising are expensed in the year incurred and are included in selling, marketing and administrative expenses. Advertising expenses worldwide, which comprised television, radio, print media and Internet advertising, were $\n1.6\nbillion, $\n0.6\nbillion and $\n0.5\nbillion in fiscal years 2025, 2024 and 2023, respectively.\nIncome taxes\nIncome taxes are recorded based on amounts refundable or payable for the current year and include the results of any difference between U.S. GAAP accounting and tax reporting, recorded as deferred tax assets or liabilities. The Company estimates deferred tax assets and liabilities based on enacted tax law and rates. Future changes in tax laws and rates may affect recorded deferred tax assets and liabilities in the future.",
-          "n_chars": 1788
+          "text": "Effective tax rate was 30% for the year ended December 31, 2025. This includes the effects of the implementation of the One Big Beautiful Bill Act during the third quarter of 2025. Absent the valuation allowance charge as of the enactment date, our 2025 effective tax rate would have decreased by 17 percentage points to 13%.\n•\nHeadcount was 78,865 as of December 31, 2025, an increase of 6% year-over-year.\nFamily of Apps Metrics\n•\nFamily daily active people (DAP) was 3.58 billion on average for December 2025, an increase of 7% year-over-year.\n•\nAd impressions delivered across our Family of Apps increased by 12% year-over-year in 2025.\n•\nAverage price per ad increased by 9% year-over-year in 2025.\nDevelopments in Advertising\nSubstantially all of our revenue is currently generated from advertising on Facebook and Instagram. We rely on targeting and measurement tools that incorporate data signals from user activity on websites and services that we do not control, as well as signals generated within our products, in order to deliver relevant and effective ads to our users. Our advertising revenue has been, and we expect will continue to be, adversely affected by reduced marketer spending as a result of limitations on our ad targeting and measurement tools arising from changes to the regulatory environment and third-party mobile operating systems and browsers.",
+          "n_chars": 1375
         },
-        "score": 0.13796372711658478,
-        "dense_sim": 0.6477901935577393
+        "score": 0.10176517814397812,
+        "dense_sim": 0.6969441175460815
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item8:c018",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "1",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Note 1.\nSummary of Significant Accounting Policies\nOrganization and Description of Business\nWe were incorporated in Delaware in July 2004. Our mission is to build the future of human connection and the technology that makes it possible.\nWe report our financial results based on\ntwo\nreportable segments: Family of Apps (FoA) and Reality Labs (RL). The segment information aligns with how the chief operating decision maker (CODM), who is our chief executive officer (CEO), reviews and manages the business. We generate substantially all of our revenue from advertising.\nBasis of Presentation\nWe prepared the consolidated financial statements in accordance with U.S. generally accepted accounting principles (GAAP). The consolidated financial statements include the accounts of Meta Platforms, Inc. and its subsidiaries where we have controlling financial interests. All intercompany balances and transactions have been eliminated.\nUse of Estimates",
+          "n_chars": 946
+        },
+        "score": 0.06400444358587265,
+        "dense_sim": 0.6751896142959595
       }
     ],
     "model": "anthropic/claude-sonnet-4.5"

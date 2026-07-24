@@ -1,0 +1,111 @@
+{
+  "case_id": "fin-0121",
+  "input": "How did Boeing's total revenues change from fiscal year 2024 to 2025, and what does management attribute the change to?",
+  "final_output": "Boeing's total revenues increased from $66,517 million in 2024 to $89,463 million in 2025. Management attributes the improvement primarily to higher deliveries on commercial airplane programs during 2025 as compared to 2024, and increased production in the commercial airplanes business. The 2024 revenues had been negatively impacted by slowed and/or paused production and lower deliveries due to safety and quality improvement actions following the 737-9 door plug accident on January 5, 2024, supply chain constraints, and the IAM 751 work stoppage.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How did Boeing's total revenues change from fiscal year 2024 to 2025, and what does management attribute the change to?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "BA_2025_10K:Item7:c042",
+            "score": 0.9879812598228455,
+            "dense_sim": 0.7690290212631226
+          },
+          {
+            "id": "BA_2025_10K:Item8:c001",
+            "score": 0.9766175746917725,
+            "dense_sim": 0.7542048692703247
+          },
+          {
+            "id": "NFLX_2025_10K:Item7:c002",
+            "score": 0.9454048275947571,
+            "dense_sim": 0.6917612552642822
+          },
+          {
+            "id": "META_2025_10K:Item7:c030",
+            "score": 0.849453330039978,
+            "dense_sim": 0.7226752042770386
+          },
+          {
+            "id": "NFLX_2025_10K:Item7:c000",
+            "score": 0.8289973139762878,
+            "dense_sim": 0.6632068157196045
+          },
+          {
+            "id": "CAT_2025_10K:Item7:c007",
+            "score": 0.743122398853302,
+            "dense_sim": 0.6822807192802429
+          },
+          {
+            "id": "JNJ_2025_10K:Item8:c089",
+            "score": 0.6747729182243347,
+            "dense_sim": 0.6638638973236084
+          },
+          {
+            "id": "NFLX_2025_10K:Item7:c007",
+            "score": 0.6635133624076843,
+            "dense_sim": 0.7047215700149536
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 2
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Boeing's total revenues increased from $66,517 million in 2024 to $89,463 million in 2025. Management attributes the improvement primarily to higher deliveries on commercial airplane programs during 2025 as compared to 2024, and increased production in the commercial airplanes business. The 2024 revenues had been negatively impacted by slowed and/or paused production and lower deliveries due to safety and quality improvement actions following the 737-9 door plug accident on January 5, 2024, supply chain constraints, and the IAM 751 work stoppage.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "BA_2025_10K:Item8:c001",
+    "BA_2025_10K:Item7:c042"
+  ],
+  "usage": {
+    "input_tokens": 8986,
+    "output_tokens": 376,
+    "cost_usd": 0.032598
+  },
+  "latency_ms": 11190.922249999858,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7690290212631226,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

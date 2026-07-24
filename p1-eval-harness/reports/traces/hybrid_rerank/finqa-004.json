@@ -11,8 +11,8 @@
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 3422.0632079995994,
-  "cost_usd": 0.013257,
+  "latency_ms": 6529.095791000145,
+  "cost_usd": 0.012396,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
@@ -35,13 +35,13 @@
     },
     "confidence": 0.7538219690322876,
     "usage": {
-      "input_tokens": 3999,
+      "input_tokens": 3712,
       "output_tokens": 84,
-      "cost_usd": 0.013257,
+      "cost_usd": 0.012396,
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 3422.0632079995994,
+    "latency_ms": 6529.095791000145,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -180,6 +180,28 @@
       },
       {
         "chunk": {
+          "id": "BA_2025_10K:Item7:c016",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Years ended December 31, | 2025 | 2024\nCommercial Airplanes | $567,290 | $435,175\nDefense, Space & Security | 84,786 | 64,023\nGlobal Services | 29,720 | 21,403\nUnallocated items, eliminations and other | 411 | 735\nTotal Backlog | $682,207 | $521,336\nContractual backlog | $639,721 | $498,802\nUnobligated backlog | 42,486 | 22,534\nTotal Backlog | $682,207 | $521,336",
+          "n_chars": 365
+        },
+        "score": 0.7595483064651489,
+        "dense_sim": 0.7049398422241211
+      },
+      {
+        "chunk": {
           "id": "BA_2025_10K:Item7:c013",
           "doc_id": "BA_2025_10K",
           "ticker": "BA",
@@ -201,30 +223,6 @@
         },
         "score": 0.6317898035049438,
         "dense_sim": 0.7249122262001038
-      },
-      {
-        "chunk": {
-          "id": "JNJ_2025_10K:Item7:c021",
-          "doc_id": "JNJ_2025_10K",
-          "ticker": "JNJ",
-          "company": "Johnson & Johnson",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management’s discussion and analysis of results of operations and financial condition",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [
-            "17"
-          ],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "(1)\nSee Note 17 to the Consolidated Financial Statements for more details.\n(2)\nAmounts not allocated to segments include interest (income) expense and general corporate (income) expense. The fiscal year 2025 includes the reversal of approximately $7.0 billion, a significant portion of the previously accrued talc reserve. The fiscal year 2024 includes charges for talc matters of approximately $5.1 billion and a loss of approximately $0.4 billion related to the debt to equity exchange of the Company's remaining shares of Kenvue Common Stock.\n2025 Annual Report\n31\nInnovative Medicine segment:\nIn 2025, the Innovative Medicine segment income before tax as a percent to sales was 36.9% versus 33.2% in 2024. The increase in the income before tax as a percent of sales was primarily driven by the following:\n•\nAcquired in-process research and development expense of $1.25 billion to secure the global rights to the NM26 bispecific antibody (Yellow Jersey acquisition) in 2024\n•\nLitigation income of $0.1 billion in 2025 versus expense of $0.4 billion in 2024, primarily related to Risperdal Gynecomastia\n•\nResearch & development leverage resulting from investment prioritization\npartially offset by\n•\nAcquisition, integration and divestiture related net expense of $0.4 billion in 2025 primarily related to Intra-Cellular and Halda Therapeutics and $0.1 billion in 2024\n•\nMonetization of royalty rights of $0.3 billion in 2024\n•\nUnfavorable Product mix, the impact of Medicare Part D redesign and unfavorable transactional currency\n•\nIncreased investment related to the acquisition of Intra-Cellular (CAPLYTA)\nMedTech segment:",
-          "n_chars": 1627
-        },
-        "score": 0.325466513633728,
-        "dense_sim": 0.6625846028327942
       }
     ],
     "model": "anthropic/claude-sonnet-4.5"

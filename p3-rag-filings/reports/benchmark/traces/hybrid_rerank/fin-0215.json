@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0215",
+  "input": "What impairment of intangible assets did PepsiCo record in fiscal year 2025, and which notes to the financial statements discuss it?",
+  "final_output": "PepsiCo recorded an impairment of intangible assets of $1,993 million in fiscal year 2025. This is discussed in Notes 1 and 4 to the consolidated financial statements.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What impairment of intangible assets did PepsiCo record in fiscal year 2025, and which notes to the financial statements discuss it?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "PEP_2025_10K:Item8:c000",
+            "score": 0.9964501857757568,
+            "dense_sim": 0.7101309299468994
+          },
+          {
+            "id": "PEP_2025_10K:Item8:c002",
+            "score": 0.9803716540336609,
+            "dense_sim": 0.7357799410820007
+          },
+          {
+            "id": "PEP_2025_10K:Item8:c005",
+            "score": 0.967667281627655,
+            "dense_sim": 0.7488052248954773
+          },
+          {
+            "id": "PEP_2025_10K:Item8:c109",
+            "score": 0.9095816612243652,
+            "dense_sim": 0.7373323440551758
+          },
+          {
+            "id": "PEP_2025_10K:Item7:c033",
+            "score": 0.8911303281784058,
+            "dense_sim": 0.7015958428382874
+          },
+          {
+            "id": "KO_2025_10K:Item8:c146",
+            "score": 0.8852720856666565,
+            "dense_sim": 0.720811128616333
+          },
+          {
+            "id": "JNJ_2025_10K:Item8:c016",
+            "score": 0.7655713558197021,
+            "dense_sim": 0.7379536628723145
+          },
+          {
+            "id": "PEP_2025_10K:Item15:c035",
+            "score": 0.764567494392395,
+            "dense_sim": 0.7202515006065369
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "PepsiCo recorded an impairment of intangible assets of $1,993 million in fiscal year 2025. This is discussed in Notes 1 and 4 to the consolidated financial statements.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "PEP_2025_10K:Item8:c000"
+  ],
+  "usage": {
+    "input_tokens": 3949,
+    "output_tokens": 92,
+    "cost_usd": 0.013227
+  },
+  "latency_ms": 3732.7047910002875,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7488052248954773,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

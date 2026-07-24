@@ -5,3 +5,14 @@
 __pycache__/
 *.pyc
 .venv/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+
+# Derived artifacts & raw corpus files (reproducible via scripts)
+p3-rag-filings/corpus/*.htm
+!p3-rag-filings/corpus/manifest.csv
+p3-rag-filings/corpus/parsed/
+p3-rag-filings/corpus/chunks/
+p3-rag-filings/corpus/index/
+

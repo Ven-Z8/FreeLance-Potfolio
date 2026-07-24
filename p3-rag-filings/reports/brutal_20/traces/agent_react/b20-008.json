@@ -1,0 +1,108 @@
+{
+  "case_id": "b20-008",
+  "input": "Given that Apple's revenue dropped by 50% in 2025, what was the remaining revenue?",
+  "final_output": "[REFUSED] model: The premise of the question is incorrect. According to the context, Apple's total net sales were $416,161 million in 2025 and $391,035 million in 2024, representing an increase of approximately 6.4%, not a 50% drop. Therefore, the question cannot be answered as stated.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "Given that Apple's revenue dropped by 50% in 2025, what was the remaining revenue?",
+          "strategy": "agent_react",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "GS_2025_10K:Item7:c003",
+            "score": 0.8096449971199036,
+            "dense_sim": 0.7175360321998596
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c016",
+            "score": 0.44494128227233887,
+            "dense_sim": 0.7191912531852722
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c030",
+            "score": 0.3996829390525818,
+            "dense_sim": 0.6903829574584961
+          },
+          {
+            "id": "PFE_2025_10K:Item8:c185",
+            "score": 0.28319451212882996,
+            "dense_sim": 0.6382795572280884
+          },
+          {
+            "id": "AAPL_2025_10K:Item8:c015",
+            "score": 0.1701837182044983,
+            "dense_sim": 0.667244553565979
+          },
+          {
+            "id": "GS_2025_10K:Item7:c024",
+            "score": 0.14651702344417572,
+            "dense_sim": 0.6715143918991089
+          },
+          {
+            "id": "MSFT_2025_10K:Item8:c059",
+            "score": 0.14474524557590485,
+            "dense_sim": 0.6417903900146484
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.1326434165239334,
+            "dense_sim": 0.7077535390853882
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The premise of the question is incorrect. According to the context, Apple's total net sales were $416,161 million in 2025 and $391,035 million in 2024, representing an increase of approximately 6.4%, not a 50% drop. Therefore, the question cannot be answered as stated.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 500,
+    "output_tokens": 100,
+    "cost_usd": 0.015
+  },
+  "latency_ms": 4098.497833001602,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "agent_react",
+    "refused": true,
+    "refusal_reason": "model: The premise of the question is incorrect. According to the context, Apple's total net sales were $416,161 million in 2025 and $391,035 million in 2024, representing an increase of approximately 6.4%, not a 50% drop. Therefore, the question cannot be answered as stated.",
+    "confidence": 0.7191912531852722,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

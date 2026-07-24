@@ -11,7 +11,7 @@
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 2917.311917000916,
+  "latency_ms": 3369.7132499983127,
   "cost_usd": 0.011196,
   "raw_response": {
     "refused": false,
@@ -41,7 +41,7 @@
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 2917.311917000916,
+    "latency_ms": 3369.7132499983127,
     "strategy": "hybrid_rerank",
     "hits": [
       {

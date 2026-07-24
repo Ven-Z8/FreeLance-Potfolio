@@ -1,0 +1,108 @@
+{
+  "case_id": "fin-0141",
+  "input": "What was the total revenue last fiscal year?",
+  "final_output": "[REFUSED] model: The question asks about 'last fiscal year' but does not specify which company. The context chunks contain revenue data for multiple companies (Meta, Coca-Cola, Microsoft, Amazon, NVIDIA, and Walmart) with different fiscal year end dates and different 'most recent' periods. Without knowing which company the question refers to, I cannot provide a precise answer.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was the total revenue last fiscal year?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "META_2025_10K:Item8:c043",
+            "score": 0.10669994354248047,
+            "dense_sim": 0.7307863831520081
+          },
+          {
+            "id": "KO_2025_10K:Item8:c045",
+            "score": 0.09346817433834076,
+            "dense_sim": 0.7422324419021606
+          },
+          {
+            "id": "MSFT_2025_10K:Item8:c078",
+            "score": 0.05242724344134331,
+            "dense_sim": 0.741784393787384
+          },
+          {
+            "id": "HD_2026_10K:Item5:c000",
+            "score": 0.050446148961782455,
+            "dense_sim": 0.6137615442276001
+          },
+          {
+            "id": "AMZN_2025_10K:Item8:c043",
+            "score": 0.01890331506729126,
+            "dense_sim": 0.744147539138794
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c050",
+            "score": 0.014659831300377846,
+            "dense_sim": 0.7203261256217957
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c016",
+            "score": 0.012592766433954239,
+            "dense_sim": 0.6749767661094666
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c018",
+            "score": 0.009816697798669338,
+            "dense_sim": 0.7186277508735657
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The question asks about 'last fiscal year' but does not specify which company. The context chunks contain revenue data for multiple companies (Meta, Coca-Cola, Microsoft, Amazon, NVIDIA, and Walmart) with different fiscal year end dates and different 'most recent' periods. Without knowing which company the question refers to, I cannot provide a precise answer.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 3629,
+    "output_tokens": 106,
+    "cost_usd": 0.012477
+  },
+  "latency_ms": 5024.461917000735,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": true,
+    "refusal_reason": "model: The question asks about 'last fiscal year' but does not specify which company. The context chunks contain revenue data for multiple companies (Meta, Coca-Cola, Microsoft, Amazon, NVIDIA, and Walmart) with different fiscal year end dates and different 'most recent' periods. Without knowing which company the question refers to, I cannot provide a precise answer.",
+    "confidence": 0.744147539138794,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

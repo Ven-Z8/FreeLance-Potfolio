@@ -1,0 +1,162 @@
+{
+  "case_id": "fin-0421",
+  "input": "Did Tesla's total revenues grow or decline in fiscal 2025 compared to 2024, and which segment offset the automotive trend?",
+  "final_output": "Tesla's total revenues declined by $2.86 billion, or 3%, in fiscal 2025 compared to 2024, decreasing from $97.69 billion to $94.83 billion. The Energy generation and storage segment offset the automotive trend by growing $2.69 billion, or 27%, while the automotive & services and other segment declined by $5.55 billion, or 6%.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "Did Tesla's total revenues grow or decline in fiscal 2025 compared to 2024, and which segment offset the automotive trend?",
+          "strategy": "hybrid_rerank",
+          "top_k": 18
+        },
+        "result": [
+          {
+            "id": "TSLA_2025_10K:Item7:c028",
+            "score": 0.9976372718811035,
+            "dense_sim": 0.7454720735549927
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c024",
+            "score": 0.9974197149276733,
+            "dense_sim": 0.6448816657066345
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c025",
+            "score": 0.9948257207870483,
+            "dense_sim": 0.7622438669204712
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c002",
+            "score": 0.989952027797699,
+            "dense_sim": 0.7504303455352783
+          },
+          {
+            "id": "GS_2025_10K:Item7:c022",
+            "score": 0.9795635342597961,
+            "dense_sim": 0.6712874174118042
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c023",
+            "score": 0.9494025707244873,
+            "dense_sim": 0.7637437582015991
+          },
+          {
+            "id": "HD_2026_10K:Item7:c008",
+            "score": 0.9441479444503784,
+            "dense_sim": 0.6447764039039612
+          },
+          {
+            "id": "UNH_2025_10K:Item7:c009",
+            "score": 0.9358473420143127,
+            "dense_sim": 0.673373818397522
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c012",
+            "score": 0.9798179864883423,
+            "dense_sim": 0.7318066358566284
+          },
+          {
+            "id": "NFLX_2025_10K:Item7:c000",
+            "score": 0.9738016724586487,
+            "dense_sim": 0.6707051396369934
+          },
+          {
+            "id": "META_2025_10K:Item7:c029",
+            "score": 0.9734861254692078,
+            "dense_sim": 0.7123129367828369
+          },
+          {
+            "id": "NFLX_2025_10K:Item7:c002",
+            "score": 0.9715769290924072,
+            "dense_sim": 0.6961536407470703
+          },
+          {
+            "id": "META_2025_10K:Item7:c027",
+            "score": 0.9256174564361572,
+            "dense_sim": 0.6947564482688904
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c019",
+            "score": 0.9241427183151245,
+            "dense_sim": 0.7351536750793457
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c130",
+            "score": 0.9950821399688721,
+            "dense_sim": 0.7936711311340332
+          },
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.9888396859169006,
+            "dense_sim": 0.7516478300094604
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c129",
+            "score": 0.9884974956512451,
+            "dense_sim": 0.7219090461730957
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c029",
+            "score": 0.987598717212677,
+            "dense_sim": 0.7397768497467041
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 8
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Tesla's total revenues declined by $2.86 billion, or 3%, in fiscal 2025 compared to 2024, decreasing from $97.69 billion to $94.83 billion. The Energy generation and storage segment offset the automotive trend by growing $2.69 billion, or 27%, while the automotive & services and other segment declined by $5.55 billion, or 6%.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "TSLA_2025_10K:Item7:c002",
+    "TSLA_2025_10K:Item7:c023",
+    "TSLA_2025_10K:Item7:c025"
+  ],
+  "usage": {
+    "input_tokens": 8514,
+    "output_tokens": 170,
+    "cost_usd": 0.028092
+  },
+  "latency_ms": 16633.267042001535,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7936711311340332,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "case_id": "b20-014",
+  "input": "How many retail branches did JPMorgan Chase close in California in fiscal 2025?",
+  "final_output": "[REFUSED] model: The provided context chunks do not contain information about the number of retail branches JPMorgan Chase closed in California in fiscal 2025. The chunks discuss assets, liabilities, loan details, regulatory matters, and mention that JPMorgan Chase Bank, N.A. has U.S. branches in 48 states and Washington, D.C., but do not provide specific data on branch closures in California or any other state.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How many retail branches did JPMorgan Chase close in California in fiscal 2025?",
+          "strategy": "dense",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "JPM_2025_10K:Item8:c012",
+            "score": 0.7299119234085083,
+            "dense_sim": 0.7299119234085083
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c237",
+            "score": 0.7173458337783813,
+            "dense_sim": 0.7173458337783813
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c401",
+            "score": 0.6979801058769226,
+            "dense_sim": 0.6979801058769226
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c143",
+            "score": 0.6907159090042114,
+            "dense_sim": 0.6907159090042114
+          },
+          {
+            "id": "JPM_2025_10K:Item1:c000",
+            "score": 0.6885930299758911,
+            "dense_sim": 0.6885930299758911
+          },
+          {
+            "id": "JPM_2025_10K:Item7:c010",
+            "score": 0.6799997091293335,
+            "dense_sim": 0.6799997091293335
+          },
+          {
+            "id": "JPM_2025_10K:Item8:c406",
+            "score": 0.6791857481002808,
+            "dense_sim": 0.6791857481002808
+          },
+          {
+            "id": "JPM_2025_10K:Item1:c016",
+            "score": 0.6776455044746399,
+            "dense_sim": 0.6776455044746399
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided context chunks do not contain information about the number of retail branches JPMorgan Chase closed in California in fiscal 2025. The chunks discuss assets, liabilities, loan details, regulatory matters, and mention that JPMorgan Chase Bank, N.A. has U.S. branches in 48 states and Washington, D.C., but do not provide specific data on branch closures in California or any other state.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 3708,
+    "output_tokens": 121,
+    "cost_usd": 0.012939
+  },
+  "latency_ms": 2871.972666998772,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "dense",
+    "refused": true,
+    "refusal_reason": "model: The provided context chunks do not contain information about the number of retail branches JPMorgan Chase closed in California in fiscal 2025. The chunks discuss assets, liabilities, loan details, regulatory matters, and mention that JPMorgan Chase Bank, N.A. has U.S. branches in 48 states and Washington, D.C., but do not provide specific data on branch closures in California or any other state.",
+    "confidence": 0.7299119234085083,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

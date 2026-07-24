@@ -1,0 +1,125 @@
+{
+  "case_id": "b20-005",
+  "input": "What was the percentage change in Tesla's energy generation and storage revenue from fiscal 2024 to 2025?",
+  "final_output": "Energy generation and storage revenue increased 27% in the year ended December 31, 2025 as compared to the year ended December 31, 2024.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What was the percentage change in Tesla's energy generation and storage revenue from fiscal 2024 to 2025?",
+          "strategy": "hybrid",
+          "top_k": 11
+        },
+        "result": [
+          {
+            "id": "TSLA_2025_10K:Item7:c025",
+            "score": 0.03225806451612903,
+            "dense_sim": 0.7565593719482422
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c029",
+            "score": 0.030886196246139225,
+            "dense_sim": 0.7190666794776917
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c037",
+            "score": 0.02662057044079516,
+            "dense_sim": 0.6863890290260315
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c130",
+            "score": 0.026399331662489554,
+            "dense_sim": 0.7447139620780945
+          },
+          {
+            "id": "DIS_2025_10K:Item7:c002",
+            "score": 0.025252525252525252,
+            "dense_sim": 0.7080379724502563
+          },
+          {
+            "id": "KO_2025_10K:Item8:c119",
+            "score": 0.024489795918367346,
+            "dense_sim": 0.7137922048568726
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c002",
+            "score": 0.02402703040921036,
+            "dense_sim": 0.800570011138916
+          },
+          {
+            "id": "TSLA_2025_10K:Item1:c006",
+            "score": 0.02388019427954668,
+            "dense_sim": 0.675885796546936
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c035",
+            "score": 0.029418126757516764,
+            "dense_sim": 0.7246772646903992
+          },
+          {
+            "id": "TSLA_2025_10K:Item8:c012",
+            "score": 0.027364110201042444,
+            "dense_sim": 0.7198293209075928
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c008",
+            "score": 0.02519288301054952,
+            "dense_sim": 0.7277005910873413
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Energy generation and storage revenue increased 27% in the year ended December 31, 2025 as compared to the year ended December 31, 2024.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "TSLA_2025_10K:Item7:c025"
+  ],
+  "usage": {
+    "input_tokens": 4581,
+    "output_tokens": 80,
+    "cost_usd": 0.014943
+  },
+  "latency_ms": 7275.63895899948,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.800570011138916,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "case_id": "b20-004",
+  "input": "What operating loss did Boeing's Commercial Airplanes segment report in fiscal year 2025?",
+  "final_output": "Boeing's Commercial Airplanes segment reported an operating loss of $7,079 million in fiscal year 2025.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What operating loss did Boeing's Commercial Airplanes segment report in fiscal year 2025?",
+          "strategy": "agent_react",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "BA_2025_10K:Item7:c042",
+            "score": 0.9693982005119324,
+            "dense_sim": 0.7538219690322876
+          },
+          {
+            "id": "BA_2025_10K:Item8:c001",
+            "score": 0.9692877531051636,
+            "dense_sim": 0.7144999504089355
+          },
+          {
+            "id": "BA_2025_10K:Item7:c008",
+            "score": 0.9642439484596252,
+            "dense_sim": 0.7180431485176086
+          },
+          {
+            "id": "BA_2025_10K:Item8:c011",
+            "score": 0.9583657383918762,
+            "dense_sim": 0.7105242609977722
+          },
+          {
+            "id": "BA_2025_10K:Item7:c021",
+            "score": 0.8480511903762817,
+            "dense_sim": 0.6809366345405579
+          },
+          {
+            "id": "BA_2025_10K:Item1:c000",
+            "score": 0.823166012763977,
+            "dense_sim": 0.7153167724609375
+          },
+          {
+            "id": "BA_2025_10K:Item7:c013",
+            "score": 0.6317896246910095,
+            "dense_sim": 0.7249122262001038
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c021",
+            "score": 0.32546618580818176,
+            "dense_sim": 0.6625846028327942
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Boeing's Commercial Airplanes segment reported an operating loss of $7,079 million in fiscal year 2025.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "BA_2025_10K:Item7:c008",
+    "BA_2025_10K:Item8:c011"
+  ],
+  "usage": {
+    "input_tokens": 500,
+    "output_tokens": 100,
+    "cost_usd": 0.015
+  },
+  "latency_ms": 3278.8420420001785,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "agent_react",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7538219690322876,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

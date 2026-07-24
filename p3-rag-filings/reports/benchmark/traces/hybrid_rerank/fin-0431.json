@@ -1,0 +1,108 @@
+{
+  "case_id": "fin-0431",
+  "input": "How many Prime subscribers did Amazon have at the end of fiscal 2025?",
+  "final_output": "[REFUSED] model: The provided context chunks do not contain information about the number of Amazon Prime subscribers at the end of fiscal 2025. The chunks discuss Prime membership fees and subscription revenue figures, but do not disclose subscriber counts.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How many Prime subscribers did Amazon have at the end of fiscal 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "AMZN_2025_10K:Item8:c087",
+            "score": 0.7949295043945312,
+            "dense_sim": 0.740632176399231
+          },
+          {
+            "id": "AMZN_2025_10K:Item8:c036",
+            "score": 0.47247570753097534,
+            "dense_sim": 0.6091865301132202
+          },
+          {
+            "id": "AMZN_2025_10K:Item8:c018",
+            "score": 0.17561444640159607,
+            "dense_sim": 0.6726564168930054
+          },
+          {
+            "id": "JNJ_2025_10K:Item7:c019",
+            "score": 0.11288657784461975,
+            "dense_sim": 0.6340751051902771
+          },
+          {
+            "id": "AMZN_2025_10K:Item7:c018",
+            "score": 0.060162875801324844,
+            "dense_sim": 0.6335474848747253
+          },
+          {
+            "id": "AMZN_2025_10K:Item7:c027",
+            "score": 0.05723996087908745,
+            "dense_sim": 0.6317030787467957
+          },
+          {
+            "id": "HD_2026_10K:Item7:c006",
+            "score": 0.03167359530925751,
+            "dense_sim": 0.6686310768127441
+          },
+          {
+            "id": "HD_2026_10K:Item8:c009",
+            "score": 0.022069301456212997,
+            "dense_sim": 0.6132112741470337
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 0
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "[REFUSED] model: The provided context chunks do not contain information about the number of Amazon Prime subscribers at the end of fiscal 2025. The chunks discuss Prime membership fees and subscription revenue figures, but do not disclose subscriber counts.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [],
+  "usage": {
+    "input_tokens": 3772,
+    "output_tokens": 73,
+    "cost_usd": 0.012411
+  },
+  "latency_ms": 3854.8799580021296,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": true,
+    "refusal_reason": "model: The provided context chunks do not contain information about the number of Amazon Prime subscribers at the end of fiscal 2025. The chunks discuss Prime membership fees and subscription revenue figures, but do not disclose subscriber counts.",
+    "confidence": 0.740632176399231,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

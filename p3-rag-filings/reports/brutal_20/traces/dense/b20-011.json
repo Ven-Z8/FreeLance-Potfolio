@@ -1,0 +1,111 @@
+{
+  "case_id": "b20-011",
+  "input": "How did Boeing's total revenues change from fiscal year 2024 to 2025, and what does management attribute the change to?",
+  "final_output": "Boeing's total revenues increased from $66,517 million in 2024 to $89,463 million in 2025. Management attributes this improvement primarily to higher deliveries on commercial airplane programs during 2025 compared to 2024. The context explains that inventories decreased favorably by $10.9 billion driven by 'higher deliveries on our commercial airplane programs during 2025 as compared to 2024,' and accounts payable increased reflecting 'increased production primarily in our commercial airplanes business.'",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "How did Boeing's total revenues change from fiscal year 2024 to 2025, and what does management attribute the change to?",
+          "strategy": "dense",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "BA_2025_10K:Item7:c042",
+            "score": 0.7690290212631226,
+            "dense_sim": 0.7690290212631226
+          },
+          {
+            "id": "BA_2025_10K:Item8:c001",
+            "score": 0.7542048692703247,
+            "dense_sim": 0.7542048692703247
+          },
+          {
+            "id": "BA_2025_10K:Item8:c137",
+            "score": 0.7502089738845825,
+            "dense_sim": 0.7502089738845825
+          },
+          {
+            "id": "TSLA_2025_10K:Item7:c030",
+            "score": 0.7481598258018494,
+            "dense_sim": 0.7481598258018494
+          },
+          {
+            "id": "BA_2025_10K:Item7:c043",
+            "score": 0.7455194592475891,
+            "dense_sim": 0.7455194592475891
+          },
+          {
+            "id": "BA_2025_10K:Item7:c013",
+            "score": 0.7373007535934448,
+            "dense_sim": 0.7373007535934448
+          },
+          {
+            "id": "BA_2025_10K:Item8:c002",
+            "score": 0.7365915775299072,
+            "dense_sim": 0.7365915775299072
+          },
+          {
+            "id": "BA_2025_10K:Item8:c012",
+            "score": 0.7334179878234863,
+            "dense_sim": 0.7334179878234863
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 3
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Boeing's total revenues increased from $66,517 million in 2024 to $89,463 million in 2025. Management attributes this improvement primarily to higher deliveries on commercial airplane programs during 2025 compared to 2024. The context explains that inventories decreased favorably by $10.9 billion driven by 'higher deliveries on our commercial airplane programs during 2025 as compared to 2024,' and accounts payable increased reflecting 'increased production primarily in our commercial airplanes business.'",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "BA_2025_10K:Item8:c001",
+    "BA_2025_10K:Item7:c042"
+  ],
+  "usage": {
+    "input_tokens": 6899,
+    "output_tokens": 353,
+    "cost_usd": 0.025992
+  },
+  "latency_ms": 6772.471583997685,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "dense",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7690290212631226,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

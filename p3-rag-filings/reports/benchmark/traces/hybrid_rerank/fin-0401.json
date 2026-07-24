@@ -1,0 +1,110 @@
+{
+  "case_id": "fin-0401",
+  "input": "What were Exxon Mobil's total revenues and other income for fiscal year 2025?",
+  "final_output": "$332,238 million",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "What were Exxon Mobil's total revenues and other income for fiscal year 2025?",
+          "strategy": "hybrid_rerank",
+          "top_k": 8
+        },
+        "result": [
+          {
+            "id": "XOM_2025_10K:Item7:c005",
+            "score": 0.985335111618042,
+            "dense_sim": 0.7716948986053467
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c040",
+            "score": 0.9845609664916992,
+            "dense_sim": 0.7337226867675781
+          },
+          {
+            "id": "XOM_2025_10K:Item7:c075",
+            "score": 0.9591023921966553,
+            "dense_sim": 0.760108232498169
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c043",
+            "score": 0.9548812508583069,
+            "dense_sim": 0.7366830706596375
+          },
+          {
+            "id": "XOM_2025_10K:Item7:c065",
+            "score": 0.8601309657096863,
+            "dense_sim": 0.7211118340492249
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c077",
+            "score": 0.8599317073822021,
+            "dense_sim": 0.7627020478248596
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c018",
+            "score": 0.6475425362586975,
+            "dense_sim": 0.6615114212036133
+          },
+          {
+            "id": "XOM_2025_10K:Item8:c085",
+            "score": 0.5404359102249146,
+            "dense_sim": 0.6646440029144287
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 1
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "$332,238 million",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "XOM_2025_10K:Item8:c040"
+  ],
+  "usage": {
+    "input_tokens": 4192,
+    "output_tokens": 50,
+    "cost_usd": 0.013326
+  },
+  "latency_ms": 4040.748250001343,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid_rerank",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.7716948986053467,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}

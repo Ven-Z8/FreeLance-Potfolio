@@ -11,7 +11,7 @@
 | Project ID | Project Name | Status | Completion % | Benchmark Highlights / Key Tech |
 |---|---|---|---|---|
 | **P3** | **Production SEC 10-K RAG System** | **COMPLETED** | 100% | LangChain LCEL + LangGraph StateGraph + Instructor Pydantic + 4 Benchmarks (76.1% FinanceBench, 92.4% RAGAS, 0% Hallucinations, 55% Brutal 20) |
-| **P1** | **Domain-Adaptive Agent Eval Harness** | **IN PROGRESS** | 15% | Multi-Domain Eval Harness across Finance, Biomedical, Legal, Healthcare/Clinical Operations |
+| **P1** | **Domain-Adaptive Agent Eval Harness** | **IN PROGRESS** | 35% | Domain A (Financial Pack 111 cases) Complete: 85.0% Accuracy, 100% Refusal Correctness, 0% Hallucination |
 | **P2** | **Multi-Agent Coding Benchmark** | PLANNED | 0% | Codebase analysis, refactoring agent, automated patch generation |
 | **P4** | **Fine-Tuned Financial SLM/LLM** | PLANNED | 0% | LoRA/QLoRA fine-tuning on financial SEC filings and earnings transcripts |
 | **P5** | **Real-Time Voice AI Agent** | PLANNED | 0% | Speech-to-speech low-latency financial advisor agent |
@@ -27,8 +27,8 @@
 - 📌 *Note for Future Iteration:* Further tune LangGraph ReAct auditor verification thresholds for subtle numerical phrasing edge cases.
 
 ### Project 1: Domain-Adaptive Agent Eval Harness (Phase 2 Active)
-- 🚀 Gathering multi-domain data sources:
-  1. **Finance & Earnings:** SEC 10-Ks & FinanceBench.
-  2. **Biomedical Research:** PubMed QA & BioASQ preprints.
-  3. **Legal & Regulatory Contracts:** CUAD (Commercial Contracts) & LegalBench.
-  4. **Healthcare & Clinical Operations:** ClinicalTrials.gov NCT records & OpenFDA Adverse Event / Drug Labeling API.
+- ✅ **Domain A (Financial Document QA):** Built 111-case golden dataset. Achieved **85.0% Accuracy**, 100% Refusal Correctness using `promptingguide.ai` XML tags and company ticker filtering.
+- 🚀 Next Domains queued:
+  1. **Domain B (Biomedical Research):** PubMed QA & BioASQ preprints.
+  2. **Domain C (Legal & Regulatory Contracts):** CUAD (Commercial Contracts) & LegalBench.
+  3. **Domain D (Healthcare & Clinical Operations):** ClinicalTrials.gov & OpenFDA API.

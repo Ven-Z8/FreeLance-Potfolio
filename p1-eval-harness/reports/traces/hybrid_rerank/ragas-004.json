@@ -3,19 +3,19 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "What was Microsoft's gross margin in dollar terms for fiscal year 2025?",
-  "answer": "$193,893 million or $193.9 billion",
+  "answer": "$193,893 million",
   "citations": [
     "MSFT_2025_10K:Item7:c008"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 3277.1169999978156,
-  "cost_usd": 0.011178,
+  "latency_ms": 5424.217291001696,
+  "cost_usd": 0.010497,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
-    "answer": "$193,893 million or $193.9 billion",
+    "answer": "$193,893 million",
     "citations": [
       "MSFT_2025_10K:Item7:c008"
     ],
@@ -28,24 +28,18 @@
           "value": 193893000000.0,
           "is_pct": false,
           "found": true
-        },
-        {
-          "raw": "$193.9 billion",
-          "value": 193900000000.0,
-          "is_pct": false,
-          "found": true
         }
       ]
     },
-    "confidence": 0.7398850321769714,
+    "confidence": 0.7128968238830566,
     "usage": {
-      "input_tokens": 3436,
-      "output_tokens": 58,
-      "cost_usd": 0.011178,
+      "input_tokens": 3244,
+      "output_tokens": 51,
+      "cost_usd": 0.010497,
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 3277.1169999978156,
+    "latency_ms": 5424.217291001696,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -94,28 +88,6 @@
       },
       {
         "chunk": {
-          "id": "NVDA_2026_10K:Item7:c015",
-          "doc_id": "NVDA_2026_10K",
-          "ticker": "NVDA",
-          "company": "NVIDIA",
-          "fiscal_year": 2026,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Gross profit consists of total net revenue less cost of revenue. Cost of revenue consists of the cost of semiconductors, including wafer fabrication, assembly, testing and packaging, board and device costs, manufacturing support costs, including labor and overhead associated with such purchases, final test yield fallout, inventory and warranty provisions, memory and component costs, tariffs, and shipping costs. Cost of revenue also includes acquisition-related intangible amortization expense, costs for license and development and service arrangements, IP-related costs, and stock-based compensation related to personnel associated with manufacturing operations.\nGross margins decreased to 71.1% in fiscal year 2026 from 75.0% in fiscal year 2025 as our business model transitioned from offering Hopper HGX systems to Blackwell full-scale datacenter solutions and a $4.5 billion charge associated with H20 excess inventory and purchase obligations in the first quarter of fiscal year 2026.\nProvisions for inventory and excess inventory purchase obligations totaled $7.2 billion and $3.7 billion for fiscal years 2026 and 2025, respectively, including $4.5 billion associated with H20 excess inventory and purchase obligations for the first quarter of fiscal year 2026. Sales of previously reserved inventory and settlements of excess inventory purchase obligations resulted in a provision release of $1.5 billion and $689 million for fiscal years 2026 and 2025, respectively. The net effect on our gross margin was an unfavorable impact of 2.6% and 2.3% in fiscal years 2026 and 2025, respectively.\nOperating Expenses\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | $ Change | % Change\n($ in millions)",
-          "n_chars": 1699
-        },
-        "score": 0.25586622953414917,
-        "dense_sim": 0.659726083278656
-      },
-      {
-        "chunk": {
           "id": "MSFT_2025_10K:Item8:c079",
           "doc_id": "MSFT_2025_10K",
           "ticker": "MSFT",
@@ -138,91 +110,117 @@
       },
       {
         "chunk": {
-          "id": "COST_2025_10K:Item7:c009",
-          "doc_id": "COST_2025_10K",
-          "ticker": "COST",
-          "company": "Costco",
+          "id": "MSFT_2025_10K:Item7:c016",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
           "fiscal_year": 2025,
           "item": "7",
           "section_id": "Item7",
           "part": "II",
-          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF",
           "resolved_from": null,
           "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The Organisation for Economic Co-operation and Development (“OECD”) published its model rules “Tax Challenges Arising From the Digitalisation of the Economy - Global Anti-Base Erosion Model Rules (Pillar Two)” which established a global minimum corporate tax rate of 15% for certain multinational enterprises. Many countries have implemented or are in the process of implementing the Pillar Two legislation, which applies to Microsoft beginning in fiscal year 2025. While we do not currently estimate a material impact to our consolidated financial statements, we continue to monitor the impact as countries implement legislation and the OECD provides additional guidance.\nWe are currently assessing the One Big Beautiful Bill Act (“OBBBA”) which was enacted on July 4, 2025. The OBBBA provides a U.S. global intangible low-taxed income effective tax rate of 14% effective fiscal year 2027 for Microsoft. It also provides bonus depreciation for certain assets placed into service after January 19, 2025 and an election to expense U.S. incurred research or experimental expenditures.\nUncertain Tax Positions",
+          "n_chars": 1106
+        },
+        "score": 0.06292006373405457,
+        "dense_sim": 0.6600240468978882
+      },
+      {
+        "chunk": {
+          "id": "MSFT_2025_10K:Item8:c078",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "FINANCIAL STATE",
+          "resolved_from": null,
+          "note": "17",
           "note_refs": [],
           "has_table": true,
           "table_continuation": false,
-          "text": "As previously reported, we increased our annual membership fees in the U.S. and Canada, effective September 1, 2024. We account for membership fee revenue on a deferred basis, recognized ratably over the one-year membership period. The fee income increase accounted for approximately 40% of membership income growth during 2025.\nGross Margin\n2025 | 2024 | 2023\nNet sales | $269,912 | $249,625 | $237,710\nLess merchandise costs | 239,886 | 222,358 | 212,586\nGross margin | $30,026 | $27,267 | $25,124\nGross margin percentage | 11.12 | % | 10.92 | % | 10.57 | %\nGross margin percentage increased 20 basis points. Excluding the impact of gasoline price deflation on net sales, gross margin percentage was 11.03%, an increase of 11 basis points. This increase was positively impacted by 19 basis points in our core merchandise categories, primarily due to fresh foods and our co-branded credit card program. Gross margin percentage was negatively impacted by seven basis points due to a LIFO charge in 2025 for higher merchandise costs and one basis point in warehouse ancillary and other businesses. Changes in foreign currencies relative to the U.S. dollar negatively impacted gross margin by approximately $224, attributable to our Other International and Canadian operations.\nThe gross margin in core merchandise categories, when expressed as a percentage of core merchandise sales (rather than total net sales), increased 16 basis points. The increase was primarily due to fresh foods and foods and sundries, partially offset by non-foods. This measure eliminates the impact of changes in sales penetration and gross margin from our warehouse ancillary and other businesses.",
-          "n_chars": 1675
+          "text": "More Personal Computing\nRevenue | $54,649 | $50,838 | $44,820\nCost of revenue | 25,238 | 24,892 | 24,552\nOperating expenses | 15,245 | 13,987 | 10,230\nOperating Income | $14,166 | $11,959 | $10,038\nTotal\nRevenue | $281,724 | $245,122 | $211,915\nCost of revenue | 87,831 | 74,114 | 65,863\nOperating expenses | 65,365 | 61,575 | 57,529\nOperating Income | $128,528 | $109,433 | $88,523\nNo sales to an individual customer or country other than the United States accounted for more than 10% of revenue for fiscal years 2025, 2024, or 2023.\nRevenue, classified by the major geographic areas in which our customers were located, was as follows:\n(In millions)\nYear Ended June 30, | 2025 | 2024 | 2023\nUnited States (a) | $144,546 | $124,704 | $106,744\nOther countries | 137,178 | 120,418 | 105,171\nTotal | $281,724 | $245,122 | $211,915\n(a)\nIncludes billings to OEMs and certain multinational organizations because of the nature of these businesses and the impracticability of determining the geographic source of the revenue.\n84\nPART II\nItem 8\nRevenue, classified by significant product and service offerings, was as follows:\n(In millions)\nYear Ended June 30, | 2025 | 2024 | 2023\nServer products and cloud services | $98,435 | $79,828 | $65,007\nMicrosoft 365 Commercial products and cloud services | 87,767 | 76,969 | 66,949\nGaming | 23,455 | 21,503 | 15,466\nLinkedIn | 17,812 | 16,372 | 14,989\nWindows and Devices | 17,314 | 17,026 | 17,147\nSearch and news advertising | 13,878 | 12,306 | 12,125\nDynamics products and cloud services | 7,827 | 6,831 | 5,796\nEnterprise and partner services | 7,760 | 7,594 | 7,900\nMicrosoft 365 Consumer products and cloud services | 7,404 | 6,648 | 6,417\nOther | 72 | 45 | 119\nTotal | $281,724 | $245,122 | $211,915",
+          "n_chars": 1743
         },
-        "score": 0.09998111426830292,
-        "dense_sim": 0.667688250541687
+        "score": 0.059309642761945724,
+        "dense_sim": 0.6900745630264282
       },
       {
         "chunk": {
-          "id": "HD_2026_10K:Item7:c006",
-          "doc_id": "HD_2026_10K",
-          "ticker": "HD",
-          "company": "Home Depot",
-          "fiscal_year": 2026,
-          "item": "7",
-          "section_id": "Item7",
+          "id": "MSFT_2025_10K:Item8:c007",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
           "part": "II",
-          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "title": "FINANCIAL STATE",
           "resolved_from": null,
-          "note": null,
-          "note_refs": [],
+          "note": "1",
+          "note_refs": [
+            "8",
+            "12",
+            "18"
+          ],
           "has_table": false,
           "table_continuation": false,
-          "text": "FISCAL 2025 COMPARED TO FISCAL 2024\nSales\nWe assess our sales performance by evaluating both net sales and comparable sales. Fiscal 2025 consisted of 52 weeks compared to 53 weeks in fiscal 2024. For purposes of the following discussion, comparable sales, comparable customer transactions, and comparable average ticket are based upon the comparable 52-week period from fiscal 2024.\nNet Sales.\nNet sales for fiscal 2025 increased $5.2 billion, or 3.2%, to $164.7 billion. The increase in n\net s\nales for fiscal 2025 was primarily driven by SRS, which was acquired on June 18, 2024, and GMS, which was acquired on September 4, 2025. In aggregate, these acquisitions contributed approximately $6.3 billion of incremental net sales during fiscal 2025. Net sales also increased due to sales from new stores and the impact of a positive comparable sales environment. These increases were partially offset by the additional week in fiscal 2024 which contributed approximately $2.5 billion in net sales in fiscal 2024.\nFiscal 2025 Form 10-K\n29\nTable\nof\nContents\nOnline sales represented 15.9% of net sales during fiscal 2025 and increased by 8.7% compared to fiscal 2024. Calculated on a comparable week basis relative to fiscal 2024, online sales increased by 10.4%. Online sales consist of sales of products generated through websites and mobile applications and does not include results from HD Supply or SRS (including GMS).\nA stronger U.S. dollar compared to fiscal 2024 negatively impacted net sales by $307 million in fiscal 2025.\nComparable Sales.",
-          "n_chars": 1548
+          "text": "NOTE 1 — ACCOUNTING POLICIES\nAccounting Principles\nOur consolidated financial statements and accompanying notes are prepared in accordance with accounting principles generally accepted in the United States of America (“GAAP”).\nPrinciples of Consolidation\nThe consolidated financial statements include the accounts of Microsoft Corporation and its subsidiaries. Intercompany transactions and balances have been eliminated.\nRecast of Certain Prior Period Information\nIn August 2024, we announced changes to the composition of our segments. These changes align our segments with how we currently manage our business, most notably bringing the commercial components of Microsoft 365 together in the Productivity and Business Processes segment. Beginning in fiscal year 2025, the information that our chief operating decision maker is regularly provided and reviews for purposes of allocating resources and assessing performance reflects these segment changes. Prior period segment information has been recast to conform to the way we internally manage and monitor our business during fiscal year 2025. These changes primarily impacted Note 8 – Goodwill, Note 12 – Unearned Revenue, and Note 18 – Segment Information and Geographic Data.\nThe recast of prior period information had no impact on our consolidated balance sheets, consolidated income statements, or consolidated cash flows statements.\nEstimates and Assumptions",
+          "n_chars": 1418
         },
-        "score": 0.09626159071922302,
-        "dense_sim": 0.7218101024627686
+        "score": 0.04985811188817024,
+        "dense_sim": 0.6713570356369019
       },
       {
         "chunk": {
-          "id": "JNJ_2025_10K:Item7:c019",
-          "doc_id": "JNJ_2025_10K",
-          "ticker": "JNJ",
-          "company": "Johnson & Johnson",
+          "id": "MSFT_2025_10K:Item7:c000",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
           "fiscal_year": 2025,
           "item": "7",
           "section_id": "Item7",
           "part": "II",
-          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF",
           "resolved_from": null,
           "note": null,
           "note_refs": [],
           "has_table": false,
           "table_continuation": false,
-          "text": "The fiscal year 2025 is primarily related to the acquisitions of Intra-Cellular (CAPLYTA) and Halda Therapeutics partially offset by the reduction of the Abiomed contingent value right (CVR) liability. The fiscal year 2024 is primarily related to the acquisition of Shockwave.\nInterest (Income) Expense:\nInterest income in the fiscal year 2025 was $1.1 billion as compared to $1.3 billion in 2024. Interest income decreased as compared to the prior year driven by lower interest rates earned on cash balances. Interest expense in the fiscal year 2025 was $1.0 billion as compared to $0.8 billion in 2024. Interest expense was higher as compared to the prior year due to a higher average debt balance. Cash, cash equivalents and marketable securities totaled $20.1 billion at the end of 2025, and averaged $22.3 billion as compared to the cash, cash equivalents and marketable securities total of $24.5 billion and $23.7 billion average balance in 2024. The total debt balance at the end of 2025 was $47.9 billion with an average debt balance of $42.3 billion as compared to $36.6 billion at the end of 2024 and an average debt balance of $33.0 billion. The higher debt balance was due to the senior unsecured notes issued by the Company in the fiscal first quarter of 2025. The net proceeds from this offering were used to fund the Intra-Cellular Therapies, Inc. acquisition which closed on April 2, 2025 and for general corporate purposes.\nIncome before tax by segment\nIncome before tax by segment of business was as follows:",
-          "n_chars": 1526
+          "text": "ITEM 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF\nFINANCIAL CONDITION AND RESULTS OF OPERATIONS\nThe following Management’s Discussion and Analysis of Financial Condition and Results of Operations (“MD&A”) is intended to help the reader understand the results of operations and financial condition of Microsoft Corporation. MD&A is provided as a supplement to, and should be read in conjunction with, our consolidated financial statements and the accompanying Notes to Financial Statements (Part II, Item 8 of this Form 10-K). This section generally discusses the results of our operations for the year ended June 30, 2025 compared to the year ended June 30, 2024. For a discussion of the year ended June 30, 2024 compared to the year ended June 30, 2023, please refer to Part II, Item 7, “Management’s Discussion and Analysis of Financial Condition and Results of Operations” in our Annual Report on Form 10-K for the year ended June 30, 2024 and our Form 8-K filed on December 3, 2024.\nOVERVIEW\nMicrosoft is a technology company committed to making digital technology and artificial intelligence (“AI”) available broadly and doing so responsibly, with a mission to empower every person and every organization on the planet to achieve more. We create platforms and tools, powered by AI, that deliver innovative solutions that meet the evolving needs of our customers.",
+          "n_chars": 1365
         },
-        "score": 0.08339335769414902,
-        "dense_sim": 0.7398850321769714
+        "score": 0.005991131067276001,
+        "dense_sim": 0.627116858959198
       },
       {
         "chunk": {
-          "id": "NFLX_2025_10K:Item7:c001",
-          "doc_id": "NFLX_2025_10K",
-          "ticker": "NFLX",
-          "company": "Netflix",
+          "id": "MSFT_2025_10K:Item8:c064",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
           "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
+          "item": "8",
+          "section_id": "Item8",
           "part": "II",
-          "title": "Management's Discussion and Analysis",
+          "title": "FINANCIAL STATE",
           "resolved_from": null,
-          "note": null,
+          "note": "14",
           "note_refs": [],
           "has_table": false,
           "table_continuation": false,
-          "text": "section below for additional details on our use of constant currency revenue.\nOperating margin for the year ended December 31, 2025 increased by approximately three percentage points as compared to the prior comparative period, primarily driven by the growth in revenues outpacing the growth in cost of revenues, sales and marketing, and general and administrative expenses.\nNet income for the year ended December 31, 2025 increased $2,270 million as compared to the prior comparative period, primarily due to a $2,909 million increase in operating income, driven by a $6,182 million increase in revenues and partially offset by a $2,237 million increase in cost of revenues primarily due to the increase in content amortization and other cost of revenues. The impact of higher operating income was partially offset by a $487 million increase in the provision for income taxes.\nRevenues\nWe primarily derive revenues from monthly membership fees for services related to streaming content to our members. We offer a variety of streaming membership plans, the price of which varies by country and the features of the plan. As of December 31, 2025, pricing on our paid plans ranged from the U.S. dollar equivalent of $1 to $37 per month, and pricing on our extra member sub accounts ranged from the U.S. dollar equivalent of $2 to $9 per month. We expect that from time to time the prices of our membership plans in each country may change and we may test other plan and price variations.\nWe also earn revenue from advertisements presented on our streaming service, consumer products, live experiences and various other sources. Revenues earned from sources other than monthly membership fees were not a material component of revenues for the years ended December 31, 2025, 2024, and 2023.\n20",
-          "n_chars": 1788
+          "text": "NOTE 14 — CONTINGENCIES\nIrish Data Protection Commission Matter\nIn 2018, the Irish Data Protection Commission (“IDPC”) began investigating a complaint against LinkedIn as to whether LinkedIn’s targeted advertising practices violated the recently implemented European Union General Data Protection Regulation (“GDPR”). Microsoft cooperated throughout the period of inquiry. In October 2024, the IDPC provided LinkedIn with a final decision alleging GDPR violations and assessing a fine. In November 2024, LinkedIn appealed the final decision to the Irish courts, and the next hearing is scheduled for December 2025.\n78\nPART II\nItem 8\nOther Contingencies\nWe also are subject to a variety of other claims and suits that arise from time to time in the ordinary course of our business. Although management currently believes that resolving claims against us, individually or in aggregate, will not have a material adverse impact in our consolidated financial statements, these matters are subject to inherent uncertainties and management’s view of these matters may change in the future.\nAs of June 30, 2025, we accrued aggregate legal liabilities of $\n541\nmillion. While we intend to defend these matters vigorously, adverse outcomes that we estimate could reach approximately $\n600\nmillion in aggregate beyond recorded amounts are reasonably possible. Were unfavorable final outcomes to occur, there exists the possibility of a material adverse impact in our consolidated financial statements for the period in which the effects become reasonably estimable.",
+          "n_chars": 1554
         },
-        "score": 0.07807263731956482,
-        "dense_sim": 0.6834398508071899
+        "score": 0.004813572391867638,
+        "dense_sim": 0.5732788443565369
       }
     ],
     "model": "anthropic/claude-sonnet-4.5"

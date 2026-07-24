@@ -1,0 +1,160 @@
+{
+  "case_id": "b20-002",
+  "input": "Did Nvidia's gross margin percentage increase or decrease in FY2025 compared to FY2024?",
+  "final_output": "Nvidia's gross margin percentage decreased in FY2025 compared to FY2024, from 75.0% to 71.1%.",
+  "steps": [
+    {
+      "index": 0,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "retrieve",
+        "arguments": {
+          "query": "Did Nvidia's gross margin percentage increase or decrease in FY2025 compared to FY2024?",
+          "strategy": "hybrid",
+          "top_k": 18
+        },
+        "result": [
+          {
+            "id": "COST_2025_10K:Item7:c009",
+            "score": 0.02815814850530376,
+            "dense_sim": 0.6678035259246826
+          },
+          {
+            "id": "AAPL_2025_10K:Item7:c006",
+            "score": 0.027984344422700584,
+            "dense_sim": 0.6784385442733765
+          },
+          {
+            "id": "COST_2025_10K:Item7:c010",
+            "score": 0.027745885954841176,
+            "dense_sim": 0.6732585430145264
+          },
+          {
+            "id": "KO_2025_10K:Item7:c040",
+            "score": 0.026262626262626265,
+            "dense_sim": 0.6625691056251526
+          },
+          {
+            "id": "PG_2025_10K:Item7:c033",
+            "score": 0.02606951871657754,
+            "dense_sim": 0.6636590957641602
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c028",
+            "score": 0.02564935064935065,
+            "dense_sim": 0.6838239431381226
+          },
+          {
+            "id": "COST_2025_10K:Item7:c007",
+            "score": 0.025603392041748205,
+            "dense_sim": 0.6679296493530273
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c056",
+            "score": 0.02286386203292396,
+            "dense_sim": 0.6675090789794922
+          },
+          {
+            "id": "WMT_2026_10K:Item7:c007",
+            "score": 0.025138041267073523,
+            "dense_sim": 0.6726354956626892
+          },
+          {
+            "id": "NVDA_2026_10K:Item7:c011",
+            "score": 0.024502524502524506,
+            "dense_sim": 0.7101629376411438
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c016",
+            "score": 0.023391812865497075,
+            "dense_sim": 0.7561943531036377
+          },
+          {
+            "id": "PEP_2025_10K:Item7:c023",
+            "score": 0.023252688172043012,
+            "dense_sim": 0.6985723376274109
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c000",
+            "score": 0.03125763125763126,
+            "dense_sim": 0.8212775588035583
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c008",
+            "score": 0.0304147465437788,
+            "dense_sim": 0.831930935382843
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c047",
+            "score": 0.028629032258064516,
+            "dense_sim": 0.7309537529945374
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c052",
+            "score": 0.028577260665441927,
+            "dense_sim": 0.7575178742408752
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c010",
+            "score": 0.027579737335834898,
+            "dense_sim": 0.7829589247703552
+          },
+          {
+            "id": "NVDA_2026_10K:Item8:c013",
+            "score": 0.027263007840342125,
+            "dense_sim": 0.8405598402023315
+          }
+        ],
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 1,
+      "kind": "tool_call",
+      "content": null,
+      "retry_of": null,
+      "tool_call": {
+        "name": "verify_claims",
+        "arguments": {
+          "n_claims": 2
+        },
+        "result": {
+          "verified": true,
+          "failed": []
+        },
+        "error": null,
+        "latency_ms": null
+      }
+    },
+    {
+      "index": 2,
+      "kind": "response",
+      "content": "Nvidia's gross margin percentage decreased in FY2025 compared to FY2024, from 75.0% to 71.1%.",
+      "tool_call": null,
+      "retry_of": null
+    }
+  ],
+  "citations": [
+    "NVDA_2026_10K:Item7:c011"
+  ],
+  "usage": {
+    "input_tokens": 7429,
+    "output_tokens": 78,
+    "cost_usd": 0.023457
+  },
+  "latency_ms": 15401.71808300147,
+  "model": "anthropic/claude-sonnet-4.5",
+  "metadata": {
+    "adapter": "ragfilings-v0",
+    "strategy": "hybrid",
+    "refused": false,
+    "refusal_reason": null,
+    "confidence": 0.8405598402023315,
+    "invalid_citations": [],
+    "verification_verified": true,
+    "golden_verification": "pending"
+  }
+}
