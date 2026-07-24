@@ -1,0 +1,238 @@
+{
+  "case_id": "ragas-002",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "How did Boeing's total revenues change from fiscal year 2024 to 2025, and what does management attribute the change to?",
+  "answer": "Boeing's total revenues increased from $66,517 million in 2024 to $89,463 million in 2025. Management attributes the change to higher deliveries on commercial airplane programs during 2025 compared to 2024. The context notes that commercial airplane cash outflows in 2024 reflected slowed and/or paused production and lower deliveries as a result of ongoing safety and quality improvement actions following the 737-9 door plug accident on January 5, 2024, supply chain constraints, and the IAM 751 work stoppage.",
+  "citations": [
+    "BA_2025_10K:Item8:c001",
+    "BA_2025_10K:Item7:c042"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 8285.522457998013,
+  "cost_usd": 0.032369999999999996,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "Boeing's total revenues increased from $66,517 million in 2024 to $89,463 million in 2025. Management attributes the change to higher deliveries on commercial airplane programs during 2025 compared to 2024. The context notes that commercial airplane cash outflows in 2024 reflected slowed and/or paused production and lower deliveries as a result of ongoing safety and quality improvement actions following the 737-9 door plug accident on January 5, 2024, supply chain constraints, and the IAM 751 work stoppage.",
+    "citations": [
+      "BA_2025_10K:Item8:c001",
+      "BA_2025_10K:Item7:c042"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$66,517 million",
+          "value": 66517000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$89,463 million",
+          "value": 89463000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7690291404724121,
+    "usage": {
+      "input_tokens": 8980,
+      "output_tokens": 362,
+      "cost_usd": 0.032369999999999996,
+      "calls": 2
+    },
+    "math_result": null,
+    "latency_ms": 8285.522457998013,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item7:c042",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Changes in assets and liabilities for 2025 improved by $7.8 billion compared to 2024 primarily driven by favorable changes in Inventories ($10.9 billion) and Accounts payable ($1.5 billion), partially offset by unfavorable changes in Advances and progress billings ($4.8 billion). The change in Inventories was primarily driven by higher deliveries on our commercial airplane programs during 2025 as compared to 2024. The change in Accounts payable during 2025 compared to 2024 reflects increased production primarily in our commercial airplanes business. The change in Advances and progress billings during 2025 compared to 2024 was primarily driven by increased commercial airplane deliveries and revenue recognized at BDS, partially offset by higher advances on commercial airplane orders. Concessions paid to 737 MAX customers totaled $0.2 billion and $0.9 billion during 2025 and 2024.\nNet cash used by operating activities was $12.1 billion during 2024 compared with net cash provided of $6.0 billion during 2023. The increase in cash outflows from operating activities in 2024 was primarily driven by our commercial airplanes business. Commercial airplane cash outflows reflected slowed and/or paused production and lower deliveries as a result of ongoing safety and quality improvement actions the Company is taking following the 737-9 door plug accident on January 5, 2024, supply chain constraints, and the IAM 751 work stoppage.\nThe higher net loss of $11.8 billion during 2024 compared to $2.2 billion in 2023 primarily reflects higher losses from operations at BCA and BDS. The change in Non-cash items was primarily due to the 777X and 767 reach-forward losses of $4.1 billion recorded in 2024.",
+          "n_chars": 1708
+        },
+        "score": 0.9879812598228455,
+        "dense_sim": 0.7690291404724121
+      },
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item8:c001",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Years ended December 31, | 2025 | 2024 | 2023\nSales of products | $ 75,356 | $ 53,227 | $ 65,581\nSales of services | 14,107 | 13,290 | 12,213\nTotal revenues | 89,463 | 66,517 | 77,794\nCost of products | ( 73,761 ) | ( 57,394 ) | ( 59,864 )\nCost of services | ( 11,413 ) | ( 11,114 ) | ( 10,206 )\nTotal costs and expenses | ( 85,174 ) | ( 68,508 ) | ( 70,070 )\n4,289 | ( 1,991 ) | 7,724\nIncome from operating investments, net | 25 | 71 | 46\nGeneral and administrative expense | ( 6,090 ) | ( 5,021 ) | ( 5,168 )\nResearch and development expense, net | ( 3,615 ) | ( 3,812 ) | ( 3,377 )\nGain on dispositions, net | 9,672 | 46 | 2\nEarnings/(loss) from operations | 4,281 | ( 10,707 ) | ( 773 )\nOther income, net | 1,125 | 1,222 | 1,227\nInterest and debt expense | ( 2,771 ) | ( 2,725 ) | ( 2,459 )\nEarnings/(loss) before income taxes | 2,635 | ( 12,210 ) | ( 2,005 )\nIncome tax (expense)/benefit | ( 397 ) | 381 | ( 237 )\nNet earnings/(loss) | 2,238 | ( 11,829 ) | ( 2,242 )\nLess: Net earnings/(loss) attributable to noncontrolling interest | 3 | ( 12 ) | ( 20 )\nNet earnings/(loss) attributable to Boeing shareholders | 2,235 | ( 11,817 ) | ( 2,222 )\nLess: Mandatory convertible preferred stock dividends accumulated during the period | 345 | 58\nNet earnings/(loss) attributable to Boeing common shareholders | $ 1,890 | ($ 11,875 ) | ($ 2,222 )\nBasic earnings/(loss) per share | $ 2.49 | ($ 18.36 ) | ($ 3.67 )\nDiluted earnings/(loss) per share | $ 2.48 | ($ 18.36 ) | ($ 3.67 )",
+          "n_chars": 1477
+        },
+        "score": 0.976617693901062,
+        "dense_sim": 0.7542049884796143
+      },
+      {
+        "chunk": {
+          "id": "NFLX_2025_10K:Item7:c002",
+          "doc_id": "NFLX_2025_10K",
+          "ticker": "NFLX",
+          "company": "Netflix",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "8"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Table of Contents\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except percentages)\nRevenues | $45,183,036 | $39,000,966 | $33,723,297 | $6,182,070 | 16 | %\nRevenues for the year ended December 31, 2025 increased 16% as compared to the year ended December 31, 2024, primarily due to the growth in memberships, price increases, and increased advertising revenue, partially offset by unfavorable changes in foreign exchange rates, net of hedging.\nThe following table summarizes streaming revenues by region for the years ended December 31, 2025, 2024 and 2023. Total streaming revenues are inclusive of hedging gains (losses) of $(91) million and $124 million for the years ended December 31, 2025 and 2024, respectively. No hedging gains and losses were recognized in total streaming revenues for the year ended December 31, 2023. See Note 8\nDerivative Financial Instruments and Hedging Activities\nto the consolidated financial statements for further information regarding the Company’s derivative and non-derivative financial instruments.\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except revenue per membership and percentages)\nUnited States and Canada (UCAN) | $19,957,152 | $17,359,369 | $14,873,783 | $2,597,783 | 15 | %\nEurope, Middle East, and Africa (EMEA) | 14,514,646 | 12,387,035 | 10,556,487 | 2,127,611 | 17 | %\nLatin America (LATAM) | 5,357,521 | 4,839,816 | 4,446,461 | 517,705 | 11 | %\nAsia-Pacific (APAC) | 5,353,717 | 4,414,746 | 3,763,727 | 938,971 | 21 | %\nTotal Streaming Revenues | $45,183,036 | $39,000,966 | $33,640,458 | $6,182,070 | 16 | %\nNon-GAAP Constant Currency Information",
+          "n_chars": 1680
+        },
+        "score": 0.9454048871994019,
+        "dense_sim": 0.6917613744735718
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item7:c030",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "1"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Cost of revenue in 2025 increased $6.01 billion, or 20%, compared to 2024. The increase was mainly due to higher operational expenses related to our data centers and technical infrastructure, which included decreases in the depreciation growth rate due to an extension in the useful lives of servers and network assets, effective January 1, 2025. To a lesser extent, higher costs associated with partner arrangements also contributed to the increase.\nSee Note 1 — Summary of Significant Accounting Policies in the notes to the consolidated financial statements included in Part II, Item 8, \"Financial Statements and Supplementary Data\" of this Annual Report on Form 10-K for additional information regarding changes in the estimated useful life of our servers and network assets.\nResearch and development\nYear Ended December 31,\n2025 | 2024 | 2023 | 2025 vs 2024 % change | 2024 vs 2023 % change\n(in millions, except percentages)\nResearch and development | $57,372 | $43,873 | $38,483 | 31 | % | 14 | %\nPercentage of revenue | 29 | % | 27 | % | 29 | %\nResearch and development expenses in 2025 increased $13.50 billion, or 31%, compared to 2024. The increase was mostly due to higher employee compensation and infrastructure costs related to research and development, including our AI initiatives.\nThe higher employee compensation was primarily from an 8% growth in employee headcount from 2024 to 2025 in engineering and other technical functions and an increase in share-based compensation expense.\nMarketing and sales\nYear Ended December 31,\n2025 | 2024 | 2023 | 2025 vs 2024 % change | 2024 vs 2023 % change\n(in millions, except percentages)\nMarketing and sales | $11,991 | $11,347 | $12,301 | 6 | % | (8) | %\nPercentage of revenue | 6 | % | 7 | % | 9 | %",
+          "n_chars": 1759
+        },
+        "score": 0.849453330039978,
+        "dense_sim": 0.7226752638816833
+      },
+      {
+        "chunk": {
+          "id": "NFLX_2025_10K:Item7:c000",
+          "doc_id": "NFLX_2025_10K",
+          "ticker": "NFLX",
+          "company": "Netflix",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Item 7.\nManagement’s Discussion and Analysis of Financial Condition and Results of Operations\nThis section of this Form 10-K generally discusses 2025 and 2024 items and year-to-year comparisons between 2025 and 2024. Discussions of 2023 items and year-to-year comparisons between 2024 and 2023 that are not included in this Form 10-K can be found in “Management's Discussion and Analysis of Financial Condition and Results of Operations” in Part II, Item 7 of the Company's Annual Report on Form 10-K for the fiscal year ended December 31, 2024.\nResults of Operations\nThe following represents our consolidated performance highlights\n(1)\n:\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except percentages)\nFinancial Results:\nStreaming revenues | $45,183,036 | $39,000,966 | $33,640,458 | $6,182,070 | 16 | %\nDVD revenues (2) | $— | $— | $82,839 | $— | — | %\nTotal revenues | $45,183,036 | $39,000,966 | $33,723,297 | $6,182,070 | 16 | %\nConstant currency change in revenues (3) | 17 | %\nOperating income | $13,326,603 | $10,417,614 | $6,954,003 | $2,908,989 | 28 | %\nOperating margin | 29.5 | % | 26.7 | % | 20.6 | % | 2.8 | %\nNet income | $10,981,201 | $8,711,631 | $5,407,990 | $2,269,570 | 26 | %\n(1) During the year ended December 31, 2025, we discontinued the reporting of membership numbers, including average paying memberships and average monthly revenue per paying membership, focusing instead on revenue and operating margin as the primary financial metrics that we believe best represent our business performance.\n(2) We discontinued our DVD-by-mail service in the year ended December 31, 2023. The discontinuance of our DVD business had an immaterial impact on our operations and financial results.\n(3) See the\n“\nNon-GAAP Constant Currency Information”",
+          "n_chars": 1800
+        },
+        "score": 0.8289972543716431,
+        "dense_sim": 0.663206934928894
+      },
+      {
+        "chunk": {
+          "id": "CAT_2025_10K:Item7:c007",
+          "doc_id": "CAT_2025_10K",
+          "ticker": "CAT",
+          "company": "Caterpillar",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Glossary of terms included on pages 36 - 38; first occurrence of terms shown in bold italics.\n•\nInformation on non-GAAP financial measures is included on pages 48 - 49.\n•\nSome amounts within this report are rounded to the millions or billions and may not add. In addition, the sum of the components reported across periods may not equal the total amount reported year-to-date due to rounding.\n30\nTable of Contents\n2025 COMPARED WITH 2024\nCONSOLIDATED SALES AND REVENUES\nThe chart above graphically illustrates reasons for the change in consolidated sales and revenues between 2024 (at left) and 2025 (at right). Caterpillar management utilizes these charts internally to visually communicate with the company’s board of directors and employees.\nTotal sales and revenues for 2025 were $67.589 billion, an increase of $2.780 billion, or 4 percent, compared with $64.809 billion in 2024. The increase was primarily driven by higher sales volume of $3.389 billion, partially offset by unfavorable price realization of $817 million. The increase in sales volume was mainly driven by higher sales of equipment to end users.\nSales were higher in Power & Energy, about flat in Resource Industries and slightly lower in Construction Industries.\nNorth America sales increased 6 percent due to higher sales volume, partially offset by unfavorable price realization. The increase in sales volume was mainly driven by higher sales of equipment to end users.\nSales increased 4 percent in Latin America primarily due to higher sales volume, partially offset by unfavorable currency impacts related to the Brazilian real. The increase in sales volume was mainly driven by higher sales of equipment to end users.",
+          "n_chars": 1695
+        },
+        "score": 0.7431216239929199,
+        "dense_sim": 0.6822807788848877
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item8:c089",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial statements and supplementary data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "19"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "% of the total gross revenues. In fiscal year 2023, the Company had three wholesalers distributing products for both segments that represented approximately\n18.2\n%,\n15.1\n%, and\n14.2\n% of the total gross revenues.\n(1)\nOther segment expenses\nfor each reportable segment include charges related to other income and expenses, restructuring activities and impairment charges related to in-process research and development.\n(2)\nAmounts not allocated to segments include interest (income)/expense and general corporate (income)/expense. The fiscal year 2025 includes the reversal of approximately $\n7.0\nbillion, a significant portion of the previously accrued talc reserve. The fiscal years 2024 and 2023 include charges for talc matters of approximately $\n5.1\nbillion and $\n7.0\nbillion, respectively (See Note 19, Legal proceedings, for additional details). The fiscal year 2024 includes a loss of approximately $\n0.4\nbillion related to the debt to equity exchange of the Company's remaining shares of Kenvue Common Stock. The fiscal year 2023 includes the unfavorable change in the fair value of the retained stake in Kenvue of approximately $\n0.4\nbillion.\n(3)\nInnovative Medicine segment income before tax includes:\n•\nAcquisition, integration and divestiture related net expense of $\n0.4\nbillion primarily related to the Intra-Cellular and Halda acquisitions\nMedTech segment income before tax includes:\n•\nLitigation expense of $\n0.9\nbillion primarily related to the Auris shareholder litigation\n•\nAcquisition, integration and divestiture related net income of $\n0.2\nbillion, primarily driven by a contingent value right liability reduction associated with Abiomed\n•\nA restructuring related charge of $\n0.5\nbillion\n•\nA gain on the sale of securities of $\n0.2\nbillion\n(4)",
+          "n_chars": 1765
+        },
+        "score": 0.6747724413871765,
+        "dense_sim": 0.663864016532898
+      },
+      {
+        "chunk": {
+          "id": "NFLX_2025_10K:Item7:c007",
+          "doc_id": "NFLX_2025_10K",
+          "ticker": "NFLX",
+          "company": "Netflix",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "The increase in sales and marketing expenses for the year ended December 31, 2025 as compared to the year ended December 31, 2024 was primarily driven by a $222 million increase in marketing expenses, coupled with a $149 million increase in personnel-related costs due to the growth in advertising sales headcount.\nTechnology and Development\nTechnology and development expenses consist primarily of payroll, stock-based compensation, facilities, and other related expenses for technology personnel responsible for making improvements to our service offerings, including testing, maintaining and modifying our user interface, our recommendations and infrastructure. Technology and development expenses also include costs associated with general use computer hardware and software.\n22\nTable of Contents\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except percentages)\nTechnology and development | $3,391,390 | $2,925,295 | $2,675,758 | $466,095 | 16 | %\nAs a percentage of revenues | 8 | % | 8 | % | 8 | %\nThe increase in technology and development expenses for the year ended December 31, 2025 as compared to the year ended December 31, 2024 was primarily due to a $438 million increase in personnel-related costs.\nGeneral and Administrative\nGeneral and administrative expenses consist of payroll, stock-based compensation, facilities, and other related expenses for corporate personnel. General and administrative expenses also include professional fees and other general corporate expenses.\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except percentages)\nGeneral and administrative | $1,888,408 | $1,702,039 | $1,720,285 | $186,369 | 11 | %\nAs a percentage of revenues | 4 | % | 4 | % | 5 | %",
+          "n_chars": 1770
+        },
+        "score": 0.6635128855705261,
+        "dense_sim": 0.7047216892242432
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

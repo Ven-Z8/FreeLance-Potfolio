@@ -1,0 +1,214 @@
+{
+  "case_id": "rgb-reject-01",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What does NVIDIA project its data center revenue will be in fiscal year 2027?",
+  "answer": null,
+  "citations": [],
+  "refused": true,
+  "refusal_reason": "model: The provided chunks do not contain any projections or forecasts of NVIDIA's data center revenue for fiscal year 2027. While the chunks discuss fiscal year 2026 data center revenue performance and mention some forward-looking commitments and obligations, they do not include specific revenue projections for fiscal year 2027.",
+  "steps": [],
+  "latency_ms": 3828.0157499975758,
+  "cost_usd": 0.012483,
+  "raw_response": {
+    "refused": true,
+    "refusal_reason": "model: The provided chunks do not contain any projections or forecasts of NVIDIA's data center revenue for fiscal year 2027. While the chunks discuss fiscal year 2026 data center revenue performance and mention some forward-looking commitments and obligations, they do not include specific revenue projections for fiscal year 2027.",
+    "answer": null,
+    "citations": [],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": []
+    },
+    "confidence": 0.7512774467468262,
+    "usage": {
+      "input_tokens": 3681,
+      "output_tokens": 96,
+      "cost_usd": 0.012483,
+      "calls": 1
+    },
+    "latency_ms": 3828.0157499975758,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c054",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "12",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Note 12 -\nCommitments and Contingencies\nCommitments\nManufacturing, supply, and capacity commitments reflect datacenter-scale production and longer future ordering horizons across current and future product architectures. We enter into agreements with our supply vendors that allow them to procure inventory based upon our defined criteria, and in certain instances, these agreements are cancellable, able to be rescheduled, or adjustable for our business needs prior to placing firm orders. Changes to these agreements may result in additional costs. As of January 25, 2026, these commitments were $\n95.2\nbillion, of which substantially all will be paid through fiscal year 2027.\nMulti-year cloud service agreement commitments as of January 25, 2026, were $\n27\nbillion, for which $\n7\nbillion, $\n6\nbillion, $\n5\nbillion, $\n5\nbillion, $\n2\nbillion, and $\n2\nbillion will be paid in fiscal years 2027, 2028, 2029, 2030, 2031, and 2032 and thereafter, respectively. Some cloud service capacity may be reduced, terminated or sold to others by the CSPs, in which case our commitments will be reduced. We expect cloud service agreements to be used to support our research and development efforts.\nInvestment commitments are $\n11.4\nbillion as of January 25, 2026, subject to certain contingencies, of which we expect substantially all will be made through fiscal year 2027.\nOther commitments were $\n3.4\nbillion as of January 25, 2026, of which the majority will be paid through fiscal year 2027.\n70\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)\nAccrual for Product Warranty Liabilities\nThe estimated amount of product warranty liabilities was $\n2.8\nbillion and $\n1.3\nbillion as of January 25, 2026 and January 26, 2025, respectively.",
+          "n_chars": 1789
+        },
+        "score": 0.9567818641662598,
+        "dense_sim": 0.711715579032898
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c016",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "1",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Note 1 -\nOrganization and Summary of Significant Accounting Policies\nOur Company\nHeadquartered in Santa Clara, California, NVIDIA was incorporated in California in April 1993 and reincorporated in Delaware in April 1998.\nAll references to “NVIDIA,” “we,” “us,” “our” or the “Company” mean NVIDIA Corporation and its subsidiaries.\nCertain prior fiscal year balances have been reclassified to conform to the current fiscal year presentation. Non-marketable equity securities, previously presented within other assets, were reclassified to be presented separately on our consolidated balance sheets and had no impact to total assets or consolidated statement of cash flows.\nFiscal Year\nWe operate on a 52- or 53-week year, ending on the last Sunday in January. Fiscal years 2026, 2025 and 2024 were all 52-week years. Fiscal year 2027 will be a 53-week year with the fourth quarter consisting of 14 weeks.\nPrinciples of Consolidation\nOur consolidated financial statements include the accounts of NVIDIA Corporation and our wholly-owned subsidiaries. All intercompany balances and transactions have been eliminated in consolidation.\nUse of Estimates",
+          "n_chars": 1145
+        },
+        "score": 0.8076197504997253,
+        "dense_sim": 0.727608323097229
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item7:c004",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Macroeconomic factors, including tariffs, inflation, interest rate changes, capital market volatility, global supply chain constraints, and global economic and geopolitical developments, have direct and indirect impacts on our results of operations, particularly demand for our products. While difficult to isolate and quantify, these macroeconomic factors impact our supply chain and manufacturing costs, employee wages, costs for capital equipment, the value of our investments, revenue and competitive position. Our product and solution pricing generally does not fluctuate with short-term changes in our costs. Within our supply chain, we continuously manage product availability and costs with our vendors.\nRefer to “Item 1A. Risk Factors – Risks Related to Regulatory, Legal, Our Stock and Other Matters” for a further discussion of the potential impact of these factors on our business.\nFiscal Year 2026 Summary\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | Change\n($ in millions, except per share data)\nRevenue | $215,938 | $130,497 | Up 65%\nGross margin | 71.1 | % | 75.0 | % | -3.9 pts\nOperating expenses | $23,076 | $16,405 | Up 41%\nOperating income | $130,387 | $81,453 | Up 60%\nNet income | $120,067 | $72,880 | Up 65%\nNet income per diluted share | $4.90 | $2.94 | Up 67%\nRevenue for fiscal year 2026 was $215.9 billion, up 65% from a year ago.\nData Center revenue for fiscal year 2026 was up 68% from a year ago. The strong year-on-year growth was driven by the major platform shifts – accelerated computing and AI.\nGaming revenue for fiscal year 2026 was up 41% from a year ago, driven by strong Blackwell demand. We expect supply constraints to be a headwind to Gaming in the first quarter of fiscal 2027 and beyond.",
+          "n_chars": 1728
+        },
+        "score": 0.7131584882736206,
+        "dense_sim": 0.6528034806251526
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item7:c013",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Compute & Networking revenue\n– The year over year increase was driven by the major platform shifts – accelerated computing and AI. Revenue from Data Center computing grew 59% driven by demand for our Blackwell computing platform. Revenue from Data Center networking grew 142% driven by the introduction and continued ramp of NVLink compute fabric for GB200 and GB300 systems and the growth of Ethernet and InfiniBand platforms.\nGraphics revenue\n– The year over year increase was driven by sales of our Blackwell architecture.\nReportable segment operating income\n– The year over year increase in Compute & Networking segment operating income was driven by growth in revenue, partially offset by a $4.5 billion charge associated with H20 excess inventory and purchase obligations in the first quarter of fiscal year 2026. The year over year increase in Graphics segment operating income was driven by the growth in revenue.\n40\nTable of Contents\nConcentration of Revenue\nWe refer to customers who purchase products directly from NVIDIA as direct customers, such as AIBs, distributors, ODMs, OEMs, CSPs, AI model makers, and system integrators. Certain direct customers may use either internal resources or third-party system integrators to complete their build. We refer to indirect customers as those who purchase products through our direct customers; indirect customers include CSPs, Neocloud builders, AI model makers, enterprises, and public sector entities. Our revenue is concentrated among a limited number of direct and indirect customers and this trend may continue.\nDirect Customers",
+          "n_chars": 1590
+        },
+        "score": 0.7031565308570862,
+        "dense_sim": 0.7512774467468262
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c076",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "17",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Note 17 -\nLeases\nOur lease obligations primarily consist of operating leases for our offices and data centers, with lease periods expiring between fiscal years 2027 and 2041.\nFuture minimum lease obligations under our non-cancelable lease agreements as of January 25, 2026 were as follows:\nOperating Lease Obligations\n(In millions)\nFiscal Year:\n2027 | $493\n2028 | 485\n2029 | 457\n2030 | 381\n2031 | 314\n2032 and thereafter | 1,494\nTotal | 3,624\nLess imputed interest | 680\nPresent value of net future minimum lease payments | 2,944\nLess short-term operating lease liabilities | 372\nLong-term operating lease liabilities | $2,572\nBetween fiscal years 2027 and 2030, we expect to commence leases with future obligations of $\n22.7\nbillion, primarily data center leases to support our research and development efforts, with lease terms of\n1.8\nto\n20\nyears.\n79\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)\nOperating lease costs for fiscal years 2026, 2025, and 2024 were $\n462\nmillion, $\n356\nmillion, and $\n269\nmillion, respectively. Short-term and variable lease costs for fiscal years 2026, 2025, and 2024 were not significant.\nOther information related to leases was as follows:\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | Jan 28, 2024\n(In millions)\nSupplemental cash flows information\nOperating cash flow used for operating leases | $428 | $313 | $286\nOperating lease assets obtained in exchange for lease obligations | $1,439 | $877 | $531\nAs of January 25, 2026, our operating leases have a weighted average remaining lease term of\n8.8\nyears and a weighted average discount rate of\n4.38\n%. As of January 26, 2025, our operating leases had a weighted average remaining lease term of\n6.5\nyears and a weighted average discount rate of\n4.16",
+          "n_chars": 1799
+        },
+        "score": 0.6221009492874146,
+        "dense_sim": 0.7221441864967346
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c042",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "6",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Note 6 -\nAmortizable Intangible Assets\nThe components of our amortizable intangible assets are as follows:\nJan 25, 2026 | Jan 26, 2025\nGross Carrying Amount | Accumulated Amortization | Net Carrying Amount | Gross Carrying Amount | Accumulated Amortization | Net Carrying Amount\n(In millions)\nAcquisition-related intangible assets | $5,656 | $( 2,580 ) | $3,076 | $2,900 | $( 2,264 ) | $636\nPatents and licensed technology | 528 | ( 298 ) | 230 | 449 | ( 278 ) | 171\nTotal intangible assets | $6,184 | $( 2,878 ) | $3,306 | $3,349 | $( 2,542 ) | $807\nAmortization expense associated with intangible assets for fiscal years 2026, 2025, and 2024 was $\n488\nmillion, $\n593\nmillion, and $\n614\nmillion, respectively.\nThe following table outlines the estimated future amortization expense related to the net carrying amount of intangible assets as of January 25, 2026:\nFuture Amortization Expense\n(In millions)\nFiscal Year:\n2027 | $923\n2028 | 729\n2029 | 592\n2030 | 511\n2031 | 468\n2032 and thereafter | 83\nTotal | $3,306\n64\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)",
+          "n_chars": 1128
+        },
+        "score": 0.45594504475593567,
+        "dense_sim": 0.690610945224762
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c071",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "16",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Our CODM does not review any information regarding total assets on a reportable segment basis. There are no intersegment transactions. The accounting policies for segment reporting are the same as for our consolidated financial statements.\nThe table below presents details of our reportable segments.\nCompute & Networking | Graphics | Total\n(In millions)\nYear Ended Jan 25, 2026\nRevenue | $193,479 | $22,459 | $215,938\nOther segment items (1) | 63,338 | 13,303 | 76,641\nOperating income | $130,141 | $9,156 | $139,297\nYear Ended Jan 26, 2025\nRevenue | $116,193 | $14,304 | $130,497\nOther segment items (1) | 33,318 | 9,219 | 42,537\nOperating income | $82,875 | $5,085 | $87,960\nYear Ended Jan 28, 2024\nRevenue | $47,405 | $13,517 | $60,922\nOther segment items (1) | 15,389 | 7,671 | 23,060\nOperating income | $32,016 | $5,846 | $37,862\n(1)\nOther segment items primarily include product costs and inventory provisions, compensation and benefits excluding stock-based compensation expense, computing infrastructure expenses, and engineering development costs.\nDepreciation and amortization expense attributable to our Compute & Networking segment for fiscal years 2026, 2025, and 2024 was $\n1.6\nbillion, $\n732\nmillion, and $\n457\nmillion, respectively. Depreciation and amortization expense attributable to our Graphics segment for fiscal years 2026, 2025, and 2024 was $\n590\nmillion, $\n372\nmillion, and $\n307\nmillion, respectively. Acquisition-related intangible amortization expense is not allocated to either Compute & Networking or Graphics for purposes of making operating decisions or assessing financial performance.\n77\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)",
+          "n_chars": 1736
+        },
+        "score": 0.4496077001094818,
+        "dense_sim": 0.7208184599876404
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item7:c000",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "16"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations\nThe following discussion and analysis of our financial condition and results of operations should be read in conjunction with “Item 1A. Risk Factors,” our Consolidated Financial Statements and related Notes thereto, as well as other cautionary statements and risks described elsewhere in this Annual Report on Form 10-K, before deciding to purchase, hold, or sell shares of our common stock.\nOverview\nOur Company and Our Businesses\nNVIDIA pioneered accelerated computing to help solve the most challenging computational problems. Since our original focus on PC graphics, we have expanded to several other large and important computationally intensive fields. Fueled by the sustained demand for exceptional 3D graphics and the scale of the gaming market, NVIDIA has leveraged its GPU architecture to create platforms for scientific computing, AI, data science, autonomous vehicles, robotics, and digital twin applications. NVIDIA is now a data center scale AI infrastructure company reshaping all industries.\nOur two operating segments are \"Compute & Networking\" and \"Graphics.\" Refer to Note 16 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for additional information.\nHeadquartered in Santa Clara, California, NVIDIA was incorporated in California in April 1993 and reincorporated in Delaware in April 1998.\nRecent Developments, Future Objectives and Challenges\nRevenue growth in fiscal year 2026 was driven by data center compute and networking platforms for accelerated computing and AI solutions. Our Blackwell architectures represented the majority of our Data Center revenue.",
+          "n_chars": 1738
+        },
+        "score": 0.39527544379234314,
+        "dense_sim": 0.7307686805725098
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

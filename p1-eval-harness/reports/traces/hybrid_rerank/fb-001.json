@@ -1,0 +1,421 @@
+{
+  "case_id": "fb-001",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What is the 3-year average net sales growth rate for Apple from FY2023 to FY2025?",
+  "answer": "The 2-year compound annual growth rate (CAGR) from FY2023 to FY2025 is 4.20%. This is calculated from total net sales of $383,285 million in 2023 and $416,161 million in 2025.",
+  "citations": [
+    "AAPL_2025_10K:Item7:c003",
+    "AAPL_2025_10K:Item8:c000"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 21507.496417001676,
+  "cost_usd": 0.045846,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "The 2-year compound annual growth rate (CAGR) from FY2023 to FY2025 is 4.20%. This is calculated from total net sales of $383,285 million in 2023 and $416,161 million in 2025.",
+    "citations": [
+      "AAPL_2025_10K:Item7:c003",
+      "AAPL_2025_10K:Item8:c000"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": false,
+      "claims": [
+        {
+          "raw": "4.20%",
+          "value": 4.2,
+          "is_pct": true,
+          "found": false
+        },
+        {
+          "raw": "$383,285 million",
+          "value": 383285000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$416,161 million",
+          "value": 416161000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7386444211006165,
+    "usage": {
+      "input_tokens": 14217,
+      "output_tokens": 213,
+      "cost_usd": 0.045846,
+      "calls": 2
+    },
+    "math_result": {
+      "expression": "((416161 / 383285) ** (1/2) - 1) * 100",
+      "result_value": 4.2005,
+      "formatted": "4.20%",
+      "explanation": "CAGR from FY2023 to FY2025: ((2025 sales / 2023 sales)^(1/2) - 1) * 100"
+    },
+    "latency_ms": 21507.496417001676,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c003",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Segment Operating Performance\nThe following table shows net sales by reportable segment for 2025, 2024 and 2023 (dollars in millions):\n2025 | Change | 2024 | Change | 2023\nAmericas | $178,353 | 7 | % | $167,045 | 3 | % | $162,560\nEurope | 111,032 | 10 | % | 101,328 | 7 | % | 94,294\nGreater China | 64,377 | (4) | % | 66,952 | (8) | % | 72,559\nJapan | 28,703 | 15 | % | 25,052 | 3 | % | 24,257\nRest of Asia Pacific | 33,696 | 10 | % | 30,658 | 4 | % | 29,615\nTotal net sales | $416,161 | 6 | % | $391,035 | 2 | % | $383,285\nAmericas\nAmericas net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPhone and Services. The weakness in foreign currencies relative to the U.S. dollar had an unfavorable year-over-year impact on Americas net sales during 2025.\nEurope\nEurope net sales increased during 2025 compared to 2024 primarily due to higher net sales of Services, iPhone and Mac.\nGreater China\nGreater China net sales decreased during 2025 compared to 2024 primarily due to lower net sales of iPhone, partially offset by higher net sales of Mac.\nJapan\nJapan net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPhone, Services and iPad.\nRest of Asia Pacific\nRest of Asia Pacific net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPhone, Services and Mac.\nApple Inc. | 2025 Form 10-K | 22\nProducts and Services Performance\nThe following table shows net sales by category for 2025, 2024 and 2023 (dollars in millions):",
+          "n_chars": 1520
+        },
+        "score": 0.4085735082626343,
+        "dense_sim": 0.7266001105308533
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c006",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Services gross margin increased during 2025 compared to 2024 primarily due to higher Services net sales and a different mix of services.\nServices gross margin percentage increased during 2025 compared to 2024 primarily due to a different mix of services, partially offset by higher costs.\nThe Company’s future gross margins can be impacted by a variety of factors, as discussed in Part I, Item 1A of this Form 10-K under the heading “Risk Factors.” As a result, the Company believes, in general, gross margins will be subject to volatility and downward pressure.\nOperating Expenses\nOperating expenses for 2025, 2024 and 2023 were as follows (dollars in millions):\n2025 | Change | 2024 | Change | 2023\nResearch and development | $34,550 | 10 | % | $31,370 | 5 | % | $29,915\nPercentage of total net sales | 8 | % | 8 | % | 8 | %\nSelling, general and administrative | $27,601 | 6 | % | $26,097 | 5 | % | $24,932\nPercentage of total net sales | 7 | % | 7 | % | 7 | %\nTotal operating expenses | $62,151 | 8 | % | $57,467 | 5 | % | $54,847\nPercentage of total net sales | 15 | % | 15 | % | 14 | %\nResearch and Development\nThe growth in R&D expense during 2025 compared to 2024 was primarily driven by increases in headcount-related expenses and infrastructure-related costs.\nSelling, General and Administrative\nThe growth in selling, general and administrative expense during 2025 compared to 2024 was primarily driven by increases in headcount-related expenses and variable selling expenses.\nApple Inc. | 2025 Form 10-K | 24\nProvision for Income Taxes\nProvision for income taxes, effective tax rate and statutory federal income tax rate for 2025, 2024 and 2023 were as follows (dollars in millions):",
+          "n_chars": 1694
+        },
+        "score": 0.25264209508895874,
+        "dense_sim": 0.6876981258392334
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c005",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "(1)\nServices net sales include amortization of the deferred value of services bundled in the sales price of certain products.\niPhone\niPhone net sales increased during 2025 compared to 2024 due to higher net sales of Pro models.\nMac\nMac net sales increased during 2025 compared to 2024 primarily due to higher net sales of laptops and desktops.\niPad\niPad net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPad Air, iPad mini and iPad, partially offset by lower net sales of iPad Pro.\nWearables, Home and Accessories\nWearables, Home and Accessories net sales decreased during 2025 compared to 2024 primarily due to lower net sales of Accessories and Wearables.\nServices\nServices net sales increased during 2025 compared to 2024 primarily due to higher net sales from advertising, the App Store and cloud services.\nApple Inc. | 2025 Form 10-K | 23\nGross Margin\nProducts and Services gross margin and gross margin percentage for 2025, 2024 and 2023 were as follows (dollars in millions):\n2025 | 2024 | 2023\nGross margin:\nProducts | $112,887 | $109,633 | $108,803\nServices | 82,314 | 71,050 | 60,345\nTotal gross margin | $195,201 | $180,683 | $169,148\nGross margin percentage:\nProducts | 36.8 | % | 37.2 | % | 36.5 | %\nServices | 75.4 | % | 73.9 | % | 70.8 | %\nTotal gross margin percentage | 46.9 | % | 46.2 | % | 44.1 | %\nProducts Gross Margin\nProducts gross margin increased during 2025 compared to 2024 primarily due to favorable costs and a different mix of products, partially offset by tariff costs.\nProducts gross margin percentage decreased during 2025 compared to 2024 primarily due to a different mix of products and tariff costs, partially offset by other favorable costs.\nServices Gross Margin",
+          "n_chars": 1737
+        },
+        "score": 0.07686130702495575,
+        "dense_sim": 0.7166498899459839
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c020",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Sales increased 12% in 2025, compared to the prior year. Changes in foreign exchange rates increased net sales by $4.4 billion in 2025. For a discussion of the effect of foreign exchange rates on sales growth, see “Effect of Foreign Exchange Rates” below.\nNorth America sales increased 10% in 2025, compared to the prior year. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sales were driven largely by our continued focus on price, selection, and convenience for our customers, including from our fast shipping offers. Changes in foreign exchange rates reduced North America net sales by $454 million in 2025.\nInternational sales increased 13% in 2025, compared to the prior year. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sales were driven largely\n24\nTable of Contents\nby our continued focus on price, selection, and convenience for our customers, including from our fast shipping offers. Changes in foreign exchange rates increased International net sales by $4.9 billion in 2025.\nAWS sales increased 20% in 2025, compared to the prior year. The sales growth primarily reflects increased customer usage, partially offset by pricing changes primarily driven by long-term customer contracts.\nOperating Expenses\nInformation about operating expenses is as follows (in millions):\nYear Ended December 31,\n2024 | 2025\nOperating Expenses:",
+          "n_chars": 1562
+        },
+        "score": 0.05933535099029541,
+        "dense_sim": 0.6502443552017212
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c003",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The net impact of acquisitions and divestitures on the worldwide sales growth was a positive impact of 1.1% in 2025, primarily related to CAPLYTA and Shockwave and a positive impact of 0.5% in 2024 primarily related to Shockwave.\nSales by U.S. companies were $53.8 billion in 2025 and $50.3 billion in 2024. This represents increases of 6.9% in 2025 and 8.3% in 2024. In the fiscal year 2025, acquisitions and divestitures had a net positive impact of 2.0% on the U.S. sales growth primarily related to CAPLYTA and Shockwave. Sales by international companies were $40.4 billion in 2025 and $38.5 billion in 2024. This represents an increase of 5.0% in 2025, and a decrease of 0.5% in 2024. In fiscal 2025, acquisitions and divestitures had a net positive impact of 0.1% on the international operational* sales growth, primarily related to Shockwave. In the fiscal year 2025, the negative impact of the STELARA sales decline, due to biosimilar competition, was approximately 6.2%, 7.6% and 4.4% on worldwide, U.S. and international operational sales, respectively.\nThe five-year compound annual growth rates for worldwide, U.S. and international sales were 6.7%, 7.9% and 5.2%, respectively. The ten-year compound annual growth rates for worldwide, U.S. and international sales were 5.2%, 5.8% and 4.5%, respectively.\n2025 Annual Report\n23",
+          "n_chars": 1338
+        },
+        "score": 0.03463387116789818,
+        "dense_sim": 0.6286501288414001
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c015",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "For the sale of third-party products where the Company obtains control of the product before transferring it to the customer, the Company recognizes revenue based on the gross amount billed to customers. The Company considers multiple factors when determining whether it obtains control of third-party products, including evaluating if it can establish the price of the product, retains inventory risk for tangible products or has the responsibility for ensuring acceptability of the product. For third-party applications sold through the App Store, the Company does not obtain control of the product before transferring it to the customer. Therefore, the Company accounts for all third-party application–related sales on a net basis by recognizing in Services net sales only the commission it retains.\nApple Inc. | 2025 Form 10-K | 35\nThe following table shows disaggregated net sales, as well as the portion of total net sales that was previously deferred, for 2025, 2024 and 2023 (in millions):\n2025 | 2024 | 2023\niPhone | $209,586 | $201,183 | $200,583\nMac | 33,708 | 29,984 | 29,357\niPad | 28,023 | 26,694 | 28,300\nWearables, Home and Accessories | 35,686 | 37,005 | 39,845\nServices (1) | 109,158 | 96,169 | 85,200\nTotal net sales | $416,161 | $391,035 | $383,285\nPortion of total net sales that was included in deferred revenue as of the beginning of the period | $8,229 | $7,728 | $8,169\n(1)\nServices net sales include amortization of the deferred value of services bundled in the sales price of certain products.",
+          "n_chars": 1520
+        },
+        "score": 0.02863701432943344,
+        "dense_sim": 0.6614107489585876
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item8:c161",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "9",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "While the U.S. unemployment and U.S. GDP growth rates are significant inputs to the forecast model, the model contemplates a variety of other inputs across a range of scenarios to provide a forecast of future economic conditions. Given the complex nature of the forecasting process, no single economic variable can be viewed in isolation and independently of other inputs.\nAllowance for Credit Losses Commentary\nYear Ended December 2025.\nThe allowance for credit losses decreased by $\n2.46\nbillion during 2025, primarily related to a reserve release associated with the Apple Card loan portfolio upon transferring the Apple Card loans to held for sale.\nCharge-offs for 2025 for wholesale loans (principally related to term loans originated in 2021) were primarily related to corporate loans and charge-offs for consumer loans were related to credit cards.\nYear Ended December 2024.\nThe allowance for credit losses decreased by $\n330\nmillion during 2024, primarily reflecting a reserve release relating to the wholesale portfolio due to improved macroeconomic environment, partially offset by growth in the credit card portfolio.\nCharge-offs for 2024 for wholesale loans (principally related to term loans originated in 2022 and 2021) were primarily related to corporate loans and charge-offs for consumer loans were primarily related to credit cards.\nEstimated Fair Value\nThe table below presents the estimated fair value of loans that are not accounted for at fair value and in what level of the fair value hierarchy they would have been classified if they had been included in the firm’s fair value hierarchy.\nCarrying Value | Estimated Fair Value\n$ in millions | Level 2 | Level 3 | Total\nAs of December 2025",
+          "n_chars": 1711
+        },
+        "score": 0.021581318229436874,
+        "dense_sim": 0.6146225929260254
+      },
+      {
+        "chunk": {
+          "id": "JPM_2025_10K:Item8:c265",
+          "doc_id": "JPM_2025_10K",
+          "ticker": "JPM",
+          "company": "JPMorgan Chase",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "13",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "JPMorgan Chase & Co./2025 Form 10-K\n261\nNotes to consolidated financial statements\nDiscussion of changes in the allowance\nThe allowance for credit losses as of December 31, 2025 was $\n31.2\nbillion, reflecting a net addition of $\n4.4\nbillion from December 31, 2024.\nThe net addition to the allowance for credit losses included:\n•\n$\n3.3\nbillion in\nconsumer\n, driven by $\n2.2\nbillion related to the Apple Card transaction, loan growth in Card Services and the impact of changes in the Firm's weighted-average macroeconomic outlook, partially offset by reduced borrower uncertainty, and\n•\n$\n1.1\nbillion in\nwholesale\n, driven by net increases in the loan and lending-related commitment portfolios, an update to loss assumptions on certain leveraged loans, and net changes in credit quality of client-specific exposures, partially offset by the impact of changes in the Firm's weighted-average macroeconomic outlook and a reduction due to the impact of charge-offs.\nThe Firm's qualitative adjustments and its weighted-average macroeconomic outlook continued to include additional weight placed on the adverse scenarios to reflect ongoing uncertainties and downside risks related to the geopolitical and macroeconomic environment. During 2025, the Firm further increased the weight placed on the adverse scenarios.\nThe Firm's allowance for credit losses is estimated using a weighted average of five internally developed macroeconomic scenarios. The adverse scenarios incorporate more punitive macroeconomic factors than the central case assumptions provided in the following table, resulting in:\n•\na weighted average U.S. unemployment rate peaking at 5.8% in the fourth quarter of 2026, and\n•",
+          "n_chars": 1686
+        },
+        "score": 0.019041571766138077,
+        "dense_sim": 0.5991581678390503
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item7:c006",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "FISCAL 2025 COMPARED TO FISCAL 2024\nSales\nWe assess our sales performance by evaluating both net sales and comparable sales. Fiscal 2025 consisted of 52 weeks compared to 53 weeks in fiscal 2024. For purposes of the following discussion, comparable sales, comparable customer transactions, and comparable average ticket are based upon the comparable 52-week period from fiscal 2024.\nNet Sales.\nNet sales for fiscal 2025 increased $5.2 billion, or 3.2%, to $164.7 billion. The increase in n\net s\nales for fiscal 2025 was primarily driven by SRS, which was acquired on June 18, 2024, and GMS, which was acquired on September 4, 2025. In aggregate, these acquisitions contributed approximately $6.3 billion of incremental net sales during fiscal 2025. Net sales also increased due to sales from new stores and the impact of a positive comparable sales environment. These increases were partially offset by the additional week in fiscal 2024 which contributed approximately $2.5 billion in net sales in fiscal 2024.\nFiscal 2025 Form 10-K\n29\nTable\nof\nContents\nOnline sales represented 15.9% of net sales during fiscal 2025 and increased by 8.7% compared to fiscal 2024. Calculated on a comparable week basis relative to fiscal 2024, online sales increased by 10.4%. Online sales consist of sales of products generated through websites and mobile applications and does not include results from HD Supply or SRS (including GMS).\nA stronger U.S. dollar compared to fiscal 2024 negatively impacted net sales by $307 million in fiscal 2025.\nComparable Sales.",
+          "n_chars": 1548
+        },
+        "score": 0.9714605808258057,
+        "dense_sim": 0.7307718992233276
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item8:c040",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Fiscal | Fiscal | Fiscal\nin millions | 2025 | 2024 | 2023\nNet sales – in the U.S. | $152,170 | $147,007 | $140,083\nNet sales – outside the U.S. | 12,513 | 12,507 | 12,586\nNet sales | $164,683 | $159,514 | $152,669",
+          "n_chars": 213
+        },
+        "score": 0.9595600366592407,
+        "dense_sim": 0.7386444211006165
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item7:c072",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The operating environment for Platform Solutions is mainly impacted by the economic environment in the U.S., which, during 2025, was generally characterized by concerns about inflation and uncertainty related to changes in international trade policies (including tariffs), a continued low rate of unemployment and a decline in the pace of growth in consumer spending compared with 2024.\nIn the future, if economic conditions deteriorate, it may lead to a decrease in consumer spending or a deterioration in consumer credit, and net revenues in Platform Solutions would likely be negatively impacted.\n2025 versus 2024.\nNet revenue\ns in Platform Solutions were $151 million for 2025, compared with $2.13 billion in 2024, with the decrease reflecting a reduction in net revenues of $2.26 billion from markdowns on the outstanding credit card portfolio related to the transfer of the Apple Card loan portfolio to held for sale and contract termination obligations in connection with the agreement to transition the program to another issuer, which was more than offset by a related reserve reduction in provision for credit losses.\nProvision for credit losses was a net benefit of $1.38 billion for 2025, compared with net provisions of $1.54 billion for 2024. The net benefit for 2025 reflected a reserve reduction of $2.48 billion related to the transfer of the Apple Card loan portfolio to held for sale, partially offset by net charge-offs during the year. Provisions for 2024 reflected net charge-offs related to the credit card portfolio.\nOperating expenses were $1.38 billion for\n2025, 13% lower than 2024\n, primarily reflecting the impact of the sale of GreenSky and the write-down of identifiable intangible assets related to the GM credit card program in the prior year",
+          "n_chars": 1775
+        },
+        "score": 0.9247484803199768,
+        "dense_sim": 0.6803621053695679
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c016",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [
+            "13"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The Company’s proportion of net sales by disaggregated revenue source was generally consistent for each reportable segment in Note 13, “Segment Information and Geographic Data” for 2025, 2024 and 2023, except in Greater China, where iPhone revenue represented a moderately higher proportion of net sales.\nAs of September 27, 2025 and September 28, 2024, the Company had total deferred revenue of $\n13.7\nbillion and $\n12.8\nbillion, respectively. As of September 27, 2025, the Company expects\n66\n% of total deferred revenue to be realized in less than a year,\n23\n% within one-to-two years,\n9\n% within two-to-three years and\n2\n% in greater than three years.",
+          "n_chars": 654
+        },
+        "score": 0.8981643319129944,
+        "dense_sim": 0.7260290384292603
+      },
+      {
+        "chunk": {
+          "id": "PG_2025_10K:Item7:c021",
+          "doc_id": "PG_2025_10K",
+          "ticker": "PG",
+          "company": "Procter & Gamble",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Form 10-K for the fiscal year ended June\n30\n, 2024\n.\nNet Sales\nNet sales increased $245 million to $84.3 billion in fiscal 2025 as an increase in net sales driven by pricing of 1% was mostly offset by unfavorable foreign exchange of 1%. Volume and mix were unchanged versus the prior year.\nNet sales increased low single digits in Health Care and was unchanged in Grooming, Fabric & Home Care and Baby, Feminine & Family Care. Net sales decreased low single digits in Beauty. Organic sales, which exclude the impacts of acquisitions and divestitures and foreign exchange, increased 2%. Organic sales increased low single digits in all Sector Business Units.\nOperating Costs\nComparisons as a percentage of net sales; fiscal years ended June 30 | 2025 | 2024 | Basis Point Change\nGross margin | 51.2 | % | 51.4 | % | (20) bps\nSelling, general and administrative expense | 26.9 | % | 27.7 | % | (80) bps\nOperating margin | 24.3 | % | 22.1 | % | 220 bps\nEarnings before income taxes | 23.9 | % | 22.3 | % | 160 bps\nNet earnings | 19.1 | % | 17.8 | % | 130 bps\nNet earnings attributable to Procter & Gamble | 19.0 | % | 17.7 | % | 130 bps\nGross margin decreased 20 basis points to 51.2% of net sales. The decrease in gross margin was due to:\n•\n110 basis points of decline from unfavorable product mix,\n•\n50 basis points of product and packaging investments,\n•\n30 basis points of higher commodity costs,\n•\n20 basis points of unfavorable foreign exchange impacts,\n•\n10 basis points of higher transportation costs and other costs and\n•\n10 basis points of higher costs from tariffs.\nThese decreases were partially offset by:\n•\n180 basis points of manufacturing productivity savings and\n•\n30 basis points of increase due to higher pricing.",
+          "n_chars": 1729
+        },
+        "score": 0.8584040999412537,
+        "dense_sim": 0.6863545775413513
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c000",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Item 8. Financial Statements and Supplementary Data\nIndex to Consolidated Financial Statements | Page\nConsolidated Statements of Operations for the years ended September 27, 2025, September 28, 2024 and September 30, 2023 | 29\nConsolidated Statements of Comprehensive Income for the years ended September 27, 2025, September 28, 2024 and September 30, 2023 | 30\nConsolidated Balance Sheets as of September 27, 2025 and September 28, 2024 | 31\nConsolidated Statements of Shareholders’ Equity for the years ended September 27, 2025, September 28, 2024 and September 30, 2023 | 32\nConsolidated Statements of Cash Flows for the years ended September 27, 2025, September 28, 2024 and September 30, 2023 | 33\nNotes to Consolidated Financial Statements | 34\nReports of Independent Registered Public Accounting Firm | 49\nAll financial statement schedules have been omitted, since the required information is not applicable or is not present in amounts sufficient to require submission of the schedule, or because the information required is included in the consolidated financial statements and accompanying notes.\nApple Inc. | 2025 Form 10-K | 28\nApple Inc.\nCONSOLIDATED STATEMENTS OF OPERATIONS\n(In millions, except number of shares, which are reflected in thousands, and per-share amounts)\nYears ended\nSeptember 27, 2025 | September 28, 2024 | September 30, 2023\nNet sales:\nProducts | $307,003 | $294,866 | $298,085\nServices | 109,158 | 96,169 | 85,200\nTotal net sales | 416,161 | 391,035 | 383,285\nCost of sales:\nProducts | 194,116 | 185,233 | 189,282\nServices | 26,844 | 25,119 | 24,855\nTotal cost of sales | 220,960 | 210,352 | 214,137\nGross margin | 195,201 | 180,683 | 169,148\nOperating expenses:",
+          "n_chars": 1696
+        },
+        "score": 0.7570455074310303,
+        "dense_sim": 0.6964682340621948
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c000",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations\nThe following discussion should be read in conjunction with the consolidated financial statements and accompanying notes included in Part II, Item 8 of this Form 10-K. This Item generally discusses 2025 and 2024 items and year-to-year comparisons between 2025 and 2024. Discussions of 2023 items and year-to-year comparisons between 2024 and 2023 are not included, and can be found in “Management’s Discussion and Analysis of Financial Condition and Results of Operations” in Part II, Item 7 of the Company’s Annual Report on Form 10-K for the fiscal year ended September 28, 2024.\nProduct, Service and Software Announcements\nThe Company announces new product, service and software offerings at various times during the year. Significant announcements during fiscal year 2025 included the following:\nFirst Quarter 2025:\n•\nMacBook Pro\n•\nMac mini\n•\niMac\n•\niPad mini\nSecond Quarter 2025:\n•\niPhone 16e\n•\niPad Air\n•\niPad\n•\nMacBook Air\n•\nMac Studio\nThird Quarter 2025:\n•\niOS 26, macOS Tahoe 26, iPadOS 26, watchOS 26, visionOS 26 and tvOS 26\nFourth Quarter 2025:\n•\niPhone 17, iPhone Air, iPhone 17 Pro and iPhone 17 Pro Max\n•\nApple Watch Series 11, Apple Watch SE 3 and Apple Watch Ultra 3\n•\nAirPods Pro 3\nFiscal Period\nThe Company’s fiscal year is the 52- or 53-week period that ends on the last Saturday of September. An additional week is included in the first fiscal quarter every five or six years to realign the Company’s fiscal quarters with calendar quarters, which occurred in the first quarter of 2023. The Company’s fiscal years 2025 and 2024 spanned 52 weeks each, whereas fiscal year 2023 spanned 53 weeks.\nMacroeconomic Conditions",
+          "n_chars": 1732
+        },
+        "score": 0.31855863332748413,
+        "dense_sim": 0.727123498916626
+      },
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item7:c018",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "(1)\nMembership and other income includes membership fees and other items such as rental and tenant income, recycling income, gift card breakage income, as well as other income from corporate campus facilities.\n(2)\nGross profit is defined as net sales less cost of sales. Operating expenses refers to operating, selling, general and administrative expenses.\nOur total revenues increased $32.2 billion or 4.7% and $32.9 billion or 5.1% for fiscal 2026 and 2025, respectively, when compared to the previous fiscal year. These increases in revenues were primarily due to increases in net sales, which increased $31.9 billion or 4.7% and $31.9 billion or 5.0% for fiscal 2026 and 2025, respectively, when compared to the previous fiscal year. The increases were primarily due to strong positive comparable sales across our U.S. segments and international markets. In fiscal 2026, growth was primarily driven by increases in average ticket and transactions, and also reflected growth in unit volumes, while fiscal 2025 growth was primarily driven by higher transactions and unit volumes. Both years include strength in eCommerce as well as strong sales in grocery and health and wellness, with fiscal 2026 also benefiting from improved sales in general merchandise. Net sales were negatively impacted by $2.8 billion and $3.2 billion of fluctuations in currency exchange rates during fiscal 2026 and 2025, respectively.\nMembership and other income increased $0.3 billion and $1.0 billion for fiscal 2026 and 2025, respectively, primarily driven by growth in membership fee revenue globally, partially offset by decreases in certain other income items, including a reduction in recycling income in fiscal 2026.",
+          "n_chars": 1703
+        },
+        "score": 0.25451895594596863,
+        "dense_sim": 0.6555566191673279
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

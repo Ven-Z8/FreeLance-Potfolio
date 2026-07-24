@@ -1,0 +1,232 @@
+{
+  "case_id": "fb-003",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What was Amazon's operating income for the fiscal year ended December 31, 2025?",
+  "answer": "$79,975 million",
+  "citations": [
+    "AMZN_2025_10K:Item8:c007"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 3786.0236249980517,
+  "cost_usd": 0.012234,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$79,975 million",
+    "citations": [
+      "AMZN_2025_10K:Item8:c007"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$79,975 million",
+          "value": 79975000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7554734349250793,
+    "usage": {
+      "input_tokens": 3818,
+      "output_tokens": 52,
+      "cost_usd": 0.012234,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 3786.0236249980517,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "NFLX_2025_10K:Item7:c001",
+          "doc_id": "NFLX_2025_10K",
+          "ticker": "NFLX",
+          "company": "Netflix",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "section below for additional details on our use of constant currency revenue.\nOperating margin for the year ended December 31, 2025 increased by approximately three percentage points as compared to the prior comparative period, primarily driven by the growth in revenues outpacing the growth in cost of revenues, sales and marketing, and general and administrative expenses.\nNet income for the year ended December 31, 2025 increased $2,270 million as compared to the prior comparative period, primarily due to a $2,909 million increase in operating income, driven by a $6,182 million increase in revenues and partially offset by a $2,237 million increase in cost of revenues primarily due to the increase in content amortization and other cost of revenues. The impact of higher operating income was partially offset by a $487 million increase in the provision for income taxes.\nRevenues\nWe primarily derive revenues from monthly membership fees for services related to streaming content to our members. We offer a variety of streaming membership plans, the price of which varies by country and the features of the plan. As of December 31, 2025, pricing on our paid plans ranged from the U.S. dollar equivalent of $1 to $37 per month, and pricing on our extra member sub accounts ranged from the U.S. dollar equivalent of $2 to $9 per month. We expect that from time to time the prices of our membership plans in each country may change and we may test other plan and price variations.\nWe also earn revenue from advertisements presented on our streaming service, consumer products, live experiences and various other sources. Revenues earned from sources other than monthly membership fees were not a material component of revenues for the years ended December 31, 2025, 2024, and 2023.\n20",
+          "n_chars": 1788
+        },
+        "score": 0.9944004416465759,
+        "dense_sim": 0.6866738796234131
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item8:c007",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes to consolidated financial statements.\n36\nTable of Contents\nAMAZON.COM, INC.\nCONSOLIDATED STATEMENTS OF OPERATIONS\n(in millions, except per share data)\nYear Ended December 31,\n2023 | 2024 | 2025\nNet product sales | $255,887 | $272,311 | $296,266\nNet service sales | 318,898 | 365,648 | 420,658\nTotal net sales | 574,785 | 637,959 | 716,924\nOperating expenses:\nCost of sales | 304,739 | 326,288 | 356,414\nFulfillment | 90,619 | 98,505 | 109,074\nTechnology and infrastructure | 85,622 | 88,544 | 108,521\nSales and marketing | 44,370 | 43,907 | 47,129\nGeneral and administrative | 11,816 | 11,359 | 11,172\nOther operating expense (income), net | 767 | 763 | 4,639\nTotal operating expenses | 537,933 | 569,366 | 636,949\nOperating income | 36,852 | 68,593 | 79,975\nInterest income | 2,949 | 4,677 | 4,381\nInterest expense | ( 3,182 ) | ( 2,406 ) | ( 2,274 )\nOther income (expense), net | 938 | ( 2,250 ) | 15,229\nTotal non-operating income | 705 | 21 | 17,336\nIncome before income taxes | 37,557 | 68,614 | 97,311\nProvision for income taxes | ( 7,120 ) | ( 9,265 ) | ( 19,087 )\nEquity-method investment activity, net of tax | ( 12 ) | ( 101 ) | ( 554 )\nNet income | $30,425 | $59,248 | $77,670\nBasic earnings per share | $2.95 | $5.66 | $7.29\nDiluted earnings per share | $2.90 | $5.53 | $7.17\nWeighted-average shares used in computation of earnings per share:\nBasic | 10,304 | 10,473 | 10,656\nDiluted | 10,492 | 10,721 | 10,827\nSee accompanying notes to consolidated financial statements.\n37\nTable of Contents\nAMAZON.COM, INC.\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(in millions)\nYear Ended December 31,\n2023 | 2024 | 2025\nNet income | $30,425 | $59,248 | $77,670\nOther comprehensive income (loss):",
+          "n_chars": 1725
+        },
+        "score": 0.9932186007499695,
+        "dense_sim": 0.7554734349250793
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c028",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "10"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Operating income by segment is as follows (in millions):\nYear Ended December 31,\n2024 | 2025\nOperating Income\nNorth America | $24,967 | $29,619\nInternational | 3,792 | 4,750\nAWS | 39,834 | 45,606\nConsolidated | $68,593 | $79,975\nOperating income was $68.6 billion and $80.0 billion for 2024 and 2025. Operating income for 2025 includes charges of $2.5 billion we recorded in Q3 2025 related to the settlement of a lawsuit with the FTC and $2.7 billion, of which $1.8 billion was recorded in Q3 2025, of estimated severance costs primarily related to planned role eliminations. We believe that operating income is a more meaningful measure than gross profit and gross margin due to the diversity of our product categories and services. For more information on the operating expenses that impact segment operating income, see “Operating Expenses” and the descriptions of operating expense line item changes on pages 25 to 27, and “Note 10 — Segment Information” on page 67.\nThe increase in North America operating income in 2025, compared to the prior year, is primarily due to increased unit sales and increased advertising sales, partially offset by increased fulfillment, technology and infrastructure, shipping, and other operating costs. Changes in foreign exchange rates negatively impacted operating income by $204 million in 2025.\nThe increase in International operating income in 2025, compared to the prior year, is primarily due to increased unit sales and increased advertising sales, partially offset by increased fulfillment and shipping costs. Changes in foreign exchange rates positively impacted operating income by $903 million in 2025.",
+          "n_chars": 1652
+        },
+        "score": 0.9864787459373474,
+        "dense_sim": 0.7252727746963501
+      },
+      {
+        "chunk": {
+          "id": "NFLX_2025_10K:Item7:c010",
+          "doc_id": "NFLX_2025_10K",
+          "ticker": "NFLX",
+          "company": "Netflix",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "7",
+            "11"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "The increase in our effective tax rate for the year ended December 31, 2025, as compared to the year ended December 31, 2024, is primarily due to a decrease in tax benefits associated with federal research and development tax credits as well as the growth in income before taxes exceeding the growth in excess tax benefits from stock-based compensation. See Note 11\nIncome Taxes\nto the consolidated financial statements for further information regarding income taxes.\n24\nTable of Contents\nLiquidity and Capital Resources\nAs of December 31, | Change\n2025 | 2024 | 2025 vs. 2024\n(in thousands, except percentages)\nCash, cash equivalents, restricted cash and short-term investments | $9,067,872 | $9,586,343 | $(518,471) | (5) | %\nShort-term and long-term debt | 14,462,836 | 15,582,804 | (1,119,968) | (7) | %\nCash, cash equivalents, restricted cash and short-term investments decreased $518 million in the year ended December 31, 2025 primarily due to the repurchase of stock and repayment of debt, partially offset by cash provided by operations.\nDebt, net of debt issuance costs and discounts, decreased $1,120 million primarily due to approximately $1,833 million in repayments of debt, partially offset by the remeasurement of our Euro-denominated notes in the year ended December 31, 2025. The amount of principal and interest on our outstanding notes due in the next twelve months is $1,690 million. See Note 7\nDebt\nin the accompanying notes to our consolidated financial statements.\nUses of Cash",
+          "n_chars": 1501
+        },
+        "score": 0.954272985458374,
+        "dense_sim": 0.7339928150177002
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item8:c082",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "14",
+          "note": "29",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Millions of dollars, except per-share amounts\nThe 2025 decrease in income tax expense of $\n2,499\nwas driven by the\ndecrease in total income before tax of $\n7,763\n, along with the absence of the tax impacts from the prior year asset sales in Canada.\nThe change in the company’s effective tax rate from\n35.5\npercent in 2024 to\n36.8\npercent in 2025 was primarily a result of unfavorable foreign exchange impacts.\nThe reconciliation of income taxes paid in the U.S. and other significant international jurisdictions for the year ended December 31, 2025, is detailed in the following table:\nIncome Taxes Paid | Year ended December 31\n2025\nU.S. Federal 1 | $143\nU.S. state and local | 224\nAll other jurisdictions\nAustralia | 1,592\nCanada 2 | 1,782\nGuyana 3 | 406\nKazakhstan 4 | 755\nNigeria | 593\nSaudi Arabia | 611\nAll others | 1,198\nIncome taxes paid | $7,304\n1\nU.S.\nFederal taxes paid are affected by accelerated depreciation and the immediate expensing of research and development costs provided by the One Big Beautiful Bill Act of 2025, as well as net operating loss carryforwards, tax credits from biofuels production and other lower carbon activities, and prior year overpayments.\n2\nIncludes taxes associated with the Canada asset sale in 2024 that were paid in 2025.\n3\nTaxes settled with the government in the form of crude oil barrels.\n4\nIncludes withholding tax and excludes taxes paid by the company’s equity affiliate, TCO.\nThe company records its deferred taxes on a tax-jurisdiction basis.\nThe reported deferred tax balances are composed of the following:\nAt December 31\n2025 | 2024\nDeferred tax liabilities\nProperties, plant and equipment | $34,149 | $20,648\nInvestments and other | 6,668 | 5,254\nTotal deferred tax liabilities | 40,817 | 25,902\nDeferred tax assets",
+          "n_chars": 1774
+        },
+        "score": 0.950772762298584,
+        "dense_sim": 0.7036327123641968
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c029",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "4",
+            "6"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The increase in AWS operating income in 2025, compared to the prior year, is primarily due to increased sales, partially offset by spending on technology infrastructure that was primarily driven by additional investments to support AWS business growth. Changes in foreign exchange rates negatively impacted operating income by $341 million in 2025.\nInterest Income and Expense\nOur interest income was $4.7 billion and $4.4 billion during 2024 and 2025, primarily due to a decrease in prevailing rates, offset by a higher average balance of invested funds. We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Our interest income corresponds with the average balance of invested funds based on the prevailing rates, which vary depending on the geographies and currencies in which they are invested.\nInterest expense was $2.4 billion and $2.3 billion in 2024 and 2025 and was primarily related to debt and finance leases. See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 4 — Leases and Note 6 — Debt” for additional information.\nOur long-term lease liabilities were $78.3 billion and $87.3 billion as of December 31, 2024 and 2025. Our long-term debt was $52.6 billion and $65.6 billion as of December 31, 2024 and 2025. See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 4 — Leases and Note 6 — Debt” for additional information.\nOther Income (Expense), Net",
+          "n_chars": 1497
+        },
+        "score": 0.9262030720710754,
+        "dense_sim": 0.7505760192871094
+      },
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item7:c021",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "The following table presents provision for income taxes (in millions, except effective tax rate):\nYear Ended December 31,\n2024 | 2025\nIncome before provision for income taxes | $119,815 | $158,826\nProvision for income taxes | $19,697 | $26,656\nEffective tax rate | 16.4 | % | 16.8 | %\nThe effective tax rate increased from 2024 to 2025. This increase was primarily due to a decrease in the US Federal Foreign Derived Intangible Income tax deduction, a non-deductible EC fine and legal settlement in the US, partially offset by changes in prior period tax positions.\nChanges to US tax law enacted on July 4, 2025, allow for immediate expensing of domestic research and experimentation costs, accelerated depreciation on eligible capital expenditures, and other tax law changes impacting 2025 with certain changes effective in 2026. These changes are reflected in our results for the year ended\nDecember 31, 2025\n.\nThe OECD is coordinating negotiations among more than 140 countries with the goal of achieving consensus around substantial changes to international tax policies, including the implementation of a minimum global effective tax rate of 15%. Some countries have already implemented the legislation effective January 1, 2024. This did not have a material effect on our income tax provision for the 2025 fiscal year.\nIn January 2026, the OECD introduced new guidance including a \"Side-by-Side Safe Harbor\" which, if elected, exempts U.S. domestic operations from being taxed by global minimum tax rules. However, it does not exempt foreign subsidiaries from local minimum tax requirements if implemented. As more countries enact these global minimum tax rules, our effective tax rate and cash tax payments could increase.\nFinancial Condition\nCash, Cash Equivalents, and Marketable Securities",
+          "n_chars": 1799
+        },
+        "score": 0.8819674849510193,
+        "dense_sim": 0.6873084306716919
+      },
+      {
+        "chunk": {
+          "id": "KO_2025_10K:Item7:c046",
+          "doc_id": "KO_2025_10K",
+          "ticker": "KO",
+          "company": "Coca-Cola",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The Company’s EMEA operating segment reported operating income of $4,298 million and $4,255 million for the years ended December 31, 2025 and 2024, respectively. The increase in operating income was primarily driven by an increase in concentrate sales volume of 4% and favorable pricing initiatives, partially offset by higher commodity costs, increased marketing spending, higher operating expenses, an unfavorable foreign currency exchange rate impact of 5% and the impact of divestiture activity.\nLatin America reported operating income of $3,742 million and $3,792 million for the years ended December 31, 2025 and 2024, respectively. The decrease in operating income was primarily driven by a decrease in concentrate sales volume of 1%, increased marketing spending and an unfavorable foreign currency exchange rate impact of 21%, partially offset by favorable pricing initiatives, lower commodity costs and lower other operating charges.\nOperating income for North America for the years ended December 31, 2025 and 2024 was $5,070 million and $4,556 million, respectively. The increase in operating income was primarily driven by favorable pricing initiatives, partially offset by a decrease in concentrate sales volume of 1%, higher commodity costs, increased marketing spending, higher other operating charges and an unfavorable foreign currency exchange rate impact of 1%.",
+          "n_chars": 1381
+        },
+        "score": 0.8599201440811157,
+        "dense_sim": 0.6454392671585083
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

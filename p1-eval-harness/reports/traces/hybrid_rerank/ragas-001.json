@@ -1,0 +1,226 @@
+{
+  "case_id": "ragas-001",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What were Apple's iPhone net sales in fiscal year 2025, according to the segment disaggregation table?",
+  "answer": "$209,586 million",
+  "citations": [
+    "AAPL_2025_10K:Item8:c015"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 2892.853291999927,
+  "cost_usd": 0.011223,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$209,586 million",
+    "citations": [
+      "AAPL_2025_10K:Item8:c015"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$209,586 million",
+          "value": 209586000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.8132858276367188,
+    "usage": {
+      "input_tokens": 3481,
+      "output_tokens": 52,
+      "cost_usd": 0.011223,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 2892.853291999927,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c003",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Segment Operating Performance\nThe following table shows net sales by reportable segment for 2025, 2024 and 2023 (dollars in millions):\n2025 | Change | 2024 | Change | 2023\nAmericas | $178,353 | 7 | % | $167,045 | 3 | % | $162,560\nEurope | 111,032 | 10 | % | 101,328 | 7 | % | 94,294\nGreater China | 64,377 | (4) | % | 66,952 | (8) | % | 72,559\nJapan | 28,703 | 15 | % | 25,052 | 3 | % | 24,257\nRest of Asia Pacific | 33,696 | 10 | % | 30,658 | 4 | % | 29,615\nTotal net sales | $416,161 | 6 | % | $391,035 | 2 | % | $383,285\nAmericas\nAmericas net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPhone and Services. The weakness in foreign currencies relative to the U.S. dollar had an unfavorable year-over-year impact on Americas net sales during 2025.\nEurope\nEurope net sales increased during 2025 compared to 2024 primarily due to higher net sales of Services, iPhone and Mac.\nGreater China\nGreater China net sales decreased during 2025 compared to 2024 primarily due to lower net sales of iPhone, partially offset by higher net sales of Mac.\nJapan\nJapan net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPhone, Services and iPad.\nRest of Asia Pacific\nRest of Asia Pacific net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPhone, Services and Mac.\nApple Inc. | 2025 Form 10-K | 22\nProducts and Services Performance\nThe following table shows net sales by category for 2025, 2024 and 2023 (dollars in millions):",
+          "n_chars": 1520
+        },
+        "score": 0.9931350946426392,
+        "dense_sim": 0.8132858276367188
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c016",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [
+            "13"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The Company’s proportion of net sales by disaggregated revenue source was generally consistent for each reportable segment in Note 13, “Segment Information and Geographic Data” for 2025, 2024 and 2023, except in Greater China, where iPhone revenue represented a moderately higher proportion of net sales.\nAs of September 27, 2025 and September 28, 2024, the Company had total deferred revenue of $\n13.7\nbillion and $\n12.8\nbillion, respectively. As of September 27, 2025, the Company expects\n66\n% of total deferred revenue to be realized in less than a year,\n23\n% within one-to-two years,\n9\n% within two-to-three years and\n2\n% in greater than three years.",
+          "n_chars": 654
+        },
+        "score": 0.9901111721992493,
+        "dense_sim": 0.7641408443450928
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c015",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "For the sale of third-party products where the Company obtains control of the product before transferring it to the customer, the Company recognizes revenue based on the gross amount billed to customers. The Company considers multiple factors when determining whether it obtains control of third-party products, including evaluating if it can establish the price of the product, retains inventory risk for tangible products or has the responsibility for ensuring acceptability of the product. For third-party applications sold through the App Store, the Company does not obtain control of the product before transferring it to the customer. Therefore, the Company accounts for all third-party application–related sales on a net basis by recognizing in Services net sales only the commission it retains.\nApple Inc. | 2025 Form 10-K | 35\nThe following table shows disaggregated net sales, as well as the portion of total net sales that was previously deferred, for 2025, 2024 and 2023 (in millions):\n2025 | 2024 | 2023\niPhone | $209,586 | $201,183 | $200,583\nMac | 33,708 | 29,984 | 29,357\niPad | 28,023 | 26,694 | 28,300\nWearables, Home and Accessories | 35,686 | 37,005 | 39,845\nServices (1) | 109,158 | 96,169 | 85,200\nTotal net sales | $416,161 | $391,035 | $383,285\nPortion of total net sales that was included in deferred revenue as of the beginning of the period | $8,229 | $7,728 | $8,169\n(1)\nServices net sales include amortization of the deferred value of services bundled in the sales price of certain products.",
+          "n_chars": 1520
+        },
+        "score": 0.9808014035224915,
+        "dense_sim": 0.6974209547042847
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c005",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "(1)\nServices net sales include amortization of the deferred value of services bundled in the sales price of certain products.\niPhone\niPhone net sales increased during 2025 compared to 2024 due to higher net sales of Pro models.\nMac\nMac net sales increased during 2025 compared to 2024 primarily due to higher net sales of laptops and desktops.\niPad\niPad net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPad Air, iPad mini and iPad, partially offset by lower net sales of iPad Pro.\nWearables, Home and Accessories\nWearables, Home and Accessories net sales decreased during 2025 compared to 2024 primarily due to lower net sales of Accessories and Wearables.\nServices\nServices net sales increased during 2025 compared to 2024 primarily due to higher net sales from advertising, the App Store and cloud services.\nApple Inc. | 2025 Form 10-K | 23\nGross Margin\nProducts and Services gross margin and gross margin percentage for 2025, 2024 and 2023 were as follows (dollars in millions):\n2025 | 2024 | 2023\nGross margin:\nProducts | $112,887 | $109,633 | $108,803\nServices | 82,314 | 71,050 | 60,345\nTotal gross margin | $195,201 | $180,683 | $169,148\nGross margin percentage:\nProducts | 36.8 | % | 37.2 | % | 36.5 | %\nServices | 75.4 | % | 73.9 | % | 70.8 | %\nTotal gross margin percentage | 46.9 | % | 46.2 | % | 44.1 | %\nProducts Gross Margin\nProducts gross margin increased during 2025 compared to 2024 primarily due to favorable costs and a different mix of products, partially offset by tariff costs.\nProducts gross margin percentage decreased during 2025 compared to 2024 primarily due to a different mix of products and tariff costs, partially offset by other favorable costs.\nServices Gross Margin",
+          "n_chars": 1737
+        },
+        "score": 0.9662368297576904,
+        "dense_sim": 0.7457061409950256
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c006",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Services gross margin increased during 2025 compared to 2024 primarily due to higher Services net sales and a different mix of services.\nServices gross margin percentage increased during 2025 compared to 2024 primarily due to a different mix of services, partially offset by higher costs.\nThe Company’s future gross margins can be impacted by a variety of factors, as discussed in Part I, Item 1A of this Form 10-K under the heading “Risk Factors.” As a result, the Company believes, in general, gross margins will be subject to volatility and downward pressure.\nOperating Expenses\nOperating expenses for 2025, 2024 and 2023 were as follows (dollars in millions):\n2025 | Change | 2024 | Change | 2023\nResearch and development | $34,550 | 10 | % | $31,370 | 5 | % | $29,915\nPercentage of total net sales | 8 | % | 8 | % | 8 | %\nSelling, general and administrative | $27,601 | 6 | % | $26,097 | 5 | % | $24,932\nPercentage of total net sales | 7 | % | 7 | % | 7 | %\nTotal operating expenses | $62,151 | 8 | % | $57,467 | 5 | % | $54,847\nPercentage of total net sales | 15 | % | 15 | % | 14 | %\nResearch and Development\nThe growth in R&D expense during 2025 compared to 2024 was primarily driven by increases in headcount-related expenses and infrastructure-related costs.\nSelling, General and Administrative\nThe growth in selling, general and administrative expense during 2025 compared to 2024 was primarily driven by increases in headcount-related expenses and variable selling expenses.\nApple Inc. | 2025 Form 10-K | 24\nProvision for Income Taxes\nProvision for income taxes, effective tax rate and statutory federal income tax rate for 2025, 2024 and 2023 were as follows (dollars in millions):",
+          "n_chars": 1694
+        },
+        "score": 0.6674547791481018,
+        "dense_sim": 0.7110069990158081
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item8:c040",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Fiscal | Fiscal | Fiscal\nin millions | 2025 | 2024 | 2023\nNet sales – in the U.S. | $152,170 | $147,007 | $140,083\nNet sales – outside the U.S. | 12,513 | 12,507 | 12,586\nNet sales | $164,683 | $159,514 | $152,669",
+          "n_chars": 213
+        },
+        "score": 0.5308655500411987,
+        "dense_sim": 0.6964106559753418
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item7:c006",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "FISCAL 2025 COMPARED TO FISCAL 2024\nSales\nWe assess our sales performance by evaluating both net sales and comparable sales. Fiscal 2025 consisted of 52 weeks compared to 53 weeks in fiscal 2024. For purposes of the following discussion, comparable sales, comparable customer transactions, and comparable average ticket are based upon the comparable 52-week period from fiscal 2024.\nNet Sales.\nNet sales for fiscal 2025 increased $5.2 billion, or 3.2%, to $164.7 billion. The increase in n\net s\nales for fiscal 2025 was primarily driven by SRS, which was acquired on June 18, 2024, and GMS, which was acquired on September 4, 2025. In aggregate, these acquisitions contributed approximately $6.3 billion of incremental net sales during fiscal 2025. Net sales also increased due to sales from new stores and the impact of a positive comparable sales environment. These increases were partially offset by the additional week in fiscal 2024 which contributed approximately $2.5 billion in net sales in fiscal 2024.\nFiscal 2025 Form 10-K\n29\nTable\nof\nContents\nOnline sales represented 15.9% of net sales during fiscal 2025 and increased by 8.7% compared to fiscal 2024. Calculated on a comparable week basis relative to fiscal 2024, online sales increased by 10.4%. Online sales consist of sales of products generated through websites and mobile applications and does not include results from HD Supply or SRS (including GMS).\nA stronger U.S. dollar compared to fiscal 2024 negatively impacted net sales by $307 million in fiscal 2025.\nComparable Sales.",
+          "n_chars": 1548
+        },
+        "score": 0.4183676540851593,
+        "dense_sim": 0.6967018246650696
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item1:c000",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "1",
+          "section_id": "Item1",
+          "part": "I",
+          "title": "Business",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Item 1. Business\nCompany Background\nThe Company designs, manufactures and markets smartphones, personal computers, tablets, wearables and accessories, and sells a variety of related services. The Company’s fiscal year is the 52- or 53-week period that ends on the last Saturday of September.\nProducts\niPhone\niPhone\n®\nis the Company’s line of smartphones based on its iOS operating system. The iPhone line includes iPhone 17 Pro, iPhone Air™, iPhone 17, iPhone 16 and iPhone 16e.\nMac\nMac\n®\nis the Company’s line of personal computers based on its macOS\n®\noperating system. The Mac line includes laptops MacBook Air\n®\nand MacBook Pro\n®\n, as well as desktops iMac\n®\n, Mac mini\n®\n, Mac Studio\n®\nand Mac Pro\n®\n.\niPad\niPad\n®\nis the Company’s line of multipurpose tablets based on its iPadOS\n®\noperating system. The iPad line includes iPad Pro\n®\n, iPad Air\n®\n, iPad and iPad mini\n®\n.\nWearables, Home and Accessories\nWearables includes smartwatches, wireless headphones and spatial computers. The Company’s line of smartwatches, based on its watchOS\n®\noperating system, includes Apple Watch\n®\nSeries 11, Apple Watch SE\n®\n3 and Apple Watch Ultra\n®\n3. The Company’s line of wireless headphones includes AirPods\n®\n, AirPods Pro\n®\n, AirPods Max\n®\nand Beats\n®\nproducts. Apple Vision Pro™ is the Company’s spatial computer based on its visionOS\n®\noperating system.\nHome includes Apple TV 4K\n®\n, the Company’s media streaming and gaming device based on its tvOS\n®\noperating system, and HomePod\n®\nand HomePod mini\n®\n, high-fidelity wireless smart speakers.\nAccessories includes Apple-branded and third-party accessories.\nApple Inc. | 2025 Form 10-K | 1\nServices\nAdvertising\nThe Company’s advertising services include third-party licensing arrangements and the Company’s own advertising platforms.\nAppleCare",
+          "n_chars": 1790
+        },
+        "score": 0.15255650877952576,
+        "dense_sim": 0.6888490915298462
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

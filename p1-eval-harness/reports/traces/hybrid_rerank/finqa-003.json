@@ -1,0 +1,254 @@
+{
+  "case_id": "finqa-003",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What proportion of Meta's total revenue in fiscal 2025 came from advertising?",
+  "answer": "Advertising revenue was $196,175 million and total revenue was $200,966 million for the year ended December 31, 2025. This represents 97.6% of total revenue from advertising (calculated as $196,175 / $200,966).",
+  "citations": [
+    "META_2025_10K:Item8:c043"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 6201.97166700018,
+  "cost_usd": 0.025439999999999997,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "Advertising revenue was $196,175 million and total revenue was $200,966 million for the year ended December 31, 2025. This represents 97.6% of total revenue from advertising (calculated as $196,175 / $200,966).",
+    "citations": [
+      "META_2025_10K:Item8:c043"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": false,
+      "claims": [
+        {
+          "raw": "$196,175 million",
+          "value": 196175000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$200,966 million",
+          "value": 200966000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "97.6%",
+          "value": 97.6,
+          "is_pct": true,
+          "found": false
+        },
+        {
+          "raw": "$196,175",
+          "value": 196175.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$200,966",
+          "value": 200966.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7335484027862549,
+    "usage": {
+      "input_tokens": 7545,
+      "output_tokens": 187,
+      "cost_usd": 0.025439999999999997,
+      "calls": 2
+    },
+    "math_result": null,
+    "latency_ms": 6201.97166700018,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item7:c027",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "The following table sets forth our consolidated statements of income data (as a percentage of revenue)\n(1)\n:\nYear Ended December 31,\n2025 | 2024 | 2023\nRevenue | 100 | % | 100 | % | 100 | %\nCosts and expenses:\nCost of revenue | 18 | 18 | 19\nResearch and development | 29 | 27 | 29\nMarketing and sales | 6 | 7 | 9\nGeneral and administrative | 6 | 6 | 8\nTotal costs and expenses | 59 | 58 | 65\nIncome from operations | 41 | 42 | 35\nInterest and other income, net | 1 | 1 | 1\nIncome before provision for income taxes | 43 | 43 | 35\nProvision for income taxes | 13 | 5 | 6\nNet income | 30 | % | 38 | % | 29 | %\n_________________________\n(1)\nPercentages have been rounded for presentation purposes and may differ from unrounded results.\n72\nTable of Contents\nRevenue\nThe following table sets forth our revenue by source and by segment:\nYear Ended December 31,\n2025 | 2024 | 2023 | 2025 vs 2024 % change | 2024 vs 2023 % change\n(in millions, except percentages)\nAdvertising | $196,175 | $160,633 | $131,948 | 22 | % | 22 | %\nOther revenue | 2,584 | 1,722 | 1,058 | 50 | % | 63 | %\nFamily of Apps | 198,759 | 162,355 | 133,006 | 22 | % | 22 | %\nReality Labs | 2,207 | 2,146 | 1,896 | 3 | % | 13 | %\nTotal revenue | $200,966 | $164,501 | $134,902 | 22 | % | 22 | %\nFamily of Apps\nFoA revenue in 2025 increased $36.40 billion, or 22%, compared to 2024. The increase was almost entirely driven by advertising revenue.\nAdvertising",
+          "n_chars": 1418
+        },
+        "score": 0.6479370594024658,
+        "dense_sim": 0.6947822570800781
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item7:c011",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "2"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "We calculate our revenue by user geography based on our estimate of the geography in which ad impressions are delivered, virtual and digital goods are purchased, or consumer hardware products are shipped. The geography of our users affects our revenue and financial results. Our revenue in regions such as United States & Canada and Europe is relatively higher primarily due to the size and maturity of those online and mobile advertising markets, and ad impression growth is primarily in geographies that monetize at lower rates, such as Asia-Pacific. In 2025, revenue increased by 21% in United States & Canada, 24% in Europe, 20% in Asia-Pacific, and 27% in Rest of World, in each case relative to 2024.\n-\nAd Revenue\nNon-Ad Revenue\nNote: Non-advertising revenue includes RL revenue generated from the delivery of consumer hardware products and FoA Other revenue, which consists of revenue from paid messaging from WhatsApp, Meta Verified subscriptions, net fees we receive from developers using our Payments infrastructure, and revenue from various other sources.\nOur revenue by user geography in the charts above is geographically apportioned based on our estimation of the geographic location of our users when they perform a revenue-generating activity. This allocation differs from our revenue disaggregated by geography disclosure in Note 2 — Revenue in our consolidated financial statements included in Part II, Item 8, \"Financial Statements and Supplemental Data\" where revenue is geographically apportioned based on the addresses of our customers.\n64\nTable of Contents\nTrends in Our Family Metrics",
+          "n_chars": 1608
+        },
+        "score": 0.6367869973182678,
+        "dense_sim": 0.6386936902999878
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item7:c029",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Revenue is traditionally seasonally strong in the fourth quarter of each year due in part to seasonal holiday demand. We believe that this seasonality in both advertising revenue and RL consumer hardware sales affects our quarterly results, which generally reflect significant growth in revenue between the third and fourth quarters and a decline between the fourth and subsequent first quarters. For instance, our total revenue increased 17%, 19%, and 17% between the third and fourth quarters of 2025, 2024, and 2023, respectively, while total revenue for the first quarters of 2025, 2024, and 2023 declined 13%, 9%, and 11% compared to the fourth quarters of 2024, 2023, and 2022, respectively.\n73\nTable of Contents\nForeign Exchange Impact on Revenue\nChanges in foreign exchange rates had an unfavorable impact on our revenue in the full year 2025 compared to the same period in 2024. To calculate revenue on a constant currency basis, we translated revenue using the prior year's monthly exchange rates for our settlement or billing currencies other than the U.S. dollar. Using these constant rates for full year 2025, our total revenue and advertising revenue would have been $201.38 billion and $196.60 billion, which were $418 million and $420 million higher than actual total revenue and advertising revenue, respectively.\nCost of revenue\nYear Ended December 31,\n2025 | 2024 | 2023 | 2025 vs 2024 % change | 2024 vs 2023 % change\n(in millions, except percentages)\nCost of revenue | $36,175 | $30,161 | $25,959 | 20 | % | 16 | %\nPercentage of revenue | 18 | % | 18 | % | 19 | %",
+          "n_chars": 1584
+        },
+        "score": 0.5695719122886658,
+        "dense_sim": 0.6688212156295776
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item7:c028",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Advertising revenue in 2025 increased $35.54 billion, or 22%, compared to 2024 due to increases in ad impressions delivered and average price per ad. In 2025, ad impressions delivered increased by 12%, as compared with an increase of 11% in 2024, year-over-year. Ad impressions delivered during 2025 grew in all regions, especially in Asia-Pacific, which was driven by increases in users and their engagement on our products. In 2025, the average price per ad increased by 9%, as compared with an increase of 10% in 2024, year-over-year. The increase in average price per ad in 2025 was driven by an increase in advertising demand, which we believe is mostly due to ongoing improvements to our ad performance from our ad targeting and measurement tools. This increase was partially offset by a higher number of ad impressions delivered, especially in geographies and in products, such as Reels, that monetize at lower rates. Other factors are discussed in the section entitled \"—Executive Overview of Full Year 2025 Results.\" In addition, the online commerce vertical was the largest contributor to the increase in advertising revenue in 2025 compared to 2024. We anticipate that future advertising revenue will be driven by a combination of price and ad impressions delivered.\nOther revenue\nFoA other revenue in 2025 increased $862 million, or 50%, compared to 2024. The increase was mostly driven by paid messaging from WhatsApp and Meta Verified subscriptions.\nReality Labs\nRL revenue in 2025 increased $61 million, or 3%, compared to 2024. The increase was driven by an increase in sales of AI glasses, partially offset by a decrease in Meta Quest sales.\nRevenue Seasonality",
+          "n_chars": 1678
+        },
+        "score": 0.4188600778579712,
+        "dense_sim": 0.7335484027862549
+      },
+      {
+        "chunk": {
+          "id": "NFLX_2025_10K:Item7:c002",
+          "doc_id": "NFLX_2025_10K",
+          "ticker": "NFLX",
+          "company": "Netflix",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "8"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Table of Contents\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except percentages)\nRevenues | $45,183,036 | $39,000,966 | $33,723,297 | $6,182,070 | 16 | %\nRevenues for the year ended December 31, 2025 increased 16% as compared to the year ended December 31, 2024, primarily due to the growth in memberships, price increases, and increased advertising revenue, partially offset by unfavorable changes in foreign exchange rates, net of hedging.\nThe following table summarizes streaming revenues by region for the years ended December 31, 2025, 2024 and 2023. Total streaming revenues are inclusive of hedging gains (losses) of $(91) million and $124 million for the years ended December 31, 2025 and 2024, respectively. No hedging gains and losses were recognized in total streaming revenues for the year ended December 31, 2023. See Note 8\nDerivative Financial Instruments and Hedging Activities\nto the consolidated financial statements for further information regarding the Company’s derivative and non-derivative financial instruments.\nYear Ended December 31, | Change\n2025 | 2024 | 2023 | 2025 vs. 2024\n(in thousands, except revenue per membership and percentages)\nUnited States and Canada (UCAN) | $19,957,152 | $17,359,369 | $14,873,783 | $2,597,783 | 15 | %\nEurope, Middle East, and Africa (EMEA) | 14,514,646 | 12,387,035 | 10,556,487 | 2,127,611 | 17 | %\nLatin America (LATAM) | 5,357,521 | 4,839,816 | 4,446,461 | 517,705 | 11 | %\nAsia-Pacific (APAC) | 5,353,717 | 4,414,746 | 3,763,727 | 938,971 | 21 | %\nTotal Streaming Revenues | $45,183,036 | $39,000,966 | $33,640,458 | $6,182,070 | 16 | %\nNon-GAAP Constant Currency Information",
+          "n_chars": 1680
+        },
+        "score": 0.3981029987335205,
+        "dense_sim": 0.669086754322052
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c016",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [
+            "13"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The Company’s proportion of net sales by disaggregated revenue source was generally consistent for each reportable segment in Note 13, “Segment Information and Geographic Data” for 2025, 2024 and 2023, except in Greater China, where iPhone revenue represented a moderately higher proportion of net sales.\nAs of September 27, 2025 and September 28, 2024, the Company had total deferred revenue of $\n13.7\nbillion and $\n12.8\nbillion, respectively. As of September 27, 2025, the Company expects\n66\n% of total deferred revenue to be realized in less than a year,\n23\n% within one-to-two years,\n9\n% within two-to-three years and\n2\n% in greater than three years.",
+          "n_chars": 654
+        },
+        "score": 0.37973034381866455,
+        "dense_sim": 0.6634842157363892
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item8:c043",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Note 2.\nRevenue\nRevenue disaggregated by revenue source and by segment consists of the following (in millions):\nYear Ended December 31,\n2025 | 2024 | 2023\nAdvertising | $196,175 | $160,633 | $131,948\nOther revenue | 2,584 | 1,722 | 1,058\nFamily of Apps | 198,759 | 162,355 | 133,006\nReality Labs | 2,207 | 2,146 | 1,896\nTotal revenue | $200,966 | $164,501 | $134,902\nRevenue disaggregated by geography, based on the addresses of our customers, consists of the following (in millions):\nYear Ended December 31,\n2025 | 2024 | 2023\nUnited States and Canada (1) | $78,866 | $63,207 | $52,888\nEurope (2) | 46,569 | 38,361 | 31,210\nAsia-Pacific | 53,817 | 45,009 | 36,154\nRest of World (2) | 21,714 | 17,924 | 14,650\nTotal revenue | $200,966 | $164,501 | $134,902\n_________________________\n(1)\nUnited States revenue was $\n74.78\nbillion, $\n59.73\nbillion, and $\n49.78\nbillion for the years ended December 31, 2025, 2024, and 2023, respectively.\n(2)\nEurope includes Russia and Turkey, and Rest of World includes Africa, Latin America, and the Middle East.\nDeferred revenue was $\n1.08\nbillion and $\n772\nmillion as of December 31, 2025 and 2024, respectively. Our deferred revenue primarily relates to advertising prepayments and credits, as well as software updates and upgrades associated with RL hardware sales, most of which are expected to be realized in less than a year.\n102\nTable of Contents",
+          "n_chars": 1387
+        },
+        "score": 0.3362200856208801,
+        "dense_sim": 0.6610449552536011
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item8:c021",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial statements and supplementary data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "* Milestones are capitalized as intangible assets and amortized to cost of products sold over the useful life.\nFor all years presented, there was no individual project that represented greater than\n5\n% of the total annual consolidated research and development expense other than the acquired in-process research & development expense of $\n1.25\nbillion to secure the global rights to the NM26 bispecific antibody (Yellow Jersey acquisition) in fiscal year 2024.\nThe Company has a number of products and compounds developed in collaboration with strategic partners including XARELTO, co-developed with Bayer HealthCare AG, IMBRUVICA, developed in collaboration and co-marketed with Pharmacyclics LLC, an AbbVie company and CARVYKTI, licensed and developed in collaboration with Legend Biotech USA Inc. and Legend Biotech Ireland Limited.\nSeparately, the Company has a number of licensing arrangements for products and compounds including DARZALEX, licensed from Genmab A/S.\n2025 Annual Report\n53\nAdvertising\nCosts associated with advertising are expensed in the year incurred and are included in selling, marketing and administrative expenses. Advertising expenses worldwide, which comprised television, radio, print media and Internet advertising, were $\n1.6\nbillion, $\n0.6\nbillion and $\n0.5\nbillion in fiscal years 2025, 2024 and 2023, respectively.\nIncome taxes\nIncome taxes are recorded based on amounts refundable or payable for the current year and include the results of any difference between U.S. GAAP accounting and tax reporting, recorded as deferred tax assets or liabilities. The Company estimates deferred tax assets and liabilities based on enacted tax law and rates. Future changes in tax laws and rates may affect recorded deferred tax assets and liabilities in the future.",
+          "n_chars": 1788
+        },
+        "score": 0.13796372711658478,
+        "dense_sim": 0.6477901935577393
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

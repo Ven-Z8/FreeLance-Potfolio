@@ -1,0 +1,242 @@
+{
+  "case_id": "rgb-integ-02",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "How did Goldman Sachs' net interest income change from fiscal 2024 to 2025?",
+  "answer": "Goldman Sachs' net interest income increased from $8.06 billion in fiscal 2024 to $13.56 billion in fiscal 2025, representing a 68% increase.",
+  "citations": [
+    "GS_2025_10K:Item7:c024",
+    "GS_2025_10K:Item7:c027"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 3484.7272090009938,
+  "cost_usd": 0.012072,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "Goldman Sachs' net interest income increased from $8.06 billion in fiscal 2024 to $13.56 billion in fiscal 2025, representing a 68% increase.",
+    "citations": [
+      "GS_2025_10K:Item7:c024",
+      "GS_2025_10K:Item7:c027"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$8.06 billion",
+          "value": 8060000000.000001,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$13.56 billion",
+          "value": 13560000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "68%",
+          "value": 68.0,
+          "is_pct": true,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7807599902153015,
+    "usage": {
+      "input_tokens": 3514,
+      "output_tokens": 102,
+      "cost_usd": 0.012072,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 3484.7272090009938,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c019",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The fiscal year 2025 is primarily related to the acquisitions of Intra-Cellular (CAPLYTA) and Halda Therapeutics partially offset by the reduction of the Abiomed contingent value right (CVR) liability. The fiscal year 2024 is primarily related to the acquisition of Shockwave.\nInterest (Income) Expense:\nInterest income in the fiscal year 2025 was $1.1 billion as compared to $1.3 billion in 2024. Interest income decreased as compared to the prior year driven by lower interest rates earned on cash balances. Interest expense in the fiscal year 2025 was $1.0 billion as compared to $0.8 billion in 2024. Interest expense was higher as compared to the prior year due to a higher average debt balance. Cash, cash equivalents and marketable securities totaled $20.1 billion at the end of 2025, and averaged $22.3 billion as compared to the cash, cash equivalents and marketable securities total of $24.5 billion and $23.7 billion average balance in 2024. The total debt balance at the end of 2025 was $47.9 billion with an average debt balance of $42.3 billion as compared to $36.6 billion at the end of 2024 and an average debt balance of $33.0 billion. The higher debt balance was due to the senior unsecured notes issued by the Company in the fiscal first quarter of 2025. The net proceeds from this offering were used to fund the Intra-Cellular Therapies, Inc. acquisition which closed on April 2, 2025 and for general corporate purposes.\nIncome before tax by segment\nIncome before tax by segment of business was as follows:",
+          "n_chars": 1526
+        },
+        "score": 0.9899789094924927,
+        "dense_sim": 0.7413188815116882
+      },
+      {
+        "chunk": {
+          "id": "TSLA_2025_10K:Item7:c033",
+          "doc_id": "TSLA_2025_10K",
+          "ticker": "TSLA",
+          "company": "Tesla",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "2"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Interest income increased $111 million, or 7%, in the year ended December 31, 2025 as compared to the year ended December 31, 2024, primarily due to higher interest earned on our cash and cash equivalents and short-term investments due to an increase in our average portfolio balance, partially offset by a lower average interest rate.\nOther Income (Expense), Net\nYear Ended December 31, | 2025 vs. 2024 Change | 2024 vs. 2023 Change\n(Dollars in millions) | 2025 | 2024 | 2023 | $% | $%\nOther (expense) income, net | $(419) | $695 | $172 | $(1,114) | Not meaningful | $523 | 304%\nOther (expense) income, net, consists of foreign exchange gains and losses related to our foreign currency-denominated monetary assets and liabilities and fair value remeasurements of our digital assets following the adoption of ASU 2023-08 effective January 1, 2024. See Note 2,\nSummary of Significant Accounting Policies\n, to the consolidated financial statements included elsewhere in this Annual Report on Form 10-K for further details.\n40\nOther (expense) income, net, changed unfavorably by $1.11 billion in the year ended December 31, 2025 as compared to the year ended December 31, 2024 primarily due to mark-to-market on our bitcoin digital assets and fluctuations in foreign currency exchange rates on our intercompany balances. As our intercompany balances are significant in nature and we do not typically hedge foreign currency risk, we can experience significant fluctuations in foreign currency exchange rate gains and losses from period to period.\nProvision for (Benefit from) Income Taxes",
+          "n_chars": 1584
+        },
+        "score": 0.9863775968551636,
+        "dense_sim": 0.7364868521690369
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item7:c027",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "9"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Net interest income in the consolidated statements of earnings was $8.06 billion for 2024, 27% higher than 2023, reflecting an increase in interest income, partially offset by an increase in interest expense. The increase in interest income primarily related to trading assets and investments (each reflecting the impact of higher average balances and higher average interest rates), collateralized agreements and other interest-earning assets (each reflecting the impact of higher average interest rates), partially offset by a decrease in interest income related to deposits with banks (reflecting the impact of lower average balances). The increase in interest expense primarily related to collateralized financings and deposits (each reflecting the impact of higher average balances and higher average interest rates) and other interest-bearing liabilities (reflecting the impact of higher average interest rates). See “Supplemental Financial Information — Statistical Disclosures — Distribution of Assets, Liabilities and Shareholders’ Equity” for further information about our sources of net interest income.\nProvision for Credit Losses\nProvision for credit losses consists of provision for credit losses on financial assets and commitments accounted for at amortized cost, including loans and lending commitments held for investment. See Note 9 to the consolidated financial statements for further information about the provision for credit losses on loans and lending commitments.\nThe table below presents our provision for credit losses.\nYear Ended December\n$ in millions | 2025 | 2024 | 2023\nProvision for credit losses | $(1,113) | $1,348 | $1,028\nGoldman Sachs 2025 Form 10-K\n71\nTHE GOLDMAN SACHS GROUP, INC. AND SUBSIDIARIES\nManagement’s Discussion and Analysis\n2025 versus 2024.",
+          "n_chars": 1792
+        },
+        "score": 0.9831277132034302,
+        "dense_sim": 0.7782573699951172
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item7:c024",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Other principal transactions revenues in the consolidated statements of earnings were $1.59 billion for 2025, 66% lower than 2024, primarily reflecting a reduction in revenues related to markdowns on the outstanding credit card portfolio related to the transfer of the Apple Card loan portfolio to held for sale and significantly lower net gains from investments in private equities and derivatives related to our funding activities.\n70\nGoldman Sachs 2025 Form 10-K\nTHE GOLDMAN SACHS GROUP, INC. AND SUBSIDIARIES\nManagement’s Discussion and Analysis\nNet Interest Income.\nNet interest income in the consolidated statements of earnings was $13.56 billion for 2025, 68% higher than 2024, reflecting a decrease in interest expense, partially offset by a decrease in interest income. The decrease in interest expense related to other interest-bearing liabilities, deposits and borrowings (each reflecting the impact of lower average interest rates), partially offset by an increase in interest expense related to trading liabilities (reflecting the impact of higher average balances). The decrease in interest income related to deposits with banks (reflecting the impact of lower average interest rates and lower average balances), other interest-earning assets (reflecting the impact of lower average interest rates), and collateralized agreements (reflecting the impact of lower average balances), partially offset by an increase in interest income related to trading assets and investments (each reflecting the impact of higher average balances). See “Supplemental Financial Information — Statistical Disclosures — Distribution of Assets, Liabilities and Shareholders’ Equity” for further information about our sources of net interest income.\n2024 versus 2023\n.",
+          "n_chars": 1759
+        },
+        "score": 0.9351965188980103,
+        "dense_sim": 0.770990252494812
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item8:c125",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "7",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "billion as of December 2024 of foreign currency-denominated debt, included in unsecured long- and short-term borrowings, as hedges of net investments in non-U.S. subsidiaries.\nGoldman Sachs 2025 Form 10-K\n175\nTHE GOLDMAN SACHS GROUP, INC. AND SUBSIDIARIES\nNotes to Consolidated Financial Statements\nCash Flow Hedges\nThe firm designates certain interest rate swaps as cash flow hedges. These interest rate swaps hedge the firm’s exposure to the variability of the forecasted cash flows due to changes in the contractually specified interest rates associated with certain floating-rate assets.\nThe firm applies a statistical method that utilizes regression analysis when assessing hedge effectiveness. A cash flow hedge is considered highly effective in offsetting the variability of the forecasted cash flows attributable to the hedged risk when the regression analysis results in a coefficient of determination of 80% or greater and a slope between 80% and 125%.\nFor qualifying cash flow hedges, the gains or losses on derivatives are included in “Cash flow hedges” within the consolidated statements of comprehensive income. Such gains or losses are reclassified to interest income/expense within the consolidated statements of earnings in the same period that the forecasted hedged cash flows impact earnings.\nThe gains/(losses) included within other comprehensive income/(loss) and the gains/(losses) reclassified to earnings from accumulated other comprehensive income/(loss) related to cash flow hedges were\nno\nt material for 2025 and are\nno\nt expected to be material for 2026. The maximum length of time over which the forecasted cash flows are hedged is approximately one year.",
+          "n_chars": 1684
+        },
+        "score": 0.9296338558197021,
+        "dense_sim": 0.7111026644706726
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item7:c031",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "As of December 2024, headcount increased 3% compared with December 2023, primarily due to increases in Asset & Wealth Management, Risk and Compliance, partially offset by the impact of the sale of GreenSky.\n72\nGoldman Sachs 2025 Form 10-K\nTHE GOLDMAN SACHS GROUP, INC. AND SUBSIDIARIES\nManagement’s Discussion and Analysis\nProvision for Taxes\nThe effective tax rate for 2025 was 21.4%, down from the full year effective tax rate of 22.4% for 2024, primarily due to an increase in tax benefits on the settlement of employee share-based awards, partially offset by a decrease in the impact of other permanent tax benefits, for 2025 compared with the full year of 2024. The impact of tax benefits related to employee share-based awards was a reduction to provision for taxes for 2025 of approximately $620 million, which reduced our effective tax rate by 2.8 percentage points, and increased our diluted EPS by $1.95 and annualized ROE by 0.5 percentage points.",
+          "n_chars": 958
+        },
+        "score": 0.8583042025566101,
+        "dense_sim": 0.7579281330108643
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item8:c321",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "30",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "billion for 2023, and included $\n10.82\nbillion for 2025, $\n11.60\nbillion for 2024 and $\n9.40\nbillion for 2023 of payments to subsidiaries.\nCash payments for income taxes, net, were $\n1.48\nbillion for 2025, $\n1.29\nbillion for 2024 and $\n671\nmillion for 2023.\nNon-cash activities during the year ended December 2025:\n•\nGroup Inc. exchanged $\n1.11\nbillion of an equity investment in its wholly-owned subsidiaries for loans.\nThere were no material non-cash activities during the year ended December 2024.\nNon-cash activities during the year ended December 2023:\n•\nGroup Inc. exchanged $\n1.42\nbillion of an equity investment in its wholly-owned subsidiaries for loans.\n238\nGoldman Sachs 2025 Form 10-K\nTHE GOLDMAN SACHS GROUP, INC. AND SUBSIDIARIES\nSupplemental Financial Information\nCommon Stock Performance\nThe graph and table below compare the performance of an investment in the firm’s common stock from December 31, 2020 (the last trading day before the firm’s 2021 fiscal year) through December 31, 2025, with the S&P 500 Index (S&P 500) and the S&P 500 Financials Index (S&P 500 Financials).\nAs of December\n2020 | 2021 | 2022 | 2023 | 2024 | 2025\nGroup Inc. | $100.00 | $147.59 | $135.99 | $157.63 | $239.64 | $375.30\nS&P 500 | $100.00 | $128.68 | $105.36 | $133.03 | $166.29 | $195.99\nS&P 500 Financials | $100.00 | $134.87 | $120.61 | $135.21 | $176.45 | $202.86\nThe graph and table above assume $100 was invested on December 31, 2020 in each of the firm’s common stock, the S&P 500 and the S&P 500 Financials, and the dividends were reinvested without payment of any commissions. The performance shown represents past performance and should not be considered an indication of future performance.\nStatistical Disclosures\nDistribution of Assets, Liabilities and Shareholders’ Equity",
+          "n_chars": 1785
+        },
+        "score": 0.7356722354888916,
+        "dense_sim": 0.7396857738494873
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item7:c045",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Debt offerings includes non-convertible preferred stock, mortgage-backed securities, asset-backed securities and taxable municipal debt. It also includes publicly registered and Rule 144A issues and excludes leveraged loans.\nOperating Environmen\nt.\nDuring 2025,\nGlobal Banking & Markets operated in an environment generally characterized by ongoing geopolitical tensions and continued broad macroeconomic concerns and uncertainties, including those about inflation, central bank policies and changes in international trade policies (including tariffs).\nIn investment banking, activity volumes for industry-wide completed mergers and acquisitions, equity underwriting and debt underwriting each increased compared with 2024.\nIn interest rates, the yield on 10-year U.S. government bonds decreased and the yield on 10-year U.K. government bonds decreased slightly compared with the end of 2024. In equities, the S&P 500 Index increased by 16% and the MSCI World Index increased by 21% compared with the end of 2024.\nIn the future, if market and economic conditions deteriorate, and market-making activity levels decline or investment banking activity levels decline, or credit spreads related to hedges on our relationship lending portfolio tighten, net revenues in Global Banking & Markets would likely be negatively impacted. In addition, if economic conditions deteriorate or if the creditworthiness of borrowers deteriorates, provision for credit losses would likely be negatively impacted\n.\nGoldman Sachs 2025 Form 10-K\n77\nTHE GOLDMAN SACHS GROUP, INC. AND SUBSIDIARIES\nManagement’s Discussion and Analysis\n2025 versus 2024.\nNet revenues in Global Banking & Markets were $41.45 billion for 2025, 18% higher than 2024.",
+          "n_chars": 1720
+        },
+        "score": 0.729092538356781,
+        "dense_sim": 0.7807599902153015
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

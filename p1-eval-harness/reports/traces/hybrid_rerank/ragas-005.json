@@ -1,0 +1,224 @@
+{
+  "case_id": "ragas-005",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "How much did Meta Platforms spend on research and development in fiscal year 2025?",
+  "answer": "$57,372 million",
+  "citations": [
+    "META_2025_10K:Item8:c011"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 3664.7729579999577,
+  "cost_usd": 0.011382,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$57,372 million",
+    "citations": [
+      "META_2025_10K:Item8:c011"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$57,372 million",
+          "value": 57372000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7391246557235718,
+    "usage": {
+      "input_tokens": 3549,
+      "output_tokens": 49,
+      "cost_usd": 0.011382,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 3664.7729579999577,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item8:c011",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See Accompanying Notes to Consolidated Financial Statements.\n88\nTable of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF INCOME\n(In millions, except per share amounts)\nYear Ended December 31,\n2025 | 2024 | 2023\nRevenue | $200,966 | $164,501 | $134,902\nCosts and expenses:\nCost of revenue | 36,175 | 30,161 | 25,959\nResearch and development | 57,372 | 43,873 | 38,483\nMarketing and sales | 11,991 | 11,347 | 12,301\nGeneral and administrative | 12,152 | 9,740 | 11,408\nTotal costs and expenses | 117,690 | 95,121 | 88,151\nIncome from operations | 83,276 | 69,380 | 46,751\nInterest and other income, net | 2,656 | 1,283 | 677\nIncome before provision for income taxes | 85,932 | 70,663 | 47,428\nProvision for income taxes | 25,474 | 8,303 | 8,330\nNet income | $60,458 | $62,360 | $39,098\nEarnings per share:\nBasic | $23.98 | $24.61 | $15.19\nDiluted | $23.49 | $23.86 | $14.87\nWeighted-average shares used to compute earnings per share:\nBasic | 2,521 | 2,534 | 2,574\nDiluted | 2,574 | 2,614 | 2,629\nSee Accompanying Notes to Consolidated Financial Statements.\n89\nTable of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(In millions)\nYear Ended December 31,\n2025 | 2024 | 2023\nNet income | $60,458 | $62,360 | $39,098\nOther comprehensive income (loss):\nChange in foreign currency translation adjustment, net of tax | 2,693 | ( 1,413 ) | 618\nChange in unrealized gain (loss) on available-for-sale investments and other, net of tax | 675 | 471 | 757\nComprehensive income | $63,826 | $61,418 | $40,473\nSee Accompanying Notes to Consolidated Financial Statements.\n90\nTable of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY\n(In millions, except per share amounts)",
+          "n_chars": 1723
+        },
+        "score": 0.9824919700622559,
+        "dense_sim": 0.7391246557235718
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c017",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Research and development activities represent a significant part of the Company's business. These expenditures relate to the processes of discovering, testing and developing new products, upfront payments and developmental milestones, improving existing products, as well as ensuring product efficacy and regulatory compliance prior to launch. The Company remains committed to investing in research and development with the aim of delivering high quality and innovative products.\nResearch and Development decreased as a percent to sales primarily driven by:\n•\nAcquired in-process research & development expense of $1.25 billion to secure the global rights to the NM26 bispecific antibody (Yellow Jersey acquisition) in the Innovative Medicine business in 2024\n•\nAcquired in-process research & development expense of $0.5 billion from the V-Wave acquisition and a Laminar milestone of $0.3 billion in the MedTech business in 2024\n•\nLeverage resulting from investment prioritization in the Innovative Medicine business\nIn-Process Research and Development Impairments (IPR&D):\nIn the fiscal year 2025, the Company recorded a charge of approximately $0.1 billion primarily related to a non-strategic asset acquired with Abiomed in 2022. In the fiscal year 2024, the Company recorded a charge of approximately $0.2 billion primarily associated with the M710 (biosimilar) asset acquired as part of the acquisition of Momenta Pharmaceuticals in 2020. There was also a partial impairment of this asset for $0.2 billion in the fiscal 2023. This asset is fully impaired.\n30\nOther (Income) Expense, Net:",
+          "n_chars": 1592
+        },
+        "score": 0.8438711166381836,
+        "dense_sim": 0.6923088431358337
+      },
+      {
+        "chunk": {
+          "id": "MSFT_2025_10K:Item7:c013",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Research and development expenses include payroll, employee benefits, stock-based compensation expense, and other headcount-related expenses associated with product development. Research and development expenses also include technology development costs, including AI training and other infrastructure costs, third-party development and programming costs, and the amortization of purchased software code and services content.\n40\nPART II\nItem 7\nFiscal Year 2025 Compared with Fiscal Year 2024\nResearch and development expenses increased $3.0 billion or 10% driven by investments in cloud and AI engineering and Gaming, including the impact of the Activision Blizzard acquisition.\nSales and Marketing\n(In millions, except percentages) | 2025 | 2024 | Percentage Change\nSales and marketing | $25,654 | $24,456 | 5%\nAs a percent of revenue | 9% | 10% | (1)ppt\nSales and marketing expenses include payroll, employee benefits, stock-based compensation expense, and other headcount-related expenses associated with sales and marketing personnel, and the costs of advertising, promotions, trade shows, seminars, and other programs.\nFiscal Year 2025 Compared with Fiscal Year 2024\nSales and marketing expenses increased $1.2 billion or 5% driven by investments in commercial sales and Gaming, including the impact of the Activision Blizzard acquisition.\nGeneral and Administrative\n(In millions, except percentages) | 2025 | 2024 | Percentage Change\nGeneral and administrative | $7,223 | $7,609 | (5)%\nAs a percent of revenue | 3% | 3% | 0ppt",
+          "n_chars": 1532
+        },
+        "score": 0.7288384437561035,
+        "dense_sim": 0.6910396218299866
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item8:c137",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial statements and supplementary data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "billion have been recorded since the restructuring was announced and the program has been substantially completed in the fiscal year 2025.\nIn fiscal 2023, the Company completed a prioritization of its research and development (R&D) investment within its Innovative Medicine segment to focus on the most promising medicines with the greatest benefit to patients. This resulted in the exit of certain programs within certain therapeutic areas. The R&D program exits are primarily in infectious diseases and vaccines including the discontinuation of its respiratory syncytial virus (RSV) adult vaccine program, hepatitis and HIV development. Pre-tax Restructuring expenses of $\n0.1\nbillion in the fiscal year 2024 included the termination of partnered and non-partnered development program costs, asset impairments and asset divestments. Pre-tax Restructuring expenses of $\n0.5\nbillion in the fiscal year 2023 included the termination of partnered and non-partnered development program costs and asset impairments. Total project costs of approximately $\n0.6\nbillion have been recorded since the restructuring was announced and the program was completed in the fiscal fourth quarter of 2024.\n104\nThe following table summarizes the restructuring expenses for the fiscal years 2025, 2024 and 2023:\n(Pre-tax Dollars in Millions) | 2025 | 2024 | 2023\nMedTech Segment Surgery franchise (1) | $ 205 | — | —\nMedTech Segment Orthopaedics franchise (2) | 307 | 167 | 319\nInnovative Medicine Segment (3) | — | 102 | 479\nTotal Programs | $ 512 | 269 | 798\n(1)\nThe fiscal year of 2025 included $\n76\nmillion in restructuring, $\n122\nmillion in Other income and expense and $\n7\nmillion in Cost of products sold on the Consolidated Statement of Earnings\n(2)\nThe fiscal year of 2025 included $\n152",
+          "n_chars": 1776
+        },
+        "score": 0.567651629447937,
+        "dense_sim": 0.6817015409469604
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item1:c015",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "1",
+          "section_id": "Item1",
+          "part": "I",
+          "title": "Business",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "We want our products to work for people around the world and we need to grow and keep the best talent in order to do that. We remain committed to having an inclusive workplace and people with a broad range of knowledge, skills, political views, backgrounds, and perspectives because we believe cognitive diversity fuels innovation. To aid in this effort, we continue to implement ways to mitigate potential bias in our people processes and tooling, including our hiring processes and performance management systems.\nCorporate Information\nWe were incorporated in Delaware in July 2004. We completed our initial public offering in May 2012 and our Class A common stock is currently listed on the Nasdaq Global Select Market under the symbol \"META.\" Our principal executive offices are located at 1 Meta Way, Menlo Park, California 94025, and our telephone number is (650) 543-4800.\nMeta, the Meta logo, Meta Quest, Meta Horizon, Facebook, Instagram, WhatsApp, Reels, and our other registered or common law trademarks, service marks, or trade names appearing in this Annual Report on Form 10-K are the property of Meta Platforms, Inc. or its affiliates. Other trademarks, service marks, or trade names appearing in this Annual Report on Form 10‑K are the property of their respective owners.\n10\nTable of Contents\nAvailable Information",
+          "n_chars": 1331
+        },
+        "score": 0.480216920375824,
+        "dense_sim": 0.6708852648735046
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item8:c124",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "14",
+          "note": "29",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "2025 | 2024 | 2023\nTotal financing interest and debt costs | $1,392 | $773 | $617\nLess: Capitalized interest | 175 | 179 | 148\nInterest and debt expense | $1,217 | $594 | $469\nResearch and development expenses | $427 | $353 | $320\nExcess of replacement cost over the carrying value of inventories (LIFO method) | $4,808 | $5,997 | $6,455\nLIFO profits (losses) on inventory drawdowns included in earnings | $( 38 ) | $( 111 ) | $14\nForeign currency effects * | $( 469 ) | $520 | $( 224 )",
+          "n_chars": 486
+        },
+        "score": 0.3719317317008972,
+        "dense_sim": 0.693257212638855
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c002",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "New products introduced within the past five years accounted for approximately 25% of 2025 sales. In 2025, $14.7 billion was invested in research and development reflecting management’s commitment to create life-enhancing innovations and to create value through partnerships that will profoundly impact of health for humanity.\nOur approximately 138,200 employees are critical drivers of the Company’s success. Employees are empowered and inspired to lead with Our Credo and purpose as guides. This allows every employee to use the Company’s reach and size to advance the Company’s purpose, and to also lead with agility and urgency. Leveraging the extensive resources across the enterprise enables the Company to innovate and execute with excellence. This ensures the Company can remain focused on addressing the unmet needs of society every day and invest for an enduring impact, ultimately delivering value to its patients, consumers and healthcare professionals, employees, communities and shareholders.\n22\nResearch &\ndevelopment\nAcquisitions*\n(net of cash acquired)\nDividends paid\nper share\n* Includes business combinations and asset acquisitions\nResults of operations\nAnalysis of consolidated sales\nFor discussion on results of operations and financial condition pertaining to the fiscal years 2024 and 2023 see the Company’s Annual Report on Form 10-K for the fiscal year ended December 29, 2024, Item 7. Management's discussion and analysis of results of operations and financial condition.\nIn 2025, worldwide sales increased 6.0% to $94.2 billion as compared to an increase of 4.3% in 2024. These sales changes consisted of the following:\nSales increase/(decrease) due to: | 2025 | 2024\nVolume | 8.4 | % | 5.9 | %\nPrice | (3.1) | 0.0\nCurrency | 0.7 | (1.6)\nTotal | 6.0 | % | 4.3 | %",
+          "n_chars": 1790
+        },
+        "score": 0.2529107332229614,
+        "dense_sim": 0.6738288402557373
+      },
+      {
+        "chunk": {
+          "id": "META_2025_10K:Item8:c014",
+          "doc_id": "META_2025_10K",
+          "ticker": "META",
+          "company": "Meta Platforms",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "_______________________\n(1)\nDividend per share was\n$\n2.10\nand $\n2.00\nfor the\nyears ended\nDecember 31, 2025 and 2024, respectively.\nSee Accompanying Notes to Consolidated Financial Statements.\n91\nTable of Contents\nMETA PLATFORMS, INC.\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n(In millions)\nYear Ended December 31,\n2025 | 2024 | 2023\nCash flows from operating activities\nNet income | $60,458 | $62,360 | $39,098\nAdjustments to reconcile net income to net cash provided by operating activities:\nDepreciation and amortization | 18,616 | 15,498 | 11,178\nShare-based compensation | 20,427 | 16,690 | 14,027\nDeferred income taxes | 18,738 | ( 4,738 ) | 131\nUnrealized (gain) loss on equity investments | ( 1,138 ) | ( 53 ) | 102\nImpairment charges for facilities consolidation | — | 383 | 2,432\nOther | ( 416 ) | 140 | 309\nChanges in assets and liabilities:\nAccounts receivable | ( 1,815 ) | ( 1,485 ) | ( 2,399 )\nPrepaid expenses and other current assets | ( 89 ) | ( 698 ) | 559\nOther assets | ( 481 ) | ( 270 ) | ( 80 )\nAccounts payable | ( 14 ) | 373 | 51\nAccrued expenses and other current liabilities | 1,077 | 323 | 5,081\nOther liabilities | 437 | 2,805 | 624\nNet cash provided by operating activities | 115,800 | 91,328 | 71,113\nCash flows from investing activities",
+          "n_chars": 1263
+        },
+        "score": 0.23025460541248322,
+        "dense_sim": 0.7327723503112793
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

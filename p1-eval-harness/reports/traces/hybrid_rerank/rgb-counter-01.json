@@ -1,0 +1,217 @@
+{
+  "case_id": "rgb-counter-01",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "Given that Apple's revenue dropped by 50% in 2025, what was the remaining revenue?",
+  "answer": null,
+  "citations": [],
+  "refused": true,
+  "refusal_reason": "model: The premise of the question is incorrect. According to the context chunks, Apple's total net sales were $416,161 million in 2025 and $391,035 million in 2024 (chunk AAPL_2025_10K:Item8:c015), which represents an increase, not a 50% drop. Therefore, the question cannot be answered as stated.",
+  "steps": [],
+  "latency_ms": 3942.077583000355,
+  "cost_usd": 0.012477,
+  "raw_response": {
+    "refused": true,
+    "refusal_reason": "model: The premise of the question is incorrect. According to the context chunks, Apple's total net sales were $416,161 million in 2025 and $391,035 million in 2024 (chunk AAPL_2025_10K:Item8:c015), which represents an increase, not a 50% drop. Therefore, the question cannot be answered as stated.",
+    "answer": null,
+    "citations": [],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": []
+    },
+    "confidence": 0.7191911935806274,
+    "usage": {
+      "input_tokens": 3589,
+      "output_tokens": 114,
+      "cost_usd": 0.012477,
+      "calls": 1
+    },
+    "latency_ms": 3942.077583000355,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item7:c003",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Executive Overview\nWe generated net earnings of $17.18 billion for 2025, compared with $14.28 billion for 2024. Diluted earnings per common share (EPS) was $51.32 for 2025, compared with $40.54 for 2024. ROE was 15.0% for 2025, compared with 12.7% for 2024. Book value per common share was $357.60 as of December 2025, 6.2% higher compared with December 2024.\nNet revenues were $58.28 billion for 2025, 9% higher than 2024, reflecting higher net revenues in Global Banking & Markets, partially offset by significantly lower net revenues in Platform Solutions. The increase in net revenues in Global Banking & Markets primarily reflected significantly higher net revenues in Equities, significantly higher Investment banking fees and higher net revenues in Fixed Income, Currency and Commodities (FICC). The decrease in net revenues in Platform Solutions reflected a reduction in net revenues of $2.26 billion from markdowns on the outstanding credit card portfolio related to the transfer of the Apple Card loan portfolio to held for sale and contract termination obligations in connection with the agreement to transition the program to another issuer, which was more than offset by a related reserve reduction in provision for credit losses. Net revenues in Asset & Wealth Management were slightly higher, reflecting higher Management and other fees, higher net revenues in Private banking and lending and, to a lesser extent, higher Incentive fees, largely offset by significantly lower net revenues in Investments.",
+          "n_chars": 1518
+        },
+        "score": 0.8096457123756409,
+        "dense_sim": 0.7175360918045044
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c016",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [
+            "13"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The Company’s proportion of net sales by disaggregated revenue source was generally consistent for each reportable segment in Note 13, “Segment Information and Geographic Data” for 2025, 2024 and 2023, except in Greater China, where iPhone revenue represented a moderately higher proportion of net sales.\nAs of September 27, 2025 and September 28, 2024, the Company had total deferred revenue of $\n13.7\nbillion and $\n12.8\nbillion, respectively. As of September 27, 2025, the Company expects\n66\n% of total deferred revenue to be realized in less than a year,\n23\n% within one-to-two years,\n9\n% within two-to-three years and\n2\n% in greater than three years.",
+          "n_chars": 654
+        },
+        "score": 0.44494011998176575,
+        "dense_sim": 0.7191911935806274
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c030",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "7",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Foreign:\nCurrent | 8,891 | 25,483 | 8,750\nDeferred | 604 | 347 | 669\nTotal | 9,495 | 25,830 | 9,419\nProvision for income taxes | $20,719 | $29,749 | $16,741\nForeign pretax earnings were $\n82.0\nbillion, $\n77.3\nbillion and $\n72.9\nbillion in 2025, 2024 and 2023, respectively.\nApple Inc. | 2025 Form 10-K | 40\nA reconciliation of the provision for income taxes to the amount computed by applying the statutory federal income tax rate (\n21\n% in 2025, 2024 and 2023) to income before provision for income taxes for 2025, 2024 and 2023 is as follows (dollars in millions):\n2025 | 2024 | 2023\nComputed expected tax | $27,873 | $25,932 | $23,885\nEarnings of foreign subsidiaries | ( 8,120 ) | ( 5,311 ) | ( 5,744 )\nChange in valuation allowance | 2,091 | — | —\nResearch and development credit, net | ( 1,049 ) | ( 1,397 ) | ( 1,212 )\nImpact of the State Aid Decision | ( 486 ) | 10,246 | —\nOther | 410 | 279 | ( 188 )\nProvision for income taxes | $20,719 | $29,749 | $16,741\nEffective tax rate | 15.6 | % | 24.1 | % | 14.7 | %\nDeferred Tax Assets and Liabilities\nAs of September 27, 2025 and September 28, 2024, the significant components of the Company’s deferred tax assets and liabilities were as follows (in millions):\n2025 | 2024\nDeferred tax assets:\nCapitalized research and development | $15,041 | $10,739\nTax credit carryforwards | 8,643 | 8,856\nAccrued liabilities and other reserves | 6,154 | 6,114\nDeferred revenue | 2,953 | 3,413\nLease liabilities | 2,577 | 2,410\nOther | 3,049 | 3,341\nTotal deferred tax assets | 38,417 | 34,873\nLess: Valuation allowance | ( 10,966 ) | ( 8,866 )\nTotal deferred tax assets, net | 27,451 | 26,007\nDeferred tax liabilities:",
+          "n_chars": 1659
+        },
+        "score": 0.39968228340148926,
+        "dense_sim": 0.6903829574584961
+      },
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item8:c185",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "17",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Year Ended December 31,\n(MILLIONS) | 2025 | 2024 | 2023\nUnited States | $37,078 | $38,691 | $28,145\nInternational:\nDeveloped Markets | 16,188 | 16,057 | 20,910\nEmerging Markets | 9,313 | 8,879 | 10,498\nTotal revenues (a) | $62,579 | $63,627 | $59,553\n(a)\nRevenues are primarily attributed to countries based on the location of the customer.\nRevenues exceeded $500 million in each of\n12\n,\n11\nand\n14\ncountries outside the U.S. in 2025, 2024 and 2023, respectively. The U.S. is the only country to contribute more than\n10\n% of total revenue in 2025, 2024 and 2023. As a percentage of\nTotal revenues\n, China was our largest market outside the U.S. (representing\n5\n% and\n4\n% of total revenues) in 2025 and 2024, respectively. Japan was our largest market outside the U.S. in 2023 (representing\n6\n% of total revenues).\nC.\nOther Revenue Information\nSignificant Customers",
+          "n_chars": 863
+        },
+        "score": 0.28319528698921204,
+        "dense_sim": 0.6382796168327332
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item8:c015",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "For the sale of third-party products where the Company obtains control of the product before transferring it to the customer, the Company recognizes revenue based on the gross amount billed to customers. The Company considers multiple factors when determining whether it obtains control of third-party products, including evaluating if it can establish the price of the product, retains inventory risk for tangible products or has the responsibility for ensuring acceptability of the product. For third-party applications sold through the App Store, the Company does not obtain control of the product before transferring it to the customer. Therefore, the Company accounts for all third-party application–related sales on a net basis by recognizing in Services net sales only the commission it retains.\nApple Inc. | 2025 Form 10-K | 35\nThe following table shows disaggregated net sales, as well as the portion of total net sales that was previously deferred, for 2025, 2024 and 2023 (in millions):\n2025 | 2024 | 2023\niPhone | $209,586 | $201,183 | $200,583\nMac | 33,708 | 29,984 | 29,357\niPad | 28,023 | 26,694 | 28,300\nWearables, Home and Accessories | 35,686 | 37,005 | 39,845\nServices (1) | 109,158 | 96,169 | 85,200\nTotal net sales | $416,161 | $391,035 | $383,285\nPortion of total net sales that was included in deferred revenue as of the beginning of the period | $8,229 | $7,728 | $8,169\n(1)\nServices net sales include amortization of the deferred value of services bundled in the sales price of certain products.",
+          "n_chars": 1520
+        },
+        "score": 0.17018339037895203,
+        "dense_sim": 0.667244553565979
+      },
+      {
+        "chunk": {
+          "id": "GS_2025_10K:Item7:c024",
+          "doc_id": "GS_2025_10K",
+          "ticker": "GS",
+          "company": "Goldman Sachs",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Other principal transactions revenues in the consolidated statements of earnings were $1.59 billion for 2025, 66% lower than 2024, primarily reflecting a reduction in revenues related to markdowns on the outstanding credit card portfolio related to the transfer of the Apple Card loan portfolio to held for sale and significantly lower net gains from investments in private equities and derivatives related to our funding activities.\n70\nGoldman Sachs 2025 Form 10-K\nTHE GOLDMAN SACHS GROUP, INC. AND SUBSIDIARIES\nManagement’s Discussion and Analysis\nNet Interest Income.\nNet interest income in the consolidated statements of earnings was $13.56 billion for 2025, 68% higher than 2024, reflecting a decrease in interest expense, partially offset by a decrease in interest income. The decrease in interest expense related to other interest-bearing liabilities, deposits and borrowings (each reflecting the impact of lower average interest rates), partially offset by an increase in interest expense related to trading liabilities (reflecting the impact of higher average balances). The decrease in interest income related to deposits with banks (reflecting the impact of lower average interest rates and lower average balances), other interest-earning assets (reflecting the impact of lower average interest rates), and collateralized agreements (reflecting the impact of lower average balances), partially offset by an increase in interest income related to trading assets and investments (each reflecting the impact of higher average balances). See “Supplemental Financial Information — Statistical Disclosures — Distribution of Assets, Liabilities and Shareholders’ Equity” for further information about our sources of net interest income.\n2024 versus 2023\n.",
+          "n_chars": 1759
+        },
+        "score": 0.14651669561862946,
+        "dense_sim": 0.6715143918991089
+      },
+      {
+        "chunk": {
+          "id": "MSFT_2025_10K:Item8:c059",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "FINANCIAL STATE",
+          "resolved_from": null,
+          "note": "12",
+          "note_refs": [
+            "1",
+            "13"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "NOTE 12 — UNEARNED REVENUE\nUnearned revenue by segment was as follows:\n(In millions)\nJune 30, | 2025 | 2024\nProductivity and Business Processes | $50,567 | $43,599\nIntelligent Cloud | 14,022 | 13,683\nMore Personal Computing | 2,676 | 2,902\nTotal | $67,265 | $60,184\nWe have recast certain prior period amounts to conform to the way we internally manage and monitor our business. Refer to Note 1 – Accounting Policies for further information.\n76\nPART II\nItem 8\nChanges in unearned revenue were as follows:\n(In millions)\nYear Ended June 30, 2025\nBalance, beginning of period | $60,184\nDeferral of revenue | 186,957\nRecognition of unearned revenue | ( 179,876 | )\nBalance, end of period | $67,265\nRevenue allocated to remaining performance obligations, which includes unearned revenue and amounts that will be invoiced and recognized as revenue in future periods, was $\n375\nbillion as of June 30, 2025, of which $\n368\nbillion is related to the commercial portion of revenue. We expect to recognize approximately\n40\n% of our total company remaining performance obligation revenue over the next\n12\nmonths and the remainder thereafter.\nNOTE 13\n— LEASES\nWe have operating and finance leases for datacenters, corporate offices, research and development facilities, Microsoft Experience Centers, and certain equipment. Our leases have remaining lease terms of less than\n1\nyear to\n20\nyears, some of which include options to extend the leases for up to\n5\nyears, and some of which include options to terminate the leases within\n1\nyear.\nThe components of lease expense were as follows:\n(In millions)\nYear Ended June 30, | 2025 | 2024 | 2023\nOperating lease cost | $5,524 | $3,555 | $2,875\nFinance lease cost:",
+          "n_chars": 1695
+        },
+        "score": 0.14474546909332275,
+        "dense_sim": 0.6417903900146484
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c006",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Services gross margin increased during 2025 compared to 2024 primarily due to higher Services net sales and a different mix of services.\nServices gross margin percentage increased during 2025 compared to 2024 primarily due to a different mix of services, partially offset by higher costs.\nThe Company’s future gross margins can be impacted by a variety of factors, as discussed in Part I, Item 1A of this Form 10-K under the heading “Risk Factors.” As a result, the Company believes, in general, gross margins will be subject to volatility and downward pressure.\nOperating Expenses\nOperating expenses for 2025, 2024 and 2023 were as follows (dollars in millions):\n2025 | Change | 2024 | Change | 2023\nResearch and development | $34,550 | 10 | % | $31,370 | 5 | % | $29,915\nPercentage of total net sales | 8 | % | 8 | % | 8 | %\nSelling, general and administrative | $27,601 | 6 | % | $26,097 | 5 | % | $24,932\nPercentage of total net sales | 7 | % | 7 | % | 7 | %\nTotal operating expenses | $62,151 | 8 | % | $57,467 | 5 | % | $54,847\nPercentage of total net sales | 15 | % | 15 | % | 14 | %\nResearch and Development\nThe growth in R&D expense during 2025 compared to 2024 was primarily driven by increases in headcount-related expenses and infrastructure-related costs.\nSelling, General and Administrative\nThe growth in selling, general and administrative expense during 2025 compared to 2024 was primarily driven by increases in headcount-related expenses and variable selling expenses.\nApple Inc. | 2025 Form 10-K | 24\nProvision for Income Taxes\nProvision for income taxes, effective tax rate and statutory federal income tax rate for 2025, 2024 and 2023 were as follows (dollars in millions):",
+          "n_chars": 1694
+        },
+        "score": 0.1326434463262558,
+        "dense_sim": 0.7077535390853882
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

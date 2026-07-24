@@ -1,0 +1,297 @@
+{
+  "case_id": "finqa-002",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What was the difference between Amazon's net product sales and net service sales in fiscal year 2025?",
+  "answer": "Net service sales were $420,658 million and net product sales were $296,266 million in fiscal year 2025. The difference is $124,392 million (calculated as $420,658 million minus $296,266 million).",
+  "citations": [
+    "AMZN_2025_10K:Item8:c007"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 13206.391291998443,
+  "cost_usd": 0.031866,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "Net service sales were $420,658 million and net product sales were $296,266 million in fiscal year 2025. The difference is $124,392 million (calculated as $420,658 million minus $296,266 million).",
+    "citations": [
+      "AMZN_2025_10K:Item8:c007"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": false,
+      "claims": [
+        {
+          "raw": "$420,658 million",
+          "value": 420658000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$296,266 million",
+          "value": 296266000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$124,392 million",
+          "value": 124392000000.0,
+          "is_pct": false,
+          "found": false
+        },
+        {
+          "raw": "$420,658 million",
+          "value": 420658000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$296,266 million",
+          "value": 296266000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7947642803192139,
+    "usage": {
+      "input_tokens": 9717,
+      "output_tokens": 181,
+      "cost_usd": 0.031866,
+      "calls": 2
+    },
+    "math_result": {
+      "expression": "420658 - 296266",
+      "result_value": 124392.0,
+      "formatted": "124,392.00",
+      "explanation": "Difference between net service sales and net product sales for 2025"
+    },
+    "latency_ms": 13206.391291998443,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c018",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Macroeconomic factors, including changes in inflation and interest rates, resource and supply volatility, global economic and geopolitical developments, including unpredictable shifts in global tariff and trade policies, and the development and adoption of technologies and services, including artificial intelligence, have direct and indirect impacts on our results of operations that are difficult to predict, isolate, and quantify. These could affect customer demand for our products and services, our ability to forecast growth needs, expenses, and benefits from new technologies. Further, we expect to continue making additional investments in our artificial intelligence initiatives. We expect some or all of these factors to continue to impact our results of operations into Q1 2026.\nNet Sales\nNet sales include product and service sales. Product sales represent revenue from the sale of products and related shipping fees and digital media content where we record revenue gross. Service sales primarily represent third-party seller fees, which includes commissions and any related fulfillment and shipping fees, AWS sales, advertising services, Amazon Prime membership fees, and certain digital media content subscriptions. Net sales information is as follows (in millions):\nYear Ended December 31,\n2024 | 2025\nNet Sales:\nNorth America | $387,497 | $426,305\nInternational | 142,906 | 161,894\nAWS | 107,556 | 128,725\nConsolidated | $637,959 | $716,924\nYear-over-year Percentage Growth:\nNorth America | 10 | % | 10 | %\nInternational | 9 | 13\nAWS | 19 | 20\nConsolidated | 11 | 12\nYear-over-year Percentage Growth, excluding the effect of foreign exchange rates:\nNorth America | 10 | % | 10 | %\nInternational | 10 | 10\nAWS | 19 | 20\nConsolidated | 11 | 12\nNet Sales Mix:",
+          "n_chars": 1774
+        },
+        "score": 0.9919077157974243,
+        "dense_sim": 0.764319121837616
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item8:c007",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes to consolidated financial statements.\n36\nTable of Contents\nAMAZON.COM, INC.\nCONSOLIDATED STATEMENTS OF OPERATIONS\n(in millions, except per share data)\nYear Ended December 31,\n2023 | 2024 | 2025\nNet product sales | $255,887 | $272,311 | $296,266\nNet service sales | 318,898 | 365,648 | 420,658\nTotal net sales | 574,785 | 637,959 | 716,924\nOperating expenses:\nCost of sales | 304,739 | 326,288 | 356,414\nFulfillment | 90,619 | 98,505 | 109,074\nTechnology and infrastructure | 85,622 | 88,544 | 108,521\nSales and marketing | 44,370 | 43,907 | 47,129\nGeneral and administrative | 11,816 | 11,359 | 11,172\nOther operating expense (income), net | 767 | 763 | 4,639\nTotal operating expenses | 537,933 | 569,366 | 636,949\nOperating income | 36,852 | 68,593 | 79,975\nInterest income | 2,949 | 4,677 | 4,381\nInterest expense | ( 3,182 ) | ( 2,406 ) | ( 2,274 )\nOther income (expense), net | 938 | ( 2,250 ) | 15,229\nTotal non-operating income | 705 | 21 | 17,336\nIncome before income taxes | 37,557 | 68,614 | 97,311\nProvision for income taxes | ( 7,120 ) | ( 9,265 ) | ( 19,087 )\nEquity-method investment activity, net of tax | ( 12 ) | ( 101 ) | ( 554 )\nNet income | $30,425 | $59,248 | $77,670\nBasic earnings per share | $2.95 | $5.66 | $7.29\nDiluted earnings per share | $2.90 | $5.53 | $7.17\nWeighted-average shares used in computation of earnings per share:\nBasic | 10,304 | 10,473 | 10,656\nDiluted | 10,492 | 10,721 | 10,827\nSee accompanying notes to consolidated financial statements.\n37\nTable of Contents\nAMAZON.COM, INC.\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(in millions)\nYear Ended December 31,\n2023 | 2024 | 2025\nNet income | $30,425 | $59,248 | $77,670\nOther comprehensive income (loss):",
+          "n_chars": 1725
+        },
+        "score": 0.9674946069717407,
+        "dense_sim": 0.69130539894104
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item8:c087",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "10",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Year Ended December 31,\n2023 | 2024 | 2025\nNet Sales:\nOnline stores (1) | $231,872 | $247,029 | $269,287\nPhysical stores (2) | 20,030 | 21,215 | 22,561\nThird-party seller services (3) | 140,053 | 156,146 | 172,162\nAdvertising services (4) | 46,906 | 56,214 | 68,635\nSubscription services (5) | 40,209 | 44,374 | 49,619\nAWS | 90,757 | 107,556 | 128,725\nOther (6) | 4,958 | 5,425 | 5,935\nConsolidated | $574,785 | $637,959 | $716,924\n___________________\n(1)\nIncludes product sales and digital media content where we record revenue gross. We leverage our retail infrastructure to offer a wide selection of consumable and durable goods that includes media products available in both a physical and digital format, such as books, videos, games, music, and software. These product sales include digital products sold on a transactional basis. Digital media content subscriptions that provide unlimited viewing or usage rights are included in “Subscription services.”\n(2)\nIncludes product sales where our customers physically select items in a store. Sales to customers who order goods online for delivery or pickup at our physical stores are included in “Online stores.”\n(3)\nIncludes commissions and any related fulfillment and shipping fees, and other third-party seller services.\n(4)\nIncludes sales of advertising services to sellers, vendors, publishers, authors, and others, through programs such as sponsored ads, display, and video advertising.\n(5)\nIncludes annual and monthly fees associated with Amazon Prime memberships, as well as digital video, audiobook, digital music, e-book, and other non-AWS subscription services.\n(6)",
+          "n_chars": 1628
+        },
+        "score": 0.6693756580352783,
+        "dense_sim": 0.7947642803192139
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item8:c038",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Net Sales\nThe following table presents our Primary segment major product lines and the related merchandising departments (and related services):\nMajor Product Line\nMerchandising Departments\nBuilding Materials\nBuilding Materials, Electrical, Lumber, Millwork, and Plumbing\nDécor\nAppliances, Bath, Flooring, Kitchen & Blinds, Lighting, and Paint\nHardlines\nHardware, Indoor Garden, Outdoor Garden, Power, and Storage & Organization\nAs noted in our Quarterly Report on Form 10-Q for the first quarter of fiscal 2025, we made changes that realigned certain product categories across our major product lines and merchandising departments within our Primary segment. As a result, prior-year amounts in each of the respective tables below have been reclassified to conform with the current-year presentation. These changes had no impact on consolidated net sales.\nThe following table presents net sales by major product line (and related services) within our Primary segment, as well as Other net sales:\nFiscal | Fiscal | Fiscal\nin millions | 2025 | 2024 | 2023\nBuilding Materials | $52,439 | $52,862 | $52,572\nDécor | 51,679 | 52,525 | 52,750\nHardlines | 47,848 | 47,721 | 47,347\nPrimary segment net sales | 151,966 | 153,108 | 152,669\nOther net sales (1) | 12,717 | 6,406 | —\nNet sales | $164,683 | $159,514 | $152,669\n—————\n(1)\nNet sales presented in Other relate to the sale of products within our SRS non-reportable operating segments, following our acquisition of SRS in the second quarter of fiscal 2024 and the subsequent acquisition of GMS in the third quarter of fiscal 2025. Roofing and related products accounted for approximately\n53\n% and\n68\n% of Other net sales for fiscal 2025 and fiscal 2024, respectively.\nFiscal 2025 Form 10-K\n52\nTable\nof\nContents",
+          "n_chars": 1757
+        },
+        "score": 0.4955877661705017,
+        "dense_sim": 0.7105064392089844
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item8:c041",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "The following table presents net sales by products and services:\nFiscal | Fiscal | Fiscal\nin millions | 2025 | 2024 | 2023\nNet sales – products | $159,029 | $153,674 | $146,835\nNet sales – services | 5,654 | 5,840 | 5,834\nNet sales | $164,683 | $159,514 | $152,669\nNo sales to an individual customer accounted for more than 10% of revenue during any of the last three fiscal years.\nFiscal 2025 Form 10-K\n53\nTable\nof\nContents\n3.\nPROPERTY AND LEASES\nNet Property and Equipment\nThe following table presents components of net property and equipment:\nin millions | February 1, 2026 | February 2, 2025\nLand | $9,499 | $9,060\nBuildings and improvements | 21,321 | 20,260\nFurniture, fixtures, and equipment | 20,289 | 18,474\nLeasehold improvements | 2,571 | 2,423\nConstruction in progress | 1,654 | 1,521\nFinance leases | 4,133 | 4,045\nProperty and equipment, at cost | 59,467 | 55,783\nLess: accumulated depreciation and finance lease amortization | 31,446 | 29,081\nNet property and equipment | $28,021 | $26,702\nThe following table presents depreciation and finance lease amortization expense, including depreciation and finance lease amortization expense included in cost of sales:\nin millions | Fiscal | Fiscal | Fiscal\n2025 | 2024 | 2023\nDepreciation and finance lease amortization expense | $3,452 | $3,283 | $3,020\nLeases\nThe following table presents certain consolidated balance sheet information related to operating and finance leases:\nin millions | Consolidated Balance Sheet Classification | February 1, 2026 | February 2, 2025\nAssets:\nOperating lease assets | Operating lease right-of-use assets | $9,204 | $8,592\nFinance lease assets (1) | Net property and equipment | 2,563 | 2,638\nTotal lease assets | $11,767 | $11,230\nLiabilities:\nCurrent:",
+          "n_chars": 1748
+        },
+        "score": 0.43597331643104553,
+        "dense_sim": 0.7204318642616272
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item7:c006",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "FISCAL 2025 COMPARED TO FISCAL 2024\nSales\nWe assess our sales performance by evaluating both net sales and comparable sales. Fiscal 2025 consisted of 52 weeks compared to 53 weeks in fiscal 2024. For purposes of the following discussion, comparable sales, comparable customer transactions, and comparable average ticket are based upon the comparable 52-week period from fiscal 2024.\nNet Sales.\nNet sales for fiscal 2025 increased $5.2 billion, or 3.2%, to $164.7 billion. The increase in n\net s\nales for fiscal 2025 was primarily driven by SRS, which was acquired on June 18, 2024, and GMS, which was acquired on September 4, 2025. In aggregate, these acquisitions contributed approximately $6.3 billion of incremental net sales during fiscal 2025. Net sales also increased due to sales from new stores and the impact of a positive comparable sales environment. These increases were partially offset by the additional week in fiscal 2024 which contributed approximately $2.5 billion in net sales in fiscal 2024.\nFiscal 2025 Form 10-K\n29\nTable\nof\nContents\nOnline sales represented 15.9% of net sales during fiscal 2025 and increased by 8.7% compared to fiscal 2024. Calculated on a comparable week basis relative to fiscal 2024, online sales increased by 10.4%. Online sales consist of sales of products generated through websites and mobile applications and does not include results from HD Supply or SRS (including GMS).\nA stronger U.S. dollar compared to fiscal 2024 negatively impacted net sales by $307 million in fiscal 2025.\nComparable Sales.",
+          "n_chars": 1548
+        },
+        "score": 0.4234519600868225,
+        "dense_sim": 0.7721012234687805
+      },
+      {
+        "chunk": {
+          "id": "PG_2025_10K:Item7:c021",
+          "doc_id": "PG_2025_10K",
+          "ticker": "PG",
+          "company": "Procter & Gamble",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Form 10-K for the fiscal year ended June\n30\n, 2024\n.\nNet Sales\nNet sales increased $245 million to $84.3 billion in fiscal 2025 as an increase in net sales driven by pricing of 1% was mostly offset by unfavorable foreign exchange of 1%. Volume and mix were unchanged versus the prior year.\nNet sales increased low single digits in Health Care and was unchanged in Grooming, Fabric & Home Care and Baby, Feminine & Family Care. Net sales decreased low single digits in Beauty. Organic sales, which exclude the impacts of acquisitions and divestitures and foreign exchange, increased 2%. Organic sales increased low single digits in all Sector Business Units.\nOperating Costs\nComparisons as a percentage of net sales; fiscal years ended June 30 | 2025 | 2024 | Basis Point Change\nGross margin | 51.2 | % | 51.4 | % | (20) bps\nSelling, general and administrative expense | 26.9 | % | 27.7 | % | (80) bps\nOperating margin | 24.3 | % | 22.1 | % | 220 bps\nEarnings before income taxes | 23.9 | % | 22.3 | % | 160 bps\nNet earnings | 19.1 | % | 17.8 | % | 130 bps\nNet earnings attributable to Procter & Gamble | 19.0 | % | 17.7 | % | 130 bps\nGross margin decreased 20 basis points to 51.2% of net sales. The decrease in gross margin was due to:\n•\n110 basis points of decline from unfavorable product mix,\n•\n50 basis points of product and packaging investments,\n•\n30 basis points of higher commodity costs,\n•\n20 basis points of unfavorable foreign exchange impacts,\n•\n10 basis points of higher transportation costs and other costs and\n•\n10 basis points of higher costs from tariffs.\nThese decreases were partially offset by:\n•\n180 basis points of manufacturing productivity savings and\n•\n30 basis points of increase due to higher pricing.",
+          "n_chars": 1729
+        },
+        "score": 0.397921621799469,
+        "dense_sim": 0.7288960814476013
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item1A:c041",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "section_id": "Item1A",
+          "part": "I",
+          "title": "Risk Factors",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The Company’s gross margins vary significantly across its products, services, geographic segments and distribution channels and can change over time. The Company’s net sales and gross margins are subject to volatility and downward pressure due to a variety of factors, including: continued industry-wide global product pricing pressures and product pricing actions that the Company may take in response to such pressures; increased competition; the Company’s ability to effectively stimulate demand for certain of its products and services; compressed product life cycles; supply shortages; potential increases in the cost of components, outside manufacturing services, and developing, acquiring and delivering content for the Company’s services; the Company’s ability to manage product quality and warranty costs effectively; shifts in the mix of products and services, or in the geographic, currency or channel mix, including to the extent that regulatory changes require the Company to modify its product and service offerings; fluctuations in foreign exchange rates; inflation and other macroeconomic pressures; the imposition of new or increased tariffs and other trade restrictions, their overall magnitude and duration, and retaliatory actions in response; and the introduction of new products or services, including new products or services with lower profit margins. These and other factors could have a materially adverse impact on the Company’s results of operations, financial condition and stock price. Further, the Company generates a significant portion of its net sales from a single product category and a decline in demand for that product could significantly impact net sales and gross margins.",
+          "n_chars": 1713
+        },
+        "score": 0.39113134145736694,
+        "dense_sim": 0.6707046627998352
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c034",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Represents the outcome that would have resulted had foreign exchange rates in the reported period been the same as those in effect in the comparable prior year period for operating results.\n29\nTable of Contents\nGuidance\nWe provided guidance on February 5, 2026, in our earnings release furnished on Form 8-K as set forth below. These forward-looking statements reflect Amazon.com’s expectations as of February 5, 2026, and are subject to substantial uncertainty. Our results are inherently unpredictable and may be materially affected by many factors, such as fluctuations in foreign exchange rates and energy prices, changes in global economic and geopolitical conditions, tariff and trade policies, resource and supply volatility, including for memory chips, and customer demand and spending (including the impact of recessionary fears), inflation, interest rates, regional labor market constraints, world events, the rate of growth of the internet, online commerce, cloud services, and new and emerging technologies, as well as those outlined in Item 1A of Part I, “Risk Factors.”\nFirst Quarter 2026 Guidance\n•\nNet sales are expected to be between $173.5 billion and $178.5 billion, or to grow between 11% and 15% compared with first quarter 2025. This guidance anticipates a favorable impact of approximately 180 basis points from foreign exchange rates.\n•\nOperating income is expected to be between $16.5 billion and $21.5 billion, compared with $18.4 billion in first quarter 2025. This guidance includes approximately $1 billion of higher year-over-year Amazon Leo costs as we scale in 2026, as well as investment in quick commerce and even sharper prices in our international stores business.\n•",
+          "n_chars": 1702
+        },
+        "score": 0.9745249152183533,
+        "dense_sim": 0.7698894739151001
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item8:c035",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "in millions | Fiscal 2025 | Fiscal 2024 | Fiscal 2023\nNet sales | $151,966 | $153,108 | $152,669\nCost of sales | 99,717 | 101,194 | 101,709\nSelling, general and administrative | 28,885 | 27,822 | 26,598\nDepreciation and amortization | 2,790 | 2,779 | 2,673\nOperating income | $20,574 | $21,313 | $21,689",
+          "n_chars": 303
+        },
+        "score": 0.8466140627861023,
+        "dense_sim": 0.7608426809310913
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

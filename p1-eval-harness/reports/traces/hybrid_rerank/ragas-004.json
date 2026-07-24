@@ -1,0 +1,230 @@
+{
+  "case_id": "ragas-004",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What was Microsoft's gross margin in dollar terms for fiscal year 2025?",
+  "answer": "$193,893 million or $193.9 billion",
+  "citations": [
+    "MSFT_2025_10K:Item7:c008"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 3277.1169999978156,
+  "cost_usd": 0.011178,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$193,893 million or $193.9 billion",
+    "citations": [
+      "MSFT_2025_10K:Item7:c008"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$193,893 million",
+          "value": 193893000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$193.9 billion",
+          "value": 193900000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7398850321769714,
+    "usage": {
+      "input_tokens": 3436,
+      "output_tokens": 58,
+      "cost_usd": 0.011178,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 3277.1169999978156,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "MSFT_2025_10K:Item7:c001",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "We generate revenue by offering a wide range of cloud-based solutions, content, and other services to people and businesses; licensing and supporting an array of software products; delivering relevant online advertising to a global audience; and designing and selling devices. Our most significant expenses are related to compensating employees; supporting and investing in our cloud-based services, including datacenter operations; designing, manufacturing, marketing, and selling our other products and services; and income taxes.\nHighlights from fiscal year 2025 compared with fiscal year 2024 included:\n•\nMicrosoft Cloud revenue increased 23% to $168.9 billion.\n•\nMicrosoft 365 Commercial products and cloud services revenue increased 14% driven by Microsoft 365 Commercial cloud revenue growth of 15%.\n•\nMicrosoft 365 Consumer products and cloud services revenue increased 11% driven by Microsoft 365 Consumer cloud revenue growth of 11%.\n•\nLinkedIn revenue increased 9%.\n•\nDynamics products and cloud services revenue increased 15% driven by Dynamics 365 revenue growth of 19%.\n•\nServer products and cloud services revenue increased 23% driven by Azure and other cloud services revenue growth of 34%.\n•\nWindows OEM and Devices revenue increased 3%.\n•\nXbox content and services revenue increased 16%.\n•\nSearch and news advertising revenue excluding traffic acquisition costs increased 20%.\nIndustry Trends and Opportunities",
+          "n_chars": 1428
+        },
+        "score": 0.8284569382667542,
+        "dense_sim": 0.7085171937942505
+      },
+      {
+        "chunk": {
+          "id": "MSFT_2025_10K:Item7:c008",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Revenue from sales of Windows Pro and non-Pro licenses sold through the OEM channel and sales of first-party Devices, including Surface and PC accessories\nXbox content and services revenue growth\nRevenue from Xbox content and services, comprising first- and third-party content (including games and in-game content), Xbox Game Pass and other subscriptions, Xbox Cloud Gaming, advertising, and other cloud services\nSearch and news advertising revenue (ex TAC) growth\nRevenue from search and news advertising excluding traffic acquisition costs (“TAC”) paid to Bing Ads network publishers and news partners\nSUMMARY RESULTS OF OPERATIONS\n(In millions, except percentages and per share amounts) | 2025 | 2024 | Percentage Change\nRevenue | $281,724 | $245,122 | 15%\nGross margin | 193,893 | 171,008 | 13%\nOperating income | 128,528 | 109,433 | 17%\nNet income | 101,832 | 88,136 | 16%\nDiluted earnings per share | 13.64 | 11.80 | 16%\nFiscal Year 2025 Compared with Fiscal Year 2024\nRevenue increased $36.6 billion or 15% with growth across each of our segments. Intelligent Cloud revenue increased driven by Azure. Productivity and Business Processes revenue increased driven by Microsoft 365 Commercial cloud. More Personal Computing revenue increased driven by Gaming and Search and news advertising.\nCost of revenue increased $13.7 billion or 19% driven by growth in Microsoft Cloud.\nGross margin increased $22.9 billion or 13% with growth across each of our segments.\n•\nGross margin percentage decreased slightly driven by Intelligent Cloud, offset in part by More Personal Computing.\n•\nMicrosoft Cloud gross margin percentage decreased to 69% driven by the impact of scaling our AI infrastructure, offset in part by efficiency gains in Azure.",
+          "n_chars": 1741
+        },
+        "score": 0.3991635739803314,
+        "dense_sim": 0.6897021532058716
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item7:c015",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Gross profit consists of total net revenue less cost of revenue. Cost of revenue consists of the cost of semiconductors, including wafer fabrication, assembly, testing and packaging, board and device costs, manufacturing support costs, including labor and overhead associated with such purchases, final test yield fallout, inventory and warranty provisions, memory and component costs, tariffs, and shipping costs. Cost of revenue also includes acquisition-related intangible amortization expense, costs for license and development and service arrangements, IP-related costs, and stock-based compensation related to personnel associated with manufacturing operations.\nGross margins decreased to 71.1% in fiscal year 2026 from 75.0% in fiscal year 2025 as our business model transitioned from offering Hopper HGX systems to Blackwell full-scale datacenter solutions and a $4.5 billion charge associated with H20 excess inventory and purchase obligations in the first quarter of fiscal year 2026.\nProvisions for inventory and excess inventory purchase obligations totaled $7.2 billion and $3.7 billion for fiscal years 2026 and 2025, respectively, including $4.5 billion associated with H20 excess inventory and purchase obligations for the first quarter of fiscal year 2026. Sales of previously reserved inventory and settlements of excess inventory purchase obligations resulted in a provision release of $1.5 billion and $689 million for fiscal years 2026 and 2025, respectively. The net effect on our gross margin was an unfavorable impact of 2.6% and 2.3% in fiscal years 2026 and 2025, respectively.\nOperating Expenses\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | $ Change | % Change\n($ in millions)",
+          "n_chars": 1699
+        },
+        "score": 0.25586622953414917,
+        "dense_sim": 0.659726083278656
+      },
+      {
+        "chunk": {
+          "id": "MSFT_2025_10K:Item8:c079",
+          "doc_id": "MSFT_2025_10K",
+          "ticker": "MSFT",
+          "company": "Microsoft",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "FINANCIAL STATE",
+          "resolved_from": null,
+          "note": "17",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Our Microsoft Cloud revenue, which includes Microsoft 365 Commercial cloud, Azure and other cloud services, the commercial portion of LinkedIn, and Dynamics 365, was $\n168.9\nbillion, $\n137.7\nbillion, and $\n111.6\nbillion in fiscal years 2025, 2024, and 2023, respectively. These amounts are included in Microsoft 365 Commercial products and cloud services, Server products and cloud services, LinkedIn, and Dynamics products and cloud services in the table above.\nAssets are not allocated to segments for internal reporting presentations. A portion of amortization and depreciation is included with various other costs in an overhead allocation to each segment. It is impracticable for us to separately identify the amount of amortization and depreciation by segment that is included in the measure of segment profit or loss.\nLong-lived assets, excluding financial instruments and tax assets, classified by the location of the controlling statutory company and with countries over 10% of the total shown separately, were as follows:\n(In millions)\nJune 30, | 2025 | 2024 | 2023\nUnited States | $230,069 | $186,106 | $114,380\nOther countries | 141,833 | 115,263 | 72,859\nTotal | $371,902 | $301,369 | $187,239\n85\nPART II\nItem 8\nREPORT OF INDEPENDENT REGIST\nERED PUBLIC ACCOUNTING FIRM\nTo the Stockholders and the Board of Directors of Microsoft Corporation\nOpinion on the Financial Statements",
+          "n_chars": 1389
+        },
+        "score": 0.1637793928384781,
+        "dense_sim": 0.7128968238830566
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item7:c009",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "As previously reported, we increased our annual membership fees in the U.S. and Canada, effective September 1, 2024. We account for membership fee revenue on a deferred basis, recognized ratably over the one-year membership period. The fee income increase accounted for approximately 40% of membership income growth during 2025.\nGross Margin\n2025 | 2024 | 2023\nNet sales | $269,912 | $249,625 | $237,710\nLess merchandise costs | 239,886 | 222,358 | 212,586\nGross margin | $30,026 | $27,267 | $25,124\nGross margin percentage | 11.12 | % | 10.92 | % | 10.57 | %\nGross margin percentage increased 20 basis points. Excluding the impact of gasoline price deflation on net sales, gross margin percentage was 11.03%, an increase of 11 basis points. This increase was positively impacted by 19 basis points in our core merchandise categories, primarily due to fresh foods and our co-branded credit card program. Gross margin percentage was negatively impacted by seven basis points due to a LIFO charge in 2025 for higher merchandise costs and one basis point in warehouse ancillary and other businesses. Changes in foreign currencies relative to the U.S. dollar negatively impacted gross margin by approximately $224, attributable to our Other International and Canadian operations.\nThe gross margin in core merchandise categories, when expressed as a percentage of core merchandise sales (rather than total net sales), increased 16 basis points. The increase was primarily due to fresh foods and foods and sundries, partially offset by non-foods. This measure eliminates the impact of changes in sales penetration and gross margin from our warehouse ancillary and other businesses.",
+          "n_chars": 1675
+        },
+        "score": 0.09998111426830292,
+        "dense_sim": 0.667688250541687
+      },
+      {
+        "chunk": {
+          "id": "HD_2026_10K:Item7:c006",
+          "doc_id": "HD_2026_10K",
+          "ticker": "HD",
+          "company": "Home Depot",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "FISCAL 2025 COMPARED TO FISCAL 2024\nSales\nWe assess our sales performance by evaluating both net sales and comparable sales. Fiscal 2025 consisted of 52 weeks compared to 53 weeks in fiscal 2024. For purposes of the following discussion, comparable sales, comparable customer transactions, and comparable average ticket are based upon the comparable 52-week period from fiscal 2024.\nNet Sales.\nNet sales for fiscal 2025 increased $5.2 billion, or 3.2%, to $164.7 billion. The increase in n\net s\nales for fiscal 2025 was primarily driven by SRS, which was acquired on June 18, 2024, and GMS, which was acquired on September 4, 2025. In aggregate, these acquisitions contributed approximately $6.3 billion of incremental net sales during fiscal 2025. Net sales also increased due to sales from new stores and the impact of a positive comparable sales environment. These increases were partially offset by the additional week in fiscal 2024 which contributed approximately $2.5 billion in net sales in fiscal 2024.\nFiscal 2025 Form 10-K\n29\nTable\nof\nContents\nOnline sales represented 15.9% of net sales during fiscal 2025 and increased by 8.7% compared to fiscal 2024. Calculated on a comparable week basis relative to fiscal 2024, online sales increased by 10.4%. Online sales consist of sales of products generated through websites and mobile applications and does not include results from HD Supply or SRS (including GMS).\nA stronger U.S. dollar compared to fiscal 2024 negatively impacted net sales by $307 million in fiscal 2025.\nComparable Sales.",
+          "n_chars": 1548
+        },
+        "score": 0.09626159071922302,
+        "dense_sim": 0.7218101024627686
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c019",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The fiscal year 2025 is primarily related to the acquisitions of Intra-Cellular (CAPLYTA) and Halda Therapeutics partially offset by the reduction of the Abiomed contingent value right (CVR) liability. The fiscal year 2024 is primarily related to the acquisition of Shockwave.\nInterest (Income) Expense:\nInterest income in the fiscal year 2025 was $1.1 billion as compared to $1.3 billion in 2024. Interest income decreased as compared to the prior year driven by lower interest rates earned on cash balances. Interest expense in the fiscal year 2025 was $1.0 billion as compared to $0.8 billion in 2024. Interest expense was higher as compared to the prior year due to a higher average debt balance. Cash, cash equivalents and marketable securities totaled $20.1 billion at the end of 2025, and averaged $22.3 billion as compared to the cash, cash equivalents and marketable securities total of $24.5 billion and $23.7 billion average balance in 2024. The total debt balance at the end of 2025 was $47.9 billion with an average debt balance of $42.3 billion as compared to $36.6 billion at the end of 2024 and an average debt balance of $33.0 billion. The higher debt balance was due to the senior unsecured notes issued by the Company in the fiscal first quarter of 2025. The net proceeds from this offering were used to fund the Intra-Cellular Therapies, Inc. acquisition which closed on April 2, 2025 and for general corporate purposes.\nIncome before tax by segment\nIncome before tax by segment of business was as follows:",
+          "n_chars": 1526
+        },
+        "score": 0.08339335769414902,
+        "dense_sim": 0.7398850321769714
+      },
+      {
+        "chunk": {
+          "id": "NFLX_2025_10K:Item7:c001",
+          "doc_id": "NFLX_2025_10K",
+          "ticker": "NFLX",
+          "company": "Netflix",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "section below for additional details on our use of constant currency revenue.\nOperating margin for the year ended December 31, 2025 increased by approximately three percentage points as compared to the prior comparative period, primarily driven by the growth in revenues outpacing the growth in cost of revenues, sales and marketing, and general and administrative expenses.\nNet income for the year ended December 31, 2025 increased $2,270 million as compared to the prior comparative period, primarily due to a $2,909 million increase in operating income, driven by a $6,182 million increase in revenues and partially offset by a $2,237 million increase in cost of revenues primarily due to the increase in content amortization and other cost of revenues. The impact of higher operating income was partially offset by a $487 million increase in the provision for income taxes.\nRevenues\nWe primarily derive revenues from monthly membership fees for services related to streaming content to our members. We offer a variety of streaming membership plans, the price of which varies by country and the features of the plan. As of December 31, 2025, pricing on our paid plans ranged from the U.S. dollar equivalent of $1 to $37 per month, and pricing on our extra member sub accounts ranged from the U.S. dollar equivalent of $2 to $9 per month. We expect that from time to time the prices of our membership plans in each country may change and we may test other plan and price variations.\nWe also earn revenue from advertisements presented on our streaming service, consumer products, live experiences and various other sources. Revenues earned from sources other than monthly membership fees were not a material component of revenues for the years ended December 31, 2025, 2024, and 2023.\n20",
+          "n_chars": 1788
+        },
+        "score": 0.07807263731956482,
+        "dense_sim": 0.6834398508071899
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

@@ -1,0 +1,428 @@
+{
+  "case_id": "fb-004",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "Did Nvidia's gross margin percentage increase or decrease in FY2025 compared to FY2024?",
+  "answer": "Nvidia's gross margin percentage decreased in FY2025 compared to FY2024. The gross profit margin was 71.1% for fiscal year 2026 (Jan 25, 2026) compared to 75.0% for fiscal year 2025 (Jan 26, 2025).",
+  "citations": [
+    "NVDA_2026_10K:Item7:c011"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 12900.161749999825,
+  "cost_usd": 0.023802,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "Nvidia's gross margin percentage decreased in FY2025 compared to FY2024. The gross profit margin was 71.1% for fiscal year 2026 (Jan 25, 2026) compared to 75.0% for fiscal year 2025 (Jan 26, 2025).",
+    "citations": [
+      "NVDA_2026_10K:Item7:c011"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "71.1%",
+          "value": 71.1,
+          "is_pct": true,
+          "found": true
+        },
+        {
+          "raw": "75.0%",
+          "value": 75.0,
+          "is_pct": true,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.8405598998069763,
+    "usage": {
+      "input_tokens": 7359,
+      "output_tokens": 115,
+      "cost_usd": 0.023802,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 12900.161749999825,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c073",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "16",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "% of total revenue for fiscal years 2026, 2025, and 2024, respectively. The increase in revenue to the United States for fiscal years 2026 and 2025 was primarily due to higher U.S.-based Compute & Networking segment demand.\nWe refer to customers who purchase products directly from NVIDIA as direct customers, such as AIBs, distributors, ODMs, OEMs, CSPs, AI model makers, and system integrators. Certain direct customers may use either internal resources or third-party system integrators to complete their build. We refer to indirect customers as those who purchase products through our direct customers; indirect customers include CSPs, Neocloud builders, AI model makers, enterprises, and public sector entities. Our revenue is concentrated among a limited number of direct and indirect customers and this trend may continue.\nDirect Customers\n– For fiscal year 2026, sales to one direct customer represented\n22\n% of total revenue and sales to another direct customer represented\n14\n% of total revenue, all of which were primarily attributable to the Compute & Networking segment.\nFor fiscal year 2025, sales to one direct customer represented\n12\n% of total revenue and sales to two direct customers each represented\n11\n% of total revenue, all of which were primarily attributable to the Compute & Networking segment.\nFor fiscal year 2024, sales to one direct customer represented\n13\n% of total revenue, and were primarily attributable to the Compute & Networking segment.\n78\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)\nThe following table summarizes revenue by specialized markets:\nYear Ended",
+          "n_chars": 1665
+        },
+        "score": 0.9689480662345886,
+        "dense_sim": 0.7123898267745972
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item7:c011",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "A discussion regarding our financial condition and results of operations for fiscal year 2026 compared to fiscal year 2025 is presented below. A discussion regarding our financial condition and results of operations for fiscal year 2025 compared to fiscal year 2024 can be found under Item 7 in our Annual Report on Form 10-K for the fiscal year ended January 26, 2025, filed with the SEC on February 26, 2025, which is available free of charge on the SEC’s website at http://www.sec.gov and at our investor relations website, http://investor.nvidia.com.\n39\nTable of Contents\nThe following table sets forth, for the periods indicated, certain items in our Consolidated Statements of Income expressed as a percentage of revenue.\nYear Ended\nJan 25, 2026 | Jan 26, 2025\nRevenue | 100.0 | % | 100.0 | %\nCost of revenue | 28.9 | 25.0\nGross profit | 71.1 | 75.0\nOperating expenses\nResearch and development | 8.6 | 9.9\nSales, general and administrative | 2.1 | 2.7\nTotal operating expenses | 10.7 | 12.6\nOperating income | 60.4 | 62.4\nInterest income | 1.1 | 1.4\nInterest expense | (0.1) | (0.2)\nOther income, net | 4.2 | 0.8\nTotal other income, net | 5.2 | 2.0\nIncome before income tax | 65.5 | 64.4\nIncome tax expense | 9.9 | 8.6\nNet income | 55.6 | % | 55.8 | %\nReportable Segments\nRevenue by Reportable Segments\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | $ Change | % Change\n($ in millions)\nCompute & Networking | $193,479 | $116,193 | $77,286 | 67 | %\nGraphics | 22,459 | 14,304 | 8,155 | 57 | %\nTotal | $215,938 | $130,497 | $85,441 | 65 | %\nOperating Income by Reportable Segments\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | $ Change | % Change\n($ in millions)",
+          "n_chars": 1655
+        },
+        "score": 0.9477792978286743,
+        "dense_sim": 0.6817838549613953
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c006",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Services gross margin increased during 2025 compared to 2024 primarily due to higher Services net sales and a different mix of services.\nServices gross margin percentage increased during 2025 compared to 2024 primarily due to a different mix of services, partially offset by higher costs.\nThe Company’s future gross margins can be impacted by a variety of factors, as discussed in Part I, Item 1A of this Form 10-K under the heading “Risk Factors.” As a result, the Company believes, in general, gross margins will be subject to volatility and downward pressure.\nOperating Expenses\nOperating expenses for 2025, 2024 and 2023 were as follows (dollars in millions):\n2025 | Change | 2024 | Change | 2023\nResearch and development | $34,550 | 10 | % | $31,370 | 5 | % | $29,915\nPercentage of total net sales | 8 | % | 8 | % | 8 | %\nSelling, general and administrative | $27,601 | 6 | % | $26,097 | 5 | % | $24,932\nPercentage of total net sales | 7 | % | 7 | % | 7 | %\nTotal operating expenses | $62,151 | 8 | % | $57,467 | 5 | % | $54,847\nPercentage of total net sales | 15 | % | 15 | % | 14 | %\nResearch and Development\nThe growth in R&D expense during 2025 compared to 2024 was primarily driven by increases in headcount-related expenses and infrastructure-related costs.\nSelling, General and Administrative\nThe growth in selling, general and administrative expense during 2025 compared to 2024 was primarily driven by increases in headcount-related expenses and variable selling expenses.\nApple Inc. | 2025 Form 10-K | 24\nProvision for Income Taxes\nProvision for income taxes, effective tax rate and statutory federal income tax rate for 2025, 2024 and 2023 were as follows (dollars in millions):",
+          "n_chars": 1694
+        },
+        "score": 0.5088449120521545,
+        "dense_sim": 0.6784385442733765
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c016",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "1",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Note 1 -\nOrganization and Summary of Significant Accounting Policies\nOur Company\nHeadquartered in Santa Clara, California, NVIDIA was incorporated in California in April 1993 and reincorporated in Delaware in April 1998.\nAll references to “NVIDIA,” “we,” “us,” “our” or the “Company” mean NVIDIA Corporation and its subsidiaries.\nCertain prior fiscal year balances have been reclassified to conform to the current fiscal year presentation. Non-marketable equity securities, previously presented within other assets, were reclassified to be presented separately on our consolidated balance sheets and had no impact to total assets or consolidated statement of cash flows.\nFiscal Year\nWe operate on a 52- or 53-week year, ending on the last Sunday in January. Fiscal years 2026, 2025 and 2024 were all 52-week years. Fiscal year 2027 will be a 53-week year with the fourth quarter consisting of 14 weeks.\nPrinciples of Consolidation\nOur consolidated financial statements include the accounts of NVIDIA Corporation and our wholly-owned subsidiaries. All intercompany balances and transactions have been eliminated in consolidation.\nUse of Estimates",
+          "n_chars": 1145
+        },
+        "score": 0.48224180936813354,
+        "dense_sim": 0.7205777168273926
+      },
+      {
+        "chunk": {
+          "id": "AAPL_2025_10K:Item7:c005",
+          "doc_id": "AAPL_2025_10K",
+          "ticker": "AAPL",
+          "company": "Apple",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "(1)\nServices net sales include amortization of the deferred value of services bundled in the sales price of certain products.\niPhone\niPhone net sales increased during 2025 compared to 2024 due to higher net sales of Pro models.\nMac\nMac net sales increased during 2025 compared to 2024 primarily due to higher net sales of laptops and desktops.\niPad\niPad net sales increased during 2025 compared to 2024 primarily due to higher net sales of iPad Air, iPad mini and iPad, partially offset by lower net sales of iPad Pro.\nWearables, Home and Accessories\nWearables, Home and Accessories net sales decreased during 2025 compared to 2024 primarily due to lower net sales of Accessories and Wearables.\nServices\nServices net sales increased during 2025 compared to 2024 primarily due to higher net sales from advertising, the App Store and cloud services.\nApple Inc. | 2025 Form 10-K | 23\nGross Margin\nProducts and Services gross margin and gross margin percentage for 2025, 2024 and 2023 were as follows (dollars in millions):\n2025 | 2024 | 2023\nGross margin:\nProducts | $112,887 | $109,633 | $108,803\nServices | 82,314 | 71,050 | 60,345\nTotal gross margin | $195,201 | $180,683 | $169,148\nGross margin percentage:\nProducts | 36.8 | % | 37.2 | % | 36.5 | %\nServices | 75.4 | % | 73.9 | % | 70.8 | %\nTotal gross margin percentage | 46.9 | % | 46.2 | % | 44.1 | %\nProducts Gross Margin\nProducts gross margin increased during 2025 compared to 2024 primarily due to favorable costs and a different mix of products, partially offset by tariff costs.\nProducts gross margin percentage decreased during 2025 compared to 2024 primarily due to a different mix of products and tariff costs, partially offset by other favorable costs.\nServices Gross Margin",
+          "n_chars": 1737
+        },
+        "score": 0.3542805314064026,
+        "dense_sim": 0.6293398141860962
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item7:c010",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Gross margin on a segment basis, when expressed as a percentage of the segment's own sales and excluding the impact of changes in gasoline prices on net sales (segment gross margin percentage),\nincreased in our U.S. segment, which performed similarly to the consolidated results above. Our Canadian and Other International segments gross margin increased, primarily due to increases in core merchandise categories and warehouse ancillary and other businesses.\nSelling, General and Administrative Expenses\n2025 | 2024 | 2023\nSG&A expenses | $24,966 | $22,810 | $21,590\nSG&A expenses as a percentage of net sales | 9.25 | % | 9.14 | % | 9.08 | %\nSG&A expenses as a percentage of net sales increased 11 basis points. SG&A expenses as a percentage of net sales excluding the impact of gasoline price deflation was 9.17%, an increase of three basis points. The comparison to last year was negatively impacted by three basis points due to warehouse operations and other businesses. Changes in foreign currencies relative to the U.S. dollar decreased SG&A expenses by approximately $127, attributable to our Canadian and Other International operations.\nInterest Expense\n2025 | 2024 | 2023\nInterest expense | $154 | $169 | $160\n27\nTable of Contents\nInterest expense is primarily related to Senior Notes and financing leases. The decrease was primarily due to repayment of the 2.750% Senior Notes in May 2024. For more information on our debt arrangements, refer to the consolidated financial statements included in Item 8 of this Report.\nInterest Income and Other, Net\n2025 | 2024 | 2023\nInterest income | $469 | $533 | $470\nForeign-currency transaction gains, net | 84 | 26 | 29\nOther, net | 36 | 65 | 34\nInterest income and other, net | $589 | $624 | $533",
+          "n_chars": 1749
+        },
+        "score": 0.24975496530532837,
+        "dense_sim": 0.6732585430145264
+      },
+      {
+        "chunk": {
+          "id": "PG_2025_10K:Item7:c027",
+          "doc_id": "PG_2025_10K",
+          "ticker": "PG",
+          "company": "Procter & Gamble",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Net earnings decreased 8% to $2.7 billion due to the decrease in net sales and a 140 basis-point decline in net earnings margin. Net earnings margin decreased due to a decrease in gross margin and an increase in SG&A as a percentage of net sales, partially offset by a lower effective tax rate. The gross margin decline of 130 basis points was driven by unfavorable product mix (due to the decline of the super-premium SK-II brand) and higher commodities, partially offset by increased productivity savings. SG&A as a percentage of net sales increased due to an increase in overhead spending and a reduction in net sales. The lower effective tax rate was driven by favorable geographic mix.\nGROOMING\n($ millions) | 2025 | 2024 | Change vs. 2024\nVolume | N/A | N/A | 2%\nNet sales | $6,662 | $6,654 | —%\nNet earnings | $1,577 | $1,477 | 7%\n% of net sales | 23.7% | 22.2% | 150 bps\nGrooming net sales were unchanged at $6.7 billion driven by a 2% increase in unit volume and higher pricing of 2% across all regions were offset by the negative impacts of unfavorable foreign exchange of 2%, unfavorable geographic mix of 1% and divestitures of 1%. The unit volume increase was driven by growth in IMEA (due to increased distribution) and Europe (due to market growth), partially offset by a decline in North America (due to retail inventory reduction). Excluding the impact of acquisitions and divestitures and foreign exchange, organic sales increased 2% driven by double-digit growth in Asia Pacific and IMEA and low single-digit growth in Europe, partially offset by a low single-digit decline in North America. Global market share of the Grooming segment decreased 0.1 points.\nNet earnings increased 7% to $1.6 billion due to a 150 basis-point improvement in net earnings margin.",
+          "n_chars": 1779
+        },
+        "score": 0.2153356820344925,
+        "dense_sim": 0.6446027755737305
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item7:c009",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "As previously reported, we increased our annual membership fees in the U.S. and Canada, effective September 1, 2024. We account for membership fee revenue on a deferred basis, recognized ratably over the one-year membership period. The fee income increase accounted for approximately 40% of membership income growth during 2025.\nGross Margin\n2025 | 2024 | 2023\nNet sales | $269,912 | $249,625 | $237,710\nLess merchandise costs | 239,886 | 222,358 | 212,586\nGross margin | $30,026 | $27,267 | $25,124\nGross margin percentage | 11.12 | % | 10.92 | % | 10.57 | %\nGross margin percentage increased 20 basis points. Excluding the impact of gasoline price deflation on net sales, gross margin percentage was 11.03%, an increase of 11 basis points. This increase was positively impacted by 19 basis points in our core merchandise categories, primarily due to fresh foods and our co-branded credit card program. Gross margin percentage was negatively impacted by seven basis points due to a LIFO charge in 2025 for higher merchandise costs and one basis point in warehouse ancillary and other businesses. Changes in foreign currencies relative to the U.S. dollar negatively impacted gross margin by approximately $224, attributable to our Other International and Canadian operations.\nThe gross margin in core merchandise categories, when expressed as a percentage of core merchandise sales (rather than total net sales), increased 16 basis points. The increase was primarily due to fresh foods and foods and sundries, partially offset by non-foods. This measure eliminates the impact of changes in sales penetration and gross margin from our warehouse ancillary and other businesses.",
+          "n_chars": 1675
+        },
+        "score": 0.1549423784017563,
+        "dense_sim": 0.6678035855293274
+      },
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item7:c023",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "2025 | 2024 | Change\nNet revenue | $93,925 | $91,854 | 2 | %\nOperating profit | $11,498 | $12,887 | (11) | %\nOperating margin | 12.2 | % | 14.0 | % | (1.8)",
+          "n_chars": 155
+        },
+        "score": 0.943993866443634,
+        "dense_sim": 0.6985724568367004
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item5:c003",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "5",
+          "section_id": "Item5",
+          "part": "II",
+          "title": "Market for Registrant's Common Equity",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "1/31/2021 | 1/30/2022 | 1/29/2023 | 1/28/2024 | 1/26/2025 | 1/25/2026\nNVIDIA Corporation | $100.00 | $175.98 | $157.05 | $470.88 | $1,100.68 | $1,448.75\nS&P 500 | $100.00 | $121.00 | $112.98 | $137.98 | $174.50 | $200.33\nNasdaq 100 | $100.00 | $112.60 | $95.60 | $138.07 | $173.95 | $206.01",
+          "n_chars": 290
+        },
+        "score": 0.898829996585846,
+        "dense_sim": 0.762109637260437
+      },
+      {
+        "chunk": {
+          "id": "KO_2025_10K:Item7:c040",
+          "doc_id": "KO_2025_10K",
+          "ticker": "KO",
+          "company": "Coca-Cola",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The percentage contribution of each operating segment fluctuates over time due to net operating revenues in some operating segments growing at a faster rate compared to other operating segments. In addition, foreign currency exchange rate fluctuations impact the percentage contribution of each operating segment. For additional information about the impact of foreign currency exchange rate fluctuations, refer to the heading “Liquidity, Capital Resources and Financial Position — Foreign Exchange” below.\nGross Profit Margin\nGross profit margin is a ratio calculated by dividing gross profit by net operating revenues. Management believes gross profit margin provides investors with useful information related to the profitability of our business prior to considering all of the selling, general and administrative expenses and other operating charges incurred. Management uses this measure in making financial, operating and planning decisions and in evaluating the Company’s performance.\nOur gross profit margin increased to 61.6% in 2025 from 61.1% in 2024. This increase was primarily due to the impact of favorable pricing initiatives and the impact of the prior year refranchising of our bottling operations in the Philippines, Bangladesh and certain territories in India, partially offset by the unfavorable impact of foreign currency exchange rate fluctuations and higher commodity costs.\nSelling, General and Administrative Expenses",
+          "n_chars": 1443
+        },
+        "score": 0.7678210139274597,
+        "dense_sim": 0.7071259617805481
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c006",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Addressing the matter involved performing procedures and evaluating audit evidence in connection with forming our overall opinion on the consolidated financial statements. These procedures included testing the effectiveness of controls relating to management’s provisions for excess or obsolete inventories and excess product purchase commitments, including controls over management’s assumptions related to future demand and market conditions. These procedures also included, among others, testing management’s process for developing the provisions for excess or obsolete inventories and excess product purchase commitments; evaluating the appropriateness of management’s approach; testing the completeness and accuracy of underlying data used in the approach; and evaluating the reasonableness of management’s assumptions related to future demand and market conditions. Evaluating management’s assumptions related to future demand and market conditions involved evaluating whether the assumptions used by management were reasonable considering (i) current and past results, including historical product life cycle, (ii) the consistency with external market and industry data, and (iii) changes in technology.\n/s/\nPricewaterhouseCoopers LLP\nSan Jose, California\nFebruary 25, 2026\nWe have served as the Company’s auditor since 2004.\n50\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nConsolidated Statements of Income\n(In millions, except per share data)\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | Jan 28, 2024\nRevenue | $215,938 | $130,497 | $60,922\nCost of revenue | 62,475 | 32,639 | 16,621\nGross profit | 153,463 | 97,858 | 44,301\nOperating expenses",
+          "n_chars": 1657
+        },
+        "score": 0.9910407662391663,
+        "dense_sim": 0.694503128528595
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c071",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "16",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Our CODM does not review any information regarding total assets on a reportable segment basis. There are no intersegment transactions. The accounting policies for segment reporting are the same as for our consolidated financial statements.\nThe table below presents details of our reportable segments.\nCompute & Networking | Graphics | Total\n(In millions)\nYear Ended Jan 25, 2026\nRevenue | $193,479 | $22,459 | $215,938\nOther segment items (1) | 63,338 | 13,303 | 76,641\nOperating income | $130,141 | $9,156 | $139,297\nYear Ended Jan 26, 2025\nRevenue | $116,193 | $14,304 | $130,497\nOther segment items (1) | 33,318 | 9,219 | 42,537\nOperating income | $82,875 | $5,085 | $87,960\nYear Ended Jan 28, 2024\nRevenue | $47,405 | $13,517 | $60,922\nOther segment items (1) | 15,389 | 7,671 | 23,060\nOperating income | $32,016 | $5,846 | $37,862\n(1)\nOther segment items primarily include product costs and inventory provisions, compensation and benefits excluding stock-based compensation expense, computing infrastructure expenses, and engineering development costs.\nDepreciation and amortization expense attributable to our Compute & Networking segment for fiscal years 2026, 2025, and 2024 was $\n1.6\nbillion, $\n732\nmillion, and $\n457\nmillion, respectively. Depreciation and amortization expense attributable to our Graphics segment for fiscal years 2026, 2025, and 2024 was $\n590\nmillion, $\n372\nmillion, and $\n307\nmillion, respectively. Acquisition-related intangible amortization expense is not allocated to either Compute & Networking or Graphics for purposes of making operating decisions or assessing financial performance.\n77\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)",
+          "n_chars": 1736
+        },
+        "score": 0.9753795862197876,
+        "dense_sim": 0.7600130438804626
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c008",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Net income per share:\nBasic | $4.93 | $2.97 | $1.21\nDiluted | $4.90 | $2.94 | $1.19\nWeighted average shares used in per share computation:\nBasic | 24,359 | 24,555 | 24,690\nDiluted | 24,514 | 24,804 | 24,940\nSee accompanying Notes to the Consolidated Financial Statements.\n51\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nConsolidated Statements of Comprehensive Income\n(In millions)\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | Jan 28, 2024\nNet income | $120,067 | $72,880 | $29,760\nOther comprehensive income, net of tax\nAvailable-for-sale securities:\nNet change in unrealized gain | 107 | 1 | 80\nCash flow hedges:\nNet change in unrealized gain (loss) | 43 | — | ( 10 )\nOther comprehensive income, net of tax | 150 | 1 | 70\nTotal comprehensive income | $120,217 | $72,881 | $29,830\nSee accompanying Notes to the Consolidated Financial Statements.\n52\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nConsolidated Balance Sheets\n(In millions, except par value)\nJan 25, 2026 | Jan 26, 2025\nAssets\nCurrent assets:\nCash and cash equivalents | $10,605 | $8,589\nMarketable securities | 51,951 | 34,621\nAccounts receivable, net | 38,466 | 23,065\nInventories | 21,403 | 10,080\nPrepaid expenses and other current assets | 3,180 | 3,771\nTotal current assets | 125,605 | 80,126\nProperty and equipment, net | 10,383 | 6,283\nOperating lease assets | 2,867 | 1,793\nGoodwill | 20,832 | 5,188\nIntangible assets, net | 3,306 | 807\nDeferred income tax assets | 13,258 | 10,979\nNon-marketable equity securities | 22,251 | 3,387\nOther assets | 8,301 | 3,038\nTotal assets | $206,803 | $111,601\nLiabilities and Shareholders' Equity\nCurrent liabilities:",
+          "n_chars": 1639
+        },
+        "score": 0.9385086297988892,
+        "dense_sim": 0.831930935382843
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c013",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying Notes to the Consolidated Financial Statements.\n54\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nConsolidated Statements of Cash Flows\n(In millions)\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | Jan 28, 2024\nCash flows from operating activities:\nNet income | $120,067 | $72,880 | $29,760\nAdjustments to reconcile net income to net cash provided by operating activities:\nStock-based compensation expense | 6,386 | 4,737 | 3,549\nDepreciation and amortization | 2,843 | 1,864 | 1,508\nGains on non-marketable equity securities and publicly-held equity securities, net | ( 8,918 ) | ( 1,030 ) | ( 238 )\nDeferred income taxes | ( 1,424 ) | ( 4,477 ) | ( 2,489 )\nOther | ( 287 ) | ( 502 ) | ( 278 )\nChanges in operating assets and liabilities, net of acquisitions:\nAccounts receivable | ( 15,399 ) | ( 13,063 ) | ( 6,172 )\nInventories | ( 11,324 ) | ( 4,781 ) | ( 98 )\nPrepaid expenses and other assets | 577 | ( 395 ) | ( 1,522 )\nAccounts payable | 3,096 | 3,357 | 1,531\nAccrued and other current liabilities | 5,257 | 4,278 | 2,025\nOther long-term liabilities | 1,844 | 1,221 | 514\nNet cash provided by operating activities | 102,718 | 64,089 | 28,090\nCash flows from investing activities:",
+          "n_chars": 1204
+        },
+        "score": 0.9295569062232971,
+        "dense_sim": 0.8405598998069763
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c042",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "6",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Note 6 -\nAmortizable Intangible Assets\nThe components of our amortizable intangible assets are as follows:\nJan 25, 2026 | Jan 26, 2025\nGross Carrying Amount | Accumulated Amortization | Net Carrying Amount | Gross Carrying Amount | Accumulated Amortization | Net Carrying Amount\n(In millions)\nAcquisition-related intangible assets | $5,656 | $( 2,580 ) | $3,076 | $2,900 | $( 2,264 ) | $636\nPatents and licensed technology | 528 | ( 298 ) | 230 | 449 | ( 278 ) | 171\nTotal intangible assets | $6,184 | $( 2,878 ) | $3,306 | $3,349 | $( 2,542 ) | $807\nAmortization expense associated with intangible assets for fiscal years 2026, 2025, and 2024 was $\n488\nmillion, $\n593\nmillion, and $\n614\nmillion, respectively.\nThe following table outlines the estimated future amortization expense related to the net carrying amount of intangible assets as of January 25, 2026:\nFuture Amortization Expense\n(In millions)\nFiscal Year:\n2027 | $923\n2028 | 729\n2029 | 592\n2030 | 511\n2031 | 468\n2032 and thereafter | 83\nTotal | $3,306\n64\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)",
+          "n_chars": 1128
+        },
+        "score": 0.9115076065063477,
+        "dense_sim": 0.7094471454620361
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c047",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "8",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Note 8 -\nNon-marketable Equity Securities\nOur non-marketable equity securities are valued under the measurement alternative applying valuation methods based on observable transactions for similar investments of the same issuer and unobservable inputs such as volatility, expected\n66\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)\ntime to liquidity, risk free rate and security-specific rights and obligations. Gains and losses on these investments, realized and unrealized, are recognized in Other income, net on our Consolidated Statements of Income.\nAdjustments to the carrying value of our non-marketable equity securities during fiscal years 2026 and 2025 were as follows:\nYear Ended\nJan 25, 2026 | Jan 26, 2025\n(In millions)\nBalance at beginning of period | $3,387 | $1,321\nAdjustments related to non-marketable equity securities:\nNet additions | 17,444 | 1,309\nUnrealized gains | 2,369 | 816\nReclassification (1) | ( 848 ) | —\nImpairments and unrealized losses | ( 101 ) | ( 59 )\nBalance at end of period | $22,251 | $3,387\n(1) Represents reclassifications from non-marketable equity securities to marketable securities following public market trading.\nNon-marketable equity securities had cumulative gross unrealized gains of $\n2.7\nbillion and $\n1.1\nbillion, and cumulative gross unrealized losses and impairments of $\n176\nmillion and $\n105\nmillion on securities held as of January 25, 2026 and January 26, 2025, respectively.",
+          "n_chars": 1499
+        },
+        "score": 0.9069058299064636,
+        "dense_sim": 0.7309538125991821
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}
