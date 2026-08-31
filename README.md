@@ -12,7 +12,7 @@ Production-grade Agentic AI Systems, RAG Architecture, and Domain-Adaptive Evalu
 
 | Component | Description | Highlights |
 | :--- | :--- | :--- |
-| **[P3: Enterprise RAG Orchestrator](./p3-rag-filings)** | Multi-Agent Agentic **Graph** RAG over messy SEC 10-K filings | Typed fact graph + multi-hop augmentation (ratios/CAGR/comparisons), deterministic missing-year clarification, conversational multi-turn UI, Hybrid + BGE-rerank retrieval, safe Python financial-math tool, LangGraph orchestrator — **85.0% → 96.2%** on the audited golden set |
+| **[P3: Enterprise RAG Orchestrator](./p3-rag-filings)** | Multi-Agent Agentic **Graph** RAG over messy SEC 10-K filings | Typed fact graph + multi-hop augmentation (ratios/CAGR/comparisons), deterministic missing-year clarification, conversational multi-turn UI, Hybrid + BGE-rerank retrieval, safe Python financial-math tool, LangGraph orchestrator — **53.8% → 92.5%** on the audited golden set |
 | **[P1: Agent Evaluation Harness](./p1-eval-harness)** | Proving Ground evaluation harness for Agent & RAG systems | Strict Schema Enforcer, Refusal & Hallucination Metrics, Exact/Contains/LLM-Judge Engines, HTML & Markdown Scorecard Generator |
 | **[Web Portfolio Showcase](./web)** | Interactive Web Dashboard & Scorecard Explorer | Responsive Dark-Mode UI, Live Metric Breakdown, Brutal 20 Stress Test Visualizer |
 
@@ -161,7 +161,11 @@ roadmap. Reproduce with `ragfilings regress`.
 | :--- | :--- | :--- |
 | Retrieval-only (hybrid + rerank) | 53.8% | generator refuses figures it actually retrieved |
 | **+ fact-graph augmentation** | **85.0%** | +31.2pp — fixes all 16 incorrect refusals |
-| **+ missing-year clarification** | **96.2%** | ambiguous 2/10 → 9/10 |
+| **+ clarification & company-aware chunks** | **92.5%** | ambiguous 8/10; lookup & table 100% |
+
+(The `+clarification` configuration measured as high as 96.2% on one run, but
+that run caught 2 unanswerable questions flipping to correct refusals by
+ordinary free-model variance; 92.5% is the representative repeat.)
 
 **45-case enterprise multi-hop set** (ratios, CAGR, cross-company comparisons,
 trends — answers that live in no single chunk):

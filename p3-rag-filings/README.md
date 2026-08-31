@@ -19,7 +19,7 @@ system configuration:
 |---|---|---|
 | Retrieval-only, hybrid + rerank | **53.8%** | baseline: generator refuses figures it actually retrieved |
 | **+ fact-graph augmentation** | **85.0%** | +31.2pp — all 16 incorrect refusals fixed |
-| **+ missing-year clarification** | **96.2%** | ambiguous 2/10 → 9/10 (single run; see caveat) |
+| **+ clarification & company-aware chunks** | **92.5%** | ambiguous 8/10; lookup & table 100% (representative repeat; one run peaked at 96.2% with 2 lucky unanswerable flips) |
 
 On a separate 45-case **enterprise multi-hop** set (ratios, CAGR, cross-company
 comparisons, trends — answers that live in *no single chunk*):
@@ -92,6 +92,7 @@ retrieval ranking — it was the generator failing to use retrievable figures.
 | Figures retrieved but the model refuses them | **Fact-graph augmentation** injects the figure + source chunk |
 | Multi-hop answers (ratios, CAGR, comparisons) | **Multi-hop augmentation** joins 2+ graph facts, grounds the derived value |
 | Under-specified questions (no fiscal year) | **Deterministic clarification** asks which year instead of guessing |
+| Statement-table chunks carry no company name (only ~31% do) | **Metadata-context prefix**: every chunk embeds "Company (TICKER) FY#### 10-K — Item N" so retrieval and the LLM are company/section-aware |
 | Questions with no answer in the corpus | Confidence-gated refusal + graph-abstain; measured refusal correctness |
 
 ## The failure analysis (read this first)
@@ -111,10 +112,10 @@ What the enterprise set (84.4%) got wrong:
 
 **Caveats, stated plainly.**
 - The free generator is non-deterministic run-to-run; single-run accuracy varies
-  by a few cases. The 96.2% figure also caught 2 unanswerables flipping to
-  correct refusals by ordinary variance, not by the clarification. The
-  deterministic wins are the graph-rescued refusals and the missing-year
-  clarifications.
+  by a few cases. The representative repeat is **92.5%**; one run peaked at
+  96.2% because 2 unanswerables flipped to correct refusals by ordinary
+  variance, not by the clarification. The deterministic wins are the
+  graph-rescued refusals and the missing-year clarifications.
 - Accuracy-only scoring (`--skip-judge-metrics`) was used because the free tier
   is rate-limited; the complementary DeepEval metrics can be re-run when credits
   allow.
