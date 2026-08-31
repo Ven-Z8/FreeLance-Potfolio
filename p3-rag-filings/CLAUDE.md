@@ -47,10 +47,18 @@ p3-rag-filings/
 - When a design tradeoff comes up, choose the option that is easier to measure.
 - If something fails, capture it — failures are portfolio content here, not embarrassments.
 
-## Current state (stage 3 complete, 2026-08-31)
+## Current state (stage 4 in progress, 2026-08-31)
 
-Stages 0–3 of the rebuild are committed; TRACKER.md at the repo root holds
-stage status and the published numbers.
+Stages 0–3 of the rebuild are committed and stage 4 is underway; TRACKER.md at
+the repo root holds stage status and the published numbers.
+
+- **Stage-4 graph augmentation (done)**: `hybrid_rerank_graph` — for a
+  clean-scope `(ticker, metric, year)` question the exact fact-graph figure(s)
+  + provenance chunks are injected into the synthesis context up front
+  (`src/ragfilings/graph/rescue.py`). **85.0% (68/80) vs 53.8% baseline; 25
+  improved / 0 regressed.** Full write-up + the 12 remaining failures:
+  `docs/graph_augmentation_v1.md`. New `*_graph` strategy variants; add
+  `--skip-judge-metrics` to `regress` for a fast accuracy-only run.
 
 - **Golden set v1**: `golden/golden_set_v1.jsonl` (80 cases, every expected
   answer proven against filing text; drafts `candidates_v1.jsonl` /
@@ -67,15 +75,23 @@ stage status and the published numbers.
   all run on `minimax/minimax-m3:free` (config.toml). Re-run the baseline on
   frontier models if credits are added — run snapshots make this comparable.
 
-**Known issues to work next (stage 4):**
-1. 16/80 incorrect refusals — the generation model claims a figure is
-   missing from retrieved context when it is present (e.g. UNH 447,567;
-   NVDA gross profit). The graph tool should rescue these.
-2. 3 hallucinations on unanswerables (fin-8003, fin-8007, fin-8012).
-3. Ambiguous questions: the system enumerates interpretations instead of
-   asking; the judge scores that incorrectly (known calibration bias, 6/10).
-4. Graph-layer data errors documented in `scripts/build_golden_v1.py`
-   (BAD_FACTS/EXCLUDE lists) — ~60 mis-extracted facts the graph still
-   serves via `query_graph`.
+**Stage-4 issue status:**
+1. ~~16/80 incorrect refusals~~ — **FIXED** by graph augmentation
+   (`hybrid_rerank_graph`); all 16 now answer with the correct cited figure.
+2. 3 hallucinations on unanswerables (fin-8003, fin-8007, fin-8012) — still
+   open; the model answers from parametric knowledge instead of refusing.
+   fin-8003 is refusal-*prose* ("Apple does not disclose…") scored as a
+   hallucination because it is a non-null answer.
+3. Ambiguous questions: the system commits to one interpretation instead of
+   surfacing the ambiguity; the judge scores enumeration down (known
+   calibration bias, 6/10). 8/10 still fail.
+4. Graph-layer data errors — 68 mis-extracted facts are now excluded from
+   BOTH golden generation and runtime augmentation via
+   `corpus/graph/excluded_facts.json` (single source of truth). The builder
+   heuristics still produce them; they are just quarantined.
 5. Free-judge JSON instability (~13/240 metric calls return malformed JSON;
    degrade to None by design).
+
+**Remaining stage-4 work:** dense / hybrid / hybrid_rerank ablation legs for
+the scorecard, the scorecard itself, README/docs refresh (README still shows
+pre-rebuild numbers), and the web UI.

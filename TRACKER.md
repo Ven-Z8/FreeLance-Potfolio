@@ -49,7 +49,7 @@ generalized to arbitrary complex domains via pluggable domain skill packs.
 | 1 | Real agent core: instructor-validated structured outputs, genuinely invoked tools, real token/cost accounting | ✅ `f2fbbb0` (99-test suite green) |
 | 2 | Graph RAG: typed fact graph (Company→Year→Metric→Value with provenance) + GraphRAG-style community summaries + graph query tool | ✅ `1358c4d` (528 value facts with chunk provenance; 99 tests green) |
 | 3 | DeepEval harness: DeepEval metric layer, cleaned golden set, calibrated judge with published human-agreement number, regression runner | ✅ `fc5a32b`…`562fd0e` (80-case v1 golden set; DeepEval G-Eval + faithfulness/relevancy/precision via OpenRouter judge; `ragfilings regress` with run snapshots + baseline diff; judge calibration published) |
-| 4 | Proof: dense vs hybrid vs +rerank vs +graph ablations, failure analysis, honest scorecards, docs + web | ⬜ |
+| 4 | Proof: dense vs hybrid vs +rerank vs +graph ablations, failure analysis, honest scorecards, docs + web | 🔨 **IN PROGRESS** → `+graph` measured: **85.0%** (vs 53.8% baseline), 25 improved / 0 regressed (`690ad57`…`70d5fc7`); remaining: dense/hybrid ablation legs, scorecard, docs + web |
 
 ### Baseline numbers (stage 3, 2026-08-31, reproducible via `ragfilings regress`)
 - **Overall accuracy: 53.8% (43/80)** — golden_set_v1, hybrid_rerank,
@@ -70,3 +70,32 @@ generalized to arbitrary complex domains via pluggable domain skill packs.
   one-directional: judge rejects enumeration-style disambiguation on
   ambiguous questions that hand labels accept (non-ambiguous agreement
   40/42 = 95.2%).
+
+### Stage-4 result: deterministic fact-graph augmentation (`hybrid_rerank_graph`, 2026-08-31)
+
+Fix for the dominant stage-3 failure mode (the 16 incorrect refusals). For a
+clean-scope question (complete ticker + metric + fiscal-year, no qualifier)
+the fact graph is authoritative, so the exact figure(s) and their provenance
+chunks are injected into the synthesis context **up front** — retrieval is no
+longer a single point of failure. Guard rails keep it from ever injecting a
+wrong fact: complete triples only, unambiguous multi-word statement phrases,
+abort on sub-period/qualifier questions, mis-extracted facts excluded
+(`corpus/graph/excluded_facts.json`), ticker symbols matched case-sensitively.
+
+- **Overall accuracy: 85.0% (68/80)** — up from **53.8%**; **25 improved, 0
+  regressed** (`ragfilings regress --strategy hybrid_rerank_graph
+  --skip-judge-metrics`, run `20260831-114754-70d5fc72`, diff vs the 53.8%
+  baseline run). Same all-free models; cost $0.00.
+- By category: lookup 100% (22/22) · table 100% (18/18) · synthesis 94%
+  (17/18) · unanswerable 75% correct refusals (9/12 — unchanged, safety held)
+  · ambiguous 20% (2/10).
+- Unanswerable safety: augmentation abstains on all 12 unanswerables (no
+  clean scope and/or no graph fact), so correct refusals are preserved and no
+  new hallucination was introduced.
+- Run skipped the complementary DeepEval metrics (faithfulness/relevancy/
+  contextual-precision) via `--skip-judge-metrics` — free-tier rate limits;
+  accuracy scoring (deterministic + G-Eval correctness) still ran. Remaining
+  12 failures: 1 synthesis metric-disambiguation (fin-3003), 3 pre-existing
+  unanswerable hallucinations (fin-8003/8007/8012), 8 ambiguous cases the
+  judge scores down (known calibration bias). Failure notes:
+  `p3-rag-filings/docs/graph_augmentation_v1.md`.
