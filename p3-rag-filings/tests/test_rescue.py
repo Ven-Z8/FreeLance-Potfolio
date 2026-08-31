@@ -200,6 +200,61 @@ def test_verify_still_rejects_ungrounded_derived_claim():
     assert not res["verified"]
 
 
+# ----------------------------------------------------------- multi-hop
+
+def test_rescue_ratio_margin():
+    out = _rescuer().rescue("What was Apple's net profit margin in fiscal year 2025?")
+    assert out is not None
+    assert len(out.facts) == 2  # net income + net sales
+    ratio = out.derived_values[0]
+    assert abs(ratio - 112010 / 416161 * 100) < 1e-6
+
+
+def test_rescue_ratio_with_definitional_parenthetical():
+    out = _rescuer().rescue(
+        "What was Apple's net profit margin (net income as a percentage of "
+        "revenue) in fiscal year 2025?")
+    assert out is not None
+    assert len(out.facts) == 2
+
+
+def test_rescue_cagr():
+    out = _rescuer().rescue(
+        "What was the compound annual growth rate (CAGR) of Apple's net sales "
+        "from fiscal year 2023 to 2025?")
+    assert out is not None
+    assert len(out.facts) == 2
+    expected = ((416161 / 383285) ** 0.5 - 1) * 100
+    assert any(abs(v - expected) < 1e-6 for v in out.derived_values)
+
+
+def test_rescue_trend_expands_year_range():
+    out = _rescuer().rescue(
+        "What was the trend in Apple's net income from fiscal year 2023 to 2025?")
+    assert out is not None
+    # endpoints expanded to the full inclusive range 2023, 2024, 2025
+    assert len(out.facts) == 3
+
+
+def test_rescue_ratio_change_two_years():
+    out = _rescuer().rescue(
+        "How did Apple's net profit margin change from fiscal year 2024 to 2025?")
+    assert out is not None
+    assert len(out.facts) == 4  # net income + net sales for both years
+
+
+def test_rescue_ratio_abstains_on_qualifier():
+    out = _rescuer().rescue(
+        "What was Apple's segment net profit margin in fiscal year 2025?")
+    assert out is None
+
+
+def test_rescue_cagr_abstains_on_subperiod():
+    out = _rescuer().rescue(
+        "What was the CAGR of Apple's net sales for the first quarter of 2025?")
+    assert out is None
+
+
 # --------------------------------------------------------- engine wiring
 
 class MockLLMClient(BaseLLMClient):

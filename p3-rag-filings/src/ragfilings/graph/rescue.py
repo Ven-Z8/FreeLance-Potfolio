@@ -56,7 +56,27 @@ _FILLERS = {
     "reported", "higher", "lower", "change", "changed", "increase",
     "decrease", "fiscal", "year", "years", "fy", "s", "10-k", "between",
     "over", "vs", "compared", "with", "expense", "amount",
+    # multi-hop scaffolding (ratios, CAGR, trends)
+    "compound", "annual", "growth", "rate", "cagr", "trend", "had", "have",
+    "margin", "intensity", "percentage", "relative", "peers", "spending",
+    "increasing", "decreasing",
 }
+
+# Ratio metrics: phrase -> numerator metric. The denominator is consolidated
+# revenue (Total Revenue, falling back to Net Sales). The ratio itself is a
+# derived figure grounded for verification.
+_RATIO_NUMERATORS = {
+    "net profit margin": "Net Income",
+    "net margin": "Net Income",
+    "operating margin": "Operating Income",
+    "gross margin": "Gross Profit",
+    "free cash flow margin": "Free Cash Flow",
+    "r&d intensity": "R&D Expense",
+    "research and development intensity": "R&D Expense",
+}
+_REVENUE_DENOMINATORS = ("Total Revenue", "Net Sales")
+
+_CAGR_RE = re.compile(r"\bcagr\b|\bcompound annual growth rate\b", re.IGNORECASE)
 
 # First words of company names that are also common English words; these
 # match only via the full company name, never via the first-word fallback.
@@ -198,12 +218,9 @@ class GraphRescue:
 
     # ------------------------------------------------------------- extraction
 
-    def extract_queries(self, query: str) -> list[RescueQuery] | None:
-        """Deterministic (ticker, metric, year) scope, or None if the
-        question carries any qualifier the graph cannot vouch for."""
-        if _PERIOD_RE.search(query):
-            return None
-
+    def _find_tickers(self, query: str) -> tuple[list[str], str]:
+        """Return (tickers, text) where text is the normalized remainder after
+        stripping every matched company reference."""
         tickers: list[str] = []
         raw = query
         # Ticker symbols first, case-sensitively, and strip them before
@@ -219,6 +236,15 @@ class GraphRescue:
                 if ticker not in tickers:
                     tickers.append(ticker)
                 text = re.sub(rf"\b{re.escape(alias)}\b", " ", text)
+        return tickers, text
+
+    def extract_queries(self, query: str) -> list[RescueQuery] | None:
+        """Deterministic (ticker, metric, year) scope, or None if the
+        question carries any qualifier the graph cannot vouch for."""
+        if _PERIOD_RE.search(query):
+            return None
+
+        tickers, text = self._find_tickers(query)
         if not tickers:
             return None
 
@@ -235,6 +261,9 @@ class GraphRescue:
         years = [int(y) for y in _YEAR_RE.findall(text)]
         if not years:
             return None
+        # trend questions span the full inclusive range between endpoints
+        if "trend" in query.lower() and len(years) >= 2:
+            years = list(range(min(years), max(years) + 1))
         text = _YEAR_RE.sub(" ", text)
 
         residual = [t for t in _TOKEN_RE.findall(text) if t not in _FILLERS]
@@ -244,10 +273,145 @@ class GraphRescue:
         return [RescueQuery(t, m, y)
                 for t in tickers for m in metrics for y in dict.fromkeys(years)]
 
+    # --------------------------------------------------------------- multi-hop
+
+    def _fact_id(self, row: dict[str, Any]) -> str:
+        return (f"val:{row['ticker']}:"
+                f"{row['metric'].lower().replace(' ', '_')}:{row['fiscal_year']}")
+
+    def _excluded_fact(self, row: dict[str, Any]) -> bool:
+        return self._fact_id(row) in self.excluded
+
+    def _outcome(self, facts: list[dict[str, Any]], queries: list,
+                 derived: list[float]) -> RescueOutcome | None:
+        chunks = [self.chunks_by_id[f["chunk_id"]] for f in facts
+                  if f.get("chunk_id") in self.chunks_by_id]
+        if not chunks:
+            return None
+        chunk_ids = [c["id"] for c in chunks]
+        lines = [
+            f"- {f['ticker']} {f['metric']} FY{f['fiscal_year']}: "
+            f"{_format_fact(f)} (source chunk: {f['chunk_id']})"
+            for f in facts
+        ]
+        block = (
+            "[GRAPH_FACTS — deterministic extractions from 10-K tables]\n"
+            "Each line carries the source chunk ID of the table it was parsed "
+            "from. If you use one of these figures, cite that source chunk ID, "
+            "not this block.\n" + "\n".join(lines)
+        )
+        return RescueOutcome(queries=queries, facts=facts, chunk_ids=chunk_ids,
+                             chunks=chunks, facts_block=block,
+                             derived_values=derived)
+
+    def _rescue_ratios(self, query: str) -> RescueOutcome | None:
+        """Margin/intensity ratios (numerator over consolidated revenue),
+        including cross-company comparisons and year-over-year changes."""
+        query = re.sub(r"\([^)]*\)", " ", query)  # drop definitional asides
+        if _PERIOD_RE.search(query):
+            return None
+        norm = _normalize(query)
+        ratio_phrase = None
+        for phrase in sorted(_RATIO_NUMERATORS, key=len, reverse=True):
+            if re.search(rf"\b{re.escape(_normalize(phrase))}\b", norm):
+                ratio_phrase = phrase
+                break
+        if ratio_phrase is None:
+            return None
+        num_metric = _RATIO_NUMERATORS[ratio_phrase]
+
+        tickers, text = self._find_tickers(query)
+        if not tickers:
+            return None
+        text = re.sub(rf"\b{re.escape(_normalize(ratio_phrase))}\b", " ", text)
+        years = list(dict.fromkeys(int(y) for y in _YEAR_RE.findall(text)))
+        if not years:
+            return None
+        text = _YEAR_RE.sub(" ", text)
+        if [t for t in _TOKEN_RE.findall(text) if t not in _FILLERS]:
+            return None
+
+        facts: list[dict[str, Any]] = []
+        ratio_vals: list[float] = []
+        seen: set[tuple] = set()
+        for t in tickers:
+            for y in years:
+                num = self.engine.get_metric_value(t, num_metric, y)
+                den = None
+                for dm in _REVENUE_DENOMINATORS:
+                    den = self.engine.get_metric_value(t, dm, y)
+                    if den is not None:
+                        break
+                if num is None or den is None or not den.get("value"):
+                    return None
+                if self._excluded_fact(num) or self._excluded_fact(den):
+                    return None
+                for f in (num, den):
+                    key = (f["ticker"], f["metric"], str(f["fiscal_year"]))
+                    if key not in seen:
+                        seen.add(key)
+                        facts.append(f)
+                ratio_vals.append(num["value"] / den["value"] * 100)
+        if not facts:
+            return None
+
+        # ground the ratio(s) and any change/comparison gap between them
+        derived = list(ratio_vals)
+        for i in range(len(ratio_vals)):
+            for j in range(i + 1, len(ratio_vals)):
+                gap = abs(ratio_vals[i] - ratio_vals[j])
+                derived.append(gap)
+                derived.append(round(gap, 1))  # match 1-decimal phrasing
+        queries = [RescueQuery(f["ticker"], f["metric"], int(f["fiscal_year"]))
+                   for f in facts]
+        return self._outcome(facts, queries, derived)
+
+    def _rescue_cagr(self, query: str) -> RescueOutcome | None:
+        """Compound annual growth rate of one metric over a year span."""
+        if not _CAGR_RE.search(query) or _PERIOD_RE.search(query):
+            return None
+        tickers, text = self._find_tickers(query)
+        if len(tickers) != 1:
+            return None
+        ticker = tickers[0]
+        text = _CAGR_RE.sub(" ", text)
+        metrics: list[str] = []
+        for phrase in _RESCUE_PHRASES:
+            if re.search(rf"\b{re.escape(_normalize(phrase))}\b", text):
+                canon = KNOWN_METRICS[phrase]
+                if canon not in metrics:
+                    metrics.append(canon)
+                text = re.sub(rf"\b{re.escape(_normalize(phrase))}\b", " ", text)
+        if len(metrics) != 1:
+            return None
+        metric = metrics[0]
+        years = sorted({int(y) for y in _YEAR_RE.findall(text)})
+        if len(years) < 2:
+            return None
+        text = _YEAR_RE.sub(" ", text)
+        if [t for t in _TOKEN_RE.findall(text) if t not in _FILLERS]:
+            return None
+        y0, y1 = years[0], years[-1]
+        v0 = self.engine.get_metric_value(ticker, metric, y0)
+        v1 = self.engine.get_metric_value(ticker, metric, y1)
+        if v0 is None or v1 is None or not v0.get("value") or v0["value"] <= 0:
+            return None
+        if self._excluded_fact(v0) or self._excluded_fact(v1):
+            return None
+        cagr = ((v1["value"] / v0["value"]) ** (1 / (y1 - y0)) - 1) * 100
+        facts = [v0, v1]
+        queries = [RescueQuery(ticker, metric, y0), RescueQuery(ticker, metric, y1)]
+        return self._outcome(facts, queries, [cagr, round(cagr, 1)])
+
     # ---------------------------------------------------------------- lookup
 
     def rescue(self, query: str) -> RescueOutcome | None:
         """Facts answering the question's scope, or None when rescue abstains."""
+        for handler in (self._rescue_ratios, self._rescue_cagr):
+            out = handler(query)
+            if out is not None:
+                return out
+
         queries = self.extract_queries(query)
         if not queries:
             return None
@@ -265,23 +429,4 @@ class GraphRescue:
         if not facts:
             return None
 
-        chunks = [self.chunks_by_id[f["chunk_id"]] for f in facts
-                  if f.get("chunk_id") in self.chunks_by_id]
-        if not chunks:
-            return None
-        chunk_ids = [c["id"] for c in chunks]
-
-        lines = [
-            f"- {f['ticker']} {f['metric']} FY{f['fiscal_year']}: "
-            f"{_format_fact(f)} (source chunk: {f['chunk_id']})"
-            for f in facts
-        ]
-        block = (
-            "[GRAPH_FACTS — deterministic extractions from 10-K tables]\n"
-            "Each line carries the source chunk ID of the table it was parsed "
-            "from. If you use one of these figures, cite that source chunk ID, "
-            "not this block.\n" + "\n".join(lines)
-        )
-        return RescueOutcome(queries=queries, facts=facts, chunk_ids=chunk_ids,
-                             chunks=chunks, facts_block=block,
-                             derived_values=_derived_values(facts))
+        return self._outcome(facts, queries, _derived_values(facts))
