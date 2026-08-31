@@ -83,9 +83,11 @@ def test_unanswerable_low_confidence_refuses_and_logs(tmp_path, monkeypatch):
 
 def test_scorecard_writes_md_and_png_with_caveat(tmp_path):
     metrics = {
-        "n": 61, "accuracy": 0.8, "citation_faithfulness": 0.9,
+        "n": 80, "accuracy": 0.8, "citation_faithfulness": 0.9,
         "retrieval_hit_rate": 0.85, "hallucination_rate": 0.1,
         "refusal_rate": 0.15, "refusal_correctness": 0.7, "verified_rate": 0.95,
+        "deepeval_faithfulness": 0.88, "deepeval_answer_relevancy": 0.9,
+        "deepeval_contextual_precision": 0.7, "deepeval_correctness": 0.82,
         "latency_p50_ms": 2000.0, "latency_p95_ms": 6000.0,
         "cost_per_query_usd": 0.003, "judge_cost_usd": 0.05,
         "model": "test/model", "judge_model": "test/judge",
@@ -95,6 +97,6 @@ def test_scorecard_writes_md_and_png_with_caveat(tmp_path):
                "hybrid": {"metrics": {**metrics, "accuracy": 0.85}, "rows": []}}
     md, png = report.write_scorecard(results, tmp_path)
     text = md.read_text()
-    assert "verification pending" in text.lower()
+    assert "golden set v1" in text.lower()
     assert "80%" in text and "85%" in text
     assert png.exists() and png.stat().st_size > 10_000

@@ -88,24 +88,59 @@ def test_citation_and_retrieval_hits_are_prefix_matches():
     assert scored2["citation_hit"] is False and scored2["retrieval_hit"] is False
 
 
-def test_judge_type_uses_judge_model(monkeypatch):
-    calls = {}
+class FakeScorer:
+    """Stand-in for DeepEvalScorer: records calls, returns canned verdicts."""
 
-    def fake_judge(case, result, cfg):
-        calls["hit"] = True
-        return {"correct": True, "reason": "matches", "usage": {"cost_usd": 0.0}}
+    def __init__(self, correct: bool = True, score: float = 1.0):
+        self.correct = correct
+        self.score = score
+        self.calls = 0
 
-    monkeypatch.setattr(evaluation, "_judge", fake_judge)
+    def correctness(self, case, result):
+        self.calls += 1
+        return {"correct": self.correct, "score": self.score, "reason": "fake verdict"}
+
+    def metrics(self, case, result):
+        return {"faithfulness": 1.0, "answer_relevancy": 1.0, "contextual_precision": 1.0}
+
+
+def test_judge_type_uses_deepeval_scorer():
+    scorer = FakeScorer(correct=True, score=0.9)
     case = _case("Revenue grew on data center demand", ctype="judge")
     scored = evaluation.score_case(case, _result("Growth driven by data center."),
-                                   cfg={"eval": {"judge_model": "m"}})
-    assert scored["correct"] is True and calls["hit"]
+                                   cfg=None, scorer=scorer)
+    assert scored["correct"] is True and scorer.calls == 1
+    assert scored["judge_score"] == 0.9
+    assert scored["deepeval"]["faithfulness"] == 1.0
+
+    negative = FakeScorer(correct=False, score=0.2)
+    scored2 = evaluation.score_case(case, _result("Unrelated answer."),
+                                    cfg=None, scorer=negative)
+    assert scored2["correct"] is False
 
 
-def test_loads_all_61_golden_cases_and_never_mutates_them():
+def test_judge_type_without_scorer_fails_loudly():
+    case = _case("Revenue grew on data center demand", ctype="judge")
+    with pytest.raises(ValueError, match="DeepEval scorer"):
+        evaluation.score_case(case, _result("Growth."), cfg=None, scorer=None)
+
+
+def test_ambiguous_answered_goes_through_judge():
+    case = _case(None, ctype="judge", category="ambiguous", citations=())
+    case["notes"] = "year unspecified"
+    clarifying = evaluation.score_case(case, _result("Which fiscal year do you mean?"),
+                                       cfg=None, scorer=FakeScorer(correct=True, score=0.8))
+    assert clarifying["correct"] is True and clarifying["outcome"] == "answered"
+    guessing = evaluation.score_case(case, _result("$416,161 million."),
+                                     cfg=None, scorer=FakeScorer(correct=False, score=0.1))
+    assert guessing["correct"] is False
+
+
+def test_loads_all_80_v1_golden_cases():
     cases = evaluation.load_cases(GOLDEN_DIR)
-    assert len(cases) >= 61
+    assert len(cases) == 80
     assert all(c["expected"]["type"] in ("exact", "contains", "judge") for c in cases)
+    assert len({c["id"] for c in cases}) == 80
 
 
 

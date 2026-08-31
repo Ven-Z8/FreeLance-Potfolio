@@ -3,7 +3,8 @@
     ragfilings parse corpus/AAPL_2025-10-31_10K.htm   # section tree of one filing
     ragfilings index                                   # parse + chunk + embed corpus
     ragfilings ask "What was Apple's FY2025 net sales?" [--strategy hybrid]
-    ragfilings eval golden/ --strategy both [--limit 5]
+    ragfilings eval                                    # golden_set_v1.jsonl + scorecard
+    ragfilings eval --strategy all --limit 5           # smoke run over 3 strategies
 """
 
 from __future__ import annotations
@@ -85,33 +86,12 @@ def _cmd_eval(args: argparse.Namespace) -> None:
     if args.strategy == "both":
         strategies = ["dense", "hybrid"]
     elif args.strategy == "all":
-        strategies = ["dense", "hybrid", "hybrid_rerank", "agent_react"]
+        strategies = ["dense", "hybrid", "hybrid_rerank"]
     else:
         strategies = [args.strategy]
-    results = run_eval(cfg, args.golden_dir, strategies, out_dir=args.out, limit=args.limit)
+    results = run_eval(cfg, args.golden_set, strategies, out_dir=args.out, limit=args.limit)
     md, png = write_scorecard(results, args.out)
     print(f"\nscorecard: {md}\n           {png}")
-
-
-def _cmd_benchmark(args: argparse.Namespace) -> None:
-    cfg = cfg_mod.load(args.config)
-    print(f"Running Industry Benchmark Suite ({args.dataset})...")
-
-    dataset_map = {
-        "financebench": Path("golden/benchmarks/financebench.jsonl"),
-        "ragas": Path("golden/benchmarks/ragas_suite.jsonl"),
-        "rgb": Path("golden/benchmarks/rgb_benchmark.jsonl"),
-        "finqa": Path("golden/benchmarks/finqa_tables.jsonl"),
-    }
-
-    if args.dataset == "all":
-        target_dir = Path("golden")
-    else:
-        target_dir = dataset_map.get(args.dataset, Path("golden"))
-
-    results = run_eval(cfg, target_dir, ["hybrid_rerank"], out_dir="reports/benchmark", limit=args.limit)
-    md, png = write_scorecard(results, "reports/benchmark")
-    print(f"\nIndustry Benchmark Rating Scorecard: {md}\n                                   {png}")
 
 
 def _cmd_graph(args: argparse.Namespace) -> None:
@@ -179,20 +159,16 @@ def main() -> None:
     serve_cmd.set_defaults(func=_cmd_serve)
 
     ev = sub.add_parser("eval", help="run the golden-set eval + scorecard")
-    ev.add_argument("golden_dir", nargs="?", default="golden")
+    ev.add_argument("golden_set", nargs="?", default="golden/golden_set_v1.jsonl")
     ev.add_argument(
         "--strategy",
         choices=["dense", "hybrid", "hybrid_rerank", "agent_react", "both", "all"],
-        default="all",
+        default="hybrid_rerank",
+        help="'all' = the three retrieval strategies; agent_react runs the full agent loop",
     )
     ev.add_argument("--limit", type=int, default=None, help="only the first N cases (smoke runs)")
     ev.add_argument("--out", default="reports")
     ev.set_defaults(func=_cmd_eval)
-
-    bm = sub.add_parser("benchmark", help="run industry standard RAG benchmarks")
-    bm.add_argument("--dataset", choices=["financebench", "ragas", "rgb", "finqa", "all"], default="all")
-    bm.add_argument("--limit", type=int, default=None)
-    bm.set_defaults(func=_cmd_benchmark)
 
     args = p.parse_args()
     args.func(args)

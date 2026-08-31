@@ -1,25 +1,36 @@
-"""Evaluation Runner: Golden cases × retrieval strategies → scorecard + traces."""
+"""Evaluation Runner: golden cases × retrieval strategies → scorecard + traces.
+
+Scoring is two-tier:
+1. Deterministic — numeric matching with variation rules, refusal matrix,
+   citation/retrieval prefix hits. Ground truth for exact/contains cases.
+2. DeepEval layer (deepeval_judge.py) — G-Eval correctness for judge-type
+   and ambiguous cases, plus faithfulness / answer_relevancy /
+   contextual_precision on every answered case. All judge calls go through
+   the OpenRouter judge client with real cost accounting.
+"""
 
 from __future__ import annotations
 
 import json
 import re
+import subprocess
+import time
 from pathlib import Path
 from typing import Any
 
 import numpy as np
 
-from ..llm import complete_with_resilience
 from ..pipeline import ask
 from ..tools import extract_claims
-from .ragas_eval import evaluate_ragas
 
 _UNIT_RATIOS = (1.0, 1e3, 1e6, 1e9, 1e-3, 1e-6, 1e-9)
 _TOL_RE = re.compile(r"numeric_tolerance:([\d.]+)%")
 
 
 def load_cases(golden_dir: str | Path) -> list[dict[str, Any]]:
-    """Load golden test cases from directory or file."""
+    """Load golden test cases. In directory mode only canonical
+    golden_set_*.jsonl files are used (candidates/handcrafted drafts and the
+    skeleton template are excluded)."""
     cases = []
     golden_path = Path(golden_dir)
     if golden_path.is_file():
@@ -27,7 +38,7 @@ def load_cases(golden_dir: str | Path) -> list[dict[str, Any]]:
             cases.extend(json.loads(line) for line in f if line.strip())
         return cases
 
-    for path in sorted(golden_path.glob("**/*.jsonl")):
+    for path in sorted(golden_path.glob("golden_set_*.jsonl")):
         if "skeleton" in path.name:
             continue
         with path.open(encoding="utf-8") as f:
@@ -81,49 +92,14 @@ def _prefix_hit(produced: list[str], expected: list[str]) -> bool | None:
     return any(p == e or p.startswith(e + ":") or p.startswith(e) for p in produced for e in expected)
 
 
-_JUDGE_SYSTEM = """\
-You are a strict grader for a question-answering system over SEC filings.
-Decide whether the system's answer is factually equivalent to the expected
-answer for the given question: same key figures (tolerate rounding and unit
-re-expression), same direction/explanation where the question asks for one.
-Wording differences are fine; missing or contradicting the key facts is not.
-Reply with ONLY JSON: {"correct": true/false, "reason": "<one sentence>"}"""
-
-
-def _judge(case: dict[str, Any], result: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
-    messages = [
-        {"role": "system", "content": _JUDGE_SYSTEM},
-        {
-            "role": "user",
-            "content": (
-                f"Question: {case['input']}\n\n"
-                f"Expected answer: {case['expected']['answer']}\n\n"
-                f"System answer: {result.get('answer', '')}"
-            ),
-        },
-    ]
-    usage = {"input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0}
-    judge_model = cfg.get("eval", {}).get("judge_model", cfg.get("generation", {}).get("model"))
-
-    for attempt in range(2):
-        text, u = complete_with_resilience(messages, cfg, model=judge_model)
-        for k in usage:
-            usage[k] += u.get(k, 0)
-        start, end = text.find("{"), text.rfind("}")
-        if start != -1 and end > start:
-            try:
-                data = json.loads(text[start : end + 1])
-                if isinstance(data.get("correct"), bool):
-                    return {"correct": data["correct"], "reason": str(data.get("reason", "")), "usage": usage}
-            except json.JSONDecodeError:
-                pass
-        messages.append({"role": "assistant", "content": text})
-        messages.append({"role": "user", "content": "Reply with ONLY the JSON object."})
-
-    return {"correct": False, "reason": "judge returned unparseable output", "usage": usage}
-
-
-def score_case(case: dict[str, Any], result: dict[str, Any], cfg: dict[str, Any] | None) -> dict[str, Any]:
+def score_case(
+    case: dict[str, Any],
+    result: dict[str, Any],
+    cfg: dict[str, Any] | None = None,
+    scorer: Any = None,
+) -> dict[str, Any]:
+    """Score one case. `scorer` is a DeepEvalScorer (deepeval_judge.py); it is
+    required for judge-type and ambiguous cases."""
     expected = case["expected"]
     tol, unit_eq = _parse_rules(case.get("variation_rules", []))
     hit_ids = [h["chunk"]["id"] for h in result.get("hits", [])]
@@ -136,14 +112,28 @@ def score_case(case: dict[str, Any], result: dict[str, Any], cfg: dict[str, Any]
         "citation_hit": None,
         "retrieval_hit": retrieval_hit,
         "judge_reason": None,
-        "judge_usage": None,
+        "judge_score": None,
+        "deepeval": None,
     }
 
     if expected["answer"] is None:
         if result.get("refused"):
             scored.update(correct=True, outcome="correct_refusal", retrieval_hit=None)
-        else:
-            scored.update(correct=False, outcome="hallucination")
+            return scored
+        if case["failure_category"] == "ambiguous":
+            # answered without refusing: correct only if the judge agrees the
+            # response surfaces the ambiguity instead of guessing
+            if scorer is None:
+                raise ValueError(f"{case['id']}: ambiguous case needs the DeepEval scorer")
+            verdict = scorer.correctness(case, result)
+            scored.update(
+                correct=bool(verdict["correct"]),
+                outcome="answered",
+                judge_reason=verdict.get("reason"),
+                judge_score=verdict.get("score"),
+            )
+            return scored
+        scored.update(correct=False, outcome="hallucination")
         return scored
 
     if result.get("refused"):
@@ -155,22 +145,18 @@ def score_case(case: dict[str, Any], result: dict[str, Any], cfg: dict[str, Any]
     if ctype in ("exact", "contains"):
         correct = _figures_match(expected["answer"], result.get("answer", ""), tol, unit_eq)
     elif ctype == "judge":
-        verdict = _judge(case, result, cfg or {})
-        correct = verdict["correct"]
-        scored["judge_reason"] = verdict["reason"]
-        scored["judge_usage"] = verdict["usage"]
+        if scorer is None:
+            raise ValueError(f"{case['id']}: judge-type case needs the DeepEval scorer")
+        verdict = scorer.correctness(case, result)
+        correct = bool(verdict["correct"])
+        scored["judge_reason"] = verdict.get("reason")
+        scored["judge_score"] = verdict.get("score")
     else:
         raise ValueError(f"unknown expected.type: {ctype!r}")
 
     scored.update(correct=correct, outcome="answered")
-    ragas_m = evaluate_ragas(
-        question=case["input"],
-        answer=result.get("answer", ""),
-        hits=result.get("hits", []),
-        case=case,
-        cfg=cfg or {},
-    )
-    scored["ragas"] = ragas_m
+    if scorer is not None:
+        scored["deepeval"] = scorer.metrics(case, result)
     return scored
 
 
@@ -239,14 +225,14 @@ def build_trace(case: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
         "latency_ms": result.get("latency_ms", 0.0),
         "model": result.get("model", ""),
         "metadata": {
-            "adapter": "ragfilings-v0",
+            "adapter": "ragfilings-v1",
             "strategy": result.get("strategy", ""),
             "refused": result.get("refused", False),
             "refusal_reason": result.get("refusal_reason"),
             "confidence": result.get("confidence"),
             "invalid_citations": result.get("invalid_citations", []),
             "verification_verified": ver.get("verified", True),
-            "golden_verification": "pending",
+            "golden_verification": "v1 proven",
         },
     }
 
@@ -267,6 +253,8 @@ def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
         c["correct"] += bool(r["correct"])
     for c in by_cat.values():
         c["accuracy"] = c["correct"] / c["n"]
+
+    de = [r.get("deepeval") or {} for r in rows]
     return {
         "n": len(rows),
         "accuracy": _mean([r["correct"] for r in rows]),
@@ -278,10 +266,34 @@ def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "refusal_rate": len(refusals) / len(rows) if rows else None,
         "refusal_correctness": _mean([r["correct"] for r in refusals]),
         "verified_rate": _mean([r.get("verified") for r in rows]),
+        "deepeval_faithfulness": _mean([d.get("faithfulness") for d in de]),
+        "deepeval_answer_relevancy": _mean([d.get("answer_relevancy") for d in de]),
+        "deepeval_contextual_precision": _mean([d.get("contextual_precision") for d in de]),
+        "deepeval_correctness": _mean([r.get("judge_score") for r in rows]),
         "latency_p50_ms": float(np.percentile(lat, 50)) if lat else None,
         "latency_p95_ms": float(np.percentile(lat, 95)) if lat else None,
         "cost_per_query_usd": _mean([r["cost_usd"] for r in rows]),
         "by_category": by_cat,
+    }
+
+
+def _run_meta(cfg: dict[str, Any], golden_dir: str | Path, strategies: list[str],
+              judge_model: str) -> dict[str, Any]:
+    try:
+        sha = subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=5
+        ).stdout.strip()
+    except Exception:
+        sha = "unknown"
+    return {
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "git_sha": sha,
+        "golden_set": str(golden_dir),
+        "strategies": strategies,
+        "generation_model": cfg.get("generation", {}).get("model"),
+        "judge_model": judge_model,
+        "retrieval": cfg.get("retrieval", {}),
+        "verification": cfg.get("verification", {}),
     }
 
 
@@ -295,19 +307,28 @@ def run_eval(
 ) -> dict[str, Any]:
     """Run golden evaluation suite across retrieval strategies."""
     from ..retrieval import load_index
+    from .deepeval_judge import DeepEvalScorer
 
     cases = load_cases(golden_dir)[:limit]
     if index is None:
         index = load_index(cfg["embedding"]["index_dir"], cfg["embedding"]["model"])
 
+    scorer = DeepEvalScorer(cfg)
     out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "run_meta.json").write_text(
+        json.dumps(
+            _run_meta(cfg, golden_dir, strategies, scorer.judge.get_model_name()),
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
     all_results: dict[str, Any] = {}
 
     for strategy in strategies:
         trace_dir = out_dir / "traces" / strategy
         trace_dir.mkdir(parents=True, exist_ok=True)
         rows = []
-        judge_cost = 0.0
         results_path = out_dir / f"results_{strategy}.jsonl"
 
         with results_path.open("w", encoding="utf-8") as results_f:
@@ -319,9 +340,7 @@ def run_eval(
                     strategy=strategy,
                     refusal_log=out_dir / "refusals.jsonl",
                 )
-                scored = score_case(case, result, cfg)
-                if scored.get("judge_usage"):
-                    judge_cost += scored["judge_usage"]["cost_usd"]
+                scored = score_case(case, result, cfg, scorer=scorer)
 
                 trace = build_trace(case, result)
                 (trace_dir / f"{case['id']}.json").write_text(
@@ -338,14 +357,14 @@ def run_eval(
                     "citations": result.get("citations", []),
                 }
                 rows.append(row)
-                results_f.write(json.dumps(row, ensure_ascii=False) + "\n")
+                results_f.write(json.dumps(row, ensure_ascii=False, default=str) + "\n")
                 mark = "+" if scored["correct"] else "-"
                 print(f"[{strategy} {i:>2}/{len(cases)}] {mark} {case['id']} {scored['outcome']}", flush=True)
 
         metrics = aggregate(rows)
-        metrics["judge_cost_usd"] = judge_cost
+        metrics.update(scorer.judge.ledger.to_dict())
         metrics["model"] = cfg.get("generation", {}).get("model", "")
-        metrics["judge_model"] = cfg.get("eval", {}).get("judge_model", "")
+        metrics["judge_model"] = scorer.judge.get_model_name()
         all_results[strategy] = {"metrics": metrics, "rows": rows}
         acc = metrics.get("accuracy") or 0.0
         print(f"[{strategy}] accuracy={acc:.1%} n={metrics['n']}", flush=True)

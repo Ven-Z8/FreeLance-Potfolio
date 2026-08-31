@@ -7,10 +7,10 @@ from pathlib import Path
 from typing import Any
 
 CAVEAT = (
-    "⚠️ Golden set verification pending: expected answers are "
-    "PROVISIONAL (extracted from parsed filings, awaiting human "
-    "verification against the original documents). Treat absolute "
-    "numbers accordingly; the dense-vs-hybrid comparison is unaffected."
+    "Golden set v1 (2026-08-30): 80 cases rebuilt from scratch on the stage-2 "
+    "fact graph; every expected answer verified against filing text "
+    "(see golden/audit_v1.json). Judge = DeepEval G-Eval over OpenRouter; "
+    "judge cost below is the eval overhead, separate from per-query generation cost."
 )
 
 _PCT_METRICS = [
@@ -19,6 +19,9 @@ _PCT_METRICS = [
     ("citation_faithfulness", "Citation faithfulness"),
     ("hallucination_rate", "Hallucination rate (unanswerable)"),
     ("refusal_correctness", "Refusal correctness"),
+    ("deepeval_faithfulness", "DeepEval faithfulness"),
+    ("deepeval_answer_relevancy", "DeepEval answer relevancy"),
+    ("deepeval_contextual_precision", "DeepEval contextual precision"),
 ]
 
 
@@ -108,7 +111,7 @@ def _write_png(all_results: dict[str, dict[str, Any]], path: Path) -> None:
     ax.spines[["top", "right"]].set_visible(False)
     first = all_results[strategies[0]]["metrics"]
     ax.set_title(
-        f"4-Strategy Benchmark Comparison — {first['n']} Questions",
+        f"Strategy Comparison — {first['n']} Questions",
         fontsize=11,
         loc="left",
         fontweight="bold",

@@ -26,6 +26,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.6"]
+eval = ["deepeval>=4.2.0"]
 
 [project.scripts]
 ragfilings = "ragfilings.cli:main"
