@@ -17,7 +17,7 @@ from pathlib import Path
 
 from . import config as cfg_mod
 from . import ingestion
-from .eval import run_eval, write_scorecard
+from .eval import run_eval, run_regression, write_scorecard
 from .pipeline import ask
 
 
@@ -92,6 +92,28 @@ def _cmd_eval(args: argparse.Namespace) -> None:
     results = run_eval(cfg, args.golden_set, strategies, out_dir=args.out, limit=args.limit)
     md, png = write_scorecard(results, args.out)
     print(f"\nscorecard: {md}\n           {png}")
+
+
+def _cmd_regress(args: argparse.Namespace) -> None:
+    cfg = cfg_mod.load(args.config)
+    run_dir, diff = run_regression(
+        cfg,
+        args.golden_set,
+        args.strategy,
+        out_root=args.out_root,
+        limit=args.limit,
+        baseline=args.baseline,
+    )
+    print(f"\nrun: {run_dir}")
+    if diff:
+        print(f"diff vs {diff['baseline']}: "
+              f"improved {len(diff['improved'])}, regressed {len(diff['regressed'])} "
+              f"({diff['common_cases']} common cases)")
+        if diff["regressed"]:
+            print("regressed cases:", ", ".join(diff["regressed"]))
+        print(f"report: {run_dir / 'diff_report.md'}")
+    else:
+        print("no baseline run found — this run becomes the baseline")
 
 
 def _cmd_graph(args: argparse.Namespace) -> None:
@@ -169,6 +191,16 @@ def main() -> None:
     ev.add_argument("--limit", type=int, default=None, help="only the first N cases (smoke runs)")
     ev.add_argument("--out", default="reports")
     ev.set_defaults(func=_cmd_eval)
+
+    rg = sub.add_parser("regress", help="one-command regression run + diff vs baseline")
+    rg.add_argument("--golden-set", default="golden/golden_set_v1.jsonl")
+    rg.add_argument("--strategy", default="hybrid_rerank",
+                    choices=["dense", "hybrid", "hybrid_rerank", "agent_react"])
+    rg.add_argument("--baseline", default=None,
+                    help="run dir name under --out-root (default: latest existing run)")
+    rg.add_argument("--limit", type=int, default=None)
+    rg.add_argument("--out-root", default="reports/evals")
+    rg.set_defaults(func=_cmd_regress)
 
     args = p.parse_args()
     args.func(args)

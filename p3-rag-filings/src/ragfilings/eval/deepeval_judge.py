@@ -22,6 +22,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
+import re
 from typing import Any
 
 os.environ.setdefault("DEEPEVAL_TELEMETRY_OPT_OUT", "YES")
@@ -96,6 +97,23 @@ class OpenRouterJudge(DeepEvalBaseLLM):
     def get_model_name(self) -> str:
         return self._model_name or "openrouter"
 
+    @staticmethod
+    def _extract_json(content: str) -> str:
+        """Models often fence or pad JSON even when told not to; unwrap it so
+        deepeval's verdict parsers accept the response."""
+        text = content.strip()
+        if fence := re.search(r"```(?:json)?\s*(.*?)```", text, re.DOTALL):
+            text = fence.group(1).strip()
+        start, end = text.find("{"), text.rfind("}")
+        if start != -1 and end > start:
+            candidate = text[start : end + 1]
+            try:
+                json.loads(candidate)
+                return candidate
+            except json.JSONDecodeError:
+                pass
+        return content
+
     def generate(self, prompt: str, schema: Any = None, **kwargs: Any) -> str:
         messages: list[dict[str, str]] = []
         if schema is not None:
@@ -117,6 +135,8 @@ class OpenRouterJudge(DeepEvalBaseLLM):
             messages, self._cfg, model=self._model_name, role="judge"
         )
         self.ledger.add(usage)
+        if schema is not None:
+            content = self._extract_json(content)
         return content
 
     async def a_generate(self, prompt: str, schema: Any = None, **kwargs: Any) -> str:

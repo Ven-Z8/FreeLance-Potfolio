@@ -158,6 +158,15 @@ def test_scorer_correctness_survives_metric_failure(patched_llm):
     assert v["correct"] is False and "provider down" in v["reason"]
 
 
+def test_extract_json_unwraps_fences_and_prose():
+    f = dj.OpenRouterJudge._extract_json
+    assert f('```json\n{"verdict": "yes"}\n```') == '{"verdict": "yes"}'
+    assert f('Sure! {"verdict": "yes"} Hope that helps.') == '{"verdict": "yes"}'
+    assert f('{"a": {"b": 1}}') == '{"a": {"b": 1}}'
+    # non-JSON passes through untouched
+    assert f("no json here") == "no json here"
+
+
 def test_score_with_deepeval_reports_metric_errors_as_none(patched_llm):
     class ExplodingMetric:
         def measure(self, tc):
