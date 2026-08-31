@@ -101,6 +101,27 @@ def answer(
         "calls": 0,
     }
 
+    # An under-specified question (one company + a recognized metric but no
+    # fiscal year, with several years in the corpus) is met with a
+    # deterministic clarifying question rather than a guess — guessing is how
+    # ambiguous questions get scored wrong.
+    if graph_rescue is not None:
+        clarification = graph_rescue.missing_year_clarification(query)
+        if clarification is not None:
+            return {
+                "refused": False,
+                "refusal_reason": None,
+                "answer": clarification,
+                "citations": [],
+                "invalid_citations": [],
+                "verification": {"verified": True, "claims": []},
+                "confidence": conf,
+                "usage": usage,
+                "math_result": None,
+                "graph_rescue": {"clarification": True},
+                "hits": hits,
+            }
+
     if conf < min_confidence:
         return {
             "refused": True,

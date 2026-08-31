@@ -144,6 +144,16 @@ def load_company_aliases(manifest_path: str | Path | None = None) -> dict[str, l
     return aliases
 
 
+def load_company_names(manifest_path: str | Path | None = None) -> dict[str, str]:
+    """Ticker -> display company name from the corpus manifest."""
+    p = Path(manifest_path) if manifest_path else cfg_mod.ROOT / "corpus" / "manifest.csv"
+    names: dict[str, str] = {}
+    with p.open(encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            names[row["ticker"].strip().upper()] = row["company"].strip()
+    return names
+
+
 def _normalize(text: str) -> str:
     low = text.lower().replace("&", " and ").replace("'", " ")
     return re.sub(r"[^a-z0-9\s-]", " ", low)
@@ -200,10 +210,12 @@ class GraphRescue:
 
     def __init__(self, engine: GraphQueryEngine, chunks_by_id: dict[str, dict[str, Any]],
                  company_aliases: dict[str, list[str]] | None = None,
-                 excluded: frozenset[str] | None = None) -> None:
+                 excluded: frozenset[str] | None = None,
+                 company_names: dict[str, str] | None = None) -> None:
         self.engine = engine
         self.chunks_by_id = chunks_by_id
         self.company_aliases = company_aliases or {}
+        self.company_names = company_names or {}
         self.excluded = excluded if excluded is not None else load_excluded_facts()
         self._alias_re = sorted(
             ((alias, ticker)
@@ -430,3 +442,48 @@ class GraphRescue:
             return None
 
         return self._outcome(facts, queries, _derived_values(facts))
+
+    # -------------------------------------------------------- clarification
+
+    _CHANGE_INTENT_RE = re.compile(
+        r"\b(change|changed|trend|grow|grew|growth|increasing|decreasing|"
+        r"increase|decrease|rise|fall|rose|fell)\b", re.IGNORECASE)
+
+    def missing_year_clarification(self, query: str) -> str | None:
+        """A deterministic clarification when a single company + a recognized
+        metric are given but no fiscal year is pinned and the corpus holds
+        several years — the right enterprise behavior is to ask, not guess.
+
+        Returns the clarification text, or None when it does not apply.
+        """
+        if _PERIOD_RE.search(query):
+            return None
+        tickers, text = self._find_tickers(query)
+        if len(tickers) != 1:
+            return None
+        ticker = tickers[0]
+        if _YEAR_RE.search(text):
+            return None  # a year is already pinned
+        metric = None
+        for phrase in _RESCUE_PHRASES:
+            if re.search(rf"\b{re.escape(_normalize(phrase))}\b", text):
+                metric = KNOWN_METRICS[phrase]
+                break
+        if metric is None:
+            return None
+        hist = self.engine.get_metric_history(ticker, metric)
+        years = sorted({int(h["fiscal_year"]) for h in hist
+                        if str(h.get("fiscal_year", "")).isdigit()})
+        if len(years) < 2:
+            return None
+        name = self.company_names.get(ticker, ticker)
+        span = ", ".join(f"FY{y}" for y in years)
+        metric_l = metric.lower()
+        if self._CHANGE_INTENT_RE.search(text):
+            return (f"{name} reports {metric_l} for {len(years)} fiscal years in "
+                    f"the corpus ({span}), and the question does not specify a "
+                    f"period. Between which fiscal years would you like the change "
+                    f"in {metric_l}?")
+        return (f"{name} reports {metric_l} for {len(years)} fiscal years in the "
+                f"corpus ({span}), and the question does not specify one. Which "
+                f"fiscal year's {metric_l} would you like?")

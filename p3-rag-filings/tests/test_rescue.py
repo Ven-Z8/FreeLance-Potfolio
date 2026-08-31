@@ -61,6 +61,8 @@ def _rescuer(excluded=frozenset()):
         chunks_by_id={STATEMENT_CHUNK["id"]: STATEMENT_CHUNK},
         company_aliases=ALIASES,
         excluded=excluded,
+        company_names={"AAPL": "Apple", "MSFT": "Microsoft",
+                       "META": "Meta Platforms"},
     )
 
 
@@ -253,6 +255,40 @@ def test_rescue_cagr_abstains_on_subperiod():
     out = _rescuer().rescue(
         "What was the CAGR of Apple's net sales for the first quarter of 2025?")
     assert out is None
+
+
+# ------------------------------------------------------- clarification
+
+def test_clarification_fires_on_missing_year():
+    clar = _rescuer().missing_year_clarification("What was Apple's net sales?")
+    assert clar is not None
+    assert "Apple" in clar
+    assert "net sales" in clar
+    assert "which fiscal year" in clar.lower()
+
+
+def test_clarification_abstains_when_year_present():
+    clar = _rescuer().missing_year_clarification(
+        "What was Apple's net sales for fiscal year 2025?")
+    assert clar is None
+
+
+def test_clarification_abstains_on_unrecognized_metric():
+    # "cash" is not a recognized statement phrase, so no clarification
+    assert _rescuer().missing_year_clarification(
+        "How much cash does Apple have?") is None
+
+
+def test_clarification_abstains_on_multiple_companies():
+    assert _rescuer().missing_year_clarification(
+        "Which company had higher net income, Apple or Microsoft?") is None
+
+
+def test_clarification_change_intent_asks_for_period():
+    clar = _rescuer().missing_year_clarification(
+        "How did Apple's net sales change?")
+    assert clar is not None
+    assert "between which fiscal years" in clar.lower()
 
 
 # --------------------------------------------------------- engine wiring

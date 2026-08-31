@@ -40,7 +40,8 @@ def load_rescue(cfg: dict[str, Any], index: Any) -> Any:
     Returns None when any dependency is missing (rescue is optional).
     """
     from . import FinancialGraphBuilder, GraphQueryEngine
-    from .rescue import GraphRescue, load_company_aliases, load_excluded_facts
+    from .rescue import (GraphRescue, load_company_aliases, load_company_names,
+                         load_excluded_facts)
 
     path = graph_path(cfg)
     try:
@@ -54,6 +55,7 @@ def load_rescue(cfg: dict[str, Any], index: Any) -> Any:
             chunks_by_id=chunks_by_id,
             company_aliases=load_company_aliases(),
             excluded=load_excluded_facts(),
+            company_names=load_company_names(),
         )
     except Exception as e:  # noqa: BLE001 — rescue is an enhancement, not a gate
         logger.warning("graph rescue unavailable: %s", e)
