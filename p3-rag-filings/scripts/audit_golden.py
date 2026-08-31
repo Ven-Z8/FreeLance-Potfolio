@@ -17,7 +17,6 @@ Run: uv run python scripts/audit_golden.py
 from __future__ import annotations
 
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -59,7 +58,7 @@ def load_sections() -> tuple[dict[str, dict[str, str]], dict[str, str], dict[str
 def load_cases() -> list[dict]:
     cases = []
     for path in sorted(GOLDEN_DIR.glob("*.jsonl")):
-        if "skeleton" in path.name:
+        if any(s in path.name for s in ("skeleton", "candidates", "handcrafted")):
             continue
         with path.open(encoding="utf-8") as f:
             for line in f:
@@ -173,9 +172,8 @@ def audit_case(case: dict, sections, full, doc_ids) -> dict:
         out["verdict"] = "review_text_only"
         return out
 
+    filing_text = "\n".join(full.get(t, "") for t in {c.split("_")[0] for c in citations})
     n_section = n_filing = 0
-    ticker = citations[0].split("_")[0] if citations else None
-    filing_text = full.get(ticker, "") if ticker else ""
     for claim in claims:
         in_section = bool(cited_text) and find_claim(claim, cited_text)
         in_filing = bool(filing_text) and find_claim(claim, filing_text)

@@ -38,10 +38,23 @@ must change.
   FY2025: $716,924M), wrong-year figures (JNJ R&D $17,175 — actual FY2025:
   $14,665M), transcription errors (WMT $680,984 — actual: $680,985M). The
   entire set was retired rather than patched.
-- **v1:** built from scratch with the stage-2 fact graph
-  (`corpus/graph/financial_graph.json`) as the grounding source; every
-  expected answer is checked against the source chunk text by
-  `scripts/audit_golden.py` before entering the set.
+- **v1 (`golden_set_v1.jsonl`, 80 cases):** built from scratch with the
+  stage-2 fact graph as the grounding source. Pipeline:
+  `scripts/build_golden_v1.py` generates candidates from graph facts with
+  chunk provenance (plus exclusion lists + plausibility floors for the graph
+  errors found during extraction), `scripts/review_golden.py` produces the
+  human-review sheet, every case was hand-checked against the cited chunk
+  text, and `scripts/audit_golden.py` re-verifies the final set. Category
+  counts: 22 lookup / 18 table / 18 synthesis / 12 unanswerable /
+  10 ambiguous across 21 companies.
+
+## Scoring semantics
+
+- `unanswerable` and `ambiguous` cases both carry `expected.answer: null`.
+  For unanswerable, correct behavior is refusal. For ambiguous, correct
+  behavior is a clarification request (or explicitly presenting the possible
+  interpretations) — confidently answering one interpretation is scored as
+  wrong. Each ambiguous case's `notes` states what must be clarified.
 
 ## Authoring rules
 
