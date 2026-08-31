@@ -9,7 +9,7 @@ from .agents import (
     run_synthesis_expert,
 )
 from .graph import FinancialGraphBuilder, GraphQueryEngine
-from .ingestion import DoclingParser, Section, parse_file, render_tree
+from .ingestion import Section, parse_file, render_tree
 from .llm import BaseLLMClient, LLMFactory, OpenRouterClient, get_llm_client
 from .pipeline import GenerationError, MultiAgentOrchestrator, SessionMemoryManager, SoloMetaOrchestrator, answer, ask
 from .prompts import PromptRegistry, load_prompt
@@ -26,7 +26,6 @@ __all__ = [
     "SessionMemoryManager",
     "FinancialGraphBuilder",
     "GraphQueryEngine",
-    "DoclingParser",
     "Section",
     "parse_file",
     "render_tree",

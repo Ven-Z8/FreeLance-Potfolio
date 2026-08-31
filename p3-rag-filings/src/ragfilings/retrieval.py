@@ -67,88 +67,71 @@ class Index:
     bm25: BM25Okapi
     model: Any  # embedding model, encodes queries at search time
 
-    def search(self, query: str, strategy: str, top_k: int, reranker_name: str | None = None) -> list[dict[str, Any]]:
-        """Return top_k hits: {chunk, score, dense_sim}, best first."""
+    def _filter_mask(self, filters: dict[str, Any] | None) -> np.ndarray | None:
+        """Boolean mask over chunks matching ALL metadata equality filters.
+
+        Returns None when no filters are given. Callers decide the filters
+        (e.g. {"ticker": "AAPL", "fiscal_year": "2025"}); retrieval itself
+        never infers them from query text.
+        """
+        if not filters:
+            return None
+        mask = np.ones(len(self.chunks), dtype=bool)
+        for key, value in filters.items():
+            wanted = {value} if not isinstance(value, (list, tuple, set)) else set(value)
+            for i, c in enumerate(self.chunks):
+                if mask[i] and str(c.get(key, "")) not in {str(w) for w in wanted}:
+                    mask[i] = False
+        return mask
+
+    def search(self, query: str, strategy: str, top_k: int,
+               reranker_name: str | None = None,
+               filters: dict[str, Any] | None = None,
+               rerank_candidates: int = 25) -> list[dict[str, Any]]:
+        """Return top_k hits: {chunk, score, dense_sim}, best first.
+
+        filters: optional hard metadata filter (see _filter_mask). If the
+        filter matches no chunks, [] is returned rather than silently
+        widening — the caller decides whether to retry unfiltered.
+        """
+        mask = self._filter_mask(filters)
+        if mask is not None and not mask.any():
+            return []
+
         q = self.model.encode([_BGE_QUERY_PREFIX + query], normalize_embeddings=True)[0]
         dense_sims = self.embeddings @ q
-
-        # Detect target company ticker from query
-        q_lower = query.lower()
-        company_map = {
-            "apple": "AAPL", "aapl": "AAPL",
-            "amazon": "AMZN", "amzn": "AMZN",
-            "tesla": "TSLA", "tsla": "TSLA",
-            "microsoft": "MSFT", "msft": "MSFT",
-            "jpmorgan": "JPM", "jp morgan": "JPM", "jpm": "JPM",
-            "nvidia": "NVDA", "nvda": "NVDA",
-            "meta": "META", "facebook": "META",
-            "boeing": "BA", "ba": "BA",
-            "costco": "COST", "cost": "COST",
-            "walmart": "WMT", "wmt": "WMT",
-            "chevron": "CVX", "cvx": "CVX",
-            "exxon": "XOM", "exxonmobil": "XOM", "xom": "XOM",
-            "pepsico": "PEP", "pepsi": "PEP", "pep": "PEP",
-            "google": "GOOGL", "alphabet": "GOOGL", "googl": "GOOGL",
-            "goldman": "GS", "goldman sachs": "GS", "gs": "GS",
-            "home depot": "HD", "hd": "HD",
-            "johnson": "JNJ", "jnj": "JNJ"
-        }
-        target_ticker = None
-        for k, v in company_map.items():
-            if k in q_lower:
-                target_ticker = v
-                break
-
-        # Company mask boost
-        ticker_mask = np.ones(len(self.chunks), dtype=bool)
-        if target_ticker:
-            target_indices = [i for i, c in enumerate(self.chunks) if c.get("ticker") == target_ticker or c.get("company", "").lower() == k]
-            if target_indices:
-                ticker_mask = np.zeros(len(self.chunks), dtype=bool)
-                ticker_mask[target_indices] = True
+        if mask is not None:
+            dense_sims = np.where(mask, dense_sims, -1.0)
 
         if strategy == "dense":
-            sims = np.where(ticker_mask, dense_sims, -100.0)
-            order = np.argsort(-sims, kind="stable")[:top_k]
-            scored = [(int(i), float(dense_sims[i])) for i in order]
+            order = np.argsort(-dense_sims, kind="stable")[:top_k]
+            scored = [(int(i), float(self.embeddings[i] @ q)) for i in order]
         elif strategy in ("hybrid", "hybrid_rerank"):
             bm25_scores = self.bm25.get_scores(_tokenize(query))
+            if mask is not None:
+                bm25_scores = np.where(mask, bm25_scores, -1.0)
             rrf = np.zeros(len(self.chunks))
             for ranking in (np.argsort(-dense_sims, kind="stable"),
                             np.argsort(-bm25_scores, kind="stable")):
                 for rank, i in enumerate(ranking):
                     rrf[i] += 1.0 / (_RRF_K + rank + 1)
-            
-            # Detect headline metric query and boost Consolidated Statement chunks
-            consolidated_mask = np.zeros(len(self.chunks), dtype=bool)
-            headline_metrics = ["operating income", "gross margin", "net income", "net sales", "total net revenue", "net interest income"]
-            if any(hm in q_lower for hm in headline_metrics):
-                for i, c in enumerate(self.chunks):
-                    text_upper = c.get("text", "").upper()
-                    if ("CONSOLIDATED STATEMENT" in text_upper or "CONSOLIDATED FINANCIAL STATEMENTS" in text_upper) and not ("NOTE " in text_upper and "CONTINUED" in text_upper):
-                        consolidated_mask[i] = True
-
-
-            # Apply company mask & consolidated statement boost to RRF
-            rrf_boosted = np.where(ticker_mask, rrf + 10.0, rrf)
-            rrf_boosted = np.where(consolidated_mask, rrf_boosted + 5.0, rrf_boosted)
 
             if strategy == "hybrid_rerank":
-                # First pass: top 25 candidates via boosted RRF
-                candidate_order = np.argsort(-rrf_boosted, kind="stable")[:25]
+                candidate_order = np.argsort(-rrf, kind="stable")[:rerank_candidates]
                 reranker = _get_reranker(reranker_name or "BAAI/bge-reranker-base")
                 pairs = [(query, self.chunks[i]["text"]) for i in candidate_order]
                 rerank_scores = reranker.predict(pairs)
-                reranked_tuples = sorted(zip(candidate_order, rerank_scores), key=lambda x: x[1], reverse=True)[:top_k]
-                scored = [(int(i), float(s)) for i, s in reranked_tuples]
+                reranked = sorted(zip(candidate_order, rerank_scores),
+                                  key=lambda x: x[1], reverse=True)[:top_k]
+                scored = [(int(i), float(s)) for i, s in reranked]
             else:
-                order = np.argsort(-rrf_boosted, kind="stable")[:top_k]
+                order = np.argsort(-rrf, kind="stable")[:top_k]
                 scored = [(int(i), float(rrf[i])) for i in order]
-
         else:
             raise ValueError(f"unknown retrieval strategy: {strategy!r}")
         return [
-            {"chunk": self.chunks[i], "score": s, "dense_sim": float(dense_sims[i])}
+            {"chunk": self.chunks[i], "score": s,
+             "dense_sim": float(self.embeddings[i] @ q)}
             for i, s in scored
         ]
 

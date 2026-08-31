@@ -1,47 +1,58 @@
 # Master AI Engineering Portfolio Progress Tracker
 
-**Deadline Target:** Aug 2, 2026 (10-Day Contract Launch)  
-**Current Date:** July 31, 2026  
-**Status:** **ALL PROJECTS COMPLETED (100%)**
+**Current focus:** Rebuild P3 + P1 into an enterprise-grade Agentic Graph RAG
+system with a DeepEval-based evaluation harness, proven on SEC 10-K filings.
+
+> **Integrity note (2026-08-30):** A full code audit found that prior TRACKER
+> claims materially overstated the state of this repo — fabricated agent
+> metrics, headline scores contradicted by the repo's own result files, eval
+> adapters that returned the golden answer on error, and projects marked
+> complete that do not exist (P4). Every claim below is traceable to an
+> artifact in the repo. The pre-rebuild state is preserved in commit
+> `a6aba7e` for reference.
 
 ---
 
 ## 📌 Project Status Overview
 
-| Project ID | Project Name | Status | Completion % | Benchmark Highlights / Key Tech |
-|---|---|---|---|---|
-| **P3** | **Production SEC 10-K RAG System** | **COMPLETED** | 100% | LangChain LCEL + LangGraph StateGraph + Instructor Pydantic + 4 Benchmarks (76.1% FinanceBench, 92.4% RAGAS, 0% Hallucinations) |
-| **P1** | **Domain-Adaptive Agent Eval Harness** | **COMPLETED** | 100% | 4 Domain Packs (Financial 85.0%, Legal 88.5%, Biomedical 91.2%, Support 100.0%) with Deterministic & Calibrated LLM-Judge metrics |
-| **P2** | **Autonomous Multi-Agent Business Workflow** | **COMPLETED** | 100% | Inbound Lead Intake ➔ Research Enrichment ➔ ICP Scoring ➔ Grounded Outreach Drafter ➔ Human Approval Safety Gate ➔ CRM Execution |
-| **P4** | **Autonomous Browser Agent** | **COMPLETED** | 100% | Post-Action DOM State Verification Loop + Self-Healing Anti-Fragility + Self-Awareness Failure Detection Metric (98.5% accuracy) |
-| **P5** | **Agent System Cost & Latency Optimization** | **COMPLETED** | 100% | Rigorous 75% Cost Reduction ($14.50 ➔ $3.62 / 100 runs) and 63% Latency Reduction (4.2s ➔ 1.55s) with flat quality curve |
+| Project | Honest Status | Measured Reality |
+|---|---|---|
+| **P3** SEC 10-K RAG | 🔨 **REBUILD IN PROGRESS** → Agentic Graph RAG | Real corpus (25 actual 10-Ks, 8,419 chunks) + real ingestion/retrieval core; ~68–72% accuracy on hand-built golden questions; agentic layer was a facade and is being rebuilt |
+| **P1** Eval Harness | 🔨 **REBUILD IN PROGRESS** → DeepEval-based | Financial-domain adapter genuinely ran against P3 (29 real traces); no LLM judge existed; other domain packs were ungrounded and are being rebuilt or dropped |
+| **P2** Multi-Agent Workflow | ⚠️ Minimal prototype | ~450 LOC pipeline skeleton; claims of durable state, CRM execution, and evals were not implemented |
+| **P4** Browser Agent | ❌ Does not exist | No code; removed from claims |
+| **P5** Cost Optimization | ⚠️ Stub | ~110 LOC; the published 75%/63% numbers have no supporting experiment artifacts |
 
 ---
 
-## 📝 Technical Release Notes
+## 🎯 The Rebuild (P3 + P1)
 
-### Project 3: SEC 10-K Production RAG (`p3-rag-filings`)
-- ✅ Built Hybrid Dense + Sparse BM25 + CrossEncoder Reranking (NVIDIA AI Blueprint).
-- ✅ Built LangGraph StateGraph multi-agent orchestrator (`analyst`, `retrieval`, `math`, `synthesis`, `auditor`).
-- ✅ Integrated `instructor` + `pydantic` schemas for type-safe structured outputs.
-- ✅ Verified 52 unit and regression tests passing cleanly.
+**Goal:** Enterprise-production Agentic Graph RAG + multi-agent orchestration,
+proven by a DeepEval evaluation harness — first on SEC 10-K filings, then
+generalized to arbitrary complex domains via pluggable domain skill packs.
 
-### Project 1: Domain-Adaptive Agent Eval Harness (`p1-eval-harness`)
-- ✅ **Domain A (Financial Document QA):** 111-case golden dataset (85.0% Accuracy, 100% Refusal Correctness).
-- ✅ **Domain B (Legal & Contract Extraction):** 20-case golden dataset from SEC EDGAR contract exhibits (88.5% Accuracy, 95% Grounding Rate).
-- ✅ **Domain C (Biomedical & Clinical QA):** 15-case PubMed / ClinicalTrials.gov / OpenFDA dataset (91.2% Accuracy, 100% NCT Match).
-- ✅ **Domain D (Customer Support Policy Compliance):** 15-case policy compliance dataset (100.0% Accuracy, 0% Forbidden Action Violation).
+### What already exists and is kept (audit-verified real)
+- EDGAR downloader + section parser + table-aware chunker (`p3: ingestion.py, chunking.py`) — genuinely sophisticated
+- Dense (bge-small) + BM25/RRF hybrid retrieval + cross-encoder rerank over a persisted 8,419-chunk index
+- Deterministic numeric verification + confidence-gated refusal (14/14 unanswerables correctly refused)
+- Golden-set schema + financial eval adapter with real recorded traces
 
-### Project 2: Multi-Agent Business Workflow (`p2-multi-agent-workflow`)
-- ✅ End-to-end multi-agent pipeline with SQLite-backed durable state store for mid-pipeline crash recovery.
-- ✅ Grounded outreach email drafting requiring explicit research citations.
-- ✅ Mandatory Human Approval Safety Gate preventing any unapproved outbound sending.
+### What was removed (facade)
+- Hardcoded ticker dictionaries and score boosts fitted to the golden set (replaced with caller-driven metadata filters)
+- Fabricated per-agent token/cost constants; unused "ReAct" tools; the self-grading adapter fallback
+- Unreproducible headline numbers (76.1% / 92.4% / 85.0% etc. — contradicted by the repo's own result files)
 
-### Project 4: Autonomous Browser Agent (`p4-browser-agent`)
-- ✅ Post-action DOM state assertion loop verifying URL, element visibility, and DOM state change after every step.
-- ✅ Anti-fragility catalog with self-healing fallback selector strategies (CSS selector ➔ XPath fallback).
-- ✅ Self-awareness error metric evaluating accurate failure detection vs. confident hallucination.
+### Build stages
+| Stage | Deliverable | Status |
+|---|---|---|
+| 0 | Hygiene & honesty: checkpoint commit, kill hacks/dead code, honest config + tracker | ✅ |
+| 1 | Real agent core: instructor-validated structured outputs, genuinely invoked tools, real token/cost accounting | ⬜ |
+| 2 | Graph RAG: typed fact graph (Company→Year→Metric→Value with provenance) + GraphRAG-style community summaries + graph query tool | ⬜ |
+| 3 | DeepEval harness: DeepEval metric layer, cleaned golden set, calibrated judge with published human-agreement number, regression runner | ⬜ |
+| 4 | Proof: dense vs hybrid vs +rerank vs +graph ablations, failure analysis, honest scorecards, docs + web | ⬜ |
 
-### Project 5: Cost Optimization Study (`p5-cost-optimization`)
-- ✅ Step-by-step attribution for Model Routing, Prompt Caching, Async Parallelization, and Selective Escalation.
-- ✅ Verified 75% cost reduction and 63% latency reduction with quality scores held flat at 85.0% accuracy.
+### Verified baseline numbers (from repo artifacts)
+- Financial golden subset (20 cases, `p1-eval-harness/reports/scorecard_hybrid_rerank.md`): **55.0%**
+- Hybrid strategy, 61-case golden set (`p3-rag-filings/reports/results_hybrid.jsonl`): **72.1%**
+- Refusal correctness on unanswerables (91-case run): **14/14**
+- These are the starting line. Every future number must come from a reproducible run with config snapshot.

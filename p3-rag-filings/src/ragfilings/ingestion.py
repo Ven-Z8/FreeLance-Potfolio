@@ -395,6 +395,3 @@ def render_tree(sections: list[Section]) -> str:
         mark = f"  <- Item {s.resolved_from}" if s.resolved_from else ""
         out.append(f"  {s.label:<8} {s.title:<62.62} {s.n_chars:>9,} chars{mark}")
     return "\n".join(out)
-
-
-from .docling_parser import DoclingParser  # noqa: E402
