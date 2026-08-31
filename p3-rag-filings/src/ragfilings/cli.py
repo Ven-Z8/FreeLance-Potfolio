@@ -166,7 +166,7 @@ def main() -> None:
         choices=["dense", "hybrid", "hybrid_rerank", "agent_react",
                  "dense_graph", "hybrid_graph", "hybrid_rerank_graph"],
         default=None,
-        help="override config [retrieval] strategy; *_graph adds fact-graph rescue on refusal",
+        help="override config [retrieval] strategy; *_graph adds fact-graph augmentation",
     )
     ask_cmd.set_defaults(func=_cmd_ask)
 
@@ -189,7 +189,7 @@ def main() -> None:
                  "dense_graph", "hybrid_graph", "hybrid_rerank_graph", "both", "all"],
         default="hybrid_rerank",
         help="'all' = the three retrieval strategies; agent_react runs the full agent loop; "
-             "*_graph adds fact-graph rescue on refusal",
+             "*_graph adds fact-graph augmentation",
     )
     ev.add_argument("--limit", type=int, default=None, help="only the first N cases (smoke runs)")
     ev.add_argument("--out", default="reports")
@@ -200,7 +200,7 @@ def main() -> None:
     rg.add_argument("--strategy", default="hybrid_rerank",
                     choices=["dense", "hybrid", "hybrid_rerank", "agent_react",
                              "dense_graph", "hybrid_graph", "hybrid_rerank_graph"],
-                    help="*_graph adds deterministic fact-graph rescue on refusal")
+                    help="*_graph adds deterministic fact-graph augmentation")
     rg.add_argument("--baseline", default=None,
                     help="run dir name under --out-root (default: latest existing run)")
     rg.add_argument("--limit", type=int, default=None)

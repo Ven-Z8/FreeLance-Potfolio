@@ -250,7 +250,9 @@ def test_engine_rescues_refusal_and_answers():
     assert len(client.calls) == 2
 
 
-def test_engine_no_rescue_when_answered_directly():
+def test_engine_direct_answer_with_proactive_augmentation():
+    # Retrieval already surfaced the provenance chunk; the graph fact is
+    # injected up front but adds no NEW chunk, and the model answers directly.
     client = MockLLMClient([
         _reply("Total net sales were $416,161 million.",
                citations=("AAPL_2025_10K:Item8:c007",)),
@@ -258,7 +260,8 @@ def test_engine_no_rescue_when_answered_directly():
     res = answer("What was Apple's total net sales for fiscal year 2025?",
                  _hits(chunk=STATEMENT_CHUNK), CFG, client=client, graph_rescue=_rescuer())
     assert not res["refused"]
-    assert res["graph_rescue"] is None
+    assert res["graph_rescue"]["rescued"] is True
+    assert res["graph_rescue"]["chunks_added"] == []
     assert len(client.calls) == 1
 
 
@@ -320,6 +323,8 @@ def test_engine_refusal_prose_stays_refused_without_rescuer():
 
 
 def test_engine_real_answer_not_misclassified_as_refusal():
+    # A plain grounded answer carries no refusal markers, so it must be
+    # accepted on the first pass without a redundant retry.
     client = MockLLMClient([
         _reply("Total net sales were $416,161 million.",
                citations=("AAPL_2025_10K:Item8:c007",)),
@@ -327,5 +332,5 @@ def test_engine_real_answer_not_misclassified_as_refusal():
     res = answer("What was Apple's total net sales for fiscal year 2025?",
                  _hits(chunk=STATEMENT_CHUNK), CFG, client=client, graph_rescue=_rescuer())
     assert not res["refused"]
-    assert res["graph_rescue"] is None
+    assert res["graph_rescue"]["rescued"] is True
     assert len(client.calls) == 1

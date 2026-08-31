@@ -1,14 +1,15 @@
-"""Deterministic graph rescue for refused lookups.
+"""Deterministic fact-graph augmentation for clean-scope lookups.
 
-When the generator refuses because it cannot find a figure in the retrieved
-chunks, this layer attempts a fully deterministic lookup against the fact
-graph: it extracts (ticker, metric, fiscal year) scope from the question
-text alone — no LLM involved — and if the graph holds the exact fact, the
-pipeline retries synthesis with the fact and its provenance chunk added to
-the context.
+For a question whose scope is a clean (ticker, metric, fiscal year) triple,
+this layer resolves the exact figure(s) against the fact graph — extracting
+scope from the question text alone, no LLM involved — so the pipeline can put
+the facts and their provenance chunks into the synthesis context up front.
+That removes retrieval as a single point of failure: a missed chunk can cause
+neither a refusal nor a wrong-metric answer (free models do not reliably
+self-refuse, so waiting for a refusal before injecting the fact is unreliable).
 
-Conservative by design, because a wrong rescue turns a correct refusal into
-a hallucination:
+Conservative by design, because injecting a wrong fact turns a correct
+refusal into a hallucination:
 
 - rescue fires only on complete (ticker, metric, year) triples;
 - metric scope comes from unambiguous multi-word statement phrases only

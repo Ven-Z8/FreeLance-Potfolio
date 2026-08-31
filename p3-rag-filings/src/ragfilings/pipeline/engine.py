@@ -85,10 +85,11 @@ def answer(
 ) -> dict[str, Any]:
     """Execute grounded 10-K answer synthesis with verification and confidence gating.
 
-    When `graph_rescue` is provided and the model refuses, a deterministic
-    fact-graph lookup is attempted; if it finds the exact figure(s) the
-    question targets, synthesis is retried once with the facts and their
-    provenance chunks added to the context.
+    When `graph_rescue` is provided, a deterministic fact-graph lookup runs up
+    front; for a clean-scope question the exact figure(s) and their provenance
+    chunks are added to the context before synthesis, so a retrieval miss can
+    cause neither a refusal nor a wrong-metric answer. If the model still does
+    not give a grounded answer, synthesis is retried once.
     """
     conf = confidence(hits)
     min_confidence = cfg.get("verification", {}).get("min_confidence", 0.35)
@@ -195,40 +196,47 @@ def answer(
                             "content": PromptRegistry.get_verification_retry(failed_claims)}]
             data = _call_model()
 
-    data, checked = _synthesize(hits, None, math_res)
+    # --- deterministic graph augmentation ---------------------------------
+    # For a clean-scope question (complete ticker+metric+year, no qualifier)
+    # the fact graph is authoritative, so surface its figures and provenance
+    # chunks BEFORE synthesis. Rescue-on-refusal alone is unreliable here:
+    # free models do not consistently self-refuse — sometimes they answer with
+    # a wrong-but-related metric instead. Injecting the grounded fact up front
+    # means a retrieval miss can cause neither a refusal nor a wrong answer.
     rescue_meta: dict[str, Any] | None = None
+    aug_hits, aug_block, aug_derived = hits, None, None
+    outcome = graph_rescue.rescue(query) if graph_rescue is not None else None
+    if outcome is not None:
+        seen = {h["chunk"]["id"] for h in hits}
+        extra = [{"chunk": c, "score": conf, "dense_sim": conf}
+                 for c in outcome.chunks if c["id"] not in seen]
+        aug_hits = hits + extra
+        aug_block = outcome.facts_block
+        aug_derived = outcome.derived_values
+        rescue_meta = {
+            "queries": [{"ticker": q.ticker, "metric": q.metric,
+                         "fiscal_year": q.fiscal_year} for q in outcome.queries],
+            "facts": outcome.facts,
+            "chunks_added": [c["chunk"]["id"] for c in extra],
+            "rescued": False,
+        }
 
-    if not _is_real_answer(data) and graph_rescue is not None:
-        outcome = graph_rescue.rescue(query)
-        if outcome is not None:
-            seen = {h["chunk"]["id"] for h in hits}
-            extra = [{"chunk": c, "score": conf, "dense_sim": conf}
-                     for c in outcome.chunks if c["id"] not in seen]
-            rescue_meta = {
-                "queries": [{"ticker": q.ticker, "metric": q.metric,
-                             "fiscal_year": q.fiscal_year} for q in outcome.queries],
-                "facts": outcome.facts,
-                "chunks_added": [c["chunk"]["id"] for c in extra],
-                "rescued": False,
-            }
-            rescue_hits = hits + extra
-            rescue_math = math_res
-            if needs_decomposition(query):
-                recomputed = compute_financial_math(
-                    query, [h["chunk"] for h in rescue_hits], cfg, client=client)
-                if recomputed:
-                    for k in ("input_tokens", "output_tokens", "cost_usd"):
-                        usage[k] += recomputed["usage"].get(k, 0)
-                    usage["calls"] += recomputed["usage"].get("calls", 1)
-                    rescue_math = recomputed
+    data, checked = _synthesize(aug_hits, aug_block, math_res, derived_values=aug_derived)
+
+    if outcome is not None:
+        hits = aug_hits
+        if _is_real_answer(data):
+            rescue_meta["rescued"] = True
+        else:
+            # Grounded facts are already in context; one retry leverages
+            # free-model non-determinism before giving up.
             retry_data, retry_checked = _synthesize(
-                rescue_hits, outcome.facts_block, rescue_math,
-                derived_values=outcome.derived_values)
+                aug_hits, aug_block, math_res, derived_values=aug_derived)
             if _is_real_answer(retry_data):
-                data, checked, hits, math_res = retry_data, retry_checked, rescue_hits, rescue_math
+                data, checked = retry_data, retry_checked
                 rescue_meta["rescued"] = True
             else:
-                data = retry_data  # keep the post-rescue refusal reason
+                data = retry_data  # keep the last refusal reason
 
     if not _is_real_answer(data):
         prose = str(data.get("answer")) if data.get("answer") is not None else None
@@ -264,7 +272,7 @@ def answer(
 
 def split_graph_strategy(strategy: str) -> tuple[str, bool]:
     """`hybrid_rerank_graph` -> ("hybrid_rerank", True): base retrieval plus
-    deterministic graph rescue on refusal."""
+    deterministic fact-graph augmentation of the synthesis context."""
     if strategy.endswith("_graph"):
         return strategy[: -len("_graph")], True
     return strategy, False
