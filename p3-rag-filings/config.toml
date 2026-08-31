@@ -24,6 +24,9 @@ index_dir = "corpus/index"
 # "dense" (baseline), "hybrid" (dense + BM25 reciprocal-rank fusion), or
 # "hybrid_rerank" (hybrid + cross-encoder rerank of the top candidates).
 # hybrid_rerank is the production default; dense is kept for ablation runs.
+# Any of these accepts a "_graph" suffix (e.g. "hybrid_rerank_graph"): same
+# retrieval, plus a deterministic fact-graph rescue when the model refuses —
+# see src/ragfilings/graph/rescue.py for the guard rails.
 strategy = "hybrid_rerank"
 top_k = 8
 reranker = "BAAI/bge-reranker-base"

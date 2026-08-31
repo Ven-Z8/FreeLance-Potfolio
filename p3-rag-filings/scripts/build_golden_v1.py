@@ -49,65 +49,12 @@ HD_BAD_METRICS = {"Total Assets", "Total Liabilities", "Cash & Cash Equivalents"
 NET_INCOME_WHITELIST = {"GOOGL", "MSFT", "AMZN", "KO", "NVDA", "HD", "BA"}
 
 # Facts verified WRONG by human review of the cited chunk (2026-08-30).
-# Each entry names the misread table so the graph layer can be fixed later.
-BAD_FACTS = {
-    # segment tables read as consolidated
-    "val:AMZN:operating_expenses:2023", "val:AMZN:operating_expenses:2024",
-    "val:AMZN:operating_expenses:2025",        # North America segment
-    "val:COST:operating_income:2023", "val:COST:operating_income:2024",
-    "val:COST:operating_income:2025",          # US segment
-    "val:COST:sg&a_expense:2023", "val:COST:sg&a_expense:2024",
-    "val:COST:sg&a_expense:2025",              # US segment
-    "val:COST:total_assets:2023", "val:COST:total_assets:2024",
-    "val:COST:total_assets:2025",              # US segment
-    "val:JPM:total_revenue:2023", "val:JPM:total_revenue:2024",
-    "val:JPM:total_revenue:2025",              # Markets-by-instrument table
-    # VIE / purchase-accounting / note tables read as the balance sheet
-    "val:BAC:total_liabilities:2024", "val:BAC:total_liabilities:2025",
-    "val:MSFT:cash_&_cash_equivalents:2025",   # acquisition PPA table
-    # mislabeled rows
-    "val:JNJ:cash_&_cash_equivalents:2023",    # beginning-of-year, not year-end
-    "val:PG:total_liabilities:2024", "val:PG:total_liabilities:2025",
-    # actually "total liabilities AND shareholders' equity"
-    "val:CAT:net_income:2025",                 # "net income tax paid" sentence
-    "val:WMT:operating_expenses:2024", "val:WMT:operating_expenses:2025",
-    "val:WMT:operating_expenses:2026",         # garbage magnitude (~$20M)
-    # pass 2 (2026-08-30)
-    "val:GS:total_revenue:2023", "val:GS:total_revenue:2024",
-    "val:GS:total_revenue:2025",               # Global Banking & Markets segment
-    "val:GS:total_liabilities:2024", "val:GS:total_liabilities:2025",
-    # condensed parent/segment table, not the $1.5T consolidated balance sheet
-    "val:KO:total_liabilities:2024", "val:KO:total_liabilities:2025",
-    "val:KO:total_assets:2024", "val:KO:total_assets:2025",
-    "val:COST:total_revenue:2023", "val:COST:total_revenue:2024",
-    "val:COST:total_revenue:2025",             # US segment
-    # pass 3 (2026-08-30)
-    "val:XOM:capital_expenditures:2024", "val:XOM:capital_expenditures:2025",
-    # Environmental Expenditures table, not consolidated capex (~$26B)
-    "val:MSFT:cost_of_revenue:2023", "val:MSFT:cost_of_revenue:2024",
-    "val:MSFT:cost_of_revenue:2025",           # segment table
-    "val:TSLA:cost_of_revenue:2023", "val:TSLA:cost_of_revenue:2024",
-    "val:TSLA:cost_of_revenue:2025",           # stray; real row is 77,733
-    "val:PG:net_income:2023", "val:PG:net_income:2024", "val:PG:net_income:2025",
-    # NET EARNINGS row before NCI; headline attributable figure differs
-    "val:NVDA:r&d_expense:2024", "val:NVDA:r&d_expense:2025",
-    "val:NVDA:r&d_expense:2026",               # stock-comp allocation table
-    "val:DIS:total_liabilities:2024", "val:DIS:total_liabilities:2025",
-    # actually "total liabilities AND equity"
-    "val:WMT:capital_expenditures:2024", "val:WMT:capital_expenditures:2025",
-    "val:WMT:capital_expenditures:2026",       # Walmart U.S. segment
-    # pass 4 (2026-08-30)
-    "val:PEP:net_income:2023", "val:PEP:net_income:2024", "val:PEP:net_income:2025",
-    # NET INCOME row before NCI; attributable figure differs > tolerance
-    "val:XOM:total_liabilities:2024", "val:XOM:total_liabilities:2025",
-    # actually "Total Liabilities and Equity"
-    "val:AAPL:r&d_expense:2023", "val:AAPL:r&d_expense:2024",
-    "val:AAPL:r&d_expense:2025",               # R&D tax credit in tax note
-    "val:CAT:total_liabilities:2024", "val:CAT:total_liabilities:2025",
-    # actually "Total liabilities and shareholders' equity"
-    "val:DIS:operating_income:2024", "val:DIS:operating_income:2025",
-    # stray values; Disney operating income is ~$15B, not $143M/$1,327M
-}
+# Single source of truth: corpus/graph/excluded_facts.json (also consumed
+# by the runtime graph rescue). Fix direction: the builder's table
+# heuristics; until then they stay excluded here too.
+BAD_FACTS = set(json.loads(
+    (ROOT / "corpus" / "graph" / "excluded_facts.json").read_text(encoding="utf-8")
+)["excluded"])
 
 METRIC_PHRASE = {
     "Net Sales": "net sales",

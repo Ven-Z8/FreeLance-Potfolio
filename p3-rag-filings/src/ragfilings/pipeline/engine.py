@@ -53,13 +53,43 @@ def _complete(
     return complete_with_resilience(messages, cfg, model=model, client=client)
 
 
+# The generation model is supposed to refuse via answer=null, but free models
+# often emit the refusal as prose in the answer field instead. Treat the
+# common shapes as refusals so graph rescue still gets a chance.
+_REFUSAL_MARKERS = (
+    "do not contain", "does not contain", "do not include", "does not include",
+    "not provided in", "not present in", "not directly stated",
+    "no context chunks", "none of the provided", "cannot find", "could not find",
+    "cannot answer", "unable to answer", "cannot determine", "unable to determine",
+    "not stated in", "not mentioned in", "not disclosed in",
+    "does not provide", "do not provide", "is not available", "not available in",
+)
+
+
+def _is_refusal_text(text: str) -> bool:
+    low = text.lower()
+    return any(marker in low for marker in _REFUSAL_MARKERS)
+
+
+def _is_real_answer(data: dict[str, Any]) -> bool:
+    ans = data.get("answer")
+    return ans is not None and not _is_refusal_text(str(ans))
+
+
 def answer(
     query: str,
     hits: list[dict[str, Any]],
     cfg: dict[str, Any],
     client: BaseLLMClient | None = None,
+    graph_rescue: Any = None,
 ) -> dict[str, Any]:
-    """Execute grounded 10-K answer synthesis with verification and confidence gating."""
+    """Execute grounded 10-K answer synthesis with verification and confidence gating.
+
+    When `graph_rescue` is provided and the model refuses, a deterministic
+    fact-graph lookup is attempted; if it finds the exact figure(s) the
+    question targets, synthesis is retried once with the facts and their
+    provenance chunks added to the context.
+    """
     conf = confidence(hits)
     min_confidence = cfg.get("verification", {}).get("min_confidence", 0.35)
 
@@ -80,93 +110,164 @@ def answer(
             "verification": {"verified": True, "claims": []},
             "confidence": conf,
             "usage": usage,
+            "hits": hits,
         }
 
     math_res = None
     if needs_decomposition(query):
         math_res = compute_financial_math(query, [h["chunk"] for h in hits], cfg, client=client)
-
-    context = "\n\n".join(f"[{h['chunk']['id']}]\n{h['chunk']['text']}" for h in hits)
-    if math_res:
-        context += (
-            f"\n\n[PYTHON_MATH_TOOL_VERIFIED_RESULT]\n"
-            f"Calculated {math_res['explanation']}: {math_res['formatted']} (Formula: {math_res['expression']})"
-        )
-
-    by_id = {h["chunk"]["id"]: h["chunk"] for h in hits}
-    msgs = [
-        {"role": "system", "content": PromptRegistry.get_system_synthesis()},
-        {"role": "user", "content": f"Context chunks:\n\n{context}\n\nQuestion: {query}"},
-    ]
+        if math_res:
+            for k in ("input_tokens", "output_tokens", "cost_usd"):
+                usage[k] += math_res["usage"].get(k, 0)
+            usage["calls"] += math_res["usage"].get("calls", 1)
 
     llm_client = client or get_llm_client(cfg=cfg)
+    verify_retries = cfg.get("generation", {}).get("verify_retries", 1)
 
-    def _call_model() -> dict[str, Any]:
-        nonlocal msgs
-        for attempt in range(2):
-            text, u = _complete(msgs, cfg, client=llm_client)
-            for k in ("input_tokens", "output_tokens", "cost_usd"):
-                usage[k] += u.get(k, 0)
-            usage["calls"] += 1
+    def _synthesize(active_hits: list[dict[str, Any]], graph_block: str | None,
+                    math_result: dict[str, Any] | None,
+                    derived_values: list[float] | None = None,
+                    ) -> tuple[dict[str, Any], dict[str, Any]]:
+        """One grounded synthesis pass (with verification retries).
 
-            data = _parse_json(text)
-            if data is not None:
-                msgs = msgs + [{"role": "assistant", "content": text}]
-                return data
+        Returns (parsed_data, verification) — verification is None when the
+        model refused.
+        """
+        context = "\n\n".join(f"[{h['chunk']['id']}]\n{h['chunk']['text']}" for h in active_hits)
+        if math_result:
+            context += (
+                f"\n\n[PYTHON_MATH_TOOL_VERIFIED_RESULT]\n"
+                f"Calculated {math_result['explanation']}: {math_result['formatted']} "
+                f"(Formula: {math_result['expression']})"
+            )
+        if graph_block:
+            context += f"\n\n{graph_block}"
 
-            if attempt == 0:
-                msgs = msgs + [
-                    {"role": "assistant", "content": text},
-                    {"role": "user", "content": "Reply with ONLY the JSON object."},
-                ]
+        msgs = [
+            {"role": "system", "content": PromptRegistry.get_system_synthesis()},
+            {"role": "user", "content": f"Context chunks:\n\n{context}\n\nQuestion: {query}"},
+        ]
 
-        raise GenerationError("model did not return parseable JSON after retry")
+        def _call_model() -> dict[str, Any]:
+            nonlocal msgs
+            for attempt in range(2):
+                text, u = _complete(msgs, cfg, client=llm_client)
+                for k in ("input_tokens", "output_tokens", "cost_usd"):
+                    usage[k] += u.get(k, 0)
+                usage["calls"] += 1
 
-    data = _call_model()
-    retries = cfg.get("generation", {}).get("verify_retries", 1)
+                data = _parse_json(text)
+                if data is not None:
+                    msgs = msgs + [{"role": "assistant", "content": text}]
+                    return data
 
-    while True:
-        # Check model self-reported refusal
-        if data.get("answer") is None:
-            return {
-                "refused": True,
-                "refusal_reason": f"model: {data.get('reason') or 'not answerable'}",
-                "answer": None,
-                "citations": [],
-                "invalid_citations": [],
-                "verification": {"verified": True, "claims": []},
-                "confidence": conf,
-                "usage": usage,
-                "math_result": math_res,
-            }
+                if attempt == 0:
+                    msgs = msgs + [
+                        {"role": "assistant", "content": text},
+                        {"role": "user", "content": "Reply with ONLY the JSON object."},
+                    ]
 
-        raw_citations = [c for c in data.get("citations") or [] if isinstance(c, str)]
-        citations = [c for c in raw_citations if c in by_id]
-        invalid = [c for c in raw_citations if c not in by_id]
-        cited = [by_id[c] for c in citations] or [h["chunk"] for h in hits]
+            raise GenerationError("model did not return parseable JSON after retry")
 
-        checked = verify(str(data["answer"]), cited, math_result=math_res)
-        if checked["verified"] or retries <= 0:
-            break
-
-        retries -= 1
-        failed_claims = [c["raw"] for c in checked["claims"] if not c["found"]]
-        retry_prompt = PromptRegistry.get_verification_retry(failed_claims)
-
-        msgs = msgs + [{"role": "user", "content": retry_prompt}]
+        by_id = {h["chunk"]["id"]: h["chunk"] for h in active_hits}
         data = _call_model()
+        retries = verify_retries
+
+        while True:
+            if data.get("answer") is None:
+                return data, {"verified": True, "claims": []}
+
+            raw_citations = [c for c in data.get("citations") or [] if isinstance(c, str)]
+            valid = [c for c in raw_citations if c in by_id]
+            invalid = [c for c in raw_citations if c not in by_id]
+            cited = [by_id[c] for c in valid] or [h["chunk"] for h in active_hits]
+
+            checked = verify(str(data["answer"]), cited, math_result=math_result,
+                             derived_values=derived_values)
+            checked["citations"] = valid
+            checked["invalid_citations"] = invalid
+            if checked["verified"] or retries <= 0:
+                return data, checked
+
+            retries -= 1
+            failed_claims = [c["raw"] for c in checked["claims"] if not c["found"]]
+            msgs = msgs + [{"role": "user",
+                            "content": PromptRegistry.get_verification_retry(failed_claims)}]
+            data = _call_model()
+
+    data, checked = _synthesize(hits, None, math_res)
+    rescue_meta: dict[str, Any] | None = None
+
+    if not _is_real_answer(data) and graph_rescue is not None:
+        outcome = graph_rescue.rescue(query)
+        if outcome is not None:
+            seen = {h["chunk"]["id"] for h in hits}
+            extra = [{"chunk": c, "score": conf, "dense_sim": conf}
+                     for c in outcome.chunks if c["id"] not in seen]
+            rescue_meta = {
+                "queries": [{"ticker": q.ticker, "metric": q.metric,
+                             "fiscal_year": q.fiscal_year} for q in outcome.queries],
+                "facts": outcome.facts,
+                "chunks_added": [c["chunk"]["id"] for c in extra],
+                "rescued": False,
+            }
+            rescue_hits = hits + extra
+            rescue_math = math_res
+            if needs_decomposition(query):
+                recomputed = compute_financial_math(
+                    query, [h["chunk"] for h in rescue_hits], cfg, client=client)
+                if recomputed:
+                    for k in ("input_tokens", "output_tokens", "cost_usd"):
+                        usage[k] += recomputed["usage"].get(k, 0)
+                    usage["calls"] += recomputed["usage"].get("calls", 1)
+                    rescue_math = recomputed
+            retry_data, retry_checked = _synthesize(
+                rescue_hits, outcome.facts_block, rescue_math,
+                derived_values=outcome.derived_values)
+            if _is_real_answer(retry_data):
+                data, checked, hits, math_res = retry_data, retry_checked, rescue_hits, rescue_math
+                rescue_meta["rescued"] = True
+            else:
+                data = retry_data  # keep the post-rescue refusal reason
+
+    if not _is_real_answer(data):
+        prose = str(data.get("answer")) if data.get("answer") is not None else None
+        reason = data.get("reason") or prose or "not answerable"
+        return {
+            "refused": True,
+            "refusal_reason": f"model: {reason}",
+            "answer": None,
+            "citations": [],
+            "invalid_citations": [],
+            "verification": {"verified": True, "claims": []},
+            "confidence": conf,
+            "usage": usage,
+            "math_result": math_res,
+            "graph_rescue": rescue_meta,
+            "hits": hits,
+        }
 
     return {
         "refused": False,
         "refusal_reason": None,
         "answer": str(data["answer"]),
-        "citations": citations,
-        "invalid_citations": invalid,
+        "citations": checked["citations"],
+        "invalid_citations": checked["invalid_citations"],
         "verification": checked,
         "confidence": conf,
         "usage": usage,
         "math_result": math_res,
+        "graph_rescue": rescue_meta,
+        "hits": hits,
     }
+
+
+def split_graph_strategy(strategy: str) -> tuple[str, bool]:
+    """`hybrid_rerank_graph` -> ("hybrid_rerank", True): base retrieval plus
+    deterministic graph rescue on refusal."""
+    if strategy.endswith("_graph"):
+        return strategy[: -len("_graph")], True
+    return strategy, False
 
 
 def log_refusal(path: str | Path, query: str, result: dict[str, Any], strategy: str) -> None:
@@ -202,8 +303,9 @@ def ask(
         index = load_index(cfg["embedding"]["index_dir"], cfg["embedding"]["model"])
 
     strat = strategy or cfg.get("retrieval", {}).get("strategy", "dense")
+    base_strat, use_graph = split_graph_strategy(strat)
 
-    if strat == "agent_react":
+    if base_strat == "agent_react":
         from .orchestrator import MultiAgentOrchestrator
         orch = MultiAgentOrchestrator(cfg)
         res = orch.run(query, index, strategy="hybrid_rerank")
@@ -212,6 +314,11 @@ def ask(
         if res.get("refused"):
             log_refusal(refusal_log, query, res, strat)
         return res
+
+    rescuer = None
+    if use_graph:
+        from ..graph import load_rescue
+        rescuer = load_rescue(cfg, index)
 
     t0 = time.perf_counter()
     top_k = cfg.get("retrieval", {}).get("top_k", 8)
@@ -222,7 +329,7 @@ def ask(
         hits: list[dict[str, Any]] = []
         seen_ids: set[str] = set()
         for sq in sub_queries:
-            sq_hits = index.search(sq, strat, top_k, filters=filters,
+            sq_hits = index.search(sq, base_strat, top_k, filters=filters,
                                    rerank_candidates=rerank_candidates)
             for h in sq_hits:
                 cid = h["chunk"]["id"]
@@ -231,13 +338,13 @@ def ask(
                     seen_ids.add(cid)
         hits = sorted(hits, key=lambda x: x["score"], reverse=True)[:top_k]
     else:
-        hits = index.search(query, strat, top_k, filters=filters,
+        hits = index.search(query, base_strat, top_k, filters=filters,
                             rerank_candidates=rerank_candidates)
 
-    result = answer(query, hits, cfg)
+    result = answer(query, hits, cfg, graph_rescue=rescuer)
     result["latency_ms"] = (time.perf_counter() - t0) * 1000.0
     result["strategy"] = strat
-    result["hits"] = hits
+    result["hits"] = result.pop("hits", hits)
     result["model"] = cfg.get("generation", {}).get("model", "")
 
     if result.get("refused"):

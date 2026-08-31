@@ -72,12 +72,24 @@ def verify(
     answer_text: str,
     cited_chunks: list[dict[str, Any]],
     math_result: dict[str, Any] | None = None,
+    derived_values: list[float] | None = None,
 ) -> dict[str, Any]:
-    """Check every numerical claim against the cited chunks and verified math results."""
+    """Check every numerical claim against the cited chunks and verified math results.
+
+    `derived_values` are additional grounded figures (e.g. deltas / percent
+    changes computed deterministically from fact-graph values) that a correct
+    answer may legitimately state even though they do not appear verbatim in
+    any cited chunk.
+    """
     numbers = _chunk_numbers(cited_chunks)
     if math_result and "result_value" in math_result:
         try:
             numbers.append(float(math_result["result_value"]))
+        except (ValueError, TypeError):
+            pass
+    for dv in derived_values or []:
+        try:
+            numbers.append(float(dv))
         except (ValueError, TypeError):
             pass
     claims = [

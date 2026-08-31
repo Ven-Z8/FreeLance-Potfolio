@@ -210,6 +210,27 @@ def build_trace(case: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
             "retry_of": None,
         },
     ]
+    rescue = result.get("graph_rescue")
+    if rescue:
+        steps.insert(1, {
+            "index": 1,
+            "kind": "tool_call",
+            "content": None,
+            "retry_of": None,
+            "tool_call": {
+                "name": "graph_rescue",
+                "arguments": {"queries": rescue.get("queries", [])},
+                "result": {
+                    "facts": rescue.get("facts", []),
+                    "chunks_added": rescue.get("chunks_added", []),
+                    "rescued": rescue.get("rescued", False),
+                },
+                "error": None,
+                "latency_ms": None,
+            },
+        })
+        for i, step in enumerate(steps):
+            step["index"] = i
     u = result.get("usage", {})
     return {
         "case_id": case["id"],
@@ -233,6 +254,11 @@ def build_trace(case: dict[str, Any], result: dict[str, Any]) -> dict[str, Any]:
             "invalid_citations": result.get("invalid_citations", []),
             "verification_verified": ver.get("verified", True),
             "golden_verification": "v1 proven",
+            "graph_rescue": (
+                {"rescued": result["graph_rescue"].get("rescued", False),
+                 "chunks_added": result["graph_rescue"].get("chunks_added", [])}
+                if result.get("graph_rescue") else None
+            ),
         },
     }
 
@@ -389,6 +415,7 @@ def run_eval(
                     "answer": result.get("answer"),
                     "refusal_reason": result.get("refusal_reason"),
                     "citations": result.get("citations", []),
+                    "rescued": bool((result.get("graph_rescue") or {}).get("rescued")),
                 }
                 rows.append(row)
                 results_f.write(json.dumps(row, ensure_ascii=False, default=str) + "\n")

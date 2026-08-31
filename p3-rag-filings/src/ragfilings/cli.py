@@ -163,9 +163,10 @@ def main() -> None:
     ask_cmd.add_argument("question")
     ask_cmd.add_argument(
         "--strategy",
-        choices=["dense", "hybrid", "hybrid_rerank", "agent_react"],
+        choices=["dense", "hybrid", "hybrid_rerank", "agent_react",
+                 "dense_graph", "hybrid_graph", "hybrid_rerank_graph"],
         default=None,
-        help="override config [retrieval] strategy",
+        help="override config [retrieval] strategy; *_graph adds fact-graph rescue on refusal",
     )
     ask_cmd.set_defaults(func=_cmd_ask)
 
@@ -184,9 +185,11 @@ def main() -> None:
     ev.add_argument("golden_set", nargs="?", default="golden/golden_set_v1.jsonl")
     ev.add_argument(
         "--strategy",
-        choices=["dense", "hybrid", "hybrid_rerank", "agent_react", "both", "all"],
+        choices=["dense", "hybrid", "hybrid_rerank", "agent_react",
+                 "dense_graph", "hybrid_graph", "hybrid_rerank_graph", "both", "all"],
         default="hybrid_rerank",
-        help="'all' = the three retrieval strategies; agent_react runs the full agent loop",
+        help="'all' = the three retrieval strategies; agent_react runs the full agent loop; "
+             "*_graph adds fact-graph rescue on refusal",
     )
     ev.add_argument("--limit", type=int, default=None, help="only the first N cases (smoke runs)")
     ev.add_argument("--out", default="reports")
@@ -195,7 +198,9 @@ def main() -> None:
     rg = sub.add_parser("regress", help="one-command regression run + diff vs baseline")
     rg.add_argument("--golden-set", default="golden/golden_set_v1.jsonl")
     rg.add_argument("--strategy", default="hybrid_rerank",
-                    choices=["dense", "hybrid", "hybrid_rerank", "agent_react"])
+                    choices=["dense", "hybrid", "hybrid_rerank", "agent_react",
+                             "dense_graph", "hybrid_graph", "hybrid_rerank_graph"],
+                    help="*_graph adds deterministic fact-graph rescue on refusal")
     rg.add_argument("--baseline", default=None,
                     help="run dir name under --out-root (default: latest existing run)")
     rg.add_argument("--limit", type=int, default=None)
