@@ -333,14 +333,39 @@ def run_eval(
 
         with results_path.open("w", encoding="utf-8") as results_f:
             for i, case in enumerate(cases, 1):
-                result = ask(
-                    case["input"],
-                    cfg,
-                    index=index,
-                    strategy=strategy,
-                    refusal_log=out_dir / "refusals.jsonl",
-                )
-                scored = score_case(case, result, cfg, scorer=scorer)
+                try:
+                    result = ask(
+                        case["input"],
+                        cfg,
+                        index=index,
+                        strategy=strategy,
+                        refusal_log=out_dir / "refusals.jsonl",
+                    )
+                    scored = score_case(case, result, cfg, scorer=scorer)
+                except Exception as e:
+                    # one failed case must not kill a long run; record it
+                    scored = {
+                        "case_id": case["id"],
+                        "category": case["failure_category"],
+                        "difficulty": case.get("difficulty"),
+                        "refused": False,
+                        "citation_hit": None,
+                        "retrieval_hit": None,
+                        "judge_reason": None,
+                        "judge_score": None,
+                        "deepeval": None,
+                        "correct": False,
+                        "outcome": "error",
+                        "error": f"{type(e).__name__}: {e}"[:400],
+                    }
+                    result = {
+                        "latency_ms": 0.0,
+                        "usage": {"cost_usd": 0.0},
+                        "verification": {"verified": False},
+                        "answer": None,
+                        "refusal_reason": None,
+                        "citations": [],
+                    }
 
                 trace = build_trace(case, result)
                 (trace_dir / f"{case['id']}.json").write_text(
@@ -365,8 +390,10 @@ def run_eval(
         metrics.update(scorer.judge.ledger.to_dict())
         metrics["model"] = cfg.get("generation", {}).get("model", "")
         metrics["judge_model"] = scorer.judge.get_model_name()
+        metrics["error_count"] = sum(1 for r in rows if r["outcome"] == "error")
         all_results[strategy] = {"metrics": metrics, "rows": rows}
         acc = metrics.get("accuracy") or 0.0
-        print(f"[{strategy}] accuracy={acc:.1%} n={metrics['n']}", flush=True)
+        suffix = f" errors={metrics['error_count']}" if metrics["error_count"] else ""
+        print(f"[{strategy}] accuracy={acc:.1%} n={metrics['n']}{suffix}", flush=True)
 
     return all_results

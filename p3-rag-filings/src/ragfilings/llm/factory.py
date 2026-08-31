@@ -61,6 +61,18 @@ def get_llm_client(
     return LLMFactory.create_client(cfg=cfg, role=role, default_model=default_model)
 
 
+def _retry_after_seconds(exc: Exception) -> float | None:
+    """Read the server's Retry-After hint from an API status error."""
+    response = getattr(exc, "response", None)
+    headers = getattr(response, "headers", None)
+    if not headers:
+        return None
+    try:
+        return float(headers.get("Retry-After") or headers.get("retry-after"))
+    except (TypeError, ValueError):
+        return None
+
+
 def complete_with_resilience(
     messages: list[ChatMessage | dict[str, str]],
     cfg: dict[str, Any],
@@ -70,10 +82,12 @@ def complete_with_resilience(
     temperature: float = 0.0,
     role: str = "generation",
 ) -> tuple[str, dict[str, Any]]:
-    """Complete a prompt via OpenRouter with one automatic retry.
+    """Complete a prompt via OpenRouter with retried backoff.
 
-    Returns (content, usage_dict) where usage_dict carries real
-    input_tokens / output_tokens / cost_usd reported by the API.
+    Honors the server's Retry-After header (OpenRouter sends one on 402
+    in-flight-budget and 429 rate-limit responses); otherwise backs off
+    exponentially. Returns (content, usage_dict) where usage_dict carries
+    real input_tokens / output_tokens / cost_usd reported by the API.
     """
     from .. import config as cfg_mod
     cfg_mod._load_env()
@@ -84,7 +98,8 @@ def complete_with_resilience(
     active_client = client or get_llm_client(cfg=cfg, default_model=target_model)
 
     last_exc: Exception | None = None
-    for attempt in range(2):
+    max_attempts = 4
+    for attempt in range(max_attempts):
         try:
             resp = active_client.complete(
                 messages=messages,
@@ -95,8 +110,13 @@ def complete_with_resilience(
             return resp.content, resp.usage.to_dict()
         except Exception as e:
             last_exc = e
-            logger.warning("OpenRouter call attempt %d failed: %s", attempt + 1, e)
-            if attempt == 0:
-                time.sleep(1.0)
+            retry_after = _retry_after_seconds(e)
+            delay = min(retry_after, 180.0) if retry_after else min(2.0 ** attempt, 60.0)
+            logger.warning(
+                "OpenRouter call attempt %d/%d failed (%s); retrying in %.0fs",
+                attempt + 1, max_attempts, e, delay,
+            )
+            if attempt < max_attempts - 1:
+                time.sleep(delay)
 
     raise last_exc or RuntimeError("OpenRouter LLM completion failed.")
