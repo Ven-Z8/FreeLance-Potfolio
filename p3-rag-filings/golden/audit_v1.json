@@ -1,5 +1,1080 @@
 [
   {
+    "id": "ent-1001",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "36.1%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$101,832 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$281,724 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "MSFT:Item8"
+    ]
+  },
+  {
+    "id": "ent-1002",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_elsewhere_in_filing",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "4.2%",
+        "in_cited_section": false,
+        "in_filing": true
+      },
+      {
+        "raw": "$383,285 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$416,161 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "AAPL:Item8"
+    ]
+  },
+  {
+    "id": "ent-1003",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "15.2%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$61,087 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$402,836 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "GOOGL:Item7",
+      "GOOGL:Item8"
+    ]
+  },
+  {
+    "id": "ent-1004",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "judge",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "45.6%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "41.4%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$128,528 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$281,724 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$83,276 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$200,966 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "META:Item8",
+      "MSFT:Item8"
+    ]
+  },
+  {
+    "id": "ent-1005",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "judge",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "36.0%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "36.1%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$88,136 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$245,122 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$101,832 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$281,724 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "MSFT:Item8"
+    ]
+  },
+  {
+    "id": "ent-1006",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "32.8%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$132,170 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$402,836 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "GOOGL:Item8"
+    ]
+  },
+  {
+    "id": "ent-1007",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "10.8%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$77,670 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$716,924 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "AMZN:Item8"
+    ]
+  },
+  {
+    "id": "ent-1008",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_elsewhere_in_filing",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "55.6%",
+        "in_cited_section": false,
+        "in_filing": true
+      },
+      {
+        "raw": "$120,067 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$215,938 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "NVDA:Item8"
+    ]
+  },
+  {
+    "id": "ent-1009",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_elsewhere_in_filing",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "8.6%",
+        "in_cited_section": false,
+        "in_filing": true
+      },
+      {
+        "raw": "$14,156 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$164,683 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "HD:Item8"
+    ]
+  },
+  {
+    "id": "ent-1010",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "41.4%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$83,276 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$200,966 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "META:Item8"
+    ]
+  },
+  {
+    "id": "ent-1011",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "4.6%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$4,355 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$94,827 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "TSLA:Item8"
+    ]
+  },
+  {
+    "id": "ent-1012",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "4.2%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$29,825 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$713,163 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "WMT:Item8"
+    ]
+  },
+  {
+    "id": "ent-1013",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_elsewhere_in_filing",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "33.3%",
+        "in_cited_section": false,
+        "in_filing": true
+      },
+      {
+        "raw": "$54,865 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$164,683 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "HD:Item8"
+    ]
+  },
+  {
+    "id": "ent-1014",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "24.0%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$171,018 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$713,163 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "WMT:Item7",
+      "WMT:Item8"
+    ]
+  },
+  {
+    "id": "ent-1015",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "18.0%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$17,094 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$94,827 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "TSLA:Item8"
+    ]
+  },
+  {
+    "id": "ent-1016",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "97805.8%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$50,859 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$52 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "PEP:Item7",
+      "PEP:Item8"
+    ]
+  },
+  {
+    "id": "ent-1017",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "21.7%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$43,585 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$200,966 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "META:Item7",
+      "META:Item8"
+    ]
+  },
+  {
+    "id": "ent-1018",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "8.8%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$16,592 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$189,031 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "CVX:Item7",
+      "CVX:Item8"
+    ]
+  },
+  {
+    "id": "ent-1019",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "6.8%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$6,411 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$94,827 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "TSLA:Item8"
+    ]
+  },
+  {
+    "id": "ent-1020",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "15.3%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$211,915 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$281,724 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "MSFT:Item8"
+    ]
+  },
+  {
+    "id": "ent-1021",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "88.3%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$60,922 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$215,938 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "NVDA:Item8"
+    ]
+  },
+  {
+    "id": "ent-1022",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "11.7%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$574,785 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$716,924 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "AMZN:Item8"
+    ]
+  },
+  {
+    "id": "ent-1023",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "22.1%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$134,902 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$200,966 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "META:Item8"
+    ]
+  },
+  {
+    "id": "ent-1024",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "exact",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "6.6%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$237,710 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$269,912 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "COST:Item8"
+    ]
+  },
+  {
+    "id": "ent-1025",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "judge",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "36.1%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "32.8%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$101,832 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$281,724 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$132,170 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$402,836 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "GOOGL:Item8",
+      "MSFT:Item8"
+    ]
+  },
+  {
+    "id": "ent-1026",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "judge",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "21.7%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "1.6%",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$43,585 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$200,966 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$11,194 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$716,924 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "AMZN:Item7",
+      "AMZN:Item8",
+      "META:Item7",
+      "META:Item8"
+    ]
+  },
+  {
+    "id": "ent-1027",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "judge",
+    "verdict": "partially_verified",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "34.7%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "41.4%",
+        "in_cited_section": false,
+        "in_filing": false
+      },
+      {
+        "raw": "$46,751 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$134,902 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$83,276 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$200,966 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "META:Item8"
+    ]
+  },
+  {
+    "id": "ent-1028",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "judge",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "$211,915 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$245,122 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$281,724 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "MSFT:Item8"
+    ]
+  },
+  {
+    "id": "ent-1029",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "judge",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "$574,785 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$637,959 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$716,924 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "AMZN:Item8"
+    ]
+  },
+  {
+    "id": "ent-1030",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "synthesis",
+    "type": "judge",
+    "verdict": "verified_in_cited_section",
+    "problems": [],
+    "claim_checks": [
+      {
+        "raw": "$134,902 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$164,501 million",
+        "in_cited_section": true,
+        "in_filing": true
+      },
+      {
+        "raw": "$200,966 million",
+        "in_cited_section": true,
+        "in_filing": true
+      }
+    ],
+    "cited_where": [
+      "META:Item8"
+    ]
+  },
+  {
+    "id": "ent-1031",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "unanswerable",
+    "type": "exact",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1032",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "unanswerable",
+    "type": "exact",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1033",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "unanswerable",
+    "type": "exact",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1034",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "unanswerable",
+    "type": "exact",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1035",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "unanswerable",
+    "type": "exact",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1036",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "unanswerable",
+    "type": "exact",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1037",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "unanswerable",
+    "type": "exact",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1038",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "unanswerable",
+    "type": "exact",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1039",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "ambiguous",
+    "type": "judge",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1040",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "ambiguous",
+    "type": "judge",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1041",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "ambiguous",
+    "type": "judge",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1042",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "ambiguous",
+    "type": "judge",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1043",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "ambiguous",
+    "type": "judge",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1044",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "ambiguous",
+    "type": "judge",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
+    "id": "ent-1045",
+    "source": "golden_set_enterprise_v1.jsonl",
+    "category": "ambiguous",
+    "type": "judge",
+    "verdict": "review_unanswerable",
+    "problems": [],
+    "claim_checks": [],
+    "cited_where": []
+  },
+  {
     "id": "fin-1001",
     "source": "golden_set_v1.jsonl",
     "category": "lookup",
