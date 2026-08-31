@@ -105,13 +105,18 @@ def load_excluded_facts(path: str | Path | None = None) -> frozenset[str]:
 
 
 def load_company_aliases(manifest_path: str | Path | None = None) -> dict[str, list[str]]:
-    """Ticker -> matchable name aliases from the corpus manifest."""
+    """Ticker -> matchable *name* aliases from the corpus manifest.
+
+    Ticker symbols are deliberately NOT included here: they are matched
+    case-sensitively elsewhere, because a lowercased symbol can collide with an
+    ordinary word (the symbol "cost" would otherwise eat "cost of revenue").
+    """
     p = Path(manifest_path) if manifest_path else cfg_mod.ROOT / "corpus" / "manifest.csv"
     aliases: dict[str, list[str]] = {}
     with p.open(encoding="utf-8") as f:
         for row in csv.DictReader(f):
             ticker = row["ticker"].strip().upper()
-            names = {ticker.lower(), _normalize(row["company"])}
+            names = {_normalize(row["company"])}
             first = _normalize(row["company"]).split()[0]
             if len(first) >= 4 and first not in _GENERIC_FIRST_WORDS:
                 names.add(first)
@@ -187,6 +192,9 @@ class GraphRescue:
             key=lambda pair: len(pair[0]),
             reverse=True,
         )
+        # Ticker symbols are matched case-sensitively (uppercase) so they cannot
+        # collide with ordinary lowercase words ("cost" in "cost of revenue").
+        self._ticker_re = sorted(self.company_aliases.keys(), key=len, reverse=True)
 
     # ------------------------------------------------------------- extraction
 
@@ -195,9 +203,17 @@ class GraphRescue:
         question carries any qualifier the graph cannot vouch for."""
         if _PERIOD_RE.search(query):
             return None
-        text = _normalize(query)
 
         tickers: list[str] = []
+        raw = query
+        # Ticker symbols first, case-sensitively, and strip them before
+        # lowercasing so a matched symbol cannot linger as a residual word.
+        for ticker in self._ticker_re:
+            if re.search(rf"\b{re.escape(ticker)}\b", raw):
+                if ticker not in tickers:
+                    tickers.append(ticker)
+                raw = re.sub(rf"\b{re.escape(ticker)}\b", " ", raw)
+        text = _normalize(raw)
         for alias, ticker in self._alias_re:
             if re.search(rf"\b{re.escape(alias)}\b", text):
                 if ticker not in tickers:
