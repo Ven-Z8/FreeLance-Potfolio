@@ -28,15 +28,15 @@ top_k = 8
 reranker = "none"
 
 [generation]
-# OpenRouter model slug (https://openrouter.ai/models). Set OPENROUTER_API_KEY.
-model = "anthropic/claude-sonnet-4.5"
-max_tokens = 1200
+# Model slug for generation (works natively on OpenRouter / NVIDIA / OmniRoute)
+model = "meta-llama/llama-3.3-70b-instruct"
+max_tokens = 1000
 # One corrective retry when a numerical claim fails verification.
 verify_retries = 1
 
 [eval]
 # Judge model for expected.type == "judge" scoring; may differ from generation.
-judge_model = "anthropic/claude-sonnet-4.5"
+judge_model = "meta-llama/llama-3.3-70b-instruct"
 
 [verification]
 # Refuse to answer below this retrieval confidence (top dense cosine).

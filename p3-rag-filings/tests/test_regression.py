@@ -16,7 +16,8 @@ from pathlib import Path
 
 import pytest
 
-from ragfilings import generation, report
+from ragfilings.eval import report
+from ragfilings.pipeline import engine as generation
 from ragfilings.config import load
 
 ROOT = Path(__file__).resolve().parent.parent

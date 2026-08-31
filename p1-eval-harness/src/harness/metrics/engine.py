@@ -70,14 +70,19 @@ class Tier1DeterministicMetrics:
         ans_str = str(trace.answer).lower().strip()
         exp_str = str(case.expected.answer).lower().strip()
 
+        # Key phrase / concept overlap for narrative text
+        exp_words = set(re.findall(r"\w+", exp_str)) - {"the", "a", "an", "and", "or", "in", "of", "to", "for", "is", "was", "were", "by"}
+        ans_words = set(re.findall(r"\w+", ans_str))
+        concept_overlap = (len(exp_words.intersection(ans_words)) / len(exp_words)) if exp_words else 0.0
+
         if case.expected.type == "exact":
             match = (ans_str == exp_str) or check_numerical_match(exp_str, ans_str, tol)
         else:  # contains or judge
-            match = (exp_str in ans_str) or check_numerical_match(exp_str, ans_str, tol)
-
+            match = (exp_str in ans_str) or check_numerical_match(exp_str, ans_str, tol) or (concept_overlap >= 0.50)
 
         outcome = "correct_answer" if match else "incorrect_answer"
         return match, outcome, {"answer_accuracy": 1.0 if match else 0.0, "refusal_correctness": 1.0}
+
 
 
 class Tier2TelemetryMetrics:

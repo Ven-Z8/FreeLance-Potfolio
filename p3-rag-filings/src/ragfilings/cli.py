@@ -16,13 +16,17 @@ from pathlib import Path
 
 from . import config as cfg_mod
 from . import ingestion
+from .eval import run_eval, write_scorecard
+from .pipeline import ask
 
 
 def _cmd_parse(args: argparse.Namespace) -> None:
     cfg = cfg_mod.load(args.config)
-    sections = ingestion.parse_file(args.filing,
-                                    cfg["ingestion"]["min_section_chars"],
-                                    cfg["ingestion"]["pointer_chars"])
+    sections = ingestion.parse_file(
+        args.filing,
+        cfg["ingestion"]["min_section_chars"],
+        cfg["ingestion"]["pointer_chars"],
+    )
     print(f"{Path(args.filing).name}: {len(sections)} sections\n")
     print(ingestion.render_tree(sections))
 
@@ -41,34 +45,28 @@ def _cmd_index(args: argparse.Namespace) -> None:
         for m in csv.DictReader(f):
             path = root / "corpus" / m["local_file"]
             if not path.exists():
-                print(f"skip {m['ticker']}: {path.name} missing "
-                      "(run scripts/download_corpus.py)", file=sys.stderr)
+                print(f"skip {m['ticker']}: {path.name} missing (run scripts/download_corpus.py)", file=sys.stderr)
                 continue
-            sections = ingestion.parse_file(path, ing["min_section_chars"],
-                                            ing["pointer_chars"])
-            chunks = chunking.chunk_sections(sections, m,
-                                             cfg["chunking"]["max_chars"])
-            with (chunks_dir / f"{m['ticker']}_chunks.jsonl").open(
-                    "w", encoding="utf-8") as out:
+            sections = ingestion.parse_file(path, ing["min_section_chars"], ing["pointer_chars"])
+            chunks = chunking.chunk_sections(sections, m, cfg["chunking"]["max_chars"])
+            with (chunks_dir / f"{m['ticker']}_chunks.jsonl").open("w", encoding="utf-8") as out:
                 for c in chunks:
                     out.write(json.dumps(c, ensure_ascii=False) + "\n")
             all_chunks.extend(chunks)
             print(f"{m['ticker']:<6} {len(chunks):>5} chunks")
-    print(f"\nembedding {len(all_chunks)} chunks with "
-          f"{cfg['embedding']['model']} (first run downloads the model)...")
-    retrieval.build_index(all_chunks, root / cfg["embedding"]["index_dir"],
-                          cfg["embedding"]["model"])
+    print(f"\nembedding {len(all_chunks)} chunks with {cfg['embedding']['model']} (first run downloads the model)...")
+    retrieval.build_index(all_chunks, root / cfg["embedding"]["index_dir"], cfg["embedding"]["model"])
     print(f"index written to {cfg['embedding']['index_dir']}")
 
 
 def _cmd_ask(args: argparse.Namespace) -> None:
-    from . import generation
-
     cfg = cfg_mod.load(args.config)
-    result = generation.ask(args.question, cfg, strategy=args.strategy)
-    print(f"strategy={result['strategy']} confidence={result['confidence']:.3f} "
-          f"latency={result['latency_ms']/1000:.1f}s "
-          f"cost=${result['usage']['cost_usd']:.4f}\n")
+    result = ask(args.question, cfg, strategy=args.strategy)
+    print(
+        f"strategy={result['strategy']} confidence={result['confidence']:.3f} "
+        f"latency={result['latency_ms']/1000:.1f}s "
+        f"cost=${result['usage']['cost_usd']:.4f}\n"
+    )
     if result["refused"]:
         print(f"REFUSED: {result['refusal_reason']}")
         return
@@ -83,28 +81,22 @@ def _cmd_ask(args: argparse.Namespace) -> None:
 
 
 def _cmd_eval(args: argparse.Namespace) -> None:
-    from . import evaluation, report
-
     cfg = cfg_mod.load(args.config)
     if args.strategy == "both":
         strategies = ["dense", "hybrid"]
     elif args.strategy == "all":
         strategies = ["dense", "hybrid", "hybrid_rerank", "agent_react"]
-
     else:
         strategies = [args.strategy]
-    results = evaluation.run_eval(cfg, args.golden_dir, strategies,
-                                  out_dir=args.out, limit=args.limit)
-    md, png = report.write_scorecard(results, args.out)
+    results = run_eval(cfg, args.golden_dir, strategies, out_dir=args.out, limit=args.limit)
+    md, png = write_scorecard(results, args.out)
     print(f"\nscorecard: {md}\n           {png}")
 
 
 def _cmd_benchmark(args: argparse.Namespace) -> None:
-    from . import evaluation, report
-
     cfg = cfg_mod.load(args.config)
     print(f"Running Industry Benchmark Suite ({args.dataset})...")
-    
+
     dataset_map = {
         "financebench": Path("golden/benchmarks/financebench.jsonl"),
         "ragas": Path("golden/benchmarks/ragas_suite.jsonl"),
@@ -117,10 +109,18 @@ def _cmd_benchmark(args: argparse.Namespace) -> None:
     else:
         target_dir = dataset_map.get(args.dataset, Path("golden"))
 
-    results = evaluation.run_eval(cfg, target_dir, ["hybrid_rerank"],
-                                  out_dir="reports/benchmark", limit=args.limit)
-    md, png = report.write_scorecard(results, "reports/benchmark")
+    results = run_eval(cfg, target_dir, ["hybrid_rerank"], out_dir="reports/benchmark", limit=args.limit)
+    md, png = write_scorecard(results, "reports/benchmark")
     print(f"\nIndustry Benchmark Rating Scorecard: {md}\n                                   {png}")
+
+
+def _cmd_serve(args: argparse.Namespace) -> None:
+    """Launch the modern 3-panel UI and live Agent Swarm visualizer."""
+    import uvicorn
+    from .ui.server import app
+
+    print(f"Starting RAGFilings Intelligence UI at http://{args.host}:{args.port}")
+    uvicorn.run(app, host=args.host, port=args.port)
 
 
 def main() -> None:
@@ -135,19 +135,29 @@ def main() -> None:
     index = sub.add_parser("index", help="parse + chunk + embed the whole corpus")
     index.set_defaults(func=_cmd_index)
 
-    ask = sub.add_parser("ask", help="answer one question with citations")
-    ask.add_argument("question")
-    ask.add_argument("--strategy", choices=["dense", "hybrid", "hybrid_rerank", "agent_react"], default=None,
-                     help="override config [retrieval] strategy")
-    ask.set_defaults(func=_cmd_ask)
+    ask_cmd = sub.add_parser("ask", help="answer one question with citations")
+    ask_cmd.add_argument("question")
+    ask_cmd.add_argument(
+        "--strategy",
+        choices=["dense", "hybrid", "hybrid_rerank", "agent_react"],
+        default=None,
+        help="override config [retrieval] strategy",
+    )
+    ask_cmd.set_defaults(func=_cmd_ask)
+
+    serve_cmd = sub.add_parser("serve", help="launch the 3-panel Web UI & Swarm Visualizer")
+    serve_cmd.add_argument("--host", default="127.0.0.1", help="host to bind")
+    serve_cmd.add_argument("--port", type=int, default=8000, help="port to bind")
+    serve_cmd.set_defaults(func=_cmd_serve)
 
     ev = sub.add_parser("eval", help="run the golden-set eval + scorecard")
     ev.add_argument("golden_dir", nargs="?", default="golden")
-    ev.add_argument("--strategy", choices=["dense", "hybrid", "hybrid_rerank", "agent_react", "both", "all"],
-                    default="all")
-
-    ev.add_argument("--limit", type=int, default=None,
-                    help="only the first N cases (smoke runs)")
+    ev.add_argument(
+        "--strategy",
+        choices=["dense", "hybrid", "hybrid_rerank", "agent_react", "both", "all"],
+        default="all",
+    )
+    ev.add_argument("--limit", type=int, default=None, help="only the first N cases (smoke runs)")
     ev.add_argument("--out", default="reports")
     ev.set_defaults(func=_cmd_eval)
 
@@ -158,8 +168,6 @@ def main() -> None:
 
     args = p.parse_args()
     args.func(args)
-
-
 
 
 if __name__ == "__main__":

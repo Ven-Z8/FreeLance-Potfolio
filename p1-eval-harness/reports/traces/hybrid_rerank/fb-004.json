@@ -3,108 +3,43 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "Did Nvidia's gross margin percentage increase or decrease in FY2025 compared to FY2024?",
-  "answer": "Nvidia's gross margin percentage increased in FY2025 compared to FY2024. In FY2025 (year ended Jan 26, 2025), gross margin was 75.0% of revenue. In FY2024 (year ended Jan 28, 2024), gross profit was $44,301 million on revenue of $60,922 million.",
+  "answer": "increase",
   "citations": [
-    "NVDA_2026_10K:Item7:c011",
-    "NVDA_2026_10K:Item8:c006"
+    "NVDA_2026_10K:Item7:c011"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 20589.147750000848,
-  "cost_usd": 0.029400000000000003,
+  "latency_ms": 12814.19091700809,
+  "cost_usd": 0.00029672,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
-    "answer": "Nvidia's gross margin percentage increased in FY2025 compared to FY2024. In FY2025 (year ended Jan 26, 2025), gross margin was 75.0% of revenue. In FY2024 (year ended Jan 28, 2024), gross profit was $44,301 million on revenue of $60,922 million.",
+    "answer": "increase",
     "citations": [
-      "NVDA_2026_10K:Item7:c011",
-      "NVDA_2026_10K:Item8:c006"
+      "NVDA_2026_10K:Item7:c011"
     ],
     "invalid_citations": [],
     "verification": {
       "verified": true,
-      "claims": [
-        {
-          "raw": "75.0%",
-          "value": 75.0,
-          "is_pct": true,
-          "found": true
-        },
-        {
-          "raw": "$44,301 million",
-          "value": 44301000000.0,
-          "is_pct": false,
-          "found": true
-        },
-        {
-          "raw": "$60,922 million",
-          "value": 60922000000.0,
-          "is_pct": false,
-          "found": true
-        }
-      ]
+      "claims": []
     },
-    "confidence": 0.8069515228271484,
+    "confidence": 0.796036958694458,
     "usage": {
-      "input_tokens": 8140,
-      "output_tokens": 332,
-      "cost_usd": 0.029400000000000003,
-      "calls": 2
+      "input_tokens": 2868,
+      "output_tokens": 31,
+      "cost_usd": 0.00029672,
+      "calls": 1
     },
     "math_result": {
-      "expression": "(97858 / 130497 - 44301 / 60922) * 100",
-      "result_value": 2.2711,
-      "formatted": "2.27%",
-      "explanation": "Change in gross margin percentage from FY2024 to FY2025"
+      "expression": "75.0 - 71.1",
+      "result_value": 3.9,
+      "formatted": "3.90%",
+      "explanation": "Calculate the difference in gross margin percentage between FY2025 and FY2026 to determine the change"
     },
-    "latency_ms": 20589.147750000848,
+    "latency_ms": 12814.19091700809,
     "strategy": "hybrid_rerank",
     "hits": [
-      {
-        "chunk": {
-          "id": "NVDA_2026_10K:Item8:c042",
-          "doc_id": "NVDA_2026_10K",
-          "ticker": "NVDA",
-          "company": "NVIDIA",
-          "fiscal_year": 2026,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": "15",
-          "note": "6",
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Note 6 -\nAmortizable Intangible Assets\nThe components of our amortizable intangible assets are as follows:\nJan 25, 2026 | Jan 26, 2025\nGross Carrying Amount | Accumulated Amortization | Net Carrying Amount | Gross Carrying Amount | Accumulated Amortization | Net Carrying Amount\n(In millions)\nAcquisition-related intangible assets | $5,656 | $( 2,580 ) | $3,076 | $2,900 | $( 2,264 ) | $636\nPatents and licensed technology | 528 | ( 298 ) | 230 | 449 | ( 278 ) | 171\nTotal intangible assets | $6,184 | $( 2,878 ) | $3,306 | $3,349 | $( 2,542 ) | $807\nAmortization expense associated with intangible assets for fiscal years 2026, 2025, and 2024 was $\n488\nmillion, $\n593\nmillion, and $\n614\nmillion, respectively.\nThe following table outlines the estimated future amortization expense related to the net carrying amount of intangible assets as of January 25, 2026:\nFuture Amortization Expense\n(In millions)\nFiscal Year:\n2027 | $923\n2028 | 729\n2029 | 592\n2030 | 511\n2031 | 468\n2032 and thereafter | 83\nTotal | $3,306\n64\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)",
-          "n_chars": 1128
-        },
-        "score": 0.986026406288147,
-        "dense_sim": 0.7316518425941467
-      },
-      {
-        "chunk": {
-          "id": "NVDA_2026_10K:Item8:c047",
-          "doc_id": "NVDA_2026_10K",
-          "ticker": "NVDA",
-          "company": "NVIDIA",
-          "fiscal_year": 2026,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": "15",
-          "note": "8",
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Note 8 -\nNon-marketable Equity Securities\nOur non-marketable equity securities are valued under the measurement alternative applying valuation methods based on observable transactions for similar investments of the same issuer and unobservable inputs such as volatility, expected\n66\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)\ntime to liquidity, risk free rate and security-specific rights and obligations. Gains and losses on these investments, realized and unrealized, are recognized in Other income, net on our Consolidated Statements of Income.\nAdjustments to the carrying value of our non-marketable equity securities during fiscal years 2026 and 2025 were as follows:\nYear Ended\nJan 25, 2026 | Jan 26, 2025\n(In millions)\nBalance at beginning of period | $3,387 | $1,321\nAdjustments related to non-marketable equity securities:\nNet additions | 17,444 | 1,309\nUnrealized gains | 2,369 | 816\nReclassification (1) | ( 848 ) | —\nImpairments and unrealized losses | ( 101 ) | ( 59 )\nBalance at end of period | $22,251 | $3,387\n(1) Represents reclassifications from non-marketable equity securities to marketable securities following public market trading.\nNon-marketable equity securities had cumulative gross unrealized gains of $\n2.7\nbillion and $\n1.1\nbillion, and cumulative gross unrealized losses and impairments of $\n176\nmillion and $\n105\nmillion on securities held as of January 25, 2026 and January 26, 2025, respectively.",
-          "n_chars": 1499
-        },
-        "score": 0.9815760850906372,
-        "dense_sim": 0.7216700315475464
-      },
       {
         "chunk": {
           "id": "NVDA_2026_10K:Item8:c073",
@@ -151,25 +86,49 @@
       },
       {
         "chunk": {
-          "id": "NVDA_2026_10K:Item8:c006",
+          "id": "NVDA_2026_10K:Item7:c000",
           "doc_id": "NVDA_2026_10K",
           "ticker": "NVDA",
           "company": "NVIDIA",
           "fiscal_year": 2026,
-          "item": "8",
-          "section_id": "Item8",
+          "item": "7",
+          "section_id": "Item7",
           "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": "15",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "16"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations\nThe following discussion and analysis of our financial condition and results of operations should be read in conjunction with “Item 1A. Risk Factors,” our Consolidated Financial Statements and related Notes thereto, as well as other cautionary statements and risks described elsewhere in this Annual Report on Form 10-K, before deciding to purchase, hold, or sell shares of our common stock.\nOverview\nOur Company and Our Businesses\nNVIDIA pioneered accelerated computing to help solve the most challenging computational problems. Since our original focus on PC graphics, we have expanded to several other large and important computationally intensive fields. Fueled by the sustained demand for exceptional 3D graphics and the scale of the gaming market, NVIDIA has leveraged its GPU architecture to create platforms for scientific computing, AI, data science, autonomous vehicles, robotics, and digital twin applications. NVIDIA is now a data center scale AI infrastructure company reshaping all industries.\nOur two operating segments are \"Compute & Networking\" and \"Graphics.\" Refer to Note 16 of the Notes to the Consolidated Financial Statements in Part IV, Item 15 of this Annual Report on Form 10-K for additional information.\nHeadquartered in Santa Clara, California, NVIDIA was incorporated in California in April 1993 and reincorporated in Delaware in April 1998.\nRecent Developments, Future Objectives and Challenges\nRevenue growth in fiscal year 2026 was driven by data center compute and networking platforms for accelerated computing and AI solutions. Our Blackwell architectures represented the majority of our Data Center revenue.",
+          "n_chars": 1738
+        },
+        "score": 0.8832947611808777,
+        "dense_sim": 0.7769747972488403
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item5:c003",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "5",
+          "section_id": "Item5",
+          "part": "II",
+          "title": "Market for Registrant's Common Equity",
+          "resolved_from": null,
           "note": null,
           "note_refs": [],
           "has_table": true,
           "table_continuation": false,
-          "text": "Addressing the matter involved performing procedures and evaluating audit evidence in connection with forming our overall opinion on the consolidated financial statements. These procedures included testing the effectiveness of controls relating to management’s provisions for excess or obsolete inventories and excess product purchase commitments, including controls over management’s assumptions related to future demand and market conditions. These procedures also included, among others, testing management’s process for developing the provisions for excess or obsolete inventories and excess product purchase commitments; evaluating the appropriateness of management’s approach; testing the completeness and accuracy of underlying data used in the approach; and evaluating the reasonableness of management’s assumptions related to future demand and market conditions. Evaluating management’s assumptions related to future demand and market conditions involved evaluating whether the assumptions used by management were reasonable considering (i) current and past results, including historical product life cycle, (ii) the consistency with external market and industry data, and (iii) changes in technology.\n/s/\nPricewaterhouseCoopers LLP\nSan Jose, California\nFebruary 25, 2026\nWe have served as the Company’s auditor since 2004.\n50\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nConsolidated Statements of Income\n(In millions, except per share data)\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | Jan 28, 2024\nRevenue | $215,938 | $130,497 | $60,922\nCost of revenue | 62,475 | 32,639 | 16,621\nGross profit | 153,463 | 97,858 | 44,301\nOperating expenses",
-          "n_chars": 1657
+          "text": "1/31/2021 | 1/30/2022 | 1/29/2023 | 1/28/2024 | 1/26/2025 | 1/25/2026\nNVIDIA Corporation | $100.00 | $175.98 | $157.05 | $470.88 | $1,100.68 | $1,448.75\nS&P 500 | $100.00 | $121.00 | $112.98 | $137.98 | $174.50 | $200.33\nNasdaq 100 | $100.00 | $112.60 | $95.60 | $138.07 | $173.95 | $206.01",
+          "n_chars": 290
         },
-        "score": 0.8688427209854126,
-        "dense_sim": 0.6524978280067444
+        "score": 0.7391334176063538,
+        "dense_sim": 0.7435153722763062
       },
       {
         "chunk": {
@@ -195,28 +154,6 @@
       },
       {
         "chunk": {
-          "id": "NVDA_2026_10K:Item8:c008",
-          "doc_id": "NVDA_2026_10K",
-          "ticker": "NVDA",
-          "company": "NVIDIA",
-          "fiscal_year": 2026,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": "15",
-          "note": null,
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Net income per share:\nBasic | $4.93 | $2.97 | $1.21\nDiluted | $4.90 | $2.94 | $1.19\nWeighted average shares used in per share computation:\nBasic | 24,359 | 24,555 | 24,690\nDiluted | 24,514 | 24,804 | 24,940\nSee accompanying Notes to the Consolidated Financial Statements.\n51\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nConsolidated Statements of Comprehensive Income\n(In millions)\nYear Ended\nJan 25, 2026 | Jan 26, 2025 | Jan 28, 2024\nNet income | $120,067 | $72,880 | $29,760\nOther comprehensive income, net of tax\nAvailable-for-sale securities:\nNet change in unrealized gain | 107 | 1 | 80\nCash flow hedges:\nNet change in unrealized gain (loss) | 43 | — | ( 10 )\nOther comprehensive income, net of tax | 150 | 1 | 70\nTotal comprehensive income | $120,217 | $72,881 | $29,830\nSee accompanying Notes to the Consolidated Financial Statements.\n52\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nConsolidated Balance Sheets\n(In millions, except par value)\nJan 25, 2026 | Jan 26, 2025\nAssets\nCurrent assets:\nCash and cash equivalents | $10,605 | $8,589\nMarketable securities | 51,951 | 34,621\nAccounts receivable, net | 38,466 | 23,065\nInventories | 21,403 | 10,080\nPrepaid expenses and other current assets | 3,180 | 3,771\nTotal current assets | 125,605 | 80,126\nProperty and equipment, net | 10,383 | 6,283\nOperating lease assets | 2,867 | 1,793\nGoodwill | 20,832 | 5,188\nIntangible assets, net | 3,306 | 807\nDeferred income tax assets | 13,258 | 10,979\nNon-marketable equity securities | 22,251 | 3,387\nOther assets | 8,301 | 3,038\nTotal assets | $206,803 | $111,601\nLiabilities and Shareholders' Equity\nCurrent liabilities:",
-          "n_chars": 1639
-        },
-        "score": 0.3969210088253021,
-        "dense_sim": 0.8069515228271484
-      },
-      {
-        "chunk": {
           "id": "NVDA_2026_10K:Item8:c071",
           "doc_id": "NVDA_2026_10K",
           "ticker": "NVDA",
@@ -236,8 +173,52 @@
         },
         "score": 0.3914995789527893,
         "dense_sim": 0.6896235942840576
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c041",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": "5",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Note 5 -\nGoodwill\nAs of January 25, 2026, the total carrying amount of goodwill was $\n20.8\nbillion, consisting of goodwill balances allocated to our Compute & Networking and Graphics reporting units of $\n20.5\nbillion and $\n370\nmillion, respectively. As of January 26, 2025, the total carrying amount of goodwill was $\n5.2\nbillion, consisting of goodwill balances allocated to our Compute & Networking and Graphics reporting units of $\n4.8\nbillion and $\n370\nmillion, respectively. Goodwill increased by $\n15.6\nbillion in fiscal year 2026 and was allocated to our Compute & Networking reporting unit. During the fourth quarters of fiscal years 2026, 2025, and 2024, we completed our annual qualitative impairment tests and concluded that goodwill was\nno\nt impaired.\n63\nTable of Contents\nNVIDIA Corporation and Subsidiaries\nNotes to the Consolidated Financial Statements\n(Continued)",
+          "n_chars": 879
+        },
+        "score": 0.2646830677986145,
+        "dense_sim": 0.7136094570159912
+      },
+      {
+        "chunk": {
+          "id": "NVDA_2026_10K:Item8:c000",
+          "doc_id": "NVDA_2026_10K",
+          "ticker": "NVDA",
+          "company": "NVIDIA",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "15",
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Item 8. Financial Statements and Supplementary Data\nThe information required by this Item is set forth in our Consolidated Financial Statements and Notes thereto included in this Annual Report on Form 10-K.\nReport of Independent Registered Public Accounting Firm\nTo the Board of Directors and Shareholders of NVIDIA Corporation\nOpinions on the Financial Statements and Internal Control over Financial Reporting\nWe have audited the accompanying consolidated balance sheets of NVIDIA Corporation and its subsidiaries (the “Company”) as of January 25, 2026 and January 26, 2025, and the related consolidated statements of income, comprehensive income, shareholders' equity, and cash flows for each of the three years in the period ended January 25, 2026, including the related notes and financial statement schedule listed in the index appearing under Item 15(a)(2) (collectively referred to as the “consolidated financial statements”). We also have audited the Company's internal control over financial reporting as of January 25, 2026, based on criteria established in Internal Control - Integrated Framework (2013) issued by the Committee of Sponsoring Organizations of the Treadway Commission (COSO).",
+          "n_chars": 1201
+        },
+        "score": 0.20729897916316986,
+        "dense_sim": 0.796036958694458
       }
     ],
-    "model": "anthropic/claude-sonnet-4.5"
+    "model": "z-ai/glm-5.2"
   }
 }

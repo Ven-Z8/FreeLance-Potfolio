@@ -1,0 +1,221 @@
+{
+  "case_id": "b20-015",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "Costco's fiscal 2025 had how many weeks, and why does that matter when comparing net sales growth to fiscal 2024?",
+  "answer": "Costco's fiscal 2025 had 52 weeks. This matters when comparing net sales growth to fiscal 2024 because fiscal 2024 also had 52 weeks, making it a comparable period. However, fiscal 2023 had 53 weeks, which would affect comparability with that year.",
+  "citations": [
+    "COST_2025_10K:Item8:c016",
+    "COST_2025_10K:Item8:c006"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 4077.3164999991423,
+  "cost_usd": 0.013722,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "Costco's fiscal 2025 had 52 weeks. This matters when comparing net sales growth to fiscal 2024 because fiscal 2024 also had 52 weeks, making it a comparable period. However, fiscal 2023 had 53 weeks, which would affect comparability with that year.",
+    "citations": [
+      "COST_2025_10K:Item8:c016",
+      "COST_2025_10K:Item8:c006"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": []
+    },
+    "confidence": 0.7274667024612427,
+    "usage": {
+      "input_tokens": 3929,
+      "output_tokens": 129,
+      "cost_usd": 0.013722,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 4077.3164999991423,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item8:c016",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "1",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Note 1—Summary of Significant Accounting Policies\nDescription of Business\nCostco Wholesale Corporation (Costco or the Company), a Washington corporation, and its subsidiaries operate membership warehouses and e-commerce sites based on the concept that offering members low prices on a limited selection of nationally-branded and private-label products in a wide range of merchandise categories will produce high sales volumes and rapid inventory turnover. At August 31, 2025, Costco operated\n914\nwarehouses worldwide:\n629\nin the United States (U.S.) located in\n47\nstates, Washington, D.C., and Puerto Rico,\n110\nin Canada,\n42\nin Mexico,\n37\nin Japan,\n29\nin the U.K.,\n20\nin Korea,\n15\nin Australia,\n14\nin Taiwan,\nseven\nin China,\nfive\nin Spain,\ntwo\nin France,\ntwo\nin Sweden, and\none\neach in Iceland and New Zealand. The Company operated e-commerce sites in the U.S., Canada, the U.K., Mexico, Korea, Taiwan, Japan, and Australia.\nBasis of Presentation\nThe consolidated financial statements include the accounts of Costco and its wholly-owned subsidiaries. All material inter-company transactions among the Company and its consolidated subsidiaries have been eliminated in consolidation.\nFiscal Year End\nThe Company operates on a 52/53-week fiscal year basis with the year ending on the Sunday closest to August 31. References to 2025 and 2024 relate to the 52-week fiscal years ended August 31, 2025, and September 1, 2024. References to 2023 relate to the 53-week fiscal year ended September 3, 2023.\nUse of Estimates",
+          "n_chars": 1513
+        },
+        "score": 0.9986061453819275,
+        "dense_sim": 0.7274667024612427
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item8:c006",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "A company’s internal control over financial reporting is a process designed to provide reasonable assurance regarding the reliability of financial reporting and the preparation of financial statements for external purposes in accordance with generally accepted accounting principles. A company’s internal control over financial reporting includes those policies and procedures that (1) pertain to the maintenance of records that, in reasonable detail, accurately and fairly reflect the transactions and dispositions of the assets of the company; (2) provide reasonable assurance that transactions are recorded as necessary to permit preparation of financial statements in accordance with generally accepted accounting principles, and that receipts and expenditures of the company are being made only in accordance with authorizations of management and directors of the company; and (3) provide reasonable assurance regarding prevention or timely detection of unauthorized acquisition, use, or disposition of the company’s assets that could have a material effect on the financial statements.\nBecause of its inherent limitations, internal control over financial reporting may not prevent or detect misstatements. Also, projections of any evaluation of effectiveness to future periods are subject to the risk that controls may become inadequate because of changes in conditions, or that the degree of compliance with the policies or procedures may deteriorate.\n/s/ KPMG LLP\nSeattle, Washington\nOctober 7, 2025\n36\nTable of Contents\nCOSTCO WHOLESALE CORPORATION\nCONSOLIDATED STATEMENTS OF INCOME\n(amounts in millions, except per share data)\n52 Weeks Ended | 52 Weeks Ended | 53 Weeks Ended\nAugust 31, 2025 | September 1, 2024 | September 3, 2023\nREVENUE",
+          "n_chars": 1749
+        },
+        "score": 0.9371058344841003,
+        "dense_sim": 0.5734531879425049
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item8:c013",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "The accompanying notes are an integral part of these consolidated financial statements.\n40\nTable of Contents\nCOSTCO WHOLESALE CORPORATION\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n(amounts in millions)\n52 Weeks Ended | 52 Weeks Ended | 53 Weeks Ended\nAugust 31, 2025 | September 1, 2024 | September 3, 2023\nCASH FLOWS FROM OPERATING ACTIVITIES\nNet income | $8,099 | $7,367 | $6,292\nAdjustments to reconcile net income to net cash provided by operating activities:\nDepreciation and amortization | 2,426 | 2,237 | 2,077\nNon-cash lease expense | 303 | 315 | 412\nStock-based compensation | 860 | 818 | 774\nImpairment of assets and other non-cash operating activities, net | ( 117 ) | ( 9 ) | 495\nChanges in operating assets and liabilities:\nMerchandise inventories | 559 | ( 2,068 ) | 1,228\nAccounts payable | 404 | 1,938 | ( 382 )\nOther operating assets and liabilities, net | 801 | 741 | 172\nNet cash provided by operating activities | 13,335 | 11,339 | 11,068\nCASH FLOWS FROM INVESTING ACTIVITIES\nAdditions to property and equipment | ( 5,498 ) | ( 4,710 ) | ( 4,323 )\nPurchases of short-term investments | ( 1,028 ) | ( 1,470 ) | ( 1,622 )\nMaturities of short-term investments | 1,141 | 1,790 | 937\nOther investing activities, net | 74 | ( 19 ) | 36\nNet cash used in investing activities | ( 5,311 ) | ( 4,409 ) | ( 4,972 )\nCASH FLOWS FROM FINANCING ACTIVITIES",
+          "n_chars": 1356
+        },
+        "score": 0.880108654499054,
+        "dense_sim": 0.6482889652252197
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item8:c032",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "1",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The Company offers merchandise in the following core merchandise categories: foods and sundries, non-foods, and fresh foods. The Company also provides expanded products and services through warehouse ancillary and other businesses. The Company is the principal for the majority of its transactions and recognizes revenue on a gross basis. The Company is the principal when it has control of the merchandise or service before it is transferred to the member. The majority of revenue from merchandise sales is recognized at the point of sale. Revenue generated through e-commerce or special orders is generally recognized upon shipment to the member. For merchandise shipped directly to the member, shipping and handling costs are expensed as incurred as fulfillment costs and included in merchandise costs in the consolidated statements of income. In certain ancillary businesses, revenue is deferred until the member picks up merchandise at the warehouse. Deferred sales are included in other current liabilities in the consolidated balance sheets.\nThe Company accounts for membership fee revenue, net of refunds, on a deferred basis, ratably over the one-year membership period. Deferred membership fees at the end of 2025 and 2024 were $\n2,854\nand $\n2,501\n.\nIn most countries, the Company's Executive members qualify for a 2% reward on qualified purchases, subject to an annual maximum value, which does not expire and is redeemable at Costco warehouses. The Company accounts for this reward as a reduction in sales, net of the estimated impact of non-redemptions (breakage), with the corresponding liability classified as accrued member rewards in the consolidated balance sheets. Estimated breakage is computed based on redemption data. For 2025, 2024, and 2023, the net reduction in sales was $",
+          "n_chars": 1799
+        },
+        "score": 0.8202952742576599,
+        "dense_sim": 0.6755454540252686
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item8:c008",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "OPERATING EXPENSES\nMerchandise costs | 239,886 | 222,358 | 212,586\nSelling, general and administrative | 24,966 | 22,810 | 21,590\nOperating income | 10,383 | 9,285 | 8,114\nOTHER INCOME (EXPENSE)\nInterest expense | ( 154 ) | ( 169 ) | ( 160 )\nInterest income and other, net | 589 | 624 | 533\nINCOME BEFORE INCOME TAXES | 10,818 | 9,740 | 8,487\nProvision for income taxes | 2,719 | 2,373 | 2,195\nNET INCOME | $8,099 | $7,367 | $6,292\nNET INCOME PER COMMON SHARE:\nBasic | $18.24 | $16.59 | $14.18\nDiluted | $18.21 | $16.56 | $14.16\nShares used in calculation (000’s)\nBasic | 443,985 | 443,914 | 443,854\nDiluted | 444,803 | 444,759 | 444,452\nThe accompanying notes are an integral part of these consolidated financial statements.\n37\nTable of Contents\nCOSTCO WHOLESALE CORPORATION\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(amounts in millions)\n52 Weeks Ended | 52 Weeks Ended | 53 Weeks Ended\nAugust 31, 2025 | September 1, 2024 | September 3, 2023\nNET INCOME | $8,099 | $7,367 | $6,292\nForeign-currency translation adjustment and other, net | 58 | ( 23 ) | 24\nCOMPREHENSIVE INCOME | $8,157 | $7,344 | $6,316\nThe accompanying notes are an integral part of these consolidated financial statements.\n38\nTable of Contents\nCOSTCO WHOLESALE CORPORATION\nCONSOLIDATED BALANCE SHEETS\n(amounts in millions, except par value and share data)\nAugust 31, 2025 | September 1, 2024\nASSETS\nCURRENT ASSETS\nCash and cash equivalents | $14,161 | $9,906\nShort-term investments | 1,123 | 1,238\nReceivables, net | 3,203 | 2,721\nMerchandise inventories | 18,116 | 18,647\nOther current assets | 1,777 | 1,734\nTotal current assets | 38,380 | 34,246\nOTHER ASSETS",
+          "n_chars": 1637
+        },
+        "score": 0.765884280204773,
+        "dense_sim": 0.6469289064407349
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item8:c000",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Item 8—Financial Statements and Supplementary Data\nCOSTCO WHOLESALE CORPORATION\nINDEX TO CONSOLIDATED FINANCIAL STATEMENTS\nPage\nReports of Independent Registered Public Accounting Firm | 34\nConsolidated Statements of Income | 37\nConsolidated Statements of Comprehensive Income | 38\nConsolidated Balance Sheets | 39\nConsolidated Statements of Equity | 40\nConsolidated Statements of Cash Flows | 41\nNotes to Consolidated Financial Statements | 42\n33\nTable of Contents\nREPORT OF INDEPENDENT REGISTERED PUBLIC ACCOUNTING FIRM\nTo the Stockholders and Board of Directors\nCostco Wholesale Corporation:\nOpinion on the Consolidated Financial Statements\nWe have audited the accompanying consolidated balance sheets of Costco Wholesale Corporation and subsidiaries (the Company) as of August 31, 2025 and September 1, 2024, the related consolidated statements of income, comprehensive income, equity, and cash flows for each of the fiscal years in the three-year period ended August 31, 2025, and the related notes (collectively, the consolidated financial statements). In our opinion, the consolidated financial statements present fairly, in all material respects, the financial position of the Company as of August 31, 2025 and September 1, 2024, and the results of its operations and its cash flows for each of the fiscal years in the three-year period ended August 31, 2025, in conformity with U.S. generally accepted accounting principles.\nWe also have audited, in accordance with the standards of the Public Company Accounting Oversight Board (United States) (PCAOB), the Company’s internal control over financial reporting as of August 31, 2025, based on criteria established in\nInternal Control – Integrated Framework (2013)",
+          "n_chars": 1721
+        },
+        "score": 0.5325405597686768,
+        "dense_sim": 0.6344627737998962
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item7:c010",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Gross margin on a segment basis, when expressed as a percentage of the segment's own sales and excluding the impact of changes in gasoline prices on net sales (segment gross margin percentage),\nincreased in our U.S. segment, which performed similarly to the consolidated results above. Our Canadian and Other International segments gross margin increased, primarily due to increases in core merchandise categories and warehouse ancillary and other businesses.\nSelling, General and Administrative Expenses\n2025 | 2024 | 2023\nSG&A expenses | $24,966 | $22,810 | $21,590\nSG&A expenses as a percentage of net sales | 9.25 | % | 9.14 | % | 9.08 | %\nSG&A expenses as a percentage of net sales increased 11 basis points. SG&A expenses as a percentage of net sales excluding the impact of gasoline price deflation was 9.17%, an increase of three basis points. The comparison to last year was negatively impacted by three basis points due to warehouse operations and other businesses. Changes in foreign currencies relative to the U.S. dollar decreased SG&A expenses by approximately $127, attributable to our Canadian and Other International operations.\nInterest Expense\n2025 | 2024 | 2023\nInterest expense | $154 | $169 | $160\n27\nTable of Contents\nInterest expense is primarily related to Senior Notes and financing leases. The decrease was primarily due to repayment of the 2.750% Senior Notes in May 2024. For more information on our debt arrangements, refer to the consolidated financial statements included in Item 8 of this Report.\nInterest Income and Other, Net\n2025 | 2024 | 2023\nInterest income | $469 | $533 | $470\nForeign-currency transaction gains, net | 84 | 26 | 29\nOther, net | 36 | 65 | 34\nInterest income and other, net | $589 | $624 | $533",
+          "n_chars": 1749
+        },
+        "score": 0.5067262649536133,
+        "dense_sim": 0.6579681634902954
+      },
+      {
+        "chunk": {
+          "id": "COST_2025_10K:Item1:c005",
+          "doc_id": "COST_2025_10K",
+          "ticker": "COST",
+          "company": "Costco",
+          "fiscal_year": 2025,
+          "item": "1",
+          "section_id": "Item1",
+          "part": "I",
+          "title": "Business",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "11"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Certain financial information for our segments and geographic areas is included in\nNote 11\nto the consolidated financial statements included in Item 8 of this Report.\nMembership\nOur members may utilize their memberships at all of our warehouses and e-commerce sites. Gold Star memberships are available to individuals; Business memberships are limited to businesses, including individuals with a business license or comparable document. Business members may add additional cardholders (affiliates), to which the same annual fee applies. Affiliates are not available for Gold Star members. Our annual fee for these memberships is $65 in the U.S. and varies in other countries. All paid memberships include a free household card.\nPaid members (except affiliates) are eligible to upgrade to an Executive membership in the U.S., for an additional annual fee of $65. Executive memberships are also available in Canada, Mexico, the U.K., Japan, Korea, Taiwan, and Australia, for which the additional fee varies. Executive members earn a 2% reward on qualified purchases (generally up to a maximum reward of $1,250 per year), redeemable at Costco warehouses. The sales penetration of Executive members represented approximately 73.6% of worldwide net sales in 2025.\nMembership at the end of 2025, 2024, and 2023 was made up of the following (in thousands):\n2025 | 2024 | 2023\nGold Star | 68,300 | 63,700 | 58,800\nBusiness, including affiliates | 12,700 | 12,500 | 12,200\nTotal paid members 1 | 81,000 | 76,200 | 71,000\nHousehold cards | 64,200 | 60,600 | 56,900\nTotal cardholders | 145,200 | 136,800 | 127,900\n_______________\n(1)\nExecutive members represented 38,700, 35,400, and 32,300 of total paid members in 2025, 2024, and 2023.",
+          "n_chars": 1726
+        },
+        "score": 0.4201063811779022,
+        "dense_sim": 0.543615460395813
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

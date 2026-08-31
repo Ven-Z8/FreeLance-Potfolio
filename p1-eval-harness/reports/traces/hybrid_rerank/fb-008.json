@@ -1,0 +1,224 @@
+{
+  "case_id": "fb-008",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What were Walmart's total revenues for the fiscal year ended January 31, 2025?",
+  "answer": "$680,985 million",
+  "citations": [
+    "WMT_2026_10K:Item8:c006"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 3081.2390000064624,
+  "cost_usd": 0.012948,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$680,985 million",
+    "citations": [
+      "WMT_2026_10K:Item8:c006"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$680,985 million",
+          "value": 680985000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.8253519535064697,
+    "usage": {
+      "input_tokens": 4061,
+      "output_tokens": 51,
+      "cost_usd": 0.012948,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 3081.2390000064624,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item8:c078",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "11",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Corporate and support\nMembership and other income (2) | $36 | $52 | $44\nOperating, selling, general and administrative expenses | 2,914 | 2,491 | 2,287\nOperating loss | $( 2,878 ) | $( 2,439 ) | $( 2,243 )\nConsolidated\nNet sales | $706,413 | $674,538 | $642,637\nMembership and other income | 6,750 | 6,447 | 5,488\nTotal revenues | 713,163 | 680,985 | 648,125\nCost of sales | 535,395 | 511,753 | 490,142\nOperating, selling, general and administrative expenses | 147,943 | 139,884 | 130,971\nOperating income | 29,825 | 29,348 | 27,012\nInterest, net | 2,431 | 2,245 | 2,137\nOther (gains) and losses | ( 2,075 ) | 794 | 3,027\nIncome before income taxes | $29,469 | $26,309 | $21,848\n(1)\nTotal fuel-related expenses for Sam's Club U.S. were $\n8.7\nbillion, $\n9.9\nbillion, and $\n10.6\nbillion in fiscal 2026, fiscal 2025, and fiscal 2024, respectively.\n(2)\nIncludes other income from corporate campus facilities.\n77\nTotal assets, depreciation and amortization, and capital expenditures for the Company's segments, as well as for Corporate and support, are as follows:\nFiscal Years Ended January 31,\n(Amounts in millions) | 2026 | 2025 | 2024\nWalmart U.S.\nTotal assets | $165,627 | $150,006 | $137,782\nDepreciation and amortization | 9,390 | 8,549 | 7,671\nCapital expenditures | 20,157 | 16,466 | 13,877\nWalmart International\nTotal assets | $86,093 | $80,016 | $86,136\nDepreciation and amortization | 2,304 | 2,260 | 2,159\nCapital expenditures | 3,197 | 3,178 | 2,911\nSam's Club U.S.\nTotal assets | $17,186 | $16,862 | $15,682\nDepreciation and amortization | 782 | 706 | 642\nCapital expenditures | 914 | 1,212 | 1,041\nCorporate and support\nTotal assets | $15,762 | $13,939 | $12,799\nDepreciation and amortization | 1,727 | 1,458 | 1,381\nCapital expenditures | 2,374 | 2,927 | 2,777\nConsolidated",
+          "n_chars": 1785
+        },
+        "score": 0.9985111355781555,
+        "dense_sim": 0.7073835730552673
+      },
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item8:c082",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "11",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Of Walmart U.S.'s total net sales, approximately $\n99.6\nbillion, $\n79.3\nbillion and $\n65.4\nbillion related to eCommerce for fiscal 2026, 2025 and 2024, respectively.\n78\n(Amounts in millions) | Fiscal Years Ended January 31,\nWalmart International net sales by market | 2026 | 2025 | 2024\nMexico and Central America | $52,492 | $51,970 | $49,726\nChina | 24,623 | 19,975 | 17,011\nCanada | 23,724 | 23,035 | 22,639\nOther | 29,584 | 26,905 | 25,265\nTotal | $130,423 | $121,885 | $114,641\nOf Walmart International's total net sales, approximately $\n35.8\nbillion, $\n29.5\nbillion and $\n24.8\nbillion related to eCommerce for fiscal 2026, 2025 and 2024, respectively.\n(Amounts in millions) | Fiscal Years Ended January 31,\nSam's Club U.S. net sales by merchandise category | 2026 | 2025 | 2024\nGrocery | $64,706 | $61,253 | $57,565\nFuel and other | 11,570 | 12,960 | 13,707\nGeneral merchandise | 11,549 | 11,215 | 10,947\nHealth and wellness | 5,190 | 4,810 | 3,960\nTotal | $93,015 | $90,238 | $86,179\nOf Sam's Club U.S.'s total net sales, approximately $\n15.0\nbillion, $\n12.1\nbillion and $\n9.9\nbillion related to eCommerce for fiscal 2026, 2025 and 2024, respectively.",
+          "n_chars": 1158
+        },
+        "score": 0.9979541301727295,
+        "dense_sim": 0.740452766418457
+      },
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item8:c008",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes.\n52\nWalmart Inc.\nConsolidated Statements of Comprehensive Income\nFiscal Years Ended January 31,\n(Amounts in millions) | 2026 | 2025 | 2024\nConsolidated net income | $22,270 | $20,157 | $16,270\nConsolidated net income attributable to noncontrolling interest | ( 377 ) | ( 721 ) | ( 759 )\nConsolidated net income attributable to Walmart | 21,893 | 19,436 | 15,511\nOther comprehensive income (loss), net of income taxes | 1,009 | ( 2,859 ) | 944\nOther comprehensive (income) loss attributable to noncontrolling interest | ( 174 ) | 556 | ( 566 )\nOther comprehensive income (loss) attributable to Walmart | 835 | ( 2,303 ) | 378\nComprehensive income, net of income taxes | 23,279 | 17,298 | 17,214\nComprehensive income attributable to noncontrolling interest | ( 551 ) | ( 165 ) | ( 1,325 )\nComprehensive income attributable to Walmart | $22,728 | $17,133 | $15,889\nSee accompanying notes.\n53\nWalmart Inc.\nConsolidated Balance Sheets\nAs of January 31,\n(Amounts in millions) | 2026 | 2025\nASSETS\nCurrent assets:\nCash and cash equivalents | $10,727 | $9,037\nReceivables, net | 11,172 | 9,975\nInventories | 58,851 | 56,435\nPrepaid expenses and other | 4,124 | 4,011\nTotal current assets | 84,874 | 79,458\nProperty and equipment, net | 136,083 | 119,993\nOperating lease right-of-use assets | 14,750 | 13,599\nFinance lease right-of-use assets, net | 6,123 | 6,112\nGoodwill | 28,735 | 28,792\nOther long-term assets | 14,103 | 12,869\nTotal assets | $284,668 | $260,823\nLIABILITIES, REDEEMABLE NONCONTROLLING INTEREST, AND SHAREHOLDERS' EQUITY\nCurrent liabilities:",
+          "n_chars": 1575
+        },
+        "score": 0.9976296424865723,
+        "dense_sim": 0.7358980178833008
+      },
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item7:c023",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Gross profit rate increased 22 and 47 basis points for fiscal 2026 and 2025, respectively, when compared to the previous fiscal year. The increase for fiscal 2026 was primarily driven by disciplined inventory management and growth in higher margin businesses, partially offset by mix shifts into lower margin merchandise categories. The increase for fiscal 2025 was primarily due to managing prices aligned to our competitive historic price gaps and growth in higher margin businesses, partially offset by product mix shifts into lower margin categories.\nOperating expenses as a percentage of segment net sales increased 15 and 44 basis points for fiscal 2026 and 2025, respectively, when compared to the previous fiscal year. The increase for fiscal 2026 was primarily due to higher self-insured general liability claims expense and increased depreciation related to our capital investments. For fiscal 2025, the increase was primarily due to increased marketing expenses, higher variable pay as a result of exceeding planned performance and increased depreciation expenses.\nAs a result of the factors discussed above, segment operating income increased $1.3 billion and $1.7 billion for fiscal 2026 and 2025, respectively, when compared to the previous fiscal year.\n39\nWalmart International Segment\nFiscal Years Ended January 31,\n(Dollar amounts and retail square feet in millions) | 2026 | 2025 | 2024\nNet sales | $130,423 | $121,885 | $114,641\nPercentage change from comparable period | 7.0 | % | 6.3 | % | 13.5 | %\nMembership and other income | 1,565 | 1,478 | 1,408\nGross profit | 27,847 | 26,618 | 24,810\nOperating expenses | 24,309 | 22,595 | 21,309\nOperating income | $5,103 | $5,501 | $4,909\nPercentage of net sales",
+          "n_chars": 1725
+        },
+        "score": 0.9973760843276978,
+        "dense_sim": 0.7734498381614685
+      },
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item8:c006",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Because of its inherent limitations, internal control over financial reporting may not prevent or detect misstatements. Also, projections of any evaluation of effectiveness to future periods are subject to the risk that controls may become inadequate because of changes in conditions, or that the degree of compliance with the policies or procedures may deteriorate.\n/s/ Ernst & Young LLP\nRogers, Arkansas\nMarch 13, 2026\n51\nWalmart Inc.\nConsolidated Statements of Income\nFiscal Years Ended January 31,\n(Amounts in millions, except per share data) | 2026 | 2025 | 2024\nRevenues:\nNet sales | $706,413 | $674,538 | $642,637\nMembership and other income | 6,750 | 6,447 | 5,488\nTotal revenues | 713,163 | 680,985 | 648,125\nCosts and expenses:\nCost of sales | 535,395 | 511,753 | 490,142\nOperating, selling, general and administrative expenses | 147,943 | 139,884 | 130,971\nOperating income | 29,825 | 29,348 | 27,012\nInterest:\nDebt | 2,318 | 2,249 | 2,259\nFinance lease | 481 | 479 | 424\nInterest income | ( 368 ) | ( 483 ) | ( 546 )\nInterest, net | 2,431 | 2,245 | 2,137\nOther (gains) and losses | ( 2,075 ) | 794 | 3,027\nIncome before income taxes | 29,469 | 26,309 | 21,848\nProvision for income taxes | 7,199 | 6,152 | 5,578\nConsolidated net income | 22,270 | 20,157 | 16,270\nConsolidated net income attributable to noncontrolling interest | ( 377 ) | ( 721 ) | ( 759 )\nConsolidated net income attributable to Walmart | $21,893 | $19,436 | $15,511\nNet income per common share:\nBasic net income per common share attributable to Walmart | $2.74 | $2.42 | $1.92\nDiluted net income per common share attributable to Walmart | 2.73 | 2.41 | 1.91\nWeighted-average common shares outstanding:",
+          "n_chars": 1681
+        },
+        "score": 0.9971818923950195,
+        "dense_sim": 0.713322103023529
+      },
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item8:c081",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "11",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "(Amounts in millions) | Fiscal Years Ended January 31,\nWalmart U.S. net sales by merchandise category | 2026 | 2025 | 2024\nGrocery | $285,482 | $276,003 | $264,210\nGeneral merchandise | 115,060 | 113,921 | 113,985\nHealth and wellness | 69,547 | 62,092 | 54,898\nOther | 12,886 | 10,399 | 8,724\nTotal | $482,975 | $462,415 | $441,817",
+          "n_chars": 331
+        },
+        "score": 0.9967411160469055,
+        "dense_sim": 0.8253519535064697
+      },
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item8:c017",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "1",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Note 1.\nSummary of Significant Accounting Policies\nGeneral\nWalmart Inc. (\"Walmart\" or the \"Company\") is a people-led, technology-powered omnichannel retailer dedicated to helping people around the world save money and live better by providing the opportunity to shop in both retail stores and through eCommerce. Through innovation, the Company is striving to continuously improve a customer-centric experience that seamlessly integrates eCommerce and retail stores in an omnichannel offering that saves time for its customers.\nThe Company's operations comprise\nthree\nreportable segments: Walmart U.S., Walmart International and Sam's Club U.S.\nPrinciples of Consolidation\nThe Consolidated Financial Statements include the accounts of Walmart and its subsidiaries as of and for the fiscal years ended January 31, 2026 (\"fiscal 2026\"), January 31, 2025 (\"fiscal 2025\") and January 31, 2024 (\"fiscal 2024\"). Intercompany accounts and transactions have been eliminated in consolidation. The Company consolidates variable interest entities where it has been determined that the Company is the primary beneficiary of those entities' operations. Investments in common stock or in-substance common stock for which the Company exercises significant influence but does not have control are accounted for under the equity method. These variable interest entities and equity method investments are immaterial to the Company's Consolidated Financial Statements.",
+          "n_chars": 1448
+        },
+        "score": 0.9955635070800781,
+        "dense_sim": 0.7212768197059631
+      },
+      {
+        "chunk": {
+          "id": "WMT_2026_10K:Item7:c021",
+          "doc_id": "WMT_2026_10K",
+          "ticker": "WMT",
+          "company": "Walmart",
+          "fiscal_year": 2026,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "As a result of the factors discussed above, we reported $22.3 billion and $20.2 billion of consolidated net income for fiscal 2026 and 2025, respectively, which represent increases of $2.1 billion and $3.9 billion for fiscal 2026 and 2025, respectively, when compared to the previous fiscal year. Diluted net income per common share attributable to Walmart (\"EPS\") was $2.73, $2.41 and $1.91 for fiscal 2026, 2025 and 2024, respectively.\nWalmart U.S. Segment\nFiscal Years Ended January 31,\n(Dollar amounts and retail square feet in millions) | 2026 | 2025 | 2024\nNet sales | $482,975 | $462,415 | $441,817\nNet sales percentage change from comparable period | 4.4 | % | 4.7 | % | 5.1 | %\nCalendar comparable sales increase | 4.3 | % | 4.8 | % | 5.5 | %\nMembership and other income | 2,624 | 2,594 | 1,985\nGross profit | 132,615 | 125,964 | 118,254\nOperating expenses | 110,081 | 104,676 | 98,085\nOperating income | $25,158 | $23,882 | $22,154\nPercentage of net sales\nGross profit | 27.5 | % | 27.2 | % | 26.8 | %\nOperating expenses | 22.8 | % | 22.6 | % | 22.2 | %\nOperating income | 5.2 | % | 5.2 | % | 5.0 | %\nRetail unit counts at period end | 4,611 | 4,605 | 4,615\nRetail square feet at period end | 699 | 698 | 699",
+          "n_chars": 1218
+        },
+        "score": 0.9919759631156921,
+        "dense_sim": 0.7674011588096619
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

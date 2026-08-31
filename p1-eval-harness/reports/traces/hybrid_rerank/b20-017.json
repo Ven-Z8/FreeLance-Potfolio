@@ -1,0 +1,238 @@
+{
+  "case_id": "b20-017",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "According to Chevron's fiscal 2025 10-K, how significant is Hess to Chevron's consolidated financials?",
+  "answer": "Hess represents 24 percent of Chevron's consolidated total assets and 3 percent of consolidated total revenues as of and for the year ended December 31, 2025. Legacy Hess proved reserves represent approximately 13 percent of Chevron's total proved reserves. Since the acquisition date (July 18, 2025) through year-end, Hess contributed $5,957 million in revenue and $193 million in net income attributable to Chevron.",
+  "citations": [
+    "CVX_2025_10K:Item8:c002",
+    "CVX_2025_10K:Item8:c128",
+    "CVX_2025_10K:Item8:c130",
+    "CVX_2025_10K:Item8:c150",
+    "CVX_2025_10K:Item8:c127"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 7529.19687499525,
+  "cost_usd": 0.016299,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "Hess represents 24 percent of Chevron's consolidated total assets and 3 percent of consolidated total revenues as of and for the year ended December 31, 2025. Legacy Hess proved reserves represent approximately 13 percent of Chevron's total proved reserves. Since the acquisition date (July 18, 2025) through year-end, Hess contributed $5,957 million in revenue and $193 million in net income attributable to Chevron.",
+    "citations": [
+      "CVX_2025_10K:Item8:c002",
+      "CVX_2025_10K:Item8:c128",
+      "CVX_2025_10K:Item8:c130",
+      "CVX_2025_10K:Item8:c150",
+      "CVX_2025_10K:Item8:c127"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$5,957 million",
+          "value": 5957000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$193 million",
+          "value": 193000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7811653017997742,
+    "usage": {
+      "input_tokens": 3308,
+      "output_tokens": 425,
+      "cost_usd": 0.016299,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 7529.19687499525,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item8:c002",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "14",
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Our audits of the consolidated financial statements included performing procedures to assess the risks of material misstatement of the consolidated financial statements, whether due to error or fraud, and performing procedures that respond to those risks. Such procedures included examining, on a test basis, evidence regarding the amounts and disclosures in the consolidated financial statements. Our audits also included evaluating the accounting principles used and significant estimates made by management, as well as evaluating the overall presentation of the consolidated financial statements. Our audit of internal control over financial reporting included obtaining an understanding of internal control over financial reporting, assessing the risk that a material weakness exists, and testing and evaluating the design and operating effectiveness of internal control based on the assessed risk. Our audits also included performing such other procedures as we considered necessary in the circumstances. We believe that our audits provide a reasonable basis for our opinions.\nAs described in Management’s Report on Internal Control Over Financial Reporting, management has excluded Hess Corporation (Hess) from its assessment of internal control over financial reporting as of December 31, 2025 because it was acquired by the Company in a purchase business combination during 2025. We have also excluded Hess from our audit of internal control over financial reporting. Hess is a wholly-owned subsidiary of Chevron Corporation whose total assets and total revenues represent 24 percent and 3 percent, respectively, of the related consolidated financial statement amounts as of and for the year ended December 31, 2025.\n62\nFinancial Table of Contents",
+          "n_chars": 1755
+        },
+        "score": 0.9779750108718872,
+        "dense_sim": 0.7133296728134155
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item8:c128",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "14",
+          "note": "29",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "percent of the shares of Chevron common stock outstanding immediately after the transaction closed on July 18, 2025.\nThe acquisition was accounted for as a business combination under ASC 805, which requires assets acquired and liabilities assumed to be measured at their acquisition date fair value. Provisional fair value measurements were made for acquired assets and liabilities, and adjustments to those measurements may be made in subsequent periods, up to one year from the\n105\nNotes to the Consolidated Financial Statements\nFinancial Table of Contents\nMillions of dollars, except per-share amounts\ndate of acquisition, as information necessary to complete the analysis is obtained. Oil and gas properties were valued using a discounted cash flow model that incorporated assumptions for commodity prices, future production volumes, operating costs, development costs, and risk-adjusted discount rates. The fair value of the noncontrolling interest was determined based on the quoted market price of HESM on the acquisition date. Debt assumed in the acquisition was valued based on observable market prices for Hess’s debt.\nAs a result of measuring the assets acquired and the liabilities assumed at fair value, there was no goodwill or bargain purchase recognized.\nAt July 18, 2025\n(Billions of dollars)\nCurrent assets | $3.4\nProperties, plant and equipment | 73.5\nOther assets | 2.6\nTotal assets acquired | 79.5\nCurrent liabilities | 3.1\nLong-term debt (1) | 10.0\nDeferred income taxes | 11.0\nOther liabilities | 2.4\nTotal liabilities assumed | 26.5\nNoncontrolling interest (2) | 5.0\nNet assets acquired / purchase price | $48.0\n(1)\nIncludes finance leases\n(2)\nRelated to HESM\nThe long-term debt assumed in the transaction is detailed in the table below:",
+          "n_chars": 1761
+        },
+        "score": 0.886469841003418,
+        "dense_sim": 0.7128913402557373
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item7:c036",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": "14",
+          "note": "29",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Total balances were $6.3 billion and $6.8 billion at December 31, 2025 and 2024, respectively. The company holds its cash with a diverse group of major financial institutions and has processes and safeguards in place designed to manage its cash balances and mitigate the risk of loss. Cash provided by operating activities in 2025 was $33.9 billion, compared to $31.5 billion in 2024, primarily as higher cash distributions from TCO and contributions from legacy Hess assets more than offset the impact of lower commodity prices. Between January and March 2025, Chevron purchased 15.38 million shares of Hess common stock in open market transactions for approximately $2.2 billion. Cash provided by operating activities was net of contributions to employee pension plans of approximately $588 million in 2025 and $844 million in 2024. Capital expenditures totaled $17.3 billion in 2025 compared to $16.4 billion in 2024. Proceeds and deposits related to asset sales and return of investments totaled $1.8 billion in 2025 compared to $7.7 billion in 2024. Net repayment (borrowing) of loans by equity affiliates included an inflow of $778 million in 2025 mainly due to a loan repayment from TCO, compared with an outflow of $233 million in the year ago period.\nRestricted cash of $1.0 billion and $1.5 billion at December 31, 2025 and 2024, respectively, was held in cash and short-term marketable securities and recorded as “Deferred charges and other assets” and “Prepaid expenses and other current assets” on the Consolidated Balance Sheet. These amounts are generally associated with upstream decommissioning activities and tax payments. The decrease of restricted cash in 2025 is mainly due to the release of funds for tax-deferred exchanges.\nDividends",
+          "n_chars": 1756
+        },
+        "score": 0.8693923950195312,
+        "dense_sim": 0.7811653017997742
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item8:c150",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "14",
+          "note": "29",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The acquisition of Hess Corporation (Hess) was completed on July 18, 2025. Given the timing of the acquisition, Chevron has continued to rely on legacy Hess reserves staff and processes for reviewing reserves with input and guidance from the Chevron RAC. The processes include internal reviews and an external audit. Accordingly, the company continued to retain DeGolyer and MacNaughton, an independent petroleum engineering consulting firm, to complete an audit of the legacy Hess proved reserves at December 31, 2025 (representing approximately 13 percent of Chevron’s total proved reserves). Based upon their evaluation, DeGolyer and MacNaughton issued an unqualified audit opinion, and their report is attached as Exhibit 99.2 to this Annual Report on Form 10-K.\nTechnologies Used in Establishing Proved Reserves Additions\nIn 2025, additions to Chevron’s proved reserves were based on a wide range of geologic and engineering technologies. Information generated from subsurface data and geoscience and engineering analysis was used in both proprietary and commercially available analytic tools, including reservoir simulation, geologic modeling and seismic processing, to provide “reasonably certain” proved reserves estimates. These technologies have been utilized extensively by the company in the past, and the company believes that they provide a high degree of confidence in establishing reliable and consistent reserves estimates.\n113\nSupplemental Information on Oil and Gas Producing Activities - Unaudited\nFinancial Table of Contents\nProved Undeveloped Reserves\nNoteworthy changes in proved undeveloped reserves are shown in the table below and discussed below.",
+          "n_chars": 1673
+        },
+        "score": 0.8589798212051392,
+        "dense_sim": 0.7340410947799683
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item8:c130",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "14",
+          "note": "29",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Hess Midstream Operations LP\n5.125 % due 2028 | $550\n5.875 % due 2028 | 800\n6.500 % due 2029 | 600\n4.250 % due 2030 | 750\n5.500 % due 2030 | 400\nTerm loan and credit facility borrowings | 646\nTotal Hess Midstream Operations LP Debt | $3,746\nUnamortized discounts and debt issuance costs | ( 61 )\nTotal Long-Term Debt Assumed | $8,823\nFair market value adjustment for debt acquired in the acquisition | 247\nFair Market Value of Long-Term Debt Assumed | $9,070\nThe following table presents revenue and earnings for Hess since the acquisition date (July 18, 2025), for the year ended December 31, 2025.\nYear Ended December 31,\n2025\nSales and other operating revenue | $5,957\nNet Income (Loss) Attributable to Chevron Corporation | $193\n106\nNotes to the Consolidated Financial Statements\nFinancial Table of Contents\nMillions of dollars, except per-share amounts\nThe following unaudited pro forma information presents the results of operations as if the acquisition of Hess had occurred January 1, 2024:\nYear Ended December 31,\n2025 | 2024\nSales and other operating revenue | $189,416 | $204,300\nNet Income (Loss) Attributable to Chevron Corporation | $12,464 | $19,003",
+          "n_chars": 1164
+        },
+        "score": 0.8435882925987244,
+        "dense_sim": 0.7501686811447144
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item1:c021",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "1",
+          "section_id": "Item1",
+          "part": "I",
+          "title": "Business",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Chevron holds an approximately 38 percent consolidated ownership interest in Hess Midstream LP (HESM) following the acquisition of Hess. HESM provides fee-based services for Chevron and third-party customers in the Bakken. The midstream integrated infrastructure is primarily located in McKenzie, Williams, and Mountrail Counties, North Dakota, and Mentor, Minnesota. It includes a natural gas gathering and compression system, a crude oil gathering system and a produced water gathering and disposal system. Key facilities include the Tioga Gas Plant, 50 percent ownership of the Little Missouri 4 gas plant, the Mentor Propane Storage Terminal, the Ramberg Terminal crude oil facility, the Tioga Rail Terminal and a fleet of 550 crude oil rail cars. Additional infrastructure such as the Johnson’s Corner Header System and various connections to the Dakota Access Pipeline provide further crude oil export optionality.\nCalifornia\nChevron owns and operates between 87 and 100 percent interests in six fields in California including Kern River, Cymric/McKittrick, Midway Sunset, San Ardo, Coalinga and Lost Hills. In 2025, Chevron’s California average net\n10\nTable of Contents\ndaily oil-equivalent production was 63,000 barrels. Following Kern County’s reinstatement of drilling permit approvals, Chevron plans to undertake limited development drilling in 2026.\nGulf of America",
+          "n_chars": 1377
+        },
+        "score": 0.7999889850616455,
+        "dense_sim": 0.679678738117218
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item1A:c009",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "section_id": "Item1A",
+          "part": "I",
+          "title": "Risk Factors",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "The company does not have commercial insurance or third-party indemnities to fully cover all operational risks or potential liability in the event of a significant incident or series of incidents causing catastrophic loss. As a result, the company is, to a substantial extent, self-insured for such events. The company relies on existing liquidity, financial resources and borrowing capacity to meet short-term obligations that would arise from such an event or series of events. The occurrence of a significant incident, series of events, or unforeseen liability for which the company is self-insured, not fully insured or for which insurance recovery is significantly delayed could have a material adverse effect on the company’s results of operations or financial condition.\nThe acquisition of Hess may cause Chevron’s financial results to differ from the company’s expectations or the expectations of the investment community, the company may not achieve the anticipated benefits of the acquisition, and the acquisition may disrupt the company’s current plans or operations\nThe success of the acquisition of Hess, which closed in July 2025, will depend, in part, on Chevron’s ability to realize the anticipated benefits, including the anticipated run-rate cost synergies, estimated five-year production and free cash flow growth rates, and anticipated higher returns to shareholders over the long-term. Failure to realize anticipated synergies in the expected timeframe, operational challenges, the diversion of management’s attention from ongoing business concerns, and unforeseen expenses associated with the acquisition may have an adverse impact on our financial results.\n23\nTable of Contents",
+          "n_chars": 1700
+        },
+        "score": 0.7972058653831482,
+        "dense_sim": 0.7131966948509216
+      },
+      {
+        "chunk": {
+          "id": "CVX_2025_10K:Item8:c127",
+          "doc_id": "CVX_2025_10K",
+          "ticker": "CVX",
+          "company": "Chevron",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "14",
+          "note": "29",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "at December 31, 2025, which includes receivables from certain governments in their capacity as joint venture partners. Joint venture partner balances that are paid as per contract terms or not yet due are subject to the statistical analysis described above while past due balances are subject to additional qualitative management quarterly review. This management review includes review of reasonable and supportable repayment forecasts. Non-trade receivables also include employee and tax receivables that are deemed immaterial and low risk. Loans to equity affiliates and non-equity investees are also considered non-trade and associated allowances of $\n83\nand\nzero\nat December 31, 2025, and December 31, 2024, respectively, are included within “Investments and advances” on the Consolidated Balance Sheet.\nNote 29\nAcquisition of Hess Corporation\nOn July 18, 2025, the company acquired Hess Corporation (Hess), an independent oil and gas exploration and production company. Hess’s principal upstream operations are in the United States, Guyana and Malaysia. Hess’s operations also include an approximately\n38\npercent ownership interest in Hess Midstream LP (HESM), with operations primarily in the Bakken shale in the Williston Basin area of North Dakota.\nThe aggregate purchase price of Hess was approximately $\n48\nbillion, including\n15.38\nmillion shares of Hess common stock purchased in open market transactions in the first quarter of 2025 and\n301.25\nmillion shares of Chevron common stock issued as closing consideration in July. As part of the transaction, the company assumed debt with an aggregate outstanding principal value of $\n8.8\nbillion. The shares issued represented approximately\n15",
+          "n_chars": 1700
+        },
+        "score": 0.6548966765403748,
+        "dense_sim": 0.7261219620704651
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

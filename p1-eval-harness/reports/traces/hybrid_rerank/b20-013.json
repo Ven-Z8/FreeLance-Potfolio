@@ -1,0 +1,231 @@
+{
+  "case_id": "b20-013",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What impairment of intangible assets did PepsiCo record in fiscal year 2025, and which notes discuss it?",
+  "answer": "PepsiCo recorded impairment of intangible assets of $1,993 million in fiscal year 2025. This is discussed in Notes 1 and 4.",
+  "citations": [
+    "PEP_2025_10K:Item8:c000"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 3645.5809170001885,
+  "cost_usd": 0.013905,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "PepsiCo recorded impairment of intangible assets of $1,993 million in fiscal year 2025. This is discussed in Notes 1 and 4.",
+    "citations": [
+      "PEP_2025_10K:Item8:c000"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$1,993 million",
+          "value": 1993000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7325389385223389,
+    "usage": {
+      "input_tokens": 4210,
+      "output_tokens": 85,
+      "cost_usd": 0.013905,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 3645.5809170001885,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item8:c000",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "7",
+          "note": null,
+          "note_refs": [
+            "1",
+            "4"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Item 8. Financial Statements and Supplementary Data.\nSee “Item 15. Exhibits and Financial Statement Schedules.”\nConsolidated Statement of Income\nPepsiCo, Inc. and Subsidiaries\nFiscal years ended December 27, 2025, December 28, 2024 and December 30, 2023\n(in millions except per share amounts)\n2025 | 2024 | 2023\nNet Revenue | $93,925 | $91,854 | $91,471\nCost of sales | 43,066 | 41,744 | 41,881\nGross profit | 50,859 | 50,110 | 49,590\nSelling, general and administrative expenses | 37,368 | 37,190 | 36,677\nImpairment of intangible assets (see Notes 1 and 4) | 1,993 | 33 | 927\nOperating Profit | 11,498 | 12,887 | 11,986\nOther pension and retiree medical benefits (expense)/income | ( 133 ) | ( 22 ) | 250\nNet interest expense and other | ( 1,121 ) | ( 919 ) | ( 819 )\nIncome before income taxes | 10,244 | 11,946 | 11,417\nProvision for income taxes | 1,949 | 2,320 | 2,262\nNet income | 8,295 | 9,626 | 9,155\nLess: Net income attributable to noncontrolling interests | 55 | 48 | 81\nNet Income Attributable to PepsiCo | $8,240 | $9,578 | $9,074\nNet Income Attributable to PepsiCo per Common Share\nBasic | $6.02 | $6.97 | $6.59\nDiluted | $6.00 | $6.95 | $6.56\nWeighted-average common shares outstanding\nBasic | 1,369 | 1,373 | 1,376\nDiluted | 1,373 | 1,378 | 1,383\nSee accompanying notes to the consolidated financial statements.\n57\nTable of Contents\nConsolidated Statement of Comprehensive Income\nPepsiCo, Inc. and Subsidiaries\nFiscal years ended December 27, 2025, December 28, 2024 and December 30, 2023\n(in millions)\n2025 | 2024 | 2023\nNet income | $8,295 | $9,626 | $9,155\nOther comprehensive income/(loss), net of taxes:",
+          "n_chars": 1625
+        },
+        "score": 0.9955145716667175,
+        "dense_sim": 0.6943267583847046
+      },
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item8:c002",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "7",
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes to the consolidated financial statements.\n58\nTable of Contents\nConsolidated Statement of Cash Flows\nPepsiCo, Inc. and Subsidiaries\nFiscal years ended December 27, 2025, December 28, 2024 and December 30, 2023\n(in millions)\n2025 | 2024 | 2023\nOperating Activities\nNet income | $8,295 | $9,626 | $9,155\nDepreciation and amortization | 3,451 | 3,160 | 2,948\nImpairment and other charges | 1,946 | 714 | 1,230\nProduct recall-related impact | — | 187 | 136\nCash payments for product recall-related impact | ( 6 ) | ( 148 ) | —\nOperating lease right-of-use asset amortization | 727 | 655 | 570\nShare-based compensation expense | 288 | 362 | 380\nRestructuring and impairment charges | 983 | 727 | 445\nCash payments for restructuring charges | ( 796 ) | ( 436 ) | ( 434 )\nAcquisition and divestiture-related charges | 453 | 22 | 41\nCash payments for acquisition and divestiture-related charges | ( 228 ) | ( 18 ) | ( 41 )\nPension and retiree medical plan expenses | 504 | 414 | 150\nPension and retiree medical plan contributions | ( 472 ) | ( 348 ) | ( 410 )\nDeferred income taxes and other tax charges and credits | 71 | ( 42 ) | ( 271 )\nTax payments related to the TCJ Act | ( 772 ) | ( 579 ) | ( 309 )\nChange in assets and liabilities:\nAccounts and notes receivable | ( 580 ) | ( 138 ) | ( 793 )\nInventories | ( 150 ) | ( 314 ) | ( 261 )\nPrepaid expenses and other current assets | 195 | 40 | ( 13 )\nAccounts payable and other current liabilities | ( 677 ) | ( 943 ) | 420\nIncome taxes payable | ( 433 ) | ( 123 ) | 310\nOther, net | ( 712 ) | ( 311 ) | 189\nNet Cash Provided by Operating Activities | 12,087 | 12,507 | 13,442\nInvesting Activities",
+          "n_chars": 1664
+        },
+        "score": 0.9825218915939331,
+        "dense_sim": 0.7222151756286621
+      },
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item8:c104",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "7",
+          "note": "13",
+          "note_refs": [
+            "14"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "0.3\nbillion and property, plant and equipment of $\n0.1\nbillion. The purchase price allocation was finalized in the fourth quarter of 2025.\n103\nTable of Contents\nAcquisition and Divestiture-Related Charges\nAcquisition and divestiture-related charges include merger and integration charges, transaction expenses, such as consulting, advisory and other professional fees, as well as fair value adjustments to contingent consideration and acquired inventory included in the acquisition-date balance sheets. Merger and integration charges include distribution agreement termination fees, impairment of certain acquisition-related intangible assets, employee-related costs, closing costs and other integration costs.\nA summary of charges is as follows:\n2025 | 2024 | 2023\nCost of sales | $57 | $— | $—\nSelling, general and administrative expenses | 346 | 22 | 41\nImpairment of intangible assets | 50 | — | —\nTotal | $453 | $22 | $41\nAfter-tax amount | $347 | $18 | $23\nImpact on net income attributable to PepsiCo per common share | $( 0.25 ) | $( 0.01 ) | $( 0.02 )\n2025 | 2024 | 2023\nPFNA | $28 | $9 | $—\nPBNA | 422 | 8 | 16\nEMEA (a) | — | — | ( 2 )\nAsia Pacific Foods | 3 | 5 | 2\nCorporate | — | — | 25\nTotal | $453 | $22 | $41\n(a)\nIncome amount represents adjustments for changes in estimates of previously recorded amounts.\nNote 14\n—\nSupply Chain Financing Arrangements",
+          "n_chars": 1368
+        },
+        "score": 0.9614033699035645,
+        "dense_sim": 0.6794000267982483
+      },
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item8:c039",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "7",
+          "note": "3",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "2025 | 2024 | 2023\nCost of sales | $236 | $133 | $13\nSelling, general and administrative expenses | 728 | 551 | 433\nImpairment of intangible assets | — | 14 | —\nOther pension and retiree medical benefits expense/(income) (a) | 19 | 29 | ( 1 )\nTotal restructuring and impairment charges | $983 | $727 | $445\nAfter-tax amount | $792 | $563 | $349\nImpact on net income attributable to PepsiCo per common share | $( 0.58 ) | $( 0.41 ) | $( 0.25 )\n2025 | 2024 | 2023 | Plan to Date through 12/27/2025\nPFNA | $344 | $161 | $42 | $776\nPBNA | 281 | 238 | 41 | 786\nIB Franchise | 14 | 24 | 11 | 65\nEMEA | 195 | 116 | 227 | 956\nLatAm Foods | 52 | 49 | 29 | 299\nAsia Pacific Foods | 12 | 9 | 8 | 99\nCorporate | 66 | 101 | 88 | 484\n964 | 698 | 446 | 3,465\nOther pension and retiree medical benefits expense/(income) (a) | 19 | 29 | ( 1 ) | 145\nTotal | $983 | $727 | $445 | $3,610",
+          "n_chars": 867
+        },
+        "score": 0.9565038084983826,
+        "dense_sim": 0.7274336814880371
+      },
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item7:c033",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "reporting week. Beginning in 2025, on a prospective basis, we are also applying the constant currency calculation for our subsidiaries operating in highly inflationary economies. Adjusting for acquisitions and divestitures reflects mergers and acquisitions activity, as well as divestitures and other structural changes, including changes in ownership or control in consolidated subsidiaries and nonconsolidated equity investees. We believe organic revenue performance provides useful information in evaluating the results of our business because it adjusts for items that we believe are not indicative of ongoing performance or that we believe impact comparability with the prior year.\nSee “Net Revenue and Organic Revenue Performance” in “Results of Operations\n–\nSegment Review” for further information.\nCost of sales, gross profit, selling, general and administrative expenses, impairment of intangible assets, other pension and retiree medical benefits expense/income, provision for income taxes and net income attributable to PepsiCo, each adjusted for items affecting comparability, operating profit and net income attributable to PepsiCo per common share – diluted, each adjusted for items affecting comparability, and the corresponding constant currency growth rates",
+          "n_chars": 1274
+        },
+        "score": 0.9310997128486633,
+        "dense_sim": 0.6974738240242004
+      },
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item7:c024",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "7"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See “Results of Operations – Segment Review” for a tabular presentation and discussion of key drivers of net revenue.\nOperating profit decreased 11%, primarily driven by certain operating cost increases, impairment charges related to the Rockstar brand, a decline in organic volume, a 5-percentage-point impact of higher commodity costs and higher acquisition and divestiture-related charges. These impacts were partially offset by productivity savings and effective net pricing. Additionally, a favorable impact of prior-year impairment and other charges associated with our TBG investment and receivables related to the sale of Tropicana, Naked and other select juice brands (Juice Transaction) and lower advertising and marketing expenses contributed to the decline.\nOther Consolidated Results\n2025 | 2024 | Change\nOther pension and retiree medical benefits expense | $133 | $22 | $111\nNet interest expense and other | $1,121 | $919 | $202\nAnnual tax rate | 19.0 | % | 19.4 | %\nNet income attributable to PepsiCo | $8,240 | $9,578 | (14) | %\nNet income attributable to PepsiCo per common share – diluted | $6.00 | $6.95 | (14) | %\nOther pension and retiree medical benefits expense increased $111 million,\nprimarily reflecting recognition of fixed income losses on plan assets and the impact of the freeze of benefit accruals to U.S. salaried participants effective December 31, 2025. See Note 7 to our consolidated financial statements for further information.\nNet interest expense and other increased $202 million, due to higher average debt balances, higher interest rates on average debt balances and lower interest rates on average cash balances, partially offset by higher average cash balances.\nThe reported tax rate decreased 0.4 percentage\npoints,",
+          "n_chars": 1759
+        },
+        "score": 0.9250147342681885,
+        "dense_sim": 0.6876107454299927
+      },
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item8:c007",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "7",
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes to the consolidated financial statements.\n61\nTable of Contents\nConsolidated Statement of Equity\nPepsiCo, Inc. and Subsidiaries\nFiscal years ended December 27, 2025, December 28, 2024 and December 30, 2023\n(in millions except per share amounts)\n2025 | 2024 | 2023\nShares | Amount | Shares | Amount | Shares | Amount\nCommon Stock\nBalance, beginning of year | 1,372 | $23 | 1,374 | $23 | 1,377 | $23\nChange in repurchased common stock | ( 5 ) | — | ( 2 ) | — | ( 3 ) | —\nBalance, end of year | 1,367 | 23 | 1,372 | 23 | 1,374 | 23\nCapital in Excess of Par Value\nBalance, beginning of year | 4,385 | 4,261 | 4,134\nShare-based compensation expense | 280 | 357 | 379\nStock option exercises, RSUs and PSUs converted | ( 92 ) | ( 90 ) | ( 107 )\nWithholding tax on RSUs and PSUs converted | ( 113 ) | ( 135 ) | ( 140 )\nOther | ( 9 ) | ( 8 ) | ( 5 )\nBalance, end of year | 4,451 | 4,385 | 4,261\nRetained Earnings\nBalance, beginning of year | 72,266 | 70,035 | 67,800\nNet income attributable to PepsiCo | 8,240 | 9,578 | 9,074\nCash dividends declared (a) | ( 7,718 ) | ( 7,347 ) | ( 6,839 )\nBalance, end of year | 72,788 | 72,266 | 70,035\nAccumulated Other Comprehensive Loss\nBalance, beginning of year | ( 17,612 ) | ( 15,534 ) | ( 15,302 )\nOther comprehensive income/(loss) attributable to PepsiCo | 2,588 | ( 2,078 ) | ( 232 )\nBalance, end of year | ( 15,024 ) | ( 17,612 ) | ( 15,534 )\nRepurchased Common Stock",
+          "n_chars": 1426
+        },
+        "score": 0.910595715045929,
+        "dense_sim": 0.6937586069107056
+      },
+      {
+        "chunk": {
+          "id": "PEP_2025_10K:Item8:c005",
+          "doc_id": "PEP_2025_10K",
+          "ticker": "PEP",
+          "company": "PepsiCo",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": "7",
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes to the consolidated financial statements.\n60\nTable of Contents\nConsolidated Balance Sheet\nPepsiCo, Inc. and Subsidiaries\nDecember 27, 2025 and December 28, 2024\n(in millions except per share amounts)\n2025 | 2024\nASSETS\nCurrent Assets\nCash and cash equivalents | $9,159 | $8,505\nShort-term investments | 371 | 761\nAccounts and notes receivable, net | 11,506 | 10,333\nInventories\nRaw materials and packaging | 2,581 | 2,440\nWork-in-process | 143 | 104\nFinished goods | 3,121 | 2,762\n5,845 | 5,306\nPrepaid expenses and other current assets | 1,068 | 921\nTotal Current Assets | 27,949 | 25,826\nProperty, Plant and Equipment, net | 29,905 | 28,008\nAmortizable Intangible Assets, net | 1,219 | 1,102\nGoodwill | 18,916 | 17,534\nOther Indefinite-Lived Intangible Assets | 13,847 | 13,699\nInvestments in Noncontrolled Affiliates | 2,038 | 1,985\nDeferred Income Taxes | 4,541 | 4,362\nOther Assets | 8,984 | 6,951\nTotal Assets | $107,399 | $99,467\nLIABILITIES AND EQUITY\nCurrent Liabilities\nShort-term debt obligations | $6,861 | $7,082\nAccounts payable and other current liabilities | 25,903 | 24,454\nTotal Current Liabilities | 32,764 | 31,536\nLong-Term Debt Obligations | 42,321 | 37,224\nDeferred Income Taxes | 3,802 | 3,484\nOther Liabilities | 7,965 | 9,052\nTotal Liabilities | 86,852 | 81,296\nCommitments and contingencies\nPepsiCo Common Shareholders’ Equity",
+          "n_chars": 1376
+        },
+        "score": 0.8994796872138977,
+        "dense_sim": 0.7325389385223389
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "p5-cost-optimization"
+version = "0.1.0"
+description = "Rigorous 75% Agent Cost & Latency Optimization Framework with Harness Referee"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.0.0",
+    "pytest>=8.0.0",
+]

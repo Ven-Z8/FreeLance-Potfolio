@@ -3,19 +3,19 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "What was Amazon's operating income for the fiscal year ended December 31, 2025?",
-  "answer": "$79,975 million",
+  "answer": "$79,975",
   "citations": [
     "AMZN_2025_10K:Item8:c007"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 3092.1507499988365,
-  "cost_usd": 0.012414,
+  "latency_ms": 3412.4315840308554,
+  "cost_usd": 0.00035996,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
-    "answer": "$79,975 million",
+    "answer": "$79,975",
     "citations": [
       "AMZN_2025_10K:Item8:c007"
     ],
@@ -24,8 +24,8 @@
       "verified": true,
       "claims": [
         {
-          "raw": "$79,975 million",
-          "value": 79975000000.0,
+          "raw": "$79,975",
+          "value": 79975.0,
           "is_pct": false,
           "found": true
         }
@@ -33,13 +33,13 @@
     },
     "confidence": 0.7554734349250793,
     "usage": {
-      "input_tokens": 3878,
-      "output_tokens": 52,
-      "cost_usd": 0.012414,
+      "input_tokens": 3494,
+      "output_tokens": 33,
+      "cost_usd": 0.00035996,
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 3092.1507499988365,
+    "latency_ms": 3412.4315840308554,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -223,6 +223,6 @@
         "dense_sim": 0.6150287389755249
       }
     ],
-    "model": "anthropic/claude-sonnet-4.5"
+    "model": "z-ai/glm-5.2"
   }
 }

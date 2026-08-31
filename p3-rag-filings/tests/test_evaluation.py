@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from ragfilings import evaluation
+from ragfilings.eval import evaluation
 
 GOLDEN_DIR = Path(__file__).resolve().parent.parent / "golden"
 

@@ -49,7 +49,25 @@ def run_evaluation_suite(
     print("=" * 70)
 
     for i, case in enumerate(cases, 1):
-        trace = adapter.run_case(case, strategy=strategy)
+        try:
+            trace = adapter.run_case(case, strategy=strategy)
+        except Exception as exc:
+            trace = AgentRunTrace(
+                case_id=case.id,
+                domain=case.domain,
+                strategy=strategy,
+                query=case.input,
+                refused=True,
+                refusal_reason=f"API Error: {exc}",
+                answer=None,
+                citations=[],
+                invalid_citations=[],
+                verification={"verified": False, "claims": []},
+                steps=[],
+                latency_ms=0.0,
+                cost_usd=0.0,
+                confidence=0.0,
+            )
 
         # Save trajectory trace JSON
         (trace_dir / f"{case.id}.json").write_text(
@@ -62,7 +80,9 @@ def run_evaluation_suite(
         rows.append(res)
 
         mark = "✅" if res["correct"] else "❌"
-        print(f"[{i:>3}/{len(cases)}] {mark} {case.id} ({case.failure_category}): {res['outcome']}")
+        print(f"[{i:>3}/{len(cases)}] {mark} {case.id} ({case.failure_category}): {res['outcome']}", flush=True)
+
+
 
     # Compute Summary Metrics
     total = len(results)

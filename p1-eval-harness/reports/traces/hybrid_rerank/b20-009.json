@@ -1,0 +1,253 @@
+{
+  "case_id": "b20-009",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What was the difference between Amazon's net product sales and net service sales in fiscal year 2025?",
+  "answer": "Net service sales were $420,658 million and net product sales were $296,266 million in fiscal year 2025. The difference is $124,392 million (calculated as $420,658 million - $296,266 million).",
+  "citations": [
+    "AMZN_2025_10K:Item8:c007"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 12858.491959006642,
+  "cost_usd": 0.025272000000000003,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "Net service sales were $420,658 million and net product sales were $296,266 million in fiscal year 2025. The difference is $124,392 million (calculated as $420,658 million - $296,266 million).",
+    "citations": [
+      "AMZN_2025_10K:Item8:c007"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": false,
+      "claims": [
+        {
+          "raw": "$420,658 million",
+          "value": 420658000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$296,266 million",
+          "value": 296266000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$124,392 million",
+          "value": 124392000000.0,
+          "is_pct": false,
+          "found": false
+        },
+        {
+          "raw": "$420,658 million",
+          "value": 420658000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$296,266 million",
+          "value": 296266000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7947642803192139,
+    "usage": {
+      "input_tokens": 7519,
+      "output_tokens": 181,
+      "cost_usd": 0.025272000000000003,
+      "calls": 2
+    },
+    "math_result": {
+      "expression": "420658 - 296266",
+      "result_value": 124392.0,
+      "formatted": "124,392.00",
+      "explanation": "Difference between net service sales and net product sales in 2025"
+    },
+    "latency_ms": 12858.491959006642,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c018",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Macroeconomic factors, including changes in inflation and interest rates, resource and supply volatility, global economic and geopolitical developments, including unpredictable shifts in global tariff and trade policies, and the development and adoption of technologies and services, including artificial intelligence, have direct and indirect impacts on our results of operations that are difficult to predict, isolate, and quantify. These could affect customer demand for our products and services, our ability to forecast growth needs, expenses, and benefits from new technologies. Further, we expect to continue making additional investments in our artificial intelligence initiatives. We expect some or all of these factors to continue to impact our results of operations into Q1 2026.\nNet Sales\nNet sales include product and service sales. Product sales represent revenue from the sale of products and related shipping fees and digital media content where we record revenue gross. Service sales primarily represent third-party seller fees, which includes commissions and any related fulfillment and shipping fees, AWS sales, advertising services, Amazon Prime membership fees, and certain digital media content subscriptions. Net sales information is as follows (in millions):\nYear Ended December 31,\n2024 | 2025\nNet Sales:\nNorth America | $387,497 | $426,305\nInternational | 142,906 | 161,894\nAWS | 107,556 | 128,725\nConsolidated | $637,959 | $716,924\nYear-over-year Percentage Growth:\nNorth America | 10 | % | 10 | %\nInternational | 9 | 13\nAWS | 19 | 20\nConsolidated | 11 | 12\nYear-over-year Percentage Growth, excluding the effect of foreign exchange rates:\nNorth America | 10 | % | 10 | %\nInternational | 10 | 10\nAWS | 19 | 20\nConsolidated | 11 | 12\nNet Sales Mix:",
+          "n_chars": 1774
+        },
+        "score": 0.9919077157974243,
+        "dense_sim": 0.764319121837616
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c034",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Represents the outcome that would have resulted had foreign exchange rates in the reported period been the same as those in effect in the comparable prior year period for operating results.\n29\nTable of Contents\nGuidance\nWe provided guidance on February 5, 2026, in our earnings release furnished on Form 8-K as set forth below. These forward-looking statements reflect Amazon.com’s expectations as of February 5, 2026, and are subject to substantial uncertainty. Our results are inherently unpredictable and may be materially affected by many factors, such as fluctuations in foreign exchange rates and energy prices, changes in global economic and geopolitical conditions, tariff and trade policies, resource and supply volatility, including for memory chips, and customer demand and spending (including the impact of recessionary fears), inflation, interest rates, regional labor market constraints, world events, the rate of growth of the internet, online commerce, cloud services, and new and emerging technologies, as well as those outlined in Item 1A of Part I, “Risk Factors.”\nFirst Quarter 2026 Guidance\n•\nNet sales are expected to be between $173.5 billion and $178.5 billion, or to grow between 11% and 15% compared with first quarter 2025. This guidance anticipates a favorable impact of approximately 180 basis points from foreign exchange rates.\n•\nOperating income is expected to be between $16.5 billion and $21.5 billion, compared with $18.4 billion in first quarter 2025. This guidance includes approximately $1 billion of higher year-over-year Amazon Leo costs as we scale in 2026, as well as investment in quick commerce and even sharper prices in our international stores business.\n•",
+          "n_chars": 1702
+        },
+        "score": 0.9745249152183533,
+        "dense_sim": 0.7698894739151001
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item8:c007",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes to consolidated financial statements.\n36\nTable of Contents\nAMAZON.COM, INC.\nCONSOLIDATED STATEMENTS OF OPERATIONS\n(in millions, except per share data)\nYear Ended December 31,\n2023 | 2024 | 2025\nNet product sales | $255,887 | $272,311 | $296,266\nNet service sales | 318,898 | 365,648 | 420,658\nTotal net sales | 574,785 | 637,959 | 716,924\nOperating expenses:\nCost of sales | 304,739 | 326,288 | 356,414\nFulfillment | 90,619 | 98,505 | 109,074\nTechnology and infrastructure | 85,622 | 88,544 | 108,521\nSales and marketing | 44,370 | 43,907 | 47,129\nGeneral and administrative | 11,816 | 11,359 | 11,172\nOther operating expense (income), net | 767 | 763 | 4,639\nTotal operating expenses | 537,933 | 569,366 | 636,949\nOperating income | 36,852 | 68,593 | 79,975\nInterest income | 2,949 | 4,677 | 4,381\nInterest expense | ( 3,182 ) | ( 2,406 ) | ( 2,274 )\nOther income (expense), net | 938 | ( 2,250 ) | 15,229\nTotal non-operating income | 705 | 21 | 17,336\nIncome before income taxes | 37,557 | 68,614 | 97,311\nProvision for income taxes | ( 7,120 ) | ( 9,265 ) | ( 19,087 )\nEquity-method investment activity, net of tax | ( 12 ) | ( 101 ) | ( 554 )\nNet income | $30,425 | $59,248 | $77,670\nBasic earnings per share | $2.95 | $5.66 | $7.29\nDiluted earnings per share | $2.90 | $5.53 | $7.17\nWeighted-average shares used in computation of earnings per share:\nBasic | 10,304 | 10,473 | 10,656\nDiluted | 10,492 | 10,721 | 10,827\nSee accompanying notes to consolidated financial statements.\n37\nTable of Contents\nAMAZON.COM, INC.\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(in millions)\nYear Ended December 31,\n2023 | 2024 | 2025\nNet income | $30,425 | $59,248 | $77,670\nOther comprehensive income (loss):",
+          "n_chars": 1725
+        },
+        "score": 0.9674946069717407,
+        "dense_sim": 0.69130539894104
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c020",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Sales increased 12% in 2025, compared to the prior year. Changes in foreign exchange rates increased net sales by $4.4 billion in 2025. For a discussion of the effect of foreign exchange rates on sales growth, see “Effect of Foreign Exchange Rates” below.\nNorth America sales increased 10% in 2025, compared to the prior year. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sales were driven largely by our continued focus on price, selection, and convenience for our customers, including from our fast shipping offers. Changes in foreign exchange rates reduced North America net sales by $454 million in 2025.\nInternational sales increased 13% in 2025, compared to the prior year. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sales were driven largely\n24\nTable of Contents\nby our continued focus on price, selection, and convenience for our customers, including from our fast shipping offers. Changes in foreign exchange rates increased International net sales by $4.9 billion in 2025.\nAWS sales increased 20% in 2025, compared to the prior year. The sales growth primarily reflects increased customer usage, partially offset by pricing changes primarily driven by long-term customer contracts.\nOperating Expenses\nInformation about operating expenses is as follows (in millions):\nYear Ended December 31,\n2024 | 2025\nOperating Expenses:",
+          "n_chars": 1562
+        },
+        "score": 0.7746525406837463,
+        "dense_sim": 0.7892153263092041
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item8:c087",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "10",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Year Ended December 31,\n2023 | 2024 | 2025\nNet Sales:\nOnline stores (1) | $231,872 | $247,029 | $269,287\nPhysical stores (2) | 20,030 | 21,215 | 22,561\nThird-party seller services (3) | 140,053 | 156,146 | 172,162\nAdvertising services (4) | 46,906 | 56,214 | 68,635\nSubscription services (5) | 40,209 | 44,374 | 49,619\nAWS | 90,757 | 107,556 | 128,725\nOther (6) | 4,958 | 5,425 | 5,935\nConsolidated | $574,785 | $637,959 | $716,924\n___________________\n(1)\nIncludes product sales and digital media content where we record revenue gross. We leverage our retail infrastructure to offer a wide selection of consumable and durable goods that includes media products available in both a physical and digital format, such as books, videos, games, music, and software. These product sales include digital products sold on a transactional basis. Digital media content subscriptions that provide unlimited viewing or usage rights are included in “Subscription services.”\n(2)\nIncludes product sales where our customers physically select items in a store. Sales to customers who order goods online for delivery or pickup at our physical stores are included in “Online stores.”\n(3)\nIncludes commissions and any related fulfillment and shipping fees, and other third-party seller services.\n(4)\nIncludes sales of advertising services to sellers, vendors, publishers, authors, and others, through programs such as sponsored ads, display, and video advertising.\n(5)\nIncludes annual and monthly fees associated with Amazon Prime memberships, as well as digital video, audiobook, digital music, e-book, and other non-AWS subscription services.\n(6)",
+          "n_chars": 1628
+        },
+        "score": 0.6693756580352783,
+        "dense_sim": 0.7947642803192139
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c001",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "This Annual Report on Form 10-K includes forward-looking statements within the meaning of the Private Securities Litigation Reform Act of 1995. All statements other than statements of historical fact, including statements regarding guidance, industry prospects, or future results of operations or financial position, made in this Annual Report on Form 10-K are forward-looking. We use words such as anticipates, believes, expects, future, intends, and similar expressions to identify forward-looking statements. Forward-looking statements reflect management’s current expectations and are inherently uncertain. Actual results and outcomes could differ materially for a variety of reasons, including, among others, fluctuations in foreign exchange rates and energy prices, changes in global economic conditions, tariff and trade policies, resource and supply volatility, including for memory chips, and customer demand and spending, inflation, interest rates, regional labor market constraints, world events, the rate of growth of the internet, online commerce, cloud services, and new and emerging technologies, the amount that Amazon.com invests in new business opportunities and the timing of those investments, the mix of products and services sold to customers, the mix of net sales derived from products as compared with services, the extent to which we owe income or other taxes, competition, management of growth, potential fluctuations in operating results, international growth and expansion, the outcomes of claims, litigation, government investigations, and other proceedings, fulfillment, sortation, delivery, and data center optimization, risks of inventory management, variability in demand, the degree to which we enter into, maintain, and develop commercial agreements, proposed and completed acquisitions and strategic transactions, payments risks, and risks of fulfillment throughput and productivity. In addition, global economic and geopolitical conditions and additional or unforeseen circumstances, developments, or events may give rise to or amplify many of these risks. These risks and uncertainties, as well as other risks and uncertainties that could cause our actual results or outcomes to differ significantly from management’s expectations, are described in greater detail in Item 1A of Part I, “Risk Factors.”",
+          "n_chars": 2339
+        },
+        "score": 0.6661237478256226,
+        "dense_sim": 0.6671557426452637
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item8:c018",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "1",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "- Our subscription sales include fees associated with Amazon Prime memberships and access to content including digital video, audiobooks, digital music, e-books, and other non-AWS subscription services. Prime memberships provide our customers with access to an evolving suite of benefits that represent a single stand-ready obligation. Subscriptions are paid for at the time of or in advance of delivering the services. Revenue from such arrangements is recognized over the subscription period.\nAWS\n- Our AWS arrangements include global sales of compute, storage, database, and other services. Revenue is allocated to services using stand-alone selling prices and is primarily recognized when the customer uses these services, based on the quantity of services rendered, such as compute or storage capacity delivered on-demand. Certain services, including compute and database, are also offered as a fixed quantity over a specified term, for which revenue is recognized ratably. Sales commissions we pay in connection with contracts that exceed one year are capitalized and amortized over the contract term.\nOther\n- Other revenue includes sales related to various other offerings, such as healthcare services, certain licensing and distribution of video content, and shipping services, and our co-branded credit card agreements. Revenue is recognized when content is licensed or distributed and as or when services are performed.\nReturn Allowances\nReturn allowances, which reduce revenue and cost of sales, are estimated using historical experience. Liabilities for return allowances are included in “Accrued expenses and other” and were $\n1.4\nbillion, $\n1.4\nbillion, and $\n1.6\nbillion as of December 31, 2023, 2024, and 2025. Additions to the allowance were $\n5.2\nbillion, $\n5.5\nbillion, and $\n5.8",
+          "n_chars": 1798
+        },
+        "score": 0.5282189249992371,
+        "dense_sim": 0.7326772212982178
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item7:c002",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Overview\nOur primary source of revenue is the sale of a wide range of products and services to customers.\nThe products offered through our stores include merchandise and content we have purchased for resale and products offered by third-party sellers, and we also manufacture and sell electronic devices and produce media content. Generally, we recognize gross revenue from items we sell from our inventory as product sales and recognize our net share of revenue of items sold by third-party sellers as service sales. We seek to increase unit sales across our stores, through increased product selection, across numerous product categories. We also offer other services such as compute, storage, and database offerings, fulfillment, advertising, publishing, and digital content subscriptions.\nOur financial focus is on long-term, sustainable growth in free cash flow.",
+          "n_chars": 867
+        },
+        "score": 0.2160734236240387,
+        "dense_sim": 0.6481020450592041
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

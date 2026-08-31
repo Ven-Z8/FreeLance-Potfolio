@@ -1,0 +1,237 @@
+{
+  "case_id": "fin-0104",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What was Alphabet's income from operations in fiscal year 2025?",
+  "answer": "$129,039 million",
+  "citations": [
+    "GOOGL_2025_10K:Item8:c102",
+    "GOOGL_2025_10K:Item7:c019"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 9094.987207994564,
+  "cost_usd": 0.015411,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$129,039 million",
+    "citations": [
+      "GOOGL_2025_10K:Item8:c102",
+      "GOOGL_2025_10K:Item7:c019"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$129,039 million",
+          "value": 129039000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.76182621717453,
+    "usage": {
+      "input_tokens": 4797,
+      "output_tokens": 68,
+      "cost_usd": 0.015411,
+      "calls": 1
+    },
+    "math_result": {
+      "expression": "129039",
+      "result_value": 129039.0,
+      "formatted": "129,039.00",
+      "explanation": "Income from operations (Total income from operations) for fiscal year 2025 is directly stated in the segment profitability table."
+    },
+    "latency_ms": 9094.987207994564,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item8:c012",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes.\n51.\nTable of Contents\nAlphabet Inc.\nAlphabet Inc.\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n(in millions)\nYear Ended December 31,\n2023 | 2024 | 2025\nOperating activities\nNet income | $73,795 | $100,118 | $132,170\nAdjustments:\nDepreciation of property and equipment | 11,946 | 15,311 | 21,136\nStock-based compensation expense | 22,460 | 22,785 | 24,953\nDeferred income taxes | ( 7,763 ) | ( 5,257 ) | 8,348\nLoss (gain) on debt and equity securities, net | 823 | ( 2,671 ) | ( 24,620 )\nOther | 4,330 | 3,419 | 2,108\nChanges in assets and liabilities, net of effects of acquisitions:\nAccounts receivable, net | ( 7,833 ) | ( 5,891 ) | ( 8,779 )\nIncome taxes, net | 523 | ( 2,418 ) | ( 3,226 )\nOther assets | ( 2,143 ) | ( 1,397 ) | ( 4,542 )\nAccounts payable | 664 | 359 | 907\nAccrued expenses and other liabilities | 3,937 | ( 1,161 ) | 12,939\nAccrued revenue share | 482 | 1,059 | 899\nDeferred revenue | 525 | 1,043 | 2,420\nNet cash provided by operating activities | 101,746 | 125,299 | 164,713\nInvesting activities\nPurchases of property and equipment | ( 32,251 ) | ( 52,535 ) | ( 91,447 )\nPurchases of marketable securities | ( 77,858 ) | ( 86,679 ) | ( 103,773 )\nMaturities and sales of marketable securities | 86,672 | 103,428 | 83,240\nPurchases of non-marketable securities | ( 3,027 ) | ( 5,034 ) | ( 5,716 )\nMaturities and sales of non-marketable securities | 947 | 882 | 1,367\nAcquisitions, net of cash acquired, and purchases of intangible assets | ( 495 ) | ( 2,931 ) | ( 1,592 )\nOther investing activities | ( 1,051 ) | ( 2,667 ) | ( 2,370 )\nNet cash used in investing activities | ( 27,063 ) | ( 45,536 ) | ( 120,291 )\nFinancing activities",
+          "n_chars": 1671
+        },
+        "score": 0.9949530959129333,
+        "dense_sim": 0.76182621717453
+      },
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item8:c102",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "15",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Certain costs are not allocated to our segments because they represent Alphabet-level activities. These costs primarily include:\n•\ncertain AI-focused shared research and development activities, including employee compensation expenses and technical infrastructure usage costs associated with the development of our general AI models;\n•\ncorporate initiatives such as our philanthropic activities; and\n•\ncorporate shared costs such as certain finance, human resource, and legal costs, including certain fines and settlements.\nCharges associated with employee severance and office space reductions are also not allocated to our segments. Additionally, hedging gains (losses) related to revenue are not allocated to our segments.\nOur Chief Operating Decision Maker (CODM) is our Chief Executive Officer, Sundar Pichai. Our CODM uses segment operating income (loss) to allocate resources to our segments in our annual planning process and to assess the performance of our segments, primarily by monitoring actual results versus the annual plan. Our\noperating segments\nare not evaluated using asset information.\nThe following table presents revenue, profitability, and expense information about our segments (in millions):\nYear Ended December 31,\n2023 | 2024 | 2025\nRevenues:\nGoogle Services | $272,543 | $304,930 | $342,721\nGoogle Cloud | 33,088 | 43,229 | 58,705\nOther Bets | 1,527 | 1,648 | 1,537\nHedging gains (losses) | 236 | 211 | ( 127 )\nTotal revenues | $307,394 | $350,018 | $402,836\nOperating income (loss):\nGoogle Services | $95,858 | $121,263 | $139,404\nGoogle Cloud | 1,716 | 6,112 | 13,910\nOther Bets | ( 4,095 ) | ( 4,444 ) | ( 7,515 )\nAlphabet-level activities | ( 9,186 ) | ( 10,541 ) | ( 16,760 )\nTotal income from operations | $84,293 | $112,390 | $129,039",
+          "n_chars": 1769
+        },
+        "score": 0.9941266775131226,
+        "dense_sim": 0.6908442974090576
+      },
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item7:c019",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "15"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Sales and marketing expenses increased $885 million from 2024 to 2025, primarily driven by an increase in advertising and promotional activities of $1.2 billion, partially offset by a decrease in employee compensation expenses of $214 million.\nGeneral and Administrative\nThe following table presents general and administrative expenses (in millions, except percentages):\nYear Ended December 31,\n2024 | 2025\nGeneral and administrative expenses | $14,188 | $21,482\nGeneral and administrative expenses as a percentage of revenues | 4 | % | 5 | %\nGeneral and administrative expenses increased $7.3 billion from 2024 to 2025, primarily driven by an increase in expenses related to legal and other matters of $6.2 billion, largely the result of the $3.5 billion EC fine accrued in the third quarter of 2025 and a $1.4 billion legal accrual made in the second quarter of 2025.\n35.\nTable of Contents\nAlphabet Inc.\nSegment Profitability\nWe report our segment results as Google Services, Google Cloud, and Other Bets. Additionally, certain costs are not allocated to our segments because they represent Alphabet-level activities. For further details on our segments, see Part I, Item 1 Business and\nNote 15\nof the Notes to Consolidated Financial Statements included in Item 8 of this Annual Report on Form 10-K.\nThe following table presents segment operating income (loss) (in millions).\nYear Ended December 31,\n2024 | 2025\nOperating income (loss):\nGoogle Services | $121,263 | $139,404\nGoogle Cloud | 6,112 | 13,910\nOther Bets | (4,444) | (7,515)\nAlphabet-level activities (1) | (10,541) | (16,760)\nTotal income from operations | $112,390 | $129,039\n(1)\nAlphabet-level activities primarily reflect expenses related to our shared AI research and development.\nGoogle Services",
+          "n_chars": 1764
+        },
+        "score": 0.9928930401802063,
+        "dense_sim": 0.7319977283477783
+      },
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item8:c007",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "10"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Liabilities and Stockholders’ Equity\nCurrent liabilities:\nAccounts payable | $7,987 | $12,200\nAccrued compensation and benefits | 15,069 | 17,546\nAccrued expenses and other current liabilities | 51,228 | 55,557\nAccrued revenue share | 9,802 | 10,864\nDeferred revenue | 5,036 | 6,578\nTotal current liabilities | 89,122 | 102,745\nLong-term debt | 10,883 | 46,547\nIncome taxes payable, non-current | 8,782 | 9,531\nOperating lease liabilities | 11,691 | 12,744\nOther long-term liabilities | 4,694 | 8,449\nTotal liabilities | 125,172 | 180,016\nCommitments and Contingencies (Note 10)\nStockholders’ equity:\nPreferred stock, $ 0.001 par value per share, 100 shares authorized; no shares issued and outstanding | 0 | 0\nClass A, Class B, and Class C stock and additional paid-in capital, $ 0.001 par value per share: 300,000 shares authorized (Class A 180,000 , Class B 60,000 , Class C 60,000 ); 12,211 (Class A 5,835 , Class B 861 , Class C 5,515 ) and 12,088 (Class A 5,822 , Class B 837 , Class C 5,429 ) shares issued and outstanding | 84,800 | 93,126\nAccumulated other comprehensive income (loss) | ( 4,800 ) | ( 1,916 )\nRetained earnings | 245,084 | 324,055\nTotal stockholders’ equity | 325,084 | 415,265\nTotal liabilities and stockholders’ equity | $450,256 | $595,281\nSee accompanying notes.\n48.\nTable of Contents\nAlphabet Inc.\nAlphabet Inc.\nCONSOLIDATED STATEMENTS OF INCOME\n(in millions, except per share amounts)\nYear Ended December 31,\n2023 | 2024 | 2025\nRevenues | $307,394 | $350,018 | $402,836\nCosts and expenses:",
+          "n_chars": 1520
+        },
+        "score": 0.9924989342689514,
+        "dense_sim": 0.7285804748535156
+      },
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item8:c094",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "14",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Note 14.\nIncome Taxes\nIncome from continuing operations before income taxes consisted of the following (in millions):\nYear Ended December 31,\n2023 | 2024 | 2025\nDomestic operations | $73,600 | $108,076 | $143,591\nForeign operations | 12,117 | 11,739 | 15,235\nTotal | $85,717 | $119,815 | $158,826\nProvision for income taxes consisted of the following (in millions):\nYear Ended December 31,\n2023 | 2024 | 2025\nCurrent:\nFederal and state | $15,716 | $21,101 | $13,378\nForeign | 3,935 | 3,852 | 5,028\nTotal | 19,651 | 24,953 | 18,406\nDeferred:\nFederal and state | ( 7,482 ) | ( 5,350 ) | 8,243\nForeign | ( 247 ) | 94 | 7\nTotal | ( 7,729 ) | ( 5,256 ) | 8,250\nProvision for income taxes | $11,922 | $19,697 | $26,656\n83.\nTable of Contents\nAlphabet Inc.\nThe reconciliation of federal statutory income tax rate to our effective income tax rate was as follows:\nYear Ended December 31,\n2023 | 2024 | 2025\nUS federal statutory rate | 18,001 | 21.0 | % | 25,161 | 21.0 | % | 33,353 | 21.0 | %\nState and local income taxes, net of federal income tax effect (1) | 823 | 1.0 | % | 1,199 | 1.0 | % | 1,606 | 1.0 | %\nForeign tax effects:\nBrazil:\nWithholding taxes | 1,064 | 1.2 | % | 1,041 | 0.9 | % | 1,384 | 0.9 | %\nOther | 62 | 0.1 | % | 12 | 0.0 | % | 23 | 0.0 | %\nOther foreign jurisdictions | ( 74 ) | ( 0.1 ) | % | 353 | 0.3 | % | 396 | 0.2 | %\nEffect of change in tax laws or rates enacted in the current period | ( 829 ) | ( 1.0 ) | % | 0 | 0.0 | % | 0 | 0.0 | %\nEffect of cross-border tax laws:\nForeign-derived intangible income deduction | ( 3,980 ) | ( 4.6 ) | % | ( 4,568 ) | ( 3.8 ) | % | ( 3,931 ) | ( 2.5 ) | %\nOther | 215 | 0.2 | % | 321 | 0.3 | % | 295 | 0.2 | %\nTax credits:",
+          "n_chars": 1678
+        },
+        "score": 0.9907621741294861,
+        "dense_sim": 0.6418235301971436
+      },
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item7:c028",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management's Discussion and Analysis",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "10"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "As of December 31, 2025, we had short-term accrued legal and regulatory fines and settlements of $15.6 billion. This amount primarily included EC fines, in addition to accruals related to other legal matters and regulatory fines and settlements. For additional information, see Note 10 of the Notes to Consolidated Financial Statements included in Item 8 of this Annual Report on Form 10-K.\n39.\nTable of Contents\nAlphabet Inc.\nTaxes\nAs of\nDecember 31, 2025\n, we had long-term income taxes payable of $9.5 billion primarily related to unrecognized tax benefits. The timing and amount of any payment related to these unrecognized tax benefits are uncertain and cannot be estimated.\nPurchase Commitments and Other Contractual Obligations\nWe have material purchase commitments and other contractual obligations primarily related to energy take-or-pay contracts, licenses (including content licenses), and technical infrastructure and inventory orders. As of December 31, 2025, the total for these commitments was $149.1 billion, of which $113.0 billion was short-term,\nmostly related to technical infrastructure and inventory orders\n.\nThese amounts\nreflect commitments and obligations through open purchase orders\nas well as\nthe non-cancelable portion or the minimum cancellation fee in certain agreements. For those agreements with variable terms, we do not estimate the non-cancelable obligation beyond any minimum quantities and/or pricing as of December 31, 2025. In certain instances, the amount of our contractual obligations may change based on the expected timing of order fulfillment from our suppliers. For additional information related to our content licenses, see Note 10 of the Notes to Consolidated Financial Statements included in Item 8 of this Annual Report on Form 10-K.",
+          "n_chars": 1785
+        },
+        "score": 0.9819537401199341,
+        "dense_sim": 0.7574180364608765
+      },
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item8:c009",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See accompanying notes.\n49.\nTable of Contents\nAlphabet Inc.\nAlphabet Inc.\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n(in millions)\nYear Ended December 31,\n2023 | 2024 | 2025\nNet income | $73,795 | $100,118 | $132,170\nOther comprehensive income (loss):\nChange in foreign currency translation adjustment, net of income tax benefit (expense) of $ 63 , $( 49 ) and $ 180 | 735 | ( 1,673 ) | 2,522\nAvailable-for-sale investments:\nChange in net unrealized gains (losses) | 1,344 | ( 116 ) | 1,146\nLess: reclassification adjustment for net (gains) losses included in net income | 1,168 | 782 | ( 169 )\nNet change, net of income tax benefit (expense) of $( 698 ), $( 190 ), and $( 276 ) | 2,512 | 666 | 977\nCash flow hedges:\nChange in net unrealized gains (losses) | 168 | 775 | ( 779 )\nLess: reclassification adjustment for net (gains) losses included in net income | ( 214 ) | ( 166 ) | 164\nNet change, net of income tax benefit (expense) of $ 2 , $( 151 ), and $ 174 | ( 46 ) | 609 | ( 615 )\nOther comprehensive income (loss) | 3,201 | ( 398 ) | 2,884\nComprehensive income | $76,996 | $99,720 | $135,054\nSee accompanying notes.\n50.\nTable of Contents\nAlphabet Inc.\nAlphabet Inc.\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY\n(in millions)",
+          "n_chars": 1239
+        },
+        "score": 0.9782731533050537,
+        "dense_sim": 0.7433059215545654
+      },
+      {
+        "chunk": {
+          "id": "GOOGL_2025_10K:Item8:c066",
+          "doc_id": "GOOGL_2025_10K",
+          "ticker": "GOOGL",
+          "company": "Alphabet",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "7",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "The effects on net income of amounts reclassified from AOCI were as follows (in millions):\n73.\nTable of Contents\nAlphabet Inc.\nYear Ended December 31,\nAOCI Components | Location | 2023 | 2024 | 2025\nUnrealized gains (losses) on available-for-sale investments\nOther income (expense), net | $( 1,497 ) | $( 1,008 ) | $213\nBenefit (provision) for income taxes | 329 | 226 | ( 44 )\nNet of income tax | ( 1,168 ) | ( 782 ) | 169\nUnrealized gains (losses) on cash flow hedges\nForeign exchange contracts | Revenue | 213 | 174 | ( 233 )\nInterest rate contracts | Other income (expense), net | 6 | 1 | 1\nBenefit (provision) for income taxes | ( 5 ) | ( 9 ) | 68\nNet of income tax | 214 | 166 | ( 164 )\nTotal amount reclassified, net of income tax | $( 954 ) | $( 616 ) | $5\nOther Income (Expense), Net\nComponents of OI&E were as follows (in millions):\nYear Ended December 31,\n2023 | 2024 | 2025\nInterest income | $3,865 | $4,482 | $4,337\nInterest expense (1) | ( 308 ) | ( 268 ) | ( 736 )\nForeign currency exchange gain (loss), net | ( 1,238 ) | ( 409 ) | ( 382 )\nGain (loss) on debt securities, net | ( 1,215 ) | ( 1,043 ) | 540\nGain (loss) on equity securities, net | 392 | 3,714 | 24,080\nIncome (loss) and impairment from equity method investments, net | ( 628 ) | ( 188 ) | 281\nOther | 556 | 1,137 | 1,667\nOther income (expense), net | $1,424 | $7,425 | $29,787\n(1)\nInterest expense is net of interest capitalized of $\n181\nmillion, $\n194\nmillion, and $\n447\nmillion for the years ended December 31, 2023, 2024, and 2025, respectively.",
+          "n_chars": 1528
+        },
+        "score": 0.9577271938323975,
+        "dense_sim": 0.6942209005355835
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

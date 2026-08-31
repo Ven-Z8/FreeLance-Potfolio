@@ -1,0 +1,224 @@
+{
+  "case_id": "fb-010",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What was Pfizer's diluted earnings per share (EPS) from continuing operations in fiscal year 2025?",
+  "answer": "$1.36",
+  "citations": [
+    "PFE_2025_10K:Item8:c008"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 15082.031417012331,
+  "cost_usd": 0.016191,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$1.36",
+    "citations": [
+      "PFE_2025_10K:Item8:c008"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$1.36",
+          "value": 1.36,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.8712899684906006,
+    "usage": {
+      "input_tokens": 5152,
+      "output_tokens": 49,
+      "cost_usd": 0.016191,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 15082.031417012331,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item8:c014",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See Accompanying Notes.\nPfizer Inc.\n2025 Form 10-K\n55\nConsolidated Statements of Cash Flows\nPfizer Inc. and Subsidiary Companies\nYear Ended December 31,\n(MILLIONS) | 2025 | 2024 | 2023\nOperating Activities\nNet income before allocation to noncontrolling interests | $7,812 | $8,062 | $2,158\nDiscontinued operations—net of tax | 25 | 11 | ( 15 )\nNet income from continuing operations before allocation to noncontrolling interests | 7,787 | 8,051 | 2,172\nAdjustments to reconcile net income from continuing operations before allocation to noncontrolling interests to net cash provided by/(used in) operating activities:\nDepreciation and amortization | 6,592 | 7,013 | 6,290\nAsset write-offs and impairments | 5,270 | 4,242 | 3,408\nDeferred taxes | ( 2,133 ) | ( 2,102 ) | ( 3,442 )\nShare-based compensation expense | 799 | 877 | 525\nBenefit plan contributions in excess of expense/income | ( 786 ) | ( 12 ) | ( 787 )\nInventory write-offs and related charges associated with COVID-19 products (a) | — | — | 6,199\nOther adjustments, net | ( 470 ) | ( 2,260 ) | ( 3,492 )\nOther changes in assets and liabilities, net of acquisitions and divestitures:\nTrade accounts receivable | ( 263 ) | ( 109 ) | 347\nInventories (a) | 561 | ( 854 ) | ( 1,169 )\nOther assets | 1,289 | 3,380 | ( 663 )\nTrade accounts payable | ( 469 ) | ( 1,023 ) | ( 300 )\nOther liabilities (b) | ( 3,667 ) | ( 3,115 ) | 595\nOther tax accounts, net | ( 2,805 ) | ( 1,345 ) | ( 982 )\nNet cash provided by/(used in) operating activities | 11,704 | 12,744 | 8,700\nInvesting Activities",
+          "n_chars": 1543
+        },
+        "score": 0.9970587491989136,
+        "dense_sim": 0.8712899684906006
+      },
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item8:c012",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See Accompanying Notes.\nPfizer Inc.\n2025 Form 10-K\n54\nConsolidated Statements of Equity\nPfizer Inc. and Subsidiary Companies\nPFIZER INC. SHAREHOLDERS\nCommon Stock | Treasury Stock\n(MILLIONS, EXCEPT PER SHARE DATA) | Shares | Par Value | Add’l Paid-In Capital | Shares | Cost | Retained Earnings | Accum. Other Comp. Loss | Share - holders’ Equity | Non-controlling Interests | Total Equity\nBalance, January 1, 2023 | 9,519 | $476 | $91,802 | ( 3,903 ) | $( 113,969 ) | $125,656 | $( 8,304 ) | $95,661 | $256 | $95,916\nNet income | 2,119 | 2,119 | 39 | 2,158\nOther comprehensive income/(loss), net of tax | 343 | 343 | ( 12 ) | 331\nCash dividends declared, per share: $ 1.65\nCommon stock | ( 9,316 ) | ( 9,316 ) | ( 9,316 )\nNoncontrolling interests | — | ( 8 ) | ( 8 )\nShare-based payment transactions | 43 | 2 | 829 | ( 12 ) | ( 518 ) | ( 106 ) | 208 | 208\nOther | — | — | — | — | — | — | — | — | —\nBalance, December 31, 2023 | 9,562 | 478 | 92,631 | ( 3,916 ) | ( 114,487 ) | 118,353 | ( 7,961 ) | 89,014 | 274 | 89,288\nNet income | 8,031 | 8,031 | 31 | 8,062\nOther comprehensive income/(loss), net of tax | 118 | 118 | ( 3 ) | 116\nCash dividends declared, per share: $ 1.69\nCommon stock | ( 9,577 ) | ( 9,577 ) | ( 9,577 )\nNoncontrolling interests | — | ( 7 ) | ( 7 )\nShare-based payment transactions | 31 | 2 | 972 | ( 10 ) | ( 276 ) | ( 107 ) | 591 | 591\nOther | — | — | — | — | — | 25 | 25 | ( 1 ) | 23\nBalance, December 31, 2024 | 9,593 | 480 | 93,603 | ( 3,926 ) | ( 114,763 ) | 116,725 | ( 7,842 ) | 88,203 | 294 | 88,497\nNet income | 7,771 | 7,771 | 41 | 7,812\nOther comprehensive income/(loss), net of tax | ( 227 ) | ( 227 ) | ( 12 ) | ( 239 )\nCash dividends declared, per share: $ 1.72",
+          "n_chars": 1697
+        },
+        "score": 0.9954562187194824,
+        "dense_sim": 0.830464243888855
+      },
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item8:c016",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Financing Activities\nProceeds from short-term borrowings | — | 8,907 | 4,525\nPayments on short-term borrowings | ( 2,199 ) | ( 11,226 ) | ( 3 )\nNet (payments on)/proceeds from short-term borrowings with original maturities of three months or less | ( 796 ) | ( 2,590 ) | 3,161\nProceeds from issuance of long-term debt | 9,678 | — | 30,831\nPayments on long-term debt | ( 6,757 ) | ( 2,250 ) | ( 2,569 )\nCash dividends paid | ( 9,771 ) | ( 9,512 ) | ( 9,247 )\nOther financing activities, net | ( 458 ) | ( 469 ) | ( 631 )\nNet cash provided by/(used in) financing activities | ( 10,304 ) | ( 17,140 ) | 26,066\nEffect of exchange-rate changes on cash and cash equivalents and restricted cash and cash equivalents | 41 | ( 66 ) | ( 40 )\nNet increase/(decrease) in cash and cash equivalents and restricted cash and cash equivalents | 91 | ( 1,810 ) | 2,448\nCash and cash equivalents and restricted cash and cash equivalents, at beginning of period | 1,107 | 2,917 | 468\nCash and cash equivalents and restricted cash and cash equivalents, at end of period | $1,197 | $1,107 | $2,917\n- Continued -\nPfizer Inc.\n2025 Form 10-K\n56\nConsolidated Statements of Cash Flows\nPfizer Inc. and Subsidiary Companies\nYear Ended December 31,\n2025 | 2024 | 2023\nSupplemental Cash Flow Information\nCash paid/(received) during the period for:\nIncome taxes | $4,688 | $3,605 | $3,147\nInterest paid | 2,739 | 3,227 | 2,215\nInterest rate hedges | 140 | 178 | 134\nNon-cash transaction:\nRight-of-use assets obtained in exchange for lease liabilities | $288 | $283 | $614\n(a)\nSee\nNote\n17A\n.\n(b)\nSee\nNote 17C\n.\n(c)\nSee\nNote 2C\n.\nSee Accompanying Notes.\nPfizer Inc.\n2025 Form 10-K\n57\nNotes to Consolidated Financial Statements\nPfizer Inc. and Subsidiary Companies",
+          "n_chars": 1729
+        },
+        "score": 0.9913380146026611,
+        "dense_sim": 0.7600017786026001
+      },
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item8:c077",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "5",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "We elected, with the filing of our 2018 U.S. Federal Consolidated Income Tax Return, to pay our initial estimated $\n15\nbillion repatriation tax liability on accumulated post-1986 foreign earnings (Transition Tax liability) over eight years through 2026. The seventh annual installment was paid by its April 15, 2025 due date. The eighth and final annual installment is due April 15, 2026 and is reported in current\nIncome taxes payable\nas of December 31, 2025. Our obligations may vary due to the availability of attributes such as foreign tax and other credit carryforwards or carrybacks.\nConsistent with the disclosure requirements of ASU 2023-09, the table below summarizes income taxes paid (net of refunds received):\nYear Ended December 31,\n(MILLIONS) | 2025\nU.S. Federal taxes | $2,729\nU.S. State and local taxes | 101\nForeign taxes\nIreland | 1,016\nOther foreign jurisdictions | 842\nTotal income taxes paid | $4,688\nConsistent with our previous cash tax disclosures, the table below summarizes, cash taxes paid, net of refunds:\nYear Ended December 31,\n(MILLIONS) | 2024 | 2023\nUnited States | $2,593 | $1,923\nInternational | 1,012 | 1,224\nTotal | $3,605 | $3,147\nPfizer Inc.\n2025 Form 10-K\n72\nNotes to Consolidated Financial Statements\nPfizer Inc. and Subsidiary Companies\nB. Tax Rate Reconciliation\nThe reconciliation of the U.S. statutory income tax rate to our effective tax rate for\nIncome from continuing operations\nreflecting the requirements of ASU 2023-09, as adopted prospectively, follows:\n2025\nMillions\nPercentage\nU.S. federal statutory income tax\n$\n1,579\n21.0\n%\nDomestic federal\nChanges in tax laws or rates enacted in the current period\n(\n153\n)\n(\n2.0\n)\nCross border tax laws\nBranches\n(\n432\n)\n(\n5.7\n)\nForeign-derived deduction-eligible income (FDDEI)\n(\n172\n)\n(\n2.3\n)\nGILTI (NCTI)",
+          "n_chars": 1797
+        },
+        "score": 0.9877752065658569,
+        "dense_sim": 0.7037633657455444
+      },
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item8:c009",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Consolidated Statements of Comprehensive Income\nPfizer Inc. and Subsidiary Companies\nYear Ended December 31,\n(MILLIONS) | 2025 | 2024 | 2023\nNet income before allocation to noncontrolling interests | $7,812 | $8,062 | $2,158\nForeign currency translation adjustments, net | ( 181 ) | 32 | 452\nUnrealized holding gains/(losses) on derivative financial instruments, net | ( 212 ) | 499 | 626\nReclassification adjustments for (gains)/losses included in net income (a) | ( 269 ) | ( 159 ) | ( 413 )\n( 481 ) | 341 | 213\nUnrealized holding gains/(losses) on available-for-sale securities, net | 97 | ( 152 ) | ( 121 )\nReclassification adjustments for (gains)/losses included in net income (b) | ( 7 ) | 42 | ( 141 )\n89 | ( 111 ) | ( 261 )\nBenefit plans: prior service (costs)/credits and other, net | ( 16 ) | 193 | ( 25 )\nReclassification adjustments related to amortization of prior service costs and other, net | ( 84 ) | ( 109 ) | ( 117 )\nReclassification adjustments related to curtailments of prior service costs and other, net | ( 52 ) | — | ( 15 )\n( 152 ) | 84 | ( 157 )\nOther comprehensive income/(loss), before tax | ( 725 ) | 347 | 246\nTax provision/(benefit) on other comprehensive income/(loss) | ( 486 ) | 231 | ( 85 )\nOther comprehensive income/(loss) before allocation to noncontrolling interests | $( 239 ) | $116 | $331\nComprehensive income/(loss) before allocation to noncontrolling interests | $7,573 | $8,178 | $2,488\nLess: Comprehensive income/(loss) attributable to noncontrolling interests | 29 | 28 | 26\nComprehensive income/(loss) attributable to Pfizer Inc. | $7,544 | $8,149 | $2,462\n(a)\nReclassified into\nOther (income)/deductions—net\nand\nCost of sales\n. See\nNote 7E\n.\n(b)\nReclassified into\nOther (income)/deductions—net\n.\nSee Accompanying Notes.\nPfizer Inc.\n2025 Form 10-K\n53",
+          "n_chars": 1798
+        },
+        "score": 0.9709733724594116,
+        "dense_sim": 0.8319692611694336
+      },
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item15:c000",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "15",
+          "section_id": "Item15",
+          "part": "IV",
+          "title": "Exhibits, Financial Statement Schedules",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "ITEM 15.\nEXHIBITS, FINANCIAL STATEMENT SCHEDULES\n15(a)(1) Financial Statements.\nThe following consolidated financial statements, related notes and report of independent registered public accounting firm are set forth in\nItem 8. Financial Statements and Supplementary Data\nin this Form 10-K:\n•\nReport of Independent Registered Public Accounting Firm on the Consolidated Financial Statements\n•\nConsolidated Statements of Operations\n•\nConsolidated Statements of Comprehensive Income\n•\nConsolidated Balance Sheets\n•\nConsolidated Statements of Equity\n•\nConsolidated Statements of Cash Flows\n•\nNotes to Consolidated Financial Statements\nPfizer Inc.\n2025 Form 10-K\n107\n15(a)(2) Financial Statement Schedules.\nSchedules are omitted because they are not required or because the information is provided elsewhere in the financial statements. The financial statements of unconsolidated subsidiaries are omitted because, considered in the aggregate, they would not constitute a significant subsidiary.\n15(a)(3) Exhibits.\nThese exhibits are available upon request. Requests should be directed to our Corporate Secretary, Pfizer Inc., 66 Hudson Boulevard East, New York, New York 10001-2192. The exhibit numbers preceded by an asterisk (*) indicate exhibits filed with this Form 10-K. All other exhibit numbers indicate exhibits filed by incorporation by reference. Exhibit numbers 10.1 through 10.42 are management contracts or compensatory plans or arrangements.",
+          "n_chars": 1450
+        },
+        "score": 0.9630167484283447,
+        "dense_sim": 0.7923666834831238
+      },
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item8:c192",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": "17",
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Pfizer Inc.\n2025 Form 10-K\n102\nNotes to Consolidated Financial Statements\nPfizer Inc. and Subsidiary Companies\n(MILLIONS) | Year Ended December 31,\nPRODUCT | PRIMARY INDICATION OR CLASS | 2025 | 2024 | 2023\nTukysa | Unresectable or metastatic HER2-positive breast cancer; RAS wild-type, HER2-positive unresectable or metastatic colorectal cancer | 463 | 480 | 18\nAromasin | Post-menopausal early and advanced breast cancer | 450 | 347 | 301\nOrgovyx (g) | Advanced prostate cancer | 421 | 201 | 120\nElrexfio | Relapsed or refractory multiple myeloma | 304 | 133 | 10\nTalzenna | Treatment of BRCA gene-mutated, HER2-negative, inoperable or recurrent breast cancer; and, in combination with Xtandi (enzalutamide), of adult patients with HRR gene-mutated mCRPC | 182 | 117 | 64\nTivdak | Recurrent or mCC with disease progression on or after chemotherapy | 147 | 131 | 4\nAll other Oncology | Various | 1,127 | 1,122 | 1,308\nPFIZER CENTREONE (h) | $1,338 | $1,146 | $1,272\nPFIZER IGNITE | $41 | $82 | $44\nBIOPHARMA | $61,199 | $62,400 | $58,237\nPFIZER U.S. COMMERCIAL DIVISION (i) | 36,708 | 38,332 | 27,749\nPFIZER INTERNATIONAL COMMERCIAL DIVISION | 24,491 | 24,068 | 30,488\nTotal Alliance revenues included above | $9,266 | $8,388 | $7,582\nTotal Royalty revenues included above | $1,650 | $1,423 | $1,058\n(a)\nReflects alliance revenues and product revenues.\n(b)\n2024 included (i) a $\n771\nmillion favorable final adjustment recorded in the first quarter to the estimated non-cash revenue reversal of $\n3.5\nbillion recorded in the fourth quarter of 2023, reflecting\n5.1\nmillion EUA-labeled treatment courses returned by the U.S. government through February 29, 2024 versus the estimated\n6.5\nmillion treatment courses that were expected to be returned as of December 31, 2023, and (ii) $\n442",
+          "n_chars": 1784
+        },
+        "score": 0.9591665863990784,
+        "dense_sim": 0.8151444792747498
+      },
+      {
+        "chunk": {
+          "id": "PFE_2025_10K:Item8:c008",
+          "doc_id": "PFE_2025_10K",
+          "ticker": "PFE",
+          "company": "Pfizer",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Costs and expenses:\nCost of sales (a), (b) | 16,067 | 17,851 | 24,954\nSelling, informational and administrative expenses (a) | 13,794 | 14,730 | 14,771\nResearch and development expenses (a) | 10,437 | 10,822 | 10,679\nAcquired in-process research and development expenses | 1,613 | 108 | 194\nAmortization of intangible assets | 4,874 | 5,286 | 4,733\nRestructuring charges and certain acquisition-related costs | 1,550 | 2,419 | 2,943\nOther (income)/deductions––net | 6,724 | 4,388 | 222\nIncome from continuing operations before provision/(benefit) for taxes on income | 7,520 | 8,023 | 1,058\nProvision/(benefit) for taxes on income | ( 266 ) | ( 28 ) | ( 1,115 )\nIncome from continuing operations | 7,787 | 8,051 | 2,172\nDiscontinued operations––net of tax | 25 | 11 | ( 15 )\nNet income before allocation to noncontrolling interests | 7,812 | 8,062 | 2,158\nLess: Net income attributable to noncontrolling interests | 41 | 31 | 39\nNet income attributable to Pfizer Inc. common shareholders | $7,771 | $8,031 | $2,119\nEarnings per common share––basic :\nIncome from continuing operations attributable to Pfizer Inc. common shareholders | $1.37 | $1.42 | $0.38\nDiscontinued operations––net of tax | — | — | —\nNet income attributable to Pfizer Inc. common shareholders | $1.37 | $1.42 | $0.38\nEarnings per common share––diluted :\nIncome from continuing operations attributable to Pfizer Inc. common shareholders | $1.36 | $1.41 | $0.37\nDiscontinued operations––net of tax | — | — | —\nNet income attributable to Pfizer Inc. common shareholders | $1.36 | $1.41 | $0.37\nWeighted-average shares––basic | 5,683 | 5,664 | 5,643\nWeighted-average shares––diluted | 5,713 | 5,700 | 5,709\n(a)\nExclusive of amortization of intangible assets.\n(b)\nSee\nNote\n17A\n.\nSee Accompanying Notes.\nPfizer Inc.\n2025 Form 10-K\n52",
+          "n_chars": 1797
+        },
+        "score": 0.9584099650382996,
+        "dense_sim": 0.7338887453079224
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

@@ -34,10 +34,10 @@ class RAGFilingsAdapter:
 
 
     def run_case(self, case: GoldenCase, strategy: str = "hybrid_rerank") -> AgentRunTrace:
-        from ragfilings import generation
+        from ragfilings import ask
 
         t0 = time.perf_counter()
-        raw_res = generation.ask(
+        raw_res = ask(
             case.input, self.cfg, index=self.index, strategy=strategy
         )
         latency_ms = (time.perf_counter() - t0) * 1000.0
@@ -63,6 +63,6 @@ class RAGFilingsAdapter:
             refusal_reason=raw_res.get("refusal_reason"),
             steps=steps,
             latency_ms=raw_res.get("latency_ms", latency_ms),
-            cost_usd=raw_res.get("usage", {}).get("cost_usd", 0.015),
+            cost_usd=raw_res.get("usage", {}).get("cost_usd", 0.0),
             raw_response=raw_res
         )

@@ -1,0 +1,226 @@
+{
+  "case_id": "fin-0102",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What were Boeing's total revenues in fiscal year 2025?",
+  "answer": "$89,463 million",
+  "citations": [
+    "BA_2025_10K:Item8:c001"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 2863.8187080068747,
+  "cost_usd": 0.011163,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$89,463 million",
+    "citations": [
+      "BA_2025_10K:Item8:c001"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$89,463 million",
+          "value": 89463000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7802747488021851,
+    "usage": {
+      "input_tokens": 3476,
+      "output_tokens": 49,
+      "cost_usd": 0.011163,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 2863.8187080068747,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item7:c042",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Changes in assets and liabilities for 2025 improved by $7.8 billion compared to 2024 primarily driven by favorable changes in Inventories ($10.9 billion) and Accounts payable ($1.5 billion), partially offset by unfavorable changes in Advances and progress billings ($4.8 billion). The change in Inventories was primarily driven by higher deliveries on our commercial airplane programs during 2025 as compared to 2024. The change in Accounts payable during 2025 compared to 2024 reflects increased production primarily in our commercial airplanes business. The change in Advances and progress billings during 2025 compared to 2024 was primarily driven by increased commercial airplane deliveries and revenue recognized at BDS, partially offset by higher advances on commercial airplane orders. Concessions paid to 737 MAX customers totaled $0.2 billion and $0.9 billion during 2025 and 2024.\nNet cash used by operating activities was $12.1 billion during 2024 compared with net cash provided of $6.0 billion during 2023. The increase in cash outflows from operating activities in 2024 was primarily driven by our commercial airplanes business. Commercial airplane cash outflows reflected slowed and/or paused production and lower deliveries as a result of ongoing safety and quality improvement actions the Company is taking following the 737-9 door plug accident on January 5, 2024, supply chain constraints, and the IAM 751 work stoppage.\nThe higher net loss of $11.8 billion during 2024 compared to $2.2 billion in 2023 primarily reflects higher losses from operations at BCA and BDS. The change in Non-cash items was primarily due to the 777X and 767 reach-forward losses of $4.1 billion recorded in 2024.",
+          "n_chars": 1708
+        },
+        "score": 0.921713650226593,
+        "dense_sim": 0.7180290222167969
+      },
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item8:c001",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Years ended December 31, | 2025 | 2024 | 2023\nSales of products | $ 75,356 | $ 53,227 | $ 65,581\nSales of services | 14,107 | 13,290 | 12,213\nTotal revenues | 89,463 | 66,517 | 77,794\nCost of products | ( 73,761 ) | ( 57,394 ) | ( 59,864 )\nCost of services | ( 11,413 ) | ( 11,114 ) | ( 10,206 )\nTotal costs and expenses | ( 85,174 ) | ( 68,508 ) | ( 70,070 )\n4,289 | ( 1,991 ) | 7,724\nIncome from operating investments, net | 25 | 71 | 46\nGeneral and administrative expense | ( 6,090 ) | ( 5,021 ) | ( 5,168 )\nResearch and development expense, net | ( 3,615 ) | ( 3,812 ) | ( 3,377 )\nGain on dispositions, net | 9,672 | 46 | 2\nEarnings/(loss) from operations | 4,281 | ( 10,707 ) | ( 773 )\nOther income, net | 1,125 | 1,222 | 1,227\nInterest and debt expense | ( 2,771 ) | ( 2,725 ) | ( 2,459 )\nEarnings/(loss) before income taxes | 2,635 | ( 12,210 ) | ( 2,005 )\nIncome tax (expense)/benefit | ( 397 ) | 381 | ( 237 )\nNet earnings/(loss) | 2,238 | ( 11,829 ) | ( 2,242 )\nLess: Net earnings/(loss) attributable to noncontrolling interest | 3 | ( 12 ) | ( 20 )\nNet earnings/(loss) attributable to Boeing shareholders | 2,235 | ( 11,817 ) | ( 2,222 )\nLess: Mandatory convertible preferred stock dividends accumulated during the period | 345 | 58\nNet earnings/(loss) attributable to Boeing common shareholders | $ 1,890 | ($ 11,875 ) | ($ 2,222 )\nBasic earnings/(loss) per share | $ 2.49 | ($ 18.36 ) | ($ 3.67 )\nDiluted earnings/(loss) per share | $ 2.48 | ($ 18.36 ) | ($ 3.67 )",
+          "n_chars": 1477
+        },
+        "score": 0.9119169116020203,
+        "dense_sim": 0.7802747488021851
+      },
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item8:c011",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "24"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See Notes to the Consolidated Financial Statements on pages 59 - 120.\n58\nTable of Co\nntents\nThe Boeing Company and Subsidiaries\nNotes to the Consolidated Financial Statements\nSummary of Business Segment Data\n(Dollars in millions)\nYears ended December 31, | 2025 | 2024 | 2023\nRevenues:\nCommercial Airplanes | $ 41,494 | $ 22,861 | $ 33,901\nDefense, Space & Security | 27,234 | 23,918 | 24,933\nGlobal Services | 20,923 | 19,954 | 19,127\nUnallocated items, eliminations and other | ( 188 ) | ( 216 ) | ( 167 )\nTotal revenues | $ 89,463 | $ 66,517 | $ 77,794\nEarnings/(loss) from operations:\nCommercial Airplanes | ($ 7,079 ) | ($ 7,969 ) | ($ 1,635 )\nDefense, Space & Security | ( 128 ) | ( 5,413 ) | ( 1,764 )\nGlobal Services | 13,474 | 3,618 | 3,329\nSegment operating earnings/(loss) | 6,267 | ( 9,764 ) | ( 70 )\nUnallocated items, eliminations and other | ( 3,031 ) | ( 2,047 ) | ( 1,759 )\nFAS/CAS service cost adjustment | 1,045 | 1,104 | 1,056\nEarnings/(loss) from operations | 4,281 | ( 10,707 ) | ( 773 )\nOther income, net | 1,125 | 1,222 | 1,227\nInterest and debt expense | ( 2,771 ) | ( 2,725 ) | ( 2,459 )\nEarnings/(loss) before income taxes | 2,635 | ( 12,210 ) | ( 2,005 )\nIncome tax (expense)/benefit | ( 397 ) | 381 | ( 237 )\nNet earnings/(loss) | 2,238 | ( 11,829 ) | ( 2,242 )\nLess: Net earnings/(loss) attributable to noncontrolling interest | 3 | ( 12 ) | ( 20 )\nNet earnings/(loss) attributable to Boeing shareholders | 2,235 | ( 11,817 ) | ( 2,222 )\nLess: Mandatory convertible preferred stock dividends accumulated during the period | 345 | 58\nNet earnings/(loss) attributable to Boeing common shareholders | $ 1,890 | ($ 11,875 ) | ($ 2,222 )\nThis information is an integral part of the Notes to the Consolidated Financial Statements. See Note 24 for further segment results.\n59",
+          "n_chars": 1798
+        },
+        "score": 0.8739016056060791,
+        "dense_sim": 0.7316900491714478
+      },
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item8:c012",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Table of Co\nntents\nThe Boeing Company and Subsidiaries\nNotes to the Consolidated Financial Statements\nYears ended December 31, 2025, 2024 and 2023\n(Dollars in millions, except otherwise stated)",
+          "n_chars": 193
+        },
+        "score": 0.27740541100502014,
+        "dense_sim": 0.7491910457611084
+      },
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item7:c016",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Years ended December 31, | 2025 | 2024\nCommercial Airplanes | $567,290 | $435,175\nDefense, Space & Security | 84,786 | 64,023\nGlobal Services | 29,720 | 21,403\nUnallocated items, eliminations and other | 411 | 735\nTotal Backlog | $682,207 | $521,336\nContractual backlog | $639,721 | $498,802\nUnobligated backlog | 42,486 | 22,534\nTotal Backlog | $682,207 | $521,336",
+          "n_chars": 365
+        },
+        "score": 0.14269116520881653,
+        "dense_sim": 0.7180575132369995
+      },
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item8:c002",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See Notes to the Consolidated Financial Statements on pages 59 - 120.\n54\nTable of Contents\nThe Boeing Company and Subsidiaries\nConsolidated Statements of Comprehensive Income\n(Dollars in millions)\nYears ended December 31, | 2025 | 2024 | 2023\nNet earnings/(loss) | $ 2,238 | ($ 11,829 ) | ($ 2,242 )\nOther comprehensive income/(loss), net of tax:\nCurrency translation adjustments | 225 | ( 44 ) | 33\nReclassification of realized loss on foreign currency translation to Gain on dispositions, net | 17\nUnrealized gain on certain investments, net of tax of $ 0 , $ 0 and $ 0 | 2\nDerivative instruments:\nUnrealized gain/(loss) arising during period, net of tax of ($ 10 ), $ 0 and ($ 11 ) | 262 | ( 258 ) | 41\nReclassification adjustment for loss/(gain) included in net loss, net of tax of ($ 1 ), $ 0 and $ 1 | 37 | 35 | ( 5 )\nTotal unrealized gain/(loss) on derivative instruments, net of tax | 299 | ( 223 ) | 36\nDefined benefit pension plans & other postretirement benefits:",
+          "n_chars": 974
+        },
+        "score": 0.11002405732870102,
+        "dense_sim": 0.7388417720794678
+      },
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item1A:c007",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "section_id": "Item1A",
+          "part": "I",
+          "title": "Risk Factors",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Developing and manufacturing commercial aircraft that meet or exceed our performance and reliability standards and/or potentially required sustainability standards, as well as those of customers and regulatory agencies, is costly and technologically challenging. These challenges are particularly significant with newer aircraft programs. Any failure of any Boeing aircraft to satisfy performance or reliability requirements could result in disruption to our operations, higher costs and/or lower revenues.\nChanges in levels of U.S. government defense spending or acquisition priorities, as well as significant delays in U.S. government appropriations, could negatively impact our business, financial position, results of operations and cash flows.\nWe derive a substantial portion of our revenue from the U.S. government, primarily from defense related programs with the United States Department of War (DoW) and contracts with other government agencies, including NASA. Levels of U.S. defense spending are very difficult to predict and may be impacted by numerous factors such as the evolving nature of the national security threat environment, U.S. national security strategy, U.S. foreign policy, the domestic political environment, macroeconomic conditions and the ability of the U.S. government to enact relevant legislation such as authorization and appropriations bills. The government may also constrain discretionary spending by instituting enforceable spending caps.",
+          "n_chars": 1476
+        },
+        "score": 0.05733063071966171,
+        "dense_sim": 0.6647877097129822
+      },
+      {
+        "chunk": {
+          "id": "BA_2025_10K:Item8:c004",
+          "doc_id": "BA_2025_10K",
+          "ticker": "BA",
+          "company": "Boeing",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial Statements and Supplementary Data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "See Notes to the Consolidated Financial Statements on pages 59 - 120.\n55\nTable of Contents\nThe Boeing Company and Subsidiaries\nConsolidated Statements of Financial Position\n(Dollars in millions, except per share data)\nDecember 31, | 2025 | 2024\nAssets\nCash and cash equivalents | $ 10,921 | $ 13,801\nShort-term and other investments | 18,479 | 12,481\nAccounts receivable, net | 2,921 | 2,631\nUnbilled receivables, net | 9,158 | 8,363\nCurrent portion of financing receivables, net | 207\nInventories | 84,679 | 87,550\nOther current assets, net | 2,301 | 2,965\nTotal current assets | 128,459 | 127,998\nFinancing receivables and operating lease equipment, net | 241 | 314\nProperty, plant and equipment, net | 15,361 | 11,412\nGoodwill | 17,275 | 8,084\nAcquired intangible assets, net | 1,567 | 1,957\nDeferred income taxes | 107 | 185\nInvestments | 1,048 | 999\nOther assets, net of accumulated amortization of $ 1,014 and $ 1,085 | 4,177 | 5,414\nTotal assets | $ 168,235 | $ 156,363\nLiabilities and equity\nAccounts payable | $ 13,109 | $ 11,364\nAccrued liabilities | 27,141 | 24,103\nAdvances and progress billings | 59,404 | 60,333\nShort-term debt and current portion of long-term debt | 8,461 | 1,278\nTotal current liabilities | 108,115 | 97,078\nDeferred income taxes | 216 | 122\nAccrued retiree health care | 2,091 | 2,176\nAccrued pension plan liability, net | 4,287 | 5,997\nOther long-term liabilities | 2,432 | 2,318\nLong-term debt | 45,637 | 52,586\nTotal liabilities | 162,778 | 160,277\nShareholders’ equity:",
+          "n_chars": 1507
+        },
+        "score": 0.04707586392760277,
+        "dense_sim": 0.7488275766372681
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

@@ -3,31 +3,33 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "What was Microsoft's total revenue in fiscal year 2025?",
-  "answer": "$281,724 million",
+  "answer": "$281,724",
   "citations": [
-    "MSFT_2025_10K:Item7:c008",
-    "MSFT_2025_10K:Item8:c078"
+    "MSFT_2025_10K:Item7:c009",
+    "MSFT_2025_10K:Item8:c078",
+    "MSFT_2025_10K:Item7:c008"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 3250.98062500183,
-  "cost_usd": 0.012582,
+  "latency_ms": 7425.074667029548,
+  "cost_usd": 0.00036556,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
-    "answer": "$281,724 million",
+    "answer": "$281,724",
     "citations": [
-      "MSFT_2025_10K:Item7:c008",
-      "MSFT_2025_10K:Item8:c078"
+      "MSFT_2025_10K:Item7:c009",
+      "MSFT_2025_10K:Item8:c078",
+      "MSFT_2025_10K:Item7:c008"
     ],
     "invalid_citations": [],
     "verification": {
       "verified": true,
       "claims": [
         {
-          "raw": "$281,724 million",
-          "value": 281724000000.0,
+          "raw": "$281,724",
+          "value": 281724.0,
           "is_pct": false,
           "found": true
         }
@@ -35,13 +37,13 @@
     },
     "confidence": 0.7682726383209229,
     "usage": {
-      "input_tokens": 3854,
-      "output_tokens": 68,
-      "cost_usd": 0.012582,
+      "input_tokens": 3454,
+      "output_tokens": 63,
+      "cost_usd": 0.00036556,
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 3250.98062500183,
+    "latency_ms": 7425.074667029548,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -224,6 +226,6 @@
         "dense_sim": 0.7172210216522217
       }
     ],
-    "model": "anthropic/claude-sonnet-4.5"
+    "model": "z-ai/glm-5.2"
   }
 }

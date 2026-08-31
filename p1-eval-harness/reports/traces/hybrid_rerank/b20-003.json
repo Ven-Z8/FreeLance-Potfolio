@@ -1,0 +1,14 @@
+{
+  "case_id": "b20-003",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What is Google's market share in quantum computing according to its 2025 10-K?",
+  "answer": null,
+  "citations": [],
+  "refused": true,
+  "refusal_reason": "API Error: Request timed out.",
+  "steps": [],
+  "latency_ms": 0.0,
+  "cost_usd": 0.0,
+  "raw_response": {}
+}

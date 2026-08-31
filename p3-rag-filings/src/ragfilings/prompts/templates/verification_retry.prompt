@@ -1,0 +1,1 @@
+Verification failed: the figure(s) {failed_claims} do not appear in the chunks you cited. Re-read the cited chunks carefully (check which column is the requested period) and reply with corrected JSON, or set answer to null if the context truly lacks the figure.

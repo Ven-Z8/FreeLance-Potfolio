@@ -3,19 +3,19 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "What was the difference between Amazon's net product sales and net service sales in fiscal year 2025?",
-  "answer": "Net service sales were $420,658 million and net product sales were $296,266 million in fiscal year 2025. The difference is $124,392 million.",
+  "answer": "124,392",
   "citations": [
     "AMZN_2025_10K:Item8:c007"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 11474.006249998638,
-  "cost_usd": 0.025029,
+  "latency_ms": 10421.19087500032,
+  "cost_usd": 0.00081592,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
-    "answer": "Net service sales were $420,658 million and net product sales were $296,266 million in fiscal year 2025. The difference is $124,392 million.",
+    "answer": "124,392",
     "citations": [
       "AMZN_2025_10K:Item8:c007"
     ],
@@ -24,20 +24,8 @@
       "verified": false,
       "claims": [
         {
-          "raw": "$420,658 million",
-          "value": 420658000000.0,
-          "is_pct": false,
-          "found": true
-        },
-        {
-          "raw": "$296,266 million",
-          "value": 296266000000.0,
-          "is_pct": false,
-          "found": true
-        },
-        {
-          "raw": "$124,392 million",
-          "value": 124392000000.0,
+          "raw": "124,392",
+          "value": 124392.0,
           "is_pct": false,
           "found": false
         }
@@ -45,18 +33,18 @@
     },
     "confidence": 0.7947642803192139,
     "usage": {
-      "input_tokens": 7523,
-      "output_tokens": 164,
-      "cost_usd": 0.025029,
+      "input_tokens": 7948,
+      "output_tokens": 66,
+      "cost_usd": 0.00081592,
       "calls": 2
     },
     "math_result": {
       "expression": "420658 - 296266",
       "result_value": 124392.0,
       "formatted": "124,392.00",
-      "explanation": "Difference between net service sales and net product sales in fiscal year 2025"
+      "explanation": "Difference between net service sales and net product sales in 2025"
     },
-    "latency_ms": 11474.006249998638,
+    "latency_ms": 10421.19087500032,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -83,28 +71,6 @@
       },
       {
         "chunk": {
-          "id": "AMZN_2025_10K:Item7:c034",
-          "doc_id": "AMZN_2025_10K",
-          "ticker": "AMZN",
-          "company": "Amazon",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management's Discussion and Analysis",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "Represents the outcome that would have resulted had foreign exchange rates in the reported period been the same as those in effect in the comparable prior year period for operating results.\n29\nTable of Contents\nGuidance\nWe provided guidance on February 5, 2026, in our earnings release furnished on Form 8-K as set forth below. These forward-looking statements reflect Amazon.com’s expectations as of February 5, 2026, and are subject to substantial uncertainty. Our results are inherently unpredictable and may be materially affected by many factors, such as fluctuations in foreign exchange rates and energy prices, changes in global economic and geopolitical conditions, tariff and trade policies, resource and supply volatility, including for memory chips, and customer demand and spending (including the impact of recessionary fears), inflation, interest rates, regional labor market constraints, world events, the rate of growth of the internet, online commerce, cloud services, and new and emerging technologies, as well as those outlined in Item 1A of Part I, “Risk Factors.”\nFirst Quarter 2026 Guidance\n•\nNet sales are expected to be between $173.5 billion and $178.5 billion, or to grow between 11% and 15% compared with first quarter 2025. This guidance anticipates a favorable impact of approximately 180 basis points from foreign exchange rates.\n•\nOperating income is expected to be between $16.5 billion and $21.5 billion, compared with $18.4 billion in first quarter 2025. This guidance includes approximately $1 billion of higher year-over-year Amazon Leo costs as we scale in 2026, as well as investment in quick commerce and even sharper prices in our international stores business.\n•",
-          "n_chars": 1702
-        },
-        "score": 0.9745249152183533,
-        "dense_sim": 0.7698894739151001
-      },
-      {
-        "chunk": {
           "id": "AMZN_2025_10K:Item8:c007",
           "doc_id": "AMZN_2025_10K",
           "ticker": "AMZN",
@@ -124,28 +90,6 @@
         },
         "score": 0.9674946069717407,
         "dense_sim": 0.69130539894104
-      },
-      {
-        "chunk": {
-          "id": "AMZN_2025_10K:Item7:c020",
-          "doc_id": "AMZN_2025_10K",
-          "ticker": "AMZN",
-          "company": "Amazon",
-          "fiscal_year": 2025,
-          "item": "7",
-          "section_id": "Item7",
-          "part": "II",
-          "title": "Management's Discussion and Analysis",
-          "resolved_from": null,
-          "note": null,
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Sales increased 12% in 2025, compared to the prior year. Changes in foreign exchange rates increased net sales by $4.4 billion in 2025. For a discussion of the effect of foreign exchange rates on sales growth, see “Effect of Foreign Exchange Rates” below.\nNorth America sales increased 10% in 2025, compared to the prior year. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sales were driven largely by our continued focus on price, selection, and convenience for our customers, including from our fast shipping offers. Changes in foreign exchange rates reduced North America net sales by $454 million in 2025.\nInternational sales increased 13% in 2025, compared to the prior year. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sales were driven largely\n24\nTable of Contents\nby our continued focus on price, selection, and convenience for our customers, including from our fast shipping offers. Changes in foreign exchange rates increased International net sales by $4.9 billion in 2025.\nAWS sales increased 20% in 2025, compared to the prior year. The sales growth primarily reflects increased customer usage, partially offset by pricing changes primarily driven by long-term customer contracts.\nOperating Expenses\nInformation about operating expenses is as follows (in millions):\nYear Ended December 31,\n2024 | 2025\nOperating Expenses:",
-          "n_chars": 1562
-        },
-        "score": 0.7746525406837463,
-        "dense_sim": 0.7892153263092041
       },
       {
         "chunk": {
@@ -193,29 +137,7 @@
       },
       {
         "chunk": {
-          "id": "AMZN_2025_10K:Item8:c018",
-          "doc_id": "AMZN_2025_10K",
-          "ticker": "AMZN",
-          "company": "Amazon",
-          "fiscal_year": 2025,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "Financial Statements and Supplementary Data",
-          "resolved_from": null,
-          "note": "1",
-          "note_refs": [],
-          "has_table": false,
-          "table_continuation": false,
-          "text": "- Our subscription sales include fees associated with Amazon Prime memberships and access to content including digital video, audiobooks, digital music, e-books, and other non-AWS subscription services. Prime memberships provide our customers with access to an evolving suite of benefits that represent a single stand-ready obligation. Subscriptions are paid for at the time of or in advance of delivering the services. Revenue from such arrangements is recognized over the subscription period.\nAWS\n- Our AWS arrangements include global sales of compute, storage, database, and other services. Revenue is allocated to services using stand-alone selling prices and is primarily recognized when the customer uses these services, based on the quantity of services rendered, such as compute or storage capacity delivered on-demand. Certain services, including compute and database, are also offered as a fixed quantity over a specified term, for which revenue is recognized ratably. Sales commissions we pay in connection with contracts that exceed one year are capitalized and amortized over the contract term.\nOther\n- Other revenue includes sales related to various other offerings, such as healthcare services, certain licensing and distribution of video content, and shipping services, and our co-branded credit card agreements. Revenue is recognized when content is licensed or distributed and as or when services are performed.\nReturn Allowances\nReturn allowances, which reduce revenue and cost of sales, are estimated using historical experience. Liabilities for return allowances are included in “Accrued expenses and other” and were $\n1.4\nbillion, $\n1.4\nbillion, and $\n1.6\nbillion as of December 31, 2023, 2024, and 2025. Additions to the allowance were $\n5.2\nbillion, $\n5.5\nbillion, and $\n5.8",
-          "n_chars": 1798
-        },
-        "score": 0.5282189249992371,
-        "dense_sim": 0.7326772212982178
-      },
-      {
-        "chunk": {
-          "id": "AMZN_2025_10K:Item7:c002",
+          "id": "AMZN_2025_10K:Item7:c034",
           "doc_id": "AMZN_2025_10K",
           "ticker": "AMZN",
           "company": "Amazon",
@@ -229,13 +151,79 @@
           "note_refs": [],
           "has_table": false,
           "table_continuation": false,
-          "text": "Overview\nOur primary source of revenue is the sale of a wide range of products and services to customers.\nThe products offered through our stores include merchandise and content we have purchased for resale and products offered by third-party sellers, and we also manufacture and sell electronic devices and produce media content. Generally, we recognize gross revenue from items we sell from our inventory as product sales and recognize our net share of revenue of items sold by third-party sellers as service sales. We seek to increase unit sales across our stores, through increased product selection, across numerous product categories. We also offer other services such as compute, storage, and database offerings, fulfillment, advertising, publishing, and digital content subscriptions.\nOur financial focus is on long-term, sustainable growth in free cash flow.",
-          "n_chars": 867
+          "text": "Represents the outcome that would have resulted had foreign exchange rates in the reported period been the same as those in effect in the comparable prior year period for operating results.\n29\nTable of Contents\nGuidance\nWe provided guidance on February 5, 2026, in our earnings release furnished on Form 8-K as set forth below. These forward-looking statements reflect Amazon.com’s expectations as of February 5, 2026, and are subject to substantial uncertainty. Our results are inherently unpredictable and may be materially affected by many factors, such as fluctuations in foreign exchange rates and energy prices, changes in global economic and geopolitical conditions, tariff and trade policies, resource and supply volatility, including for memory chips, and customer demand and spending (including the impact of recessionary fears), inflation, interest rates, regional labor market constraints, world events, the rate of growth of the internet, online commerce, cloud services, and new and emerging technologies, as well as those outlined in Item 1A of Part I, “Risk Factors.”\nFirst Quarter 2026 Guidance\n•\nNet sales are expected to be between $173.5 billion and $178.5 billion, or to grow between 11% and 15% compared with first quarter 2025. This guidance anticipates a favorable impact of approximately 180 basis points from foreign exchange rates.\n•\nOperating income is expected to be between $16.5 billion and $21.5 billion, compared with $18.4 billion in first quarter 2025. This guidance includes approximately $1 billion of higher year-over-year Amazon Leo costs as we scale in 2026, as well as investment in quick commerce and even sharper prices in our international stores business.\n•",
+          "n_chars": 1702
         },
-        "score": 0.2160734236240387,
-        "dense_sim": 0.6481020450592041
+        "score": 0.2968178689479828,
+        "dense_sim": 0.7298548817634583
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item15:c008",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "15",
+          "section_id": "Item15",
+          "part": "IV",
+          "title": "Exhibits, Financial Statement Schedules",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "77\nTable of Contents\n32.2 | Certification of Brian T. Olsavsky, Senior Vice President and Chief Financial Officer of Amazon.com, Inc., pursuant to 18 U.S.C. Section 1350.\n97.1 | Amazon.com, Inc. Clawback Policy (incorporated by reference to the Company ’ s Annual Report on Form 10-K for the Year ended December 31, 2023).\n101 | The following financial statements from the Company’s Annual Report on Form 10-K for the year ended December 31, 2025, formatted in Inline XBRL: (i) Consolidated Statements of Cash Flows, (ii) Consolidated Statements of Operations, (iii) Consolidated Statements of Comprehensive Income, (iv) Consolidated Balance Sheets, (v) Consolidated Statements of Stockholders’ Equity, and (vi) Notes to Consolidated Financial Statements, tagged as blocks of text and including detailed tags.\nAs permitted by Item 601(b)(4)(iii)(A) of Regulation S-K, the Company has not filed with this Annual Report on Form 10-K certain instruments defining the rights of holders of long-term debt of the Company and its subsidiaries because the total amount of securities authorized thereunder does not exceed 10 percent of the total assets of the Company and its subsidiaries on a consolidated basis. The Company agrees to furnish a copy of such agreements to the Commission upon request.\n104 | The cover page from the Company’s Annual Report on Form 10-K for the year ended December 31, 2025, formatted in Inline XBRL (included as Exhibit 101).\n__________________\n† Executive Compensation Plan or Agreement.",
+          "n_chars": 1512
+        },
+        "score": 0.2657765746116638,
+        "dense_sim": 0.7409611940383911
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item15:c005",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "15",
+          "section_id": "Item15",
+          "part": "IV",
+          "title": "Exhibits, Financial Statement Schedules",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": true,
+          "text": "4.6 | Officers’ Certificate of Amazon.com, Inc., dated as of May 12, 2021, containing Form of 0.250% Note due 2023, Form of 0.450% Note due 2024, Form of 1.000% Note due 2026, Form of 1.650% Note due 2028, Form of 2.100% Note due 2031, Form of 2.875% Note due 2041, Form of 3.100% Note due 2051, and Form of 3.250% Note due 2061 (incorporated by reference to the Company’s Current Report on Form 8-K, filed May 12, 2021).\n4.7 | Officers’ Certificate of Amazon.com, Inc., dated as of December 1, 2022, containing Form of 4.700% Note due 2024, Form of 4.600% Note due 2025, Form of 4.550% Note due 2027, Form of 4.650% Note due 2029, and Form of 4.700% Note due 2032 (incorporated by reference to the Company’s Current Report on Form 8-K, filed December 1, 2022).\n10.3† | Form of Indemnification Agreement between Amazon.com, Inc. and each of its Directors (incorporated by reference to Exhibit 10.1 to the Company’s Registration Statement on Form S-1 (Registration No. 333-23795) filed March 24, 1997, as amended on April 21, 1997).\n10.4† | Form of Restricted Stock Unit Agreement for Officers and Employees (incorporated by reference to the Company’s Annual Report on Form 10-K for the Year ended December 31, 2002).\n10.5† | Form of Restricted Stock Unit Agreement for Directors (incorporated by reference to the Company’s Annual Report on Form 10-K for the Year ended December 31, 2002).\n10.6† | Form of Restricted Stock Agreement (incorporated by reference to the Company’s Annual Report on Form 10-K for the Year ended December 31, 2001).\n10.7† | Form of Global Restricted Stock Unit Award Agreement for Executive Officers (incorporated by reference to the Company ’ s Annual Report on Form 10-K for the Year ended December 31, 2023).",
+          "n_chars": 1737
+        },
+        "score": 0.2354012429714203,
+        "dense_sim": 0.709549069404602
+      },
+      {
+        "chunk": {
+          "id": "AMZN_2025_10K:Item15:c004",
+          "doc_id": "AMZN_2025_10K",
+          "ticker": "AMZN",
+          "company": "Amazon",
+          "fiscal_year": 2025,
+          "item": "15",
+          "section_id": "Item15",
+          "part": "IV",
+          "title": "Exhibits, Financial Statement Schedules",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "4.6 | Officers’ Certificate of Amazon.com, Inc., dated as of May 12, 2021, containing Form of 0.250% Note due 2023, Form of 0.450% Note due 2024, Form of 1.000% Note due 2026, Form of 1.650% Note due 2028, Form of 2.100% Note due 2031, Form of 2.875% Note due 2041, Form of 3.100% Note due 2051, and Form of 3.250% Note due 2061 (incorporated by reference to the Company’s Current Report on Form 8-K, filed May 12, 2021).\n4.7 | Officers’ Certificate of Amazon.com, Inc., dated as of December 1, 2022, containing Form of 4.700% Note due 2024, Form of 4.600% Note due 2025, Form of 4.550% Note due 2027, Form of 4.650% Note due 2029, and Form of 4.700% Note due 2032 (incorporated by reference to the Company’s Current Report on Form 8-K, filed December 1, 2022).\n4.8 | Officers’ Certificate of Amazon.com, Inc., dated as of November 20, 2025, containing Form of 3.900% Note due 2028, Form of 4.100% Note due 2030, Form of 4.350% Note due 2033, Form of 4.650% Note due 2035, Form of 5.450% Note due 2055, and Form of 5.550% Note due 2065 (incorporated by reference to the Company’s Current Report on Form 8-K, filed November 20, 2025).\n4.9 | Description of Securities (incorporated by reference to the Company’s Annual Report on Form 10-K for the Year ended December 31, 2019).\n10.1† | 1997 Stock Incentive Plan (amended and restated) (incorporated by reference to the Company’s Quarterly Report on Form 10-Q for the Quarter ended June 30, 2022).\n10.2† | 1999 Nonofficer Employee Stock Option Plan (amended and restated) (incorporated by reference to the Company’s Quarterly Report on Form 10-Q for the Quarter ended June 30, 2022).",
+          "n_chars": 1630
+        },
+        "score": 0.2334301620721817,
+        "dense_sim": 0.7092916369438171
       }
     ],
-    "model": "anthropic/claude-sonnet-4.5"
+    "model": "z-ai/glm-5.2"
   }
 }

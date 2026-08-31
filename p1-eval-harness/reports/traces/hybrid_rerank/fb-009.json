@@ -1,0 +1,247 @@
+{
+  "case_id": "fb-009",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "How much did Johnson & Johnson spend on Research and Development in fiscal year 2025?",
+  "answer": "$14.7 billion or $14.665 billion",
+  "citations": [
+    "JNJ_2025_10K:Item7:c002",
+    "JNJ_2025_10K:Item8:c002"
+  ],
+  "refused": false,
+  "refusal_reason": null,
+  "steps": [],
+  "latency_ms": 4354.204292001668,
+  "cost_usd": 0.013656,
+  "raw_response": {
+    "refused": false,
+    "refusal_reason": null,
+    "answer": "$14.7 billion or $14.665 billion",
+    "citations": [
+      "JNJ_2025_10K:Item7:c002",
+      "JNJ_2025_10K:Item8:c002"
+    ],
+    "invalid_citations": [],
+    "verification": {
+      "verified": true,
+      "claims": [
+        {
+          "raw": "$14.7 billion",
+          "value": 14700000000.0,
+          "is_pct": false,
+          "found": true
+        },
+        {
+          "raw": "$14.665 billion",
+          "value": 14665000000.0,
+          "is_pct": false,
+          "found": true
+        }
+      ]
+    },
+    "confidence": 0.7185284495353699,
+    "usage": {
+      "input_tokens": 4177,
+      "output_tokens": 75,
+      "cost_usd": 0.013656,
+      "calls": 1
+    },
+    "math_result": null,
+    "latency_ms": 4354.204292001668,
+    "strategy": "hybrid_rerank",
+    "hits": [
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c017",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "Research and development activities represent a significant part of the Company's business. These expenditures relate to the processes of discovering, testing and developing new products, upfront payments and developmental milestones, improving existing products, as well as ensuring product efficacy and regulatory compliance prior to launch. The Company remains committed to investing in research and development with the aim of delivering high quality and innovative products.\nResearch and Development decreased as a percent to sales primarily driven by:\n•\nAcquired in-process research & development expense of $1.25 billion to secure the global rights to the NM26 bispecific antibody (Yellow Jersey acquisition) in the Innovative Medicine business in 2024\n•\nAcquired in-process research & development expense of $0.5 billion from the V-Wave acquisition and a Laminar milestone of $0.3 billion in the MedTech business in 2024\n•\nLeverage resulting from investment prioritization in the Innovative Medicine business\nIn-Process Research and Development Impairments (IPR&D):\nIn the fiscal year 2025, the Company recorded a charge of approximately $0.1 billion primarily related to a non-strategic asset acquired with Abiomed in 2022. In the fiscal year 2024, the Company recorded a charge of approximately $0.2 billion primarily associated with the M710 (biosimilar) asset acquired as part of the acquisition of Momenta Pharmaceuticals in 2020. There was also a partial impairment of this asset for $0.2 billion in the fiscal 2023. This asset is fully impaired.\n30\nOther (Income) Expense, Net:",
+          "n_chars": 1592
+        },
+        "score": 0.98575758934021,
+        "dense_sim": 0.7185284495353699
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item8:c073",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial statements and supplementary data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "billion for fiscal years 2025, 2024 and 2023, respectively. The weighted average period for this cost to be recognized was\n1.76\nyears,\n1.81\nyears and\n1.80\nyears for fiscal years 2025, 2024, and 2023, respectively. Share-based compensation costs capitalized as part of inventory were insignificant in all periods.\nThe Company settles employee benefit equity issuances with treasury shares. Treasury shares are replenished through market purchases throughout the year for the number of shares used to settle employee benefit equity issuances.\n80\nStock options\nStock options expire\n10\nyears from the date of grant and vest over service periods that range from\n6\nmonths to\n3\nyears. Options granted under the 2012 Long-Term Incentive Plan were granted at the average of the high and low prices of the Company’s Common Stock on the New York Stock Exchange on the date of grant. Options granted under the 2022 Long-Term incentive Plan were granted at the closing price of the Company’s Common Stock on the New York Stock Exchange on the date of grant.\nThe fair value of each option award was estimated on the date of grant using the Black-Scholes option valuation model that uses the assumptions noted in the following table. For 2025, 2024, and 2023 grants, expected volatility represents a blended rate of a 10-year weekly historical overall volatility rate, and a 5-week average implied volatility rate based on at-the-money traded Johnson & Johnson options with a life of 2 years. For all grants, historical data is used to determine the expected life of the option. The risk-free rate was based on the U.S. Treasury yield curve in effect at the time of grant.\nThe average fair value of options granted was $\n27.07\n, $\n27.67\nand $\n27.85",
+          "n_chars": 1733
+        },
+        "score": 0.9844975471496582,
+        "dense_sim": 0.6550616025924683
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item8:c137",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial statements and supplementary data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "billion have been recorded since the restructuring was announced and the program has been substantially completed in the fiscal year 2025.\nIn fiscal 2023, the Company completed a prioritization of its research and development (R&D) investment within its Innovative Medicine segment to focus on the most promising medicines with the greatest benefit to patients. This resulted in the exit of certain programs within certain therapeutic areas. The R&D program exits are primarily in infectious diseases and vaccines including the discontinuation of its respiratory syncytial virus (RSV) adult vaccine program, hepatitis and HIV development. Pre-tax Restructuring expenses of $\n0.1\nbillion in the fiscal year 2024 included the termination of partnered and non-partnered development program costs, asset impairments and asset divestments. Pre-tax Restructuring expenses of $\n0.5\nbillion in the fiscal year 2023 included the termination of partnered and non-partnered development program costs and asset impairments. Total project costs of approximately $\n0.6\nbillion have been recorded since the restructuring was announced and the program was completed in the fiscal fourth quarter of 2024.\n104\nThe following table summarizes the restructuring expenses for the fiscal years 2025, 2024 and 2023:\n(Pre-tax Dollars in Millions) | 2025 | 2024 | 2023\nMedTech Segment Surgery franchise (1) | $ 205 | — | —\nMedTech Segment Orthopaedics franchise (2) | 307 | 167 | 319\nInnovative Medicine Segment (3) | — | 102 | 479\nTotal Programs | $ 512 | 269 | 798\n(1)\nThe fiscal year of 2025 included $\n76\nmillion in restructuring, $\n122\nmillion in Other income and expense and $\n7\nmillion in Cost of products sold on the Consolidated Statement of Earnings\n(2)\nThe fiscal year of 2025 included $\n152",
+          "n_chars": 1776
+        },
+        "score": 0.9811792969703674,
+        "dense_sim": 0.7036669850349426
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item8:c002",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial statements and supplementary data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "1",
+            "4",
+            "8",
+            "12",
+            "13",
+            "19",
+            "20",
+            "21"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Commitments and Contingencies (Note 19)\nShareholders’ equity\nPreferred stock — without par value (authorized and unissued 2,000,000 shares) | — | —\nCommon stock — par value $ 1.00 per share (Note 12) (authorized 4,320,000,000 shares; issued 3,119,843,000 shares) | 3,120 | 3,120\nAccumulated other comprehensive income (loss) (Note 13) | ( 14,930 ) | ( 11,741 )\nRetained earnings and Additional-paid-in-capital | 168,978 | 155,791\nLess: common stock held in treasury, at cost (Note 12) ( 711,904,000 shares and 712,921,000 shares) | 75,624 | 75,680\nTotal shareholders’ equity | 81,544 | 71,490\nTotal liabilities and shareholders’ equity | $ 199,210 | 180,104\nSee Notes to Consolidated Financial Statements\n2025 Annual Report\n43\nJohnson & Johnson and subsidiaries consolidated statements of earnings\n(Dollars and Shares in Millions Except Per Share Amounts) (Note 1)\n2025 | 2024 | 2023\nSales to customers | $ 94,193 | 88,821 | 85,159\nCost of products sold | 30,256 | 27,471 | 26,553\nGross profit | 63,937 | 61,350 | 58,606\nSelling, marketing and administrative expenses | 23,676 | 22,869 | 21,512\nResearch and development expense | 14,665 | 17,232 | 15,085\nIn-process research and development impairments | 81 | 211 | 313\nInterest income | ( 1,056 ) | ( 1,332 ) | ( 1,261 )\nInterest expense, net of portion capitalized (Note 4) | 971 | 755 | 772\nOther (income) expense, net | ( 7,209 ) | 4,694 | 6,634\nRestructuring (Note 20) | 228 | 234 | 489\nEarnings before provision for taxes on income | 32,581 | 16,687 | 15,062\nProvision for taxes on income (Note 8) | 5,777 | 2,621 | 1,736\nNet earnings from continuing operations | 26,804 | 14,066 | 13,326\nNet earnings from discontinued operations, net of tax (Note 21) | — | — | 21,827\nNet earnings | $ 26,804 | 14,066 | 35,153",
+          "n_chars": 1767
+        },
+        "score": 0.9001471400260925,
+        "dense_sim": 0.623414158821106
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item8:c068",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "Financial statements and supplementary data",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "21"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "million at December 31, 2025 and December 31, 2024, respectively.\nThe fair value of Johnson & Johnson Common Stock directly held in plan assets was $\n17\nmillion at December 31, 2025 and $\n13\nmillion at December 31, 2024.\n11.\nSavings plan\nThe Company has voluntary 401(k) savings plans designed to enhance the existing retirement programs covering eligible employees. The Company matches a percentage of each employee’s contributions consistent with the provisions of the plan for which the employee is eligible. Total Company matching contributions to the plans were $\n277\nmillion, $\n282\nmillion and $\n263\nmillion in fiscal years 2025, 2024 and 2023, respectively.\n2025 Annual Report\n77\n12.\nCapital and treasury stock\nChanges in treasury stock were:\nTreasury Stock\n(Amounts in Millions Except Treasury Stock Shares in Thousands) | Shares | Amount\nBalance at January 1, 2023 | 506,246 | $ 41,694\nEmployee compensation and stock option plans | ( 15,521 ) | ( 2,529 )\nRepurchase of common stock | 31,085 | 5,079\nKenvue share exchange (Note 21) | 190,955 | 31,418\nBalance at December 31, 2023 | 712,765 | 75,662\nEmployee compensation and stock option plans | ( 15,027 ) | ( 2,389 )\nRepurchase of common stock | 15,183 | 2,407\nBalance at December 29, 2024 | 712,921 | 75,680\nEmployee compensation and stock option plans | ( 34,920 ) | ( 6,009 )\nRepurchase of common stock | 33,903 | 5,953\nBalance at December 28, 2025 | 711,904 | $ 75,624\nAggregate shares of common stock issued were approximately\n3,119,843,000\nshares at the end of fiscal years 2025, 2024 and 2023.\nCash dividends paid were $\n5.14\nper share in fiscal year 2025, compared with dividends of $\n4.91\nper share in fiscal year 2024, and $\n4.70\nper share in fiscal year 2023.",
+          "n_chars": 1731
+        },
+        "score": 0.8867565393447876,
+        "dense_sim": 0.7065434455871582
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c002",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "New products introduced within the past five years accounted for approximately 25% of 2025 sales. In 2025, $14.7 billion was invested in research and development reflecting management’s commitment to create life-enhancing innovations and to create value through partnerships that will profoundly impact of health for humanity.\nOur approximately 138,200 employees are critical drivers of the Company’s success. Employees are empowered and inspired to lead with Our Credo and purpose as guides. This allows every employee to use the Company’s reach and size to advance the Company’s purpose, and to also lead with agility and urgency. Leveraging the extensive resources across the enterprise enables the Company to innovate and execute with excellence. This ensures the Company can remain focused on addressing the unmet needs of society every day and invest for an enduring impact, ultimately delivering value to its patients, consumers and healthcare professionals, employees, communities and shareholders.\n22\nResearch &\ndevelopment\nAcquisitions*\n(net of cash acquired)\nDividends paid\nper share\n* Includes business combinations and asset acquisitions\nResults of operations\nAnalysis of consolidated sales\nFor discussion on results of operations and financial condition pertaining to the fiscal years 2024 and 2023 see the Company’s Annual Report on Form 10-K for the fiscal year ended December 29, 2024, Item 7. Management's discussion and analysis of results of operations and financial condition.\nIn 2025, worldwide sales increased 6.0% to $94.2 billion as compared to an increase of 4.3% in 2024. These sales changes consisted of the following:\nSales increase/(decrease) due to: | 2025 | 2024\nVolume | 8.4 | % | 5.9 | %\nPrice | (3.1) | 0.0\nCurrency | 0.7 | (1.6)\nTotal | 6.0 | % | 4.3 | %",
+          "n_chars": 1790
+        },
+        "score": 0.8757797479629517,
+        "dense_sim": 0.6947085857391357
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c021",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "17"
+          ],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "(1)\nSee Note 17 to the Consolidated Financial Statements for more details.\n(2)\nAmounts not allocated to segments include interest (income) expense and general corporate (income) expense. The fiscal year 2025 includes the reversal of approximately $7.0 billion, a significant portion of the previously accrued talc reserve. The fiscal year 2024 includes charges for talc matters of approximately $5.1 billion and a loss of approximately $0.4 billion related to the debt to equity exchange of the Company's remaining shares of Kenvue Common Stock.\n2025 Annual Report\n31\nInnovative Medicine segment:\nIn 2025, the Innovative Medicine segment income before tax as a percent to sales was 36.9% versus 33.2% in 2024. The increase in the income before tax as a percent of sales was primarily driven by the following:\n•\nAcquired in-process research and development expense of $1.25 billion to secure the global rights to the NM26 bispecific antibody (Yellow Jersey acquisition) in 2024\n•\nLitigation income of $0.1 billion in 2025 versus expense of $0.4 billion in 2024, primarily related to Risperdal Gynecomastia\n•\nResearch & development leverage resulting from investment prioritization\npartially offset by\n•\nAcquisition, integration and divestiture related net expense of $0.4 billion in 2025 primarily related to Intra-Cellular and Halda Therapeutics and $0.1 billion in 2024\n•\nMonetization of royalty rights of $0.3 billion in 2024\n•\nUnfavorable Product mix, the impact of Medicare Part D redesign and unfavorable transactional currency\n•\nIncreased investment related to the acquisition of Intra-Cellular (CAPLYTA)\nMedTech segment:",
+          "n_chars": 1627
+        },
+        "score": 0.7492369413375854,
+        "dense_sim": 0.6979459524154663
+      },
+      {
+        "chunk": {
+          "id": "JNJ_2025_10K:Item7:c018",
+          "doc_id": "JNJ_2025_10K",
+          "ticker": "JNJ",
+          "company": "Johnson & Johnson",
+          "fiscal_year": 2025,
+          "item": "7",
+          "section_id": "Item7",
+          "part": "II",
+          "title": "Management’s discussion and analysis of results of operations and financial condition",
+          "resolved_from": null,
+          "note": null,
+          "note_refs": [
+            "19"
+          ],
+          "has_table": true,
+          "table_continuation": false,
+          "text": "Other (income) expense, net is the account where the Company records gains and losses related to the sale and write-down of certain investments in equity securities held by Johnson & Johnson Innovation - JJDC, Inc. (JJDC), changes in the fair value of securities, investment (income)/loss related to employee benefit programs, gains and losses on divestitures, certain transactional currency gains and losses, acquisition and divestiture related costs, litigation accruals and settlements, as well as royalty income.\nOther (income) expense, net for the fiscal year 2025 reflected an increase in income of $11.9 billion as compared to the prior year primarily due to the following:\n(Dollars in Billions)(Income)/Expense | 2025 | 2024 | Change\nLitigation related (1) | $(6.0) | 5.5 | (11.5)\nEmployee benefit plan related | (0.5) | (0.9) | 0.4\nChanges in the fair value of securities (2) | (0.4) | 0.3 | (0.7)\nAcquisition, Integration and Divestiture related (3) | 0.2 | 0.8 | (0.6)\nMonetization of royalty rights | 0.0 | (0.3) | 0.3\nOther | (0.5) | (0.7) | 0.2\nTotal Other (Income) Expense, Net | $(7.2) | 4.7 | (11.9)\n(1)\nThe fiscal year 2025 includes the reversal of approximately $7.0 billion, a significant portion of the previously accrued talc reserve and an expense of $0.8 billion for the Auris shareholder litigation. The fiscal year 2024 includes charges of approximately $5.1 billion for talc matters (See Note 19 to the Consolidated Financial Statements for additional details).\n(2)\nThe fiscal year 2024 includes the loss of $0.4 billion on the completion of the debt for equity exchange of the retained stake in Kenvue.\n(3)",
+          "n_chars": 1634
+        },
+        "score": 0.44234368205070496,
+        "dense_sim": 0.6713318824768066
+      }
+    ],
+    "model": "anthropic/claude-sonnet-4.5"
+  }
+}

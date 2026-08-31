@@ -3,45 +3,29 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "What proportion of Meta's total revenue in fiscal 2025 came from advertising?",
-  "answer": "Advertising revenue was $196,175 million out of total revenue of $200,966 million in fiscal 2025, which represents approximately 97.6% of total revenue.",
+  "answer": "98%",
   "citations": [
-    "META_2025_10K:Item7:c027",
-    "META_2025_10K:Item8:c043",
-    "META_2025_10K:Item8:c011"
+    "META_2025_10K:Item8:c043"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 6034.9521249991085,
-  "cost_usd": 0.025925999999999998,
+  "latency_ms": 7641.0588750150055,
+  "cost_usd": 0.00069672,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
-    "answer": "Advertising revenue was $196,175 million out of total revenue of $200,966 million in fiscal 2025, which represents approximately 97.6% of total revenue.",
+    "answer": "98%",
     "citations": [
-      "META_2025_10K:Item7:c027",
-      "META_2025_10K:Item8:c043",
-      "META_2025_10K:Item8:c011"
+      "META_2025_10K:Item8:c043"
     ],
     "invalid_citations": [],
     "verification": {
       "verified": false,
       "claims": [
         {
-          "raw": "$196,175 million",
-          "value": 196175000000.0,
-          "is_pct": false,
-          "found": true
-        },
-        {
-          "raw": "$200,966 million",
-          "value": 200966000000.0,
-          "is_pct": false,
-          "found": true
-        },
-        {
-          "raw": "97.6%",
-          "value": 97.6,
+          "raw": "98%",
+          "value": 98.0,
           "is_pct": true,
           "found": false
         }
@@ -49,13 +33,13 @@
     },
     "confidence": 0.7335484027862549,
     "usage": {
-      "input_tokens": 7512,
-      "output_tokens": 226,
-      "cost_usd": 0.025925999999999998,
+      "input_tokens": 6724,
+      "output_tokens": 76,
+      "cost_usd": 0.00069672,
       "calls": 2
     },
     "math_result": null,
-    "latency_ms": 6034.9521249991085,
+    "latency_ms": 7641.0588750150055,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -237,6 +221,6 @@
         "dense_sim": 0.6751896142959595
       }
     ],
-    "model": "anthropic/claude-sonnet-4.5"
+    "model": "z-ai/glm-5.2"
   }
 }

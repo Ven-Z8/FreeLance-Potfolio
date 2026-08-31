@@ -1,0 +1,14 @@
+{
+  "case_id": "b20-001",
+  "domain": "financial",
+  "strategy": "hybrid_rerank",
+  "query": "What is the 3-year average net sales growth rate for Apple from FY2023 to FY2025?",
+  "answer": null,
+  "citations": [],
+  "refused": true,
+  "refusal_reason": "API Error: Request timed out.",
+  "steps": [],
+  "latency_ms": 0.0,
+  "cost_usd": 0.0,
+  "raw_response": {}
+}

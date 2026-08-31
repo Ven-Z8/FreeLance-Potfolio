@@ -3,22 +3,20 @@
   "domain": "financial",
   "strategy": "hybrid_rerank",
   "query": "What was the percentage change in Tesla's energy generation and storage revenue from fiscal 2024 to 2025?",
-  "answer": "Energy generation and storage revenue increased 27% from fiscal 2024 to 2025, from $10,086 million in 2024 to $12,771 million in 2025.",
+  "answer": "27%",
   "citations": [
-    "TSLA_2025_10K:Item7:c023",
     "TSLA_2025_10K:Item7:c025"
   ],
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 9202.570458000991,
-  "cost_usd": 0.01311,
+  "latency_ms": 9711.706291011069,
+  "cost_usd": 0.00034794,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
-    "answer": "Energy generation and storage revenue increased 27% from fiscal 2024 to 2025, from $10,086 million in 2024 to $12,771 million in 2025.",
+    "answer": "27%",
     "citations": [
-      "TSLA_2025_10K:Item7:c023",
       "TSLA_2025_10K:Item7:c025"
     ],
     "invalid_citations": [],
@@ -30,26 +28,14 @@
           "value": 27.0,
           "is_pct": true,
           "found": true
-        },
-        {
-          "raw": "$10,086 million",
-          "value": 10086000000.0,
-          "is_pct": false,
-          "found": true
-        },
-        {
-          "raw": "$12,771 million",
-          "value": 12771000000.0,
-          "is_pct": false,
-          "found": true
         }
       ]
     },
     "confidence": 0.8005700707435608,
     "usage": {
-      "input_tokens": 3840,
-      "output_tokens": 106,
-      "cost_usd": 0.01311,
+      "input_tokens": 3377,
+      "output_tokens": 32,
+      "cost_usd": 0.00034794,
       "calls": 1
     },
     "math_result": {
@@ -58,7 +44,7 @@
       "formatted": "26.62%",
       "explanation": "Percentage change in energy generation and storage revenue from 2024 to 2025"
     },
-    "latency_ms": 9202.570458000991,
+    "latency_ms": 9711.706291011069,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -173,28 +159,6 @@
       },
       {
         "chunk": {
-          "id": "TSLA_2025_10K:Item8:c129",
-          "doc_id": "TSLA_2025_10K",
-          "ticker": "TSLA",
-          "company": "Tesla",
-          "fiscal_year": 2025,
-          "item": "8",
-          "section_id": "Item8",
-          "part": "II",
-          "title": "FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA",
-          "resolved_from": null,
-          "note": "16",
-          "note_refs": [],
-          "has_table": true,
-          "table_continuation": false,
-          "text": "Note 16 –\nSegment Reporting and Information about Geographic Areas\nOur Chief Executive Officer, as the CODM, organizes our company, manages resource allocations and measures performance among\ntwo\noperating and reportable segments: (i) automotive and (ii) energy generation and storage. The automotive segment includes the design, development, manufacturing, sales and leasing of electric vehicles as well as sales of automotive regulatory credits. Additionally, the automotive segment also includes services and other, which includes sales of used vehicles, non-warranty maintenance services and collision, paid Supercharging sessions, automotive insurance business revenue, part sales and retail merchandise sales. The energy generation and storage segment includes the design, manufacture, installation, sales and leasing of energy generation and storage products and related services and sales of energy generation incentives.\nOur CODM does not evaluate operating segments using asset or liability information. The CODM uses gross profit to allocate operating and capital resources and assesses performance of each segment by comparing actual gross profit results to historical results and previously forecasted financial information.\nThe following table presents revenues, cost of revenues and gross profit by reportable segment (in millions):\nYear Ended December 31,\n2025 | 2024 | 2023\nAutomotive segment\nRevenues | $82,056 | $87,604 | $90,738\nCost of revenues (1) | $68,764 | $72,794 | $74,219\nGross profit | $13,292 | $14,810 | $16,519\nEnergy generation and storage segment\nRevenues | $12,771 | $10,086 | $6,035\nCost of revenues (2) | $8,969 | $7,446 | $4,894\nGross profit | $3,802 | $2,640 | $1,141\n(1)",
-          "n_chars": 1710
-        },
-        "score": 0.9883783459663391,
-        "dense_sim": 0.6679695844650269
-      },
-      {
-        "chunk": {
           "id": "TSLA_2025_10K:Item8:c130",
           "doc_id": "TSLA_2025_10K",
           "ticker": "TSLA",
@@ -236,8 +200,30 @@
         },
         "score": 0.97430020570755,
         "dense_sim": 0.6472576260566711
+      },
+      {
+        "chunk": {
+          "id": "TSLA_2025_10K:Item8:c035",
+          "doc_id": "TSLA_2025_10K",
+          "ticker": "TSLA",
+          "company": "Tesla",
+          "fiscal_year": 2025,
+          "item": "8",
+          "section_id": "Item8",
+          "part": "II",
+          "title": "FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA",
+          "resolved_from": null,
+          "note": "2",
+          "note_refs": [],
+          "has_table": false,
+          "table_continuation": false,
+          "text": "million, respectively, in Other non-current assets for the long-term portion.\nEnergy Generation and Storage Leasing\nFor the arrangements where we are the lessor for energy generation and storage systems, we have determined that these agreements should be accounted for as operating leases. We record lease revenue from minimum lease payments, assuming all other revenue recognition criteria have been met. The difference between the payments received and the revenue recognized is recorded as deferred revenue or deferred asset on the consolidated balance sheets.\nFor energy generation and storage systems where customers purchase electricity from us under PPAs, we have determined that these agreements should be accounted for as operating leases. Revenue is recognized based on the amount of electricity delivered at rates specified under the contracts, assuming all other revenue recognition criteria are met.\nWe record as deferred revenue any amounts that are collected from customers, including lease prepayments, in excess of revenue recognized, which is recognized as revenue ratably over the respective customer contract term. As of December 31, 2025 and 2024, deferred revenue related to such customer payments amounted to $\n151\nmillion and $\n164\nmillion, respectively. Deferred revenue also includes the portion of rebates and incentives received from utility companies and various local and state government agencies, which is recognized as revenue over the lease term. As of December 31, 2025 and 2024, deferred revenue from rebates and incentives was immaterial.\n58",
+          "n_chars": 1578
+        },
+        "score": 0.9538519382476807,
+        "dense_sim": 0.6779966354370117
       }
     ],
-    "model": "anthropic/claude-sonnet-4.5"
+    "model": "z-ai/glm-5.2"
   }
 }

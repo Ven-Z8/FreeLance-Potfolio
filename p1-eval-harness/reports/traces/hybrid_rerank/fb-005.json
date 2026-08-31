@@ -11,8 +11,8 @@
   "refused": false,
   "refusal_reason": null,
   "steps": [],
-  "latency_ms": 3369.7132499983127,
-  "cost_usd": 0.011196,
+  "latency_ms": 3568.857791949995,
+  "cost_usd": 0.00032432,
   "raw_response": {
     "refused": false,
     "refusal_reason": null,
@@ -35,13 +35,13 @@
     },
     "confidence": 0.8247203826904297,
     "usage": {
-      "input_tokens": 3392,
-      "output_tokens": 68,
-      "cost_usd": 0.011196,
+      "input_tokens": 3080,
+      "output_tokens": 51,
+      "cost_usd": 0.00032432,
       "calls": 1
     },
     "math_result": null,
-    "latency_ms": 3369.7132499983127,
+    "latency_ms": 3568.857791949995,
     "strategy": "hybrid_rerank",
     "hits": [
       {
@@ -221,6 +221,6 @@
         "dense_sim": 0.7580986022949219
       }
     ],
-    "model": "anthropic/claude-sonnet-4.5"
+    "model": "z-ai/glm-5.2"
   }
 }

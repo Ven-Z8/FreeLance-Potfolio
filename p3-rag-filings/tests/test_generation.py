@@ -10,7 +10,7 @@ import json
 
 import pytest
 
-from ragfilings import generation
+from ragfilings.pipeline import engine as generation
 
 CFG = {
     "generation": {"model": "test/model", "max_tokens": 512, "verify_retries": 1},
