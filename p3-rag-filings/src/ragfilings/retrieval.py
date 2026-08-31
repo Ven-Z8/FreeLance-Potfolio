@@ -49,6 +49,33 @@ def _tokenize(text: str) -> list[str]:
     return _TOKEN_RE.findall(text.lower().replace(",", ""))
 
 
+def context_header(chunk: dict[str, Any]) -> str:
+    """Readable provenance header for a chunk: company, ticker, fiscal year,
+    item and section title.
+
+    Most financial-statement table chunks carry no company identifier in their
+    body (only ~31% mention their own company/ticker), so without this header
+    the retriever cannot tell one filer's income statement from another's. The
+    header makes embeddings, BM25, the reranker, and the LLM context all
+    company/section aware without touching the body (which the fact-graph
+    builder parses unchanged).
+    """
+    company = chunk.get("company") or ""
+    ticker = chunk.get("ticker") or ""
+    fy = chunk.get("fiscal_year")
+    item = chunk.get("item") or ""
+    title = chunk.get("title") or ""
+    head = f"{company} ({ticker}) FY{fy} 10-K — Item {item}"
+    if title:
+        head += f": {title}"
+    return head
+
+
+def embed_text(chunk: dict[str, Any]) -> str:
+    """The string embedded / indexed / shown to the LLM: header + body."""
+    return context_header(chunk) + "\n" + chunk["text"]
+
+
 _reranker_model = None
 
 
@@ -119,7 +146,7 @@ class Index:
             if strategy == "hybrid_rerank":
                 candidate_order = np.argsort(-rrf, kind="stable")[:rerank_candidates]
                 reranker = _get_reranker(reranker_name or "BAAI/bge-reranker-base")
-                pairs = [(query, self.chunks[i]["text"]) for i in candidate_order]
+                pairs = [(query, embed_text(self.chunks[i])) for i in candidate_order]
                 rerank_scores = reranker.predict(pairs)
                 reranked = sorted(zip(candidate_order, rerank_scores),
                                   key=lambda x: x[1], reverse=True)[:top_k]
@@ -150,7 +177,7 @@ def build_index(chunks: list[dict[str, Any]], index_dir: str | Path,
     index_dir.mkdir(parents=True, exist_ok=True)
     model = _load_model(model_name)
     emb = np.asarray(model.encode(
-        [c["text"] for c in chunks],
+        [embed_text(c) for c in chunks],
         batch_size=64, normalize_embeddings=True, show_progress_bar=True,
     ), dtype=np.float32)
     np.save(index_dir / "embeddings.npy", emb)
@@ -169,5 +196,5 @@ def load_index(index_dir: str | Path, model_name: str) -> Index:
     chunks = [json.loads(line)
               for line in (index_dir / "chunks.jsonl").open(encoding="utf-8")]
     embeddings = np.load(index_dir / "embeddings.npy")
-    bm25 = BM25Okapi([_tokenize(c["text"]) for c in chunks])
+    bm25 = BM25Okapi([_tokenize(embed_text(c)) for c in chunks])
     return Index(chunks, embeddings, bm25, _load_model(model_name))

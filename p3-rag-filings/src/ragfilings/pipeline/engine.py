@@ -15,7 +15,7 @@ from typing import Any
 
 from ..llm import BaseLLMClient, complete_with_resilience, get_llm_client
 from ..prompts import PromptRegistry
-from ..retrieval import Index, confidence, load_index
+from ..retrieval import Index, confidence, embed_text, load_index
 from ..tools import compute_financial_math, decompose_query, needs_decomposition, verify
 
 logger = logging.getLogger(__name__)
@@ -155,7 +155,7 @@ def answer(
         Returns (parsed_data, verification) — verification is None when the
         model refused.
         """
-        context = "\n\n".join(f"[{h['chunk']['id']}]\n{h['chunk']['text']}" for h in active_hits)
+        context = "\n\n".join(f"[{h['chunk']['id']}]\n{embed_text(h['chunk'])}" for h in active_hits)
         if math_result:
             context += (
                 f"\n\n[PYTHON_MATH_TOOL_VERIFIED_RESULT]\n"
