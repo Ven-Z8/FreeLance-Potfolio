@@ -31,7 +31,9 @@ rerank_candidates = 25
 
 [generation]
 # Model slug for generation, served via OpenRouter.
-model = "anthropic/claude-sonnet-4.5"
+# 2026-08-31: no OpenRouter credits — running all-free (minimax-m3). The run
+# snapshot records this; re-run on a frontier model when credits allow.
+model = "minimax/minimax-m3:free"
 max_tokens = 1500
 # One corrective retry when a numerical claim fails verification.
 verify_retries = 1
@@ -39,7 +41,7 @@ verify_retries = 1
 [extraction]
 # Cheaper model for high-volume structured extraction (graph building,
 # query planning). Kept separate so cost optimization is measurable.
-model = "google/gemini-2.5-flash-lite"
+model = "minimax/minimax-m3:free"
 
 [eval]
 # Judge model for scoring; may differ from generation. Free tier to keep
