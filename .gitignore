@@ -15,4 +15,6 @@ p3-rag-filings/corpus/*.htm
 p3-rag-filings/corpus/parsed/
 p3-rag-filings/corpus/chunks/
 p3-rag-filings/corpus/index/
+# Eval runs are reproducible via `ragfilings regress` — keep them out of git
+p3-rag-filings/reports/
 
