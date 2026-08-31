@@ -109,11 +109,48 @@ None are regressions — every one was already wrong in the baseline.
   free model; the up-front augmentation removes the dependence on the model
   choosing to refuse, which is why the result is stable.
 
+## Enterprise multi-hop set (`golden_set_enterprise_v1`)
+
+The v1 set is lookup-heavy, so a 45-case enterprise set was added to prove
+multi-hop reasoning: margin/intensity ratios, CAGR, cross-company comparisons,
+year-over-year ratio change, and multi-year trends — each answer derived from
+2+ fact-graph nodes — plus 8 enterprise unanswerables and 7 ambiguities.
+`scripts/build_golden_enterprise_v1.py` derives every answer deterministically
+and verifies each base figure against its source chunk (all 45 audit clean).
+
+The augmentation was extended for multi-hop (commit `d6df0ad`):
+- **Ratios** (net/operating/gross/FCF margin, R&D intensity): resolve the
+  numerator + consolidated-revenue denominator, inject both facts, and ground
+  the ratio so the numerical verifier accepts it. Definitional parentheticals
+  are stripped first.
+- **CAGR**: inject the two endpoint facts and ground the computed growth rate.
+- **Comparisons / ratio changes** fall out of multi-ticker / multi-year
+  handling; the ratio gap is grounded (full precision + 1-decimal rounding) so
+  small deltas verify.
+- **Trends** expand "from FYx to FYy" to the full inclusive year range.
+
+| Config (enterprise set, 45 cases) | Accuracy |
+|---|---|
+| `hybrid_rerank` (no graph, control) | 37.8% (17/45) |
+| `hybrid_rerank_graph` | **84.4% (38/45)** |
+
+**+46.6pp, 21 improved / 0 regressed.** By category: synthesis (multi-hop
+answerable) 90% (27/30) · unanswerable refusal 100% (8/8) · ambiguous
+clarification 43% (3/7). The no-graph control's 37.8% is the point — these
+answers are not in any single retrieved chunk, so retrieval-only cannot reach
+them; the graph does the joining.
+
+The 7 remaining failures: 3 synthesis (ent-1003/1019 R&D-intensity arithmetic,
+ent-1016 PEP gross-margin refusal) and 4 ambiguities (ent-1040/1041/1042/1045)
+where the model commits to one reading instead of clarifying (issue #3).
+
 ## Reproduce
 
 ```bash
 uv sync --extra dev
 uv run ragfilings regress --strategy hybrid_rerank_graph            # full (with metrics)
 uv run ragfilings regress --strategy hybrid_rerank_graph --skip-judge-metrics  # accuracy-only
+# enterprise set:
+uv run ragfilings regress --golden-set golden/golden_set_enterprise_v1.jsonl --strategy hybrid_rerank_graph --skip-judge-metrics
 # diff_report.md in the run dir compares against the latest baseline run.
 ```
