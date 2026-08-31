@@ -48,11 +48,25 @@ generalized to arbitrary complex domains via pluggable domain skill packs.
 | 0 | Hygiene & honesty: checkpoint commit, kill hacks/dead code, honest config + tracker | ✅ `b727039` |
 | 1 | Real agent core: instructor-validated structured outputs, genuinely invoked tools, real token/cost accounting | ✅ `f2fbbb0` (99-test suite green) |
 | 2 | Graph RAG: typed fact graph (Company→Year→Metric→Value with provenance) + GraphRAG-style community summaries + graph query tool | ✅ `1358c4d` (528 value facts with chunk provenance; 99 tests green) |
-| 3 | DeepEval harness: DeepEval metric layer, cleaned golden set, calibrated judge with published human-agreement number, regression runner | 🔨 in progress |
+| 3 | DeepEval harness: DeepEval metric layer, cleaned golden set, calibrated judge with published human-agreement number, regression runner | ✅ `fc5a32b`…`562fd0e` (80-case v1 golden set; DeepEval G-Eval + faithfulness/relevancy/precision via OpenRouter judge; `ragfilings regress` with run snapshots + baseline diff; judge calibration published) |
 | 4 | Proof: dense vs hybrid vs +rerank vs +graph ablations, failure analysis, honest scorecards, docs + web | ⬜ |
 
-### Baseline numbers
-- **None.** All pre-rebuild scores (55.0% / 72.1% / 14-14 etc.) were purged with their
-  artifacts on 2026-08-30 — they measured the pre-rebuild system and several were
-  contradicted by the repo's own result files. The stage 3 run produces the first
-  valid baseline; every number must come from a reproducible run with config snapshot.
+### Baseline numbers (stage 3, 2026-08-31, reproducible via `ragfilings regress`)
+- **Overall accuracy: 53.8% (43/80)** — golden_set_v1, hybrid_rerank,
+  all-free models (minimax/minimax-m3:free for generation/extraction/judge —
+  OpenRouter credits exhausted; run snapshot records this, re-runnable on
+  frontier models when credits allow). Total generation cost: $0.00.
+- By category: lookup 68% (15/22) · table 56% (10/18) · synthesis 44%
+  (8/18) · unanswerable 75% correct refusals (9/12, 3 hallucinations) ·
+  ambiguous 10% (1/10)
+- Dominant failure mode: **16 incorrect refusals** — the free generation
+  model claims a figure is absent from retrieved context when it is present.
+- DeepEval means (answered cases): faithfulness 0.88 (13 judge-JSON errors) ·
+  answer relevancy 0.98 · contextual precision 0.64
+- **Judge calibration (published): agreement 45/52 = 86.5%, Cohen's kappa
+  0.669** — labels hand-written against filing text
+  (`p3-rag-filings/golden/judge_calibration_v1.jsonl`), report at
+  `p3-rag-filings/docs/judge_calibration_v1.md`. 6 of 7 disagreements are
+  one-directional: judge rejects enumeration-style disambiguation on
+  ambiguous questions that hand labels accept (non-ambiguous agreement
+  40/42 = 95.2%).
