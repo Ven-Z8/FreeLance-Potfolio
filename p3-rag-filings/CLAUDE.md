@@ -101,6 +101,8 @@ the repo root holds stage status and the published numbers.
 5. Free-judge JSON instability (~13/240 metric calls return malformed JSON;
    degrade to None by design).
 
-**Remaining stage-4 work:** dense / hybrid / hybrid_rerank ablation legs for
-the scorecard, the scorecard itself, README/docs refresh (README still shows
-pre-rebuild numbers), and the web UI.
+**Remaining stage-4 work:** the web UI, vague-metric ambiguity ("earnings",
+"cash" without a year), issue #2 (unanswerable hallucinations), and a
+full-metric re-run once OpenRouter credits allow. Ablation legs (dense /
+hybrid / hybrid_rerank, no-graph) and the README refresh to measured numbers
+are done — see TRACKER.md stage-4 sections.

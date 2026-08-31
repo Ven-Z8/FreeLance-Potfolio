@@ -49,7 +49,7 @@ generalized to arbitrary complex domains via pluggable domain skill packs.
 | 1 | Real agent core: instructor-validated structured outputs, genuinely invoked tools, real token/cost accounting | ✅ `f2fbbb0` (99-test suite green) |
 | 2 | Graph RAG: typed fact graph (Company→Year→Metric→Value with provenance) + GraphRAG-style community summaries + graph query tool | ✅ `1358c4d` (528 value facts with chunk provenance; 99 tests green) |
 | 3 | DeepEval harness: DeepEval metric layer, cleaned golden set, calibrated judge with published human-agreement number, regression runner | ✅ `fc5a32b`…`562fd0e` (80-case v1 golden set; DeepEval G-Eval + faithfulness/relevancy/precision via OpenRouter judge; `ragfilings regress` with run snapshots + baseline diff; judge calibration published) |
-| 4 | Proof: dense vs hybrid vs +rerank vs +graph ablations, failure analysis, honest scorecards, docs + web | 🔨 **IN PROGRESS** → `+graph` measured: v1 **85.0%** (vs 53.8%, +30pp from graph) and a new 45-case **enterprise multi-hop set at 84.4%** (vs 37.8% no-graph control, +46.6pp). Remaining: dense/hybrid ablation legs, README refresh, web |
+| 4 | Proof: dense vs hybrid vs +rerank vs +graph ablations, failure analysis, honest scorecards, docs + web | 🔨 **IN PROGRESS** → ablations measured on v1 (no-graph: dense 56.2% / hybrid 46.2% / +rerank 55.0%; +graph 85.0%; +clarify 96.2%); enterprise multi-hop 84.4% vs 37.8% no-graph; README refreshed to measured numbers. Remaining: web UI + full-metric re-run when credits allow |
 
 ### Baseline numbers (stage 3, 2026-08-31, reproducible via `ragfilings regress`)
 - **Overall accuracy: 53.8% (43/80)** — golden_set_v1, hybrid_rerank,
@@ -154,3 +154,16 @@ fire on **zero** non-ambiguous questions.
   or a vague metric ("earnings", "cash") and need metric-disambiguation.
 - 155 tests (5 new clarification tests). Issue #2 (unanswerable
   hallucinations) and vague-metric ambiguity remain open.
+
+### Stage-4 result: retrieval-strategy ablation (v1, accuracy-only, 2026-08-31)
+
+No-graph legs, all-free models (`ragfilings regress --strategy <s>
+--skip-judge-metrics`): dense **56.2%** (run `…160924…`) · hybrid **46.2%**
+(run `…162005…`) · hybrid + rerank **55.0%** (control run `…123419…`). The
+spread is within free-model run-to-run variance (a few cases), so the
+retrieval-ranker deltas are noise. The signal is the graph: hybrid + rerank +
+fact-graph augmentation = **85.0%**, and + missing-year clarification =
+**96.2%** on the post-clarification run. The bottleneck was never retrieval
+ranking — it was the generator refusing retrievable figures, which the
+deterministic graph injection fixes. README rewritten to these measured
+numbers (the fabricated pre-rebuild scorecards are gone).

@@ -1,82 +1,153 @@
 # RAG over Real SEC 10-K Filings — with the Failure Analysis Included
 
-![Scorecard](reports/scorecard.png)
-
-> **Headline Scorecard:** Answer accuracy: **72%** · Table-reading accuracy: **94%** (Hybrid) vs **71%** (Dense) · Citation faithfulness: **63%** · Hallucination rate on unanswerable questions: **0%** · Cost/query: **$0.0131** · p50 latency: **3.0s** — measured on a 61-question golden set over 25 real SEC 10-K filings.
+> **Every number below was re-measured on 2026-08-31 after a ground-up rebuild,
+> on an all-free model stack (`minimax/minimax-m3:free`, $0.00 total cost).
+> An earlier version of this README carried unverified headline numbers; they
+> were removed. What follows is the honest, reproducible state.**
 
 Anyone can build RAG that works on easy questions. This repo shows what it takes
-on genuinely messy documents — 25 SEC 10-K filings full of nested tables,
-footnotes, incorporated-by-reference sections, 53-week fiscal years, and
-column orders that flip between companies — **measured, with the failures included**.
+on genuinely messy documents — 25 real SEC 10-K filings full of nested tables,
+footnotes, incorporated-by-reference sections, 53-week fiscal years, and column
+orders that flip between companies — **measured, with the failures included.**
+
+## Headline (measured, 2026-08-31)
+
+On the 80-case audited golden set (`golden/golden_set_v1.jsonl`), accuracy by
+system configuration:
+
+| Configuration | Accuracy | Notes |
+|---|---|---|
+| Retrieval-only, hybrid + rerank | **53.8%** | baseline: generator refuses figures it actually retrieved |
+| **+ fact-graph augmentation** | **85.0%** | +31.2pp — all 16 incorrect refusals fixed |
+| **+ missing-year clarification** | **96.2%** | ambiguous 2/10 → 9/10 (single run; see caveat) |
+
+On a separate 45-case **enterprise multi-hop** set (ratios, CAGR, cross-company
+comparisons, trends — answers that live in *no single chunk*):
+
+| Configuration | Accuracy |
+|---|---|
+| Retrieval-only (no graph) | 37.8% |
+| **+ fact-graph augmentation** | **84.4%** |
+
+The enterprise set is the point: multi-hop answers can't be retrieved from one
+chunk, so retrieval-only fails; the fact graph does the joining.
+
+## The idea in one paragraph
+
+A normal RAG pipeline retrieves text chunks and asks a model to answer from
+them. On 10-Ks that breaks in two characteristic ways: the model **refuses**
+figures that *were* retrieved (it can't find them in a wall of table text), and
+it **can't answer multi-hop questions at all** (a ratio needs two figures from
+two places). So on top of retrieval this system builds a **typed fact graph**
+(Company → Year → Metric → Value, each value carrying the exact source chunk),
+and at answer time **injects the relevant graph fact(s) + their provenance
+chunks into the context up front**. For under-specified questions it asks a
+**clarifying question** instead of guessing. Retrieval stops being the single
+point of failure.
 
 ## Reproduce the headline result
 
 ```bash
 uv sync --extra dev
-uv run python scripts/download_corpus.py # 25 10-Ks from SEC EDGAR (be patient, rate-limited)
-uv run ragfilings index                  # parse + chunk + embed (local model, no API key)
-# Add your OPENROUTER_API_KEY or NVIDIA_API_KEY to .env
-uv run ragfilings eval golden/ --strategy both # full eval: both retrieval strategies, full scorecard
+uv run python scripts/download_corpus.py     # 25 10-Ks from SEC EDGAR (rate-limited)
+uv run ragfilings index                      # parse + chunk + embed (local model, no key)
+uv run ragfilings graph                      # build the fact graph + communities
+# add OPENROUTER_API_KEY to .env
+uv run ragfilings regress --strategy hybrid_rerank_graph --skip-judge-metrics
+# -> accuracy + diff vs the latest baseline run, in reports/evals/<run>/
 ```
+
+The enterprise set: `--golden-set golden/golden_set_enterprise_v1.jsonl`.
+`--skip-judge-metrics` runs accuracy-only (deterministic numeric matching +
+G-Eval correctness); drop it to also score faithfulness / answer-relevancy /
+contextual-precision.
+
+## Measured ablation — retrieval strategy vs the graph
+
+Accuracy on the 80-case v1 set, all-free models, accuracy-only scoring.
+Retrieval-only runs (no graph) sit in a ~46–56% band dominated by the refusal
+problem; run-to-run variance on the free model is a few cases, so read the
+retrieval-strategy deltas as noise and the graph delta as the signal.
+
+| Strategy (v1 set, no graph) | Accuracy |
+|---|---|
+| dense | 56.2% |
+| hybrid (dense + BM25) | 46.2% |
+| hybrid + cross-encoder rerank | 55.0% |
+| **hybrid + rerank + fact-graph augmentation** | **85.0%** |
+
+**Reading:** swapping the retrieval ranker moves accuracy by a few points
+(within noise); adding the fact graph moves it by ~30. The bottleneck was never
+retrieval ranking — it was the generator failing to use retrievable figures.
 
 ## What's actually hard here (and what this repo does about it)
 
 | The mess | The handling |
 |---|---|
-| Item 7/8 are "incorporated by reference" stubs in 8/25 filings | Stub detection + resolution to the real F-pages (`resolved_from` metadata) |
-| Tables that die when flattened to text | Row-boundary-safe chunking; header rows repeated on continuation chunks |
+| Item 7/8 are "incorporated by reference" stubs | Stub detection + resolution to the real F-pages (`resolved_from`) |
+| Tables die when flattened to text | Row-boundary-safe chunking; header rows repeated on continuation chunks |
 | "See Notes 1 and 4" | Footnote linking: statement chunks carry `note_refs` to note chunks |
-| Column orders flip (AAPL descends 2025→2023, AMZN ascends 2023→2025) | Eval questions specifically target this; see failure analysis |
-| Fiscal-year labels lie (NVDA's latest FY is "2026"; so is Walmart's) | Metadata extraction per filing; golden set tests fiscal-label handling |
-| Questions with no answer in the corpus | Confidence-gated refusal — measured refusal rate + refusal correctness |
-
-## Three retrieval strategies & NVIDIA RAG Blueprint, compared honestly
-
-| Metric | Dense-Only | Hybrid (Dense + BM25) | Hybrid + CrossEncoder Rerank (NVIDIA Blueprint) |
-|---|---|---|---|
-| **Overall Accuracy** | **70.5%** | **72.1%** | **76.1%** *(+5.6% gain)* |
-| **Table-Reading Accuracy** | **71.0%** | **94.1%** | **94.1%** |
-| **Synthesis Accuracy** | **42.0%** | **33.0%** | **54.0%** *(+21% gain)* |
-| **Retrieval Hit Rate** | **91.0%** | **91.0%** | **93.0%** |
-| **Citation Faithfulness** | **53.0%** | **63.0%** | **63.0%** |
-| **Hallucination Rate** | **0.0%** | **0.0%** | **0.0%** *(100% correct refusals)* |
-| **Refusal Correctness** | **62.0%** | **60.0%** | **82.0%** *(+22% gain)* |
-| **Cost / Query** | **$0.0129** | **$0.0131** | **$0.0139** |
-| **Latency p50 / p95** | **2.9s / 7.0s** | **3.0s / 5.2s** | **4.1s / 7.4s** |
-
-## 🏆 4 Industry-Standard RAG Benchmarks Suite
-
-| Industry Benchmark | Metric / Target Area | Measured Score | Architecture Notes |
-|---|---|---|---|
-| **FinanceBench (Patronus AI)** | Open-book SEC 10-K QA | **76.1%** *(SOTA RAG level)* | NVIDIA CrossEncoder reranking + Python Math Tool |
-| **RAGAS Framework (Exploding Gradients)** | Grounded Faithfulness & Precision | **92.4% Faithfulness / 93.0% Precision** | Regex figure claim verifier + RAGAS evaluator |
-| **RGB Benchmark (Tsinghua / AI21)** | Noise & Counterfactual Robustness | **89.0% Refusal / 0% Hallucination** | Confidence-gated refusal & premise validation |
-| **FinQA / TAT-QA** | Financial Table Numerical Calculations | **94.1% Table Accuracy** | Header-persisted table chunking + Math Tool |
-
-
+| Column orders flip (AAPL descends, AMZN ascends) | Golden set targets this; fact extraction normalizes per filing |
+| Fiscal-year labels lie (NVDA's latest FY is "2026"; so is Walmart's) | Per-filing fiscal metadata; golden set tests fiscal-label handling |
+| Figures retrieved but the model refuses them | **Fact-graph augmentation** injects the figure + source chunk |
+| Multi-hop answers (ratios, CAGR, comparisons) | **Multi-hop augmentation** joins 2+ graph facts, grounds the derived value |
+| Under-specified questions (no fiscal year) | **Deterministic clarification** asks which year instead of guessing |
+| Questions with no answer in the corpus | Confidence-gated refusal + graph-abstain; measured refusal correctness |
 
 ## The failure analysis (read this first)
 
-**[PLACEHOLDER]** "The N questions my system got wrong, and why" — categorized:
-retrieval miss / table misread / synthesis error / judge disagreement. Plus one
-fix and its measured effect on the scorecard. See `reports/failure_analysis.md`.
+The honest part. Full write-up: [`p3-rag-filings/docs/graph_augmentation_v1.md`](p3-rag-filings/docs/graph_augmentation_v1.md).
+
+What the 85.0% graph run (v1) still got wrong, and why:
+- **3 unanswerable hallucinations** (fin-8003/8007/8012): the model answers
+  from parametric knowledge ("Apple sold N iPhones") instead of refusing. Open.
+- **1 synthesis metric-disambiguation** (fin-3003): read a combined MD&A line
+  instead of the standalone figure.
+
+What the enterprise set (84.4%) got wrong:
+- **3 synthesis**: 2 R&D-intensity arithmetic slips, 1 gross-margin refusal.
+- **4 ambiguities** with a year or a vague metric ("earnings", "cash") — the
+  missing-year clarification doesn't cover vague-metric ambiguity yet.
+
+**Caveats, stated plainly.**
+- The free generator is non-deterministic run-to-run; single-run accuracy varies
+  by a few cases. The 96.2% figure also caught 2 unanswerables flipping to
+  correct refusals by ordinary variance, not by the clarification. The
+  deterministic wins are the graph-rescued refusals and the missing-year
+  clarifications.
+- Accuracy-only scoring (`--skip-judge-metrics`) was used because the free tier
+  is rate-limited; the complementary DeepEval metrics can be re-run when credits
+  allow.
+- The fact graph quarantines 68 hand-verified mis-extracted facts
+  (`corpus/graph/excluded_facts.json`); they are excluded from both golden
+  generation and runtime augmentation, but the builder heuristics that produced
+  them are a known debt.
 
 ## Architecture
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) — one page, honest about tradeoffs.
+See [ARCHITECTURE.md](ARCHITECTURE.md). Components: parse → chunk → embed →
+retrieve (dense / hybrid / +rerank) → **fact graph** → **augmentation /
+clarification** → grounded synthesis with a numeric-claim verifier. Judge =
+DeepEval G-Eval over OpenRouter.
 
-## Golden dataset
+## Golden datasets
 
-60+ hand-verified questions in `golden/` (schema in `golden/schema.md`):
-simple lookup, cross-section synthesis, table-reading, unanswerable
-(hallucination bait), and ambiguous (clarification tests). Every answerable
-question's ground truth was verified by a human against the actual filing.
-The set doubles as the financial domain pack for the
-[eval harness](../p1-eval-harness) project.
+- `golden/golden_set_v1.jsonl` — 80 cases (lookup, table, synthesis,
+  unanswerable, ambiguous). Every answerable figure proven against filing text.
+- `golden/golden_set_enterprise_v1.jsonl` — 45 multi-hop cases (ratios, CAGR,
+  cross-company, trends, + unanswerables and ambiguities). Built by
+  `scripts/build_golden_enterprise_v1.py`; each derived answer's base figures
+  are chunk-verified.
+- Judge calibration: 86.5% human agreement / Cohen's kappa 0.669 on 52
+  hand-labeled pairs (`golden/judge_calibration_v1.jsonl`,
+  `docs/judge_calibration_v1.md`).
+- Audit evidence: `golden/audit_v1.json`; regenerate with
+  `scripts/audit_golden.py`.
 
 ## Scope discipline — what this deliberately is NOT
 
 - No chat UI. CLI + config files.
 - No 10,000-document corpus. 25 hard documents, deeply handled.
-- No agentic/multi-hop RAG in v1 — future work, with a hypothesis: it would fix
-  the cross-filing synthesis failures documented in the failure analysis.
+- No paid-model results yet: the whole stack runs on free models, and the
+  numbers reflect that. Adding credits means re-running on frontier models
+  (run snapshots keep results comparable).
