@@ -76,10 +76,11 @@
           <div class="select-wrapper">
             <label for="strategy-select" class="label-micro">Orchestration Strategy</label>
             <select id="strategy-select" class="form-select">
-              <option value="agent_react" selected>6-Agent Swarm (Graph RAG)</option>
+              <option value="hybrid_rerank_graph" selected>Graph-Augmented RAG (recommended)</option>
+              <option value="agent_react">6-Agent Swarm (multi-agent + tools)</option>
               <option value="hybrid_rerank">Hybrid + Reranker</option>
               <option value="hybrid">Dense + BM25 Hybrid</option>
-              <option value="naive">Naive Dense</option>
+              <option value="dense">Dense only</option>
             </select>
           </div>
         </div>
@@ -140,12 +141,12 @@
       </div>
 
       <div class="middle-scroll-container">
-        <!-- Main Executive Answer Card -->
-        <article class="card answer-card" id="answer-card">
+        <!-- Conversational Thread -->
+        <article class="card conversation-card" id="conversation-card">
           <div class="answer-card-header">
             <div class="answer-title-group">
               <span class="status-dot-active"></span>
-              <span id="answer-title" class="answer-heading">Grounded Executive Synthesis</span>
+              <span id="answer-title" class="answer-heading">Conversational Analysis</span>
             </div>
             <div class="answer-actions">
               <span id="verified-shield-badge" class="audit-badge verified">
@@ -154,15 +155,16 @@
                 </svg>
                 <span>AUDITED</span>
               </span>
-              <button id="btn-copy-answer" class="btn-secondary-sm" title="Copy answer">Copy</button>
+              <button id="btn-new-conversation" class="btn-secondary-sm" title="Start a new conversation">New chat</button>
             </div>
           </div>
-          
-          <div id="answer-text" class="answer-prose">
-            <p class="placeholder-msg">Select a benchmark question from the left panel or type your own query to run the agentic swarm.</p>
+
+          <div id="chat-thread" class="chat-thread">
+            <p class="placeholder-msg" id="chat-placeholder">Ask a question about the 25 SEC filings. Follow-ups stay in
+              context — try “what about FY2024?” or “now compute the CAGR”. Presets on the left are good openers.</p>
           </div>
 
-          <!-- Citation Chips -->
+          <!-- Citation Chips (latest turn) -->
           <div class="citations-block" id="citations-container" style="display: none;">
             <div class="citations-header">SEC FILING CITATIONS:</div>
             <div id="citations-list" class="citations-chips-flex"></div>

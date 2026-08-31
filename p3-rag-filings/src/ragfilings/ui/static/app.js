@@ -7,12 +7,14 @@ let financialChartInstance = null;
 let allGraphNodes = [];
 let allGraphLinks = [];
 let selectedCompanyFilter = "ALL";
+let currentSessionId = null; // conversational session id
 
 document.addEventListener("DOMContentLoaded", () => {
   initPresets();
   initHistory();
   initKnowledgeGraph();
   setupEventListeners();
+  startNewConversation(false); // create a session id (don't clear thread on load)
 });
 
 function setupEventListeners() {
@@ -20,7 +22,7 @@ function setupEventListeners() {
   const queryInput = document.getElementById("query-input");
   const presetSelect = document.getElementById("preset-select");
   const btnRefreshHistory = document.getElementById("btn-refresh-history");
-  const btnCopy = document.getElementById("btn-copy-answer");
+  const btnNewConversation = document.getElementById("btn-new-conversation");
   const graphFilter = document.getElementById("graph-company-filter");
 
   btnRun.addEventListener("click", () => {
@@ -28,8 +30,9 @@ function setupEventListeners() {
     if (q) executeQuery(q);
   });
 
+  // Chat-style: Enter sends, Shift+Enter newline.
   queryInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       const q = queryInput.value.trim();
       if (q) executeQuery(q);
@@ -62,14 +65,72 @@ function setupEventListeners() {
 
   btnRefreshHistory.addEventListener("click", initHistory);
 
-  btnCopy.addEventListener("click", () => {
-    const text = document.getElementById("answer-text").innerText;
-    if (text) {
-      navigator.clipboard.writeText(text);
-      btnCopy.innerText = "Copied!";
-      setTimeout(() => { btnCopy.innerText = "Copy"; }, 2000);
-    }
+  if (btnNewConversation) {
+    btnNewConversation.addEventListener("click", () => startNewConversation(true));
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Conversation session management
+// -----------------------------------------------------------------------------
+async function startNewConversation(clearThread) {
+  try {
+    const res = await fetch("/api/session/new", { method: "POST" });
+    const data = await res.json();
+    currentSessionId = data.session_id;
+  } catch (err) {
+    currentSessionId = null;
+  }
+  if (clearThread) {
+    const thread = document.getElementById("chat-thread");
+    thread.innerHTML =
+      '<p class="placeholder-msg" id="chat-placeholder">New conversation started. Ask a question — follow-ups stay in context.</p>';
+    hideEvidencePanels();
+  }
+}
+
+function hideEvidencePanels() {
+  ["math-card", "tables-card", "visuals-card", "chunks-card"].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
   });
+  const cit = document.getElementById("citations-container");
+  if (cit) cit.style.display = "none";
+}
+
+function appendUserBubble(text) {
+  const thread = document.getElementById("chat-thread");
+  const ph = document.getElementById("chat-placeholder");
+  if (ph) ph.remove();
+  const bubble = document.createElement("div");
+  bubble.className = "chat-msg chat-user";
+  bubble.innerHTML = `<div class="chat-bubble">${formatMarkdownAnswer(text)}</div>`;
+  thread.appendChild(bubble);
+  thread.scrollTop = thread.scrollHeight;
+}
+
+function appendAssistantBubble(data, rewritten) {
+  const thread = document.getElementById("chat-thread");
+  const bubble = document.createElement("div");
+  bubble.className = "chat-msg chat-assistant";
+
+  let re = "";
+  if (rewritten && rewritten.trim() && rewritten.trim() !== (data.query || "").trim()) {
+    re = `<div class="chat-rewritten" title="Follow-up resolved against the conversation">↳ Interpreted as: ${escapeHtml(rewritten)}</div>`;
+  }
+
+  let body;
+  if (data.refused) {
+    body = `<div class="chat-refusal">${escapeHtml(data.refusal_reason || data.answer || "I can't verify that from the filings.")}</div>`;
+  } else {
+    body = formatMarkdownAnswer(data.answer || "");
+  }
+
+  const meta = `<div class="chat-meta">${(data.latency_ms / 1000).toFixed(1)}s · $${(data.usage?.cost_usd || 0).toFixed(4)} · conf ${(data.confidence * 100).toFixed(0)}%${data.refused ? " · REFUSED" : ""}</div>`;
+
+  bubble.innerHTML = `<div class="chat-bubble">${re}${body}${meta}</div>`;
+  thread.appendChild(bubble);
+  thread.scrollTop = thread.scrollHeight;
 }
 
 // -----------------------------------------------------------------------------
@@ -282,27 +343,34 @@ function drawKnowledgeGraphCanvas(nodes, links) {
 async function executeQuery(query) {
   const strategy = document.getElementById("strategy-select").value;
   const btnRun = document.getElementById("btn-run-query");
+  const queryInput = document.getElementById("query-input");
   const overallStatus = document.getElementById("swarm-overall-status");
   const stepIndicator = document.getElementById("swarm-step-indicator");
-  const answerText = document.getElementById("answer-text");
   const citationsContainer = document.getElementById("citations-container");
   const mathCard = document.getElementById("math-card");
   const tablesCard = document.getElementById("tables-card");
   const visualsCard = document.getElementById("visuals-card");
   const chunksCard = document.getElementById("chunks-card");
+  const thread = document.getElementById("chat-thread");
 
   btnRun.disabled = true;
+  queryInput.value = "";
+  appendUserBubble(query);
+
+  // Typing indicator bubble
+  const typing = document.createElement("div");
+  typing.className = "chat-msg chat-assistant";
+  typing.id = "chat-typing";
+  typing.innerHTML = '<div class="chat-bubble chat-typing-bubble">Reasoning over SEC filings &amp; the knowledge graph…</div>';
+  thread.appendChild(typing);
+  thread.scrollTop = thread.scrollHeight;
+
   overallStatus.innerText = "Running Swarm";
   overallStatus.className = "header-tag active";
   stepIndicator.innerText = "Step 1: Orchestrating...";
-  answerText.innerHTML = '<div class="loading-state">Orchestrating 6-agent swarm across SEC filings and knowledge graph...</div>';
-  citationsContainer.style.display = "none";
-  mathCard.style.display = "none";
-  tablesCard.style.display = "none";
-  visualsCard.style.display = "none";
-  chunksCard.style.display = "none";
+  hideEvidencePanels();
 
-  // Flowchart DAG Steps
+  // Flowchart DAG Steps (animated)
   const dagSteps = [
     { node: "node-orchestrator", state: "state-orchestrator", label: "Step 1: Orchestrator", delay: 100 },
     { node: "node-researcher", state: "state-researcher", label: "Step 2: Tri-Hybrid Search", delay: 500 },
@@ -324,11 +392,14 @@ async function executeQuery(query) {
     const res = await fetch("/api/query", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query, strategy, top_k: 8 }),
+      body: JSON.stringify({ query, strategy, top_k: 8, session_id: currentSessionId }),
     });
 
     const data = await res.json();
     if (!res.ok) throw new Error(data.detail || "Query execution failed");
+    if (data.session_id) currentSessionId = data.session_id;
+
+    typing.remove();
 
     // Complete DAG Nodes
     dagSteps.forEach(({ node, state }) => {
@@ -338,26 +409,27 @@ async function executeQuery(query) {
     overallStatus.className = "header-tag";
     stepIndicator.innerText = "All Steps Verified";
 
+    // Assistant chat bubble (answer or refusal/clarification)
+    appendAssistantBubble(data, data.rewritten_query);
+
     // 1. Render Metadata Chips
     document.getElementById("chip-latency").innerText = `Latency: ${(data.latency_ms / 1000).toFixed(2)}s`;
     document.getElementById("chip-cost").innerText = `Cost: $${(data.usage?.cost_usd || 0.0).toFixed(4)}`;
     document.getElementById("chip-confidence").innerText = `Confidence: ${(data.confidence * 100).toFixed(0)}%`;
 
-    // 2. Render Answer
+    // 2. Verified badge
     const verifiedBadge = document.getElementById("verified-shield-badge");
     if (data.refused) {
-      verifiedBadge.innerText = "REFUSED";
+      verifiedBadge.innerText = "REFUSED / CLARIFY";
       verifiedBadge.className = "audit-badge refused";
-      answerText.innerHTML = `<p style="color: var(--accent-rose);">${escapeHtml(data.refusal_reason || 'Query could not be verified from filing.')}</p>`;
     } else {
       verifiedBadge.innerHTML = `
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
         </svg>
-        <span>AUDITED & VERIFIED</span>
+        <span>AUDITED &amp; VERIFIED</span>
       `;
       verifiedBadge.className = "audit-badge verified";
-      answerText.innerHTML = formatMarkdownAnswer(data.answer);
     }
 
     // 3. Citations
@@ -411,12 +483,14 @@ async function executeQuery(query) {
     initHistory();
 
   } catch (err) {
-    answerText.innerHTML = `<p style="color: var(--accent-rose);">Execution error: ${escapeHtml(err.message)}</p>`;
+    typing.remove();
+    appendAssistantBubble({ refused: true, refusal_reason: `Execution error: ${err.message}`, query, latency_ms: 0, usage: {}, confidence: 0 }, null);
     overallStatus.innerText = "Error";
     overallStatus.className = "header-tag";
     stepIndicator.innerText = "Execution failed";
   } finally {
     btnRun.disabled = false;
+    queryInput.focus();
   }
 }
 

@@ -2,10 +2,8 @@
 
 from __future__ import annotations
 
-import json
 import logging
 import re
-import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -18,6 +16,7 @@ from pydantic import BaseModel
 from ..config import load as load_cfg
 from ..graph.builder import FinancialGraphBuilder
 from ..graph.query import GraphQueryEngine
+from ..pipeline.converse import rewrite_followup
 from ..pipeline.engine import ask
 from ..pipeline.memory import SessionMemoryManager
 from ..retrieval import load_index
@@ -44,6 +43,10 @@ _cfg: Optional[Dict[str, Any]] = None
 _index: Optional[Any] = None
 _graph_engine: Optional[GraphQueryEngine] = None
 _memory = SessionMemoryManager()
+
+# In-memory conversational sessions: session_id -> ordered turns
+# [{"role": "user"|"assistant", "content": str}]
+_CONVERSATIONS: Dict[str, List[Dict[str, str]]] = {}
 
 PRESET_QUESTIONS = [
     {
@@ -150,8 +153,25 @@ def get_system_components():
 
 class QueryRequest(BaseModel):
     query: str
-    strategy: str = "agent_react"
+    strategy: str = "hybrid_rerank_graph"
     top_k: int = 8
+    session_id: Optional[str] = None
+
+
+@app.post("/api/session/new")
+async def new_session():
+    """Start a fresh conversation and return its session id."""
+    import uuid
+    sid = f"conv_{uuid.uuid4().hex[:12]}"
+    _CONVERSATIONS[sid] = []
+    return {"session_id": sid}
+
+
+@app.get("/api/session/{session_id}")
+async def get_session(session_id: str):
+    """Return the conversation turns for a session."""
+    return {"session_id": session_id,
+            "turns": _CONVERSATIONS.get(session_id, [])}
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -214,15 +234,27 @@ async def execute_query(req: QueryRequest):
     if not index:
         raise HTTPException(status_code=500, detail="Search index not available. Please run indexing first.")
 
+    # Conversational session: get-or-create, then resolve elliptical follow-ups
+    # into a self-contained question so multi-hop grounding still applies.
+    session_id = req.session_id
+    if not session_id or session_id not in _CONVERSATIONS:
+        import uuid
+        session_id = session_id or f"conv_{uuid.uuid4().hex[:12]}"
+        _CONVERSATIONS.setdefault(session_id, [])
+    history = _CONVERSATIONS[session_id]
+    rewritten = rewrite_followup(req.query, history, cfg)
+
     res = ask(
-        query=req.query,
+        query=rewritten,
         cfg=cfg,
         index=index,
         strategy=req.strategy,
     )
 
-    session_id = res.get("session_id")
-    trajectory = _memory.get_trajectory(session_id) if session_id else []
+    # The orchestrator (agent_react) has its own session id for trajectories;
+    # it is distinct from the conversational session_id kept above.
+    orch_session_id = res.get("session_id")
+    trajectory = _memory.get_trajectory(orch_session_id) if orch_session_id else []
 
     # Parse and filter discrete structured tables from retrieved chunks
     tables = []
@@ -348,9 +380,15 @@ async def execute_query(req: QueryRequest):
                         "unit": "USD_M",
                     }
 
+    # Persist the conversational turns (user asked, assistant answered).
+    assistant_text = res.get("answer") or res.get("refusal_reason") or ""
+    _CONVERSATIONS[session_id].append({"role": "user", "content": req.query})
+    _CONVERSATIONS[session_id].append({"role": "assistant", "content": assistant_text})
+
     return {
         "session_id": session_id,
         "query": req.query,
+        "rewritten_query": rewritten,
         "strategy": req.strategy,
         "answer": res.get("answer"),
         "refused": res.get("refused", False),
@@ -363,6 +401,7 @@ async def execute_query(req: QueryRequest):
         "verification": res.get("verification", {}),
         "math_result": res.get("math_result"),
         "graph_facts": res.get("graph_facts", []),
+        "graph_rescue": res.get("graph_rescue"),
         "tables": tables[:3],
         "chart_data": chart_data,
         "trajectory": trajectory,

@@ -80,6 +80,10 @@ class PromptRegistry:
     def get_auditor(cls) -> str:
         return cls.get_raw("auditor")
 
+    @classmethod
+    def get_converse_rewrite(cls) -> str:
+        return cls.get_raw("converse_rewrite")
+
 
 def load_prompt(name: str, **kwargs: Any) -> str:
     """Convenience functional accessor."""
