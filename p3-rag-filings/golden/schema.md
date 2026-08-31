@@ -29,6 +29,20 @@ must change.
 | Not-in-corpus (unanswerable) | 10–15 | MUST refuse — hallucination test. `expected.answer: null` |
 | Ambiguous | 8–15 | Should ask for clarification, not guess ("What was revenue?" — which company? which year?) |
 
+## History
+
+- **v0 (retired 2026-08-30):** 91 cases across `golden_set_v0_batch1..4`,
+  `brutal_20`, `financebench_10k`, `benchmarks/`. An audit
+  (`audit_v0_retired.json`) found the expected answers were never verified
+  against the filings: fabricated figures (AMZN net sales $637,982 — actual
+  FY2025: $716,924M), wrong-year figures (JNJ R&D $17,175 — actual FY2025:
+  $14,665M), transcription errors (WMT $680,984 — actual: $680,985M). The
+  entire set was retired rather than patched.
+- **v1:** built from scratch with the stage-2 fact graph
+  (`corpus/graph/financial_graph.json`) as the grounding source; every
+  expected answer is checked against the source chunk text by
+  `scripts/audit_golden.py` before entering the set.
+
 ## Authoring rules
 
 1. Every answerable question's answer must be verified BY HAND against the
