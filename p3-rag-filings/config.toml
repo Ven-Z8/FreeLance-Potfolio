@@ -42,8 +42,10 @@ verify_retries = 1
 model = "google/gemini-2.5-flash-lite"
 
 [eval]
-# Judge model for scoring; may differ from generation.
-judge_model = "anthropic/claude-sonnet-4.5"
+# Judge model for scoring; may differ from generation. Free tier to keep
+# eval overhead off the paid balance; its agreement rate is measured by the
+# calibration step (scripts/calibrate_judge.py) rather than assumed.
+judge_model = "minimax/minimax-m3:free"
 
 [verification]
 # Refuse to answer below this retrieval confidence (top dense cosine).

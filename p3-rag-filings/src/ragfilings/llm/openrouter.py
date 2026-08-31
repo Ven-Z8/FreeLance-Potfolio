@@ -10,9 +10,19 @@ from .types import ChatMessage, LLMResponse, TokenUsage
 
 
 def parse_usage(u: Any) -> TokenUsage:
-    """Extract real token usage + cost from an OpenRouter/OpenAI usage object."""
+    """Extract real token usage + cost from an OpenRouter/OpenAI usage object.
+
+    Free-tier providers sometimes omit usage entirely or return it as a plain
+    dict; both degrade to zeros instead of crashing the caller.
+    """
     if u is None:
         return TokenUsage()
+    if isinstance(u, dict):
+        return TokenUsage(
+            input_tokens=u.get("prompt_tokens") or 0,
+            output_tokens=u.get("completion_tokens") or 0,
+            cost_usd=float(u.get("cost") or 0.0),
+        )
     cost = getattr(u, "cost", None)
     if cost is None and getattr(u, "model_extra", None):
         cost = u.model_extra.get("cost")
@@ -83,6 +93,8 @@ class OpenRouterClient(BaseLLMClient):
         request_kwargs.update(kwargs)
 
         resp = client.chat.completions.create(**request_kwargs)
+        if not getattr(resp, "choices", None):
+            raise RuntimeError(f"provider returned no choices (model={target_model})")
         choice = resp.choices[0]
         content = choice.message.content or getattr(choice.message, "reasoning", "") or ""
 
