@@ -49,8 +49,9 @@ p3-rag-filings/
 
 ## Current state (stage 4 in progress, 2026-08-31)
 
-Stages 0–3 of the rebuild are committed and stage 4 is underway; TRACKER.md at
-the repo root holds stage status and the published numbers.
+Stages 0–3 of the rebuild are committed and stage 4 is underway; the dev
+tracker (`.dev-notes/TRACKER.md`, gitignored) holds stage status and the
+published numbers.
 
 - **Stage-4 graph augmentation (done)**: `hybrid_rerank_graph` — for a
   clean-scope `(ticker, metric, year)` question the exact fact-graph figure(s)
@@ -101,8 +102,10 @@ the repo root holds stage status and the published numbers.
 5. Free-judge JSON instability (~13/240 metric calls return malformed JSON;
    degrade to None by design).
 
-**Remaining stage-4 work:** the web UI, vague-metric ambiguity ("earnings",
-"cash" without a year), issue #2 (unanswerable hallucinations), and a
-full-metric re-run once OpenRouter credits allow. Ablation legs (dense /
-hybrid / hybrid_rerank, no-graph) and the README refresh to measured numbers
-are done — see TRACKER.md stage-4 sections.
+**Remaining stage-4 work:** vague-metric ambiguity ("earnings", "cash"
+without a year), issue #2 (unanswerable hallucinations), and a full-metric
+re-run once OpenRouter credits allow. Done this round: conversational multi-turn
+UI (`ragfilings serve`), metadata-context prefix (company/section-aware chunks,
+index rebuilt), ablation legs (dense / hybrid / hybrid_rerank no-graph), and
+README refresh to measured numbers — see `.dev-notes/TRACKER.md` stage-4
+sections.

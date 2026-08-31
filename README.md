@@ -12,7 +12,7 @@ Production-grade Agentic AI Systems, RAG Architecture, and Domain-Adaptive Evalu
 
 | Component | Description | Highlights |
 | :--- | :--- | :--- |
-| **[P3: Enterprise RAG Orchestrator](./p3-rag-filings)** | Multi-Agent RAG system over messy SEC 10-K financial filings | Hybrid (BM25 + BGE Dense) Retrieval, BGE Reranker, Query Decomposition, Ticker Masking, Python Financial Math Execution Tool, LangGraph Orchestrator |
+| **[P3: Enterprise RAG Orchestrator](./p3-rag-filings)** | Multi-Agent Agentic **Graph** RAG over messy SEC 10-K filings | Typed fact graph + multi-hop augmentation (ratios/CAGR/comparisons), deterministic missing-year clarification, conversational multi-turn UI, Hybrid + BGE-rerank retrieval, safe Python financial-math tool, LangGraph orchestrator — **85.0% → 96.2%** on the audited golden set |
 | **[P1: Agent Evaluation Harness](./p1-eval-harness)** | Proving Ground evaluation harness for Agent & RAG systems | Strict Schema Enforcer, Refusal & Hallucination Metrics, Exact/Contains/LLM-Judge Engines, HTML & Markdown Scorecard Generator |
 | **[Web Portfolio Showcase](./web)** | Interactive Web Dashboard & Scorecard Explorer | Responsive Dark-Mode UI, Live Metric Breakdown, Brutal 20 Stress Test Visualizer |
 
@@ -107,8 +107,12 @@ python scripts/dump_sections.py
 python scripts/dump_chunks.py
 ragfilings index
 
-# Step 3: Run interactive query or benchmark test
-ragfilings query "What was Apple's total net sales for FY2025?"
+# Step 3: Build the fact graph, then run an interactive query
+ragfilings graph
+ragfilings ask "What was Apple's total net sales for FY2025?"
+
+# Conversational multi-turn UI (chat + citations + math + graph)
+ragfilings serve          # then open http://127.0.0.1:8000
 ```
 
 ---
@@ -143,16 +147,35 @@ Open your browser to [http://localhost:8080](http://localhost:8080) to inspect t
 
 ---
 
-## 📊 Benchmark Performance Results
+## 📊 Measured Results (golden set, all-free models, $0.00)
 
-Evaluating on **FinanceBench**, **RAGAS**, **RGB (Robustness)**, and **FinQA** enterprise benchmarks:
+Every figure below was measured on this repo's audited golden sets on
+2026-08-31 using free models (`minimax/minimax-m3:free` for generation,
+extraction, and judging). No external/proprietary benchmark numbers are
+claimed; public-benchmark adaptation (e.g. FinanceBench-style) is on the
+roadmap. Reproduce with `ragfilings regress`.
 
-| Benchmark | Strategy | Accuracy / Score | Key Metric |
-| :--- | :--- | :--- | :--- |
-| **FinanceBench (Hardest)** | Hybrid + BGE Rerank | **71.4%** | Fact Verification & Exact Numerical Math |
-| **RGB (Noise & Refusal)** | Ticker Filter + Guard | **100%** | Unanswerable Abstention & Noise Resistance |
-| **RAGAS Synthesis** | Synthesis Prompt v2 | **80.0%** | Context Precision & Citation Grounding |
-| **FinQA** | Python Math Exec Tool | **75.0%** | Multi-Step Financial Computation |
+**80-case audited golden set** (`p3-rag-filings/golden/golden_set_v1.jsonl`):
+
+| Configuration | Accuracy | Note |
+| :--- | :--- | :--- |
+| Retrieval-only (hybrid + rerank) | 53.8% | generator refuses figures it actually retrieved |
+| **+ fact-graph augmentation** | **85.0%** | +31.2pp — fixes all 16 incorrect refusals |
+| **+ missing-year clarification** | **96.2%** | ambiguous 2/10 → 9/10 |
+
+**45-case enterprise multi-hop set** (ratios, CAGR, cross-company comparisons,
+trends — answers that live in no single chunk):
+
+| Configuration | Accuracy |
+| :--- | :--- |
+| Retrieval-only (no graph) | 37.8% |
+| **+ fact-graph augmentation** | **84.4%** |
+
+Retrieval-strategy ablation (no graph, v1 set): dense 56.2% · hybrid 46.2% ·
+hybrid + rerank 55.0% — within run-to-run noise; the fact graph, not the
+ranker, is the ~30-point signal. Judge calibration: 86.5% human agreement /
+Cohen's kappa 0.669. Failure analysis and caveats:
+[`p3-rag-filings/docs/graph_augmentation_v1.md`](./p3-rag-filings/docs/graph_augmentation_v1.md).
 
 ---
 
@@ -161,7 +184,6 @@ Evaluating on **FinanceBench**, **RAGAS**, **RGB (Robustness)**, and **FinQA** e
 ```
 FreeLance-Potfolio/
 ├── README.md                      # Global setup & portfolio overview
-├── TRACKER.md                     # Development roadmap & phase tracker
 ├── .env.example                   # Environment keys template
 ├── p3-rag-filings/                # Project 3: Multi-Agent RAG Orchestrator
 │   ├── src/ragfilings/            # Core RAG source code (retrieval, agent, prompts)
