@@ -114,6 +114,28 @@ def _cmd_benchmark(args: argparse.Namespace) -> None:
     print(f"\nIndustry Benchmark Rating Scorecard: {md}\n                                   {png}")
 
 
+def _cmd_graph(args: argparse.Namespace) -> None:
+    """Build (and optionally LLM-summarize) the fact graph + communities."""
+    from . import retrieval
+    from .graph import FinancialGraphBuilder
+
+    cfg = cfg_mod.load(args.config)
+    root = cfg_mod.ROOT
+    index = retrieval.load_index(root / cfg["embedding"]["index_dir"],
+                                 cfg["embedding"]["model"])
+    builder = FinancialGraphBuilder()
+    builder.build_from_chunks(index.chunks)
+    builder.build_communities(index.chunks)
+    if args.summarize:
+        n = builder.summarize_communities(cfg, max_communities=args.max_summaries)
+        print(f"summarized {n} communities via [extraction] model")
+    out = root / "corpus" / "graph" / "financial_graph.json"
+    builder.save(out)
+    print(f"graph: {builder.graph.number_of_nodes()} nodes, "
+          f"{builder.graph.number_of_edges()} edges, "
+          f"{len(builder.communities)} communities -> {out}")
+
+
 def _cmd_serve(args: argparse.Namespace) -> None:
     """Launch the modern 3-panel UI and live Agent Swarm visualizer."""
     import uvicorn
@@ -144,6 +166,12 @@ def main() -> None:
         help="override config [retrieval] strategy",
     )
     ask_cmd.set_defaults(func=_cmd_ask)
+
+    graph = sub.add_parser("graph", help="build the fact graph + communities")
+    graph.add_argument("--summarize", action="store_true",
+                       help="LLM-summarize the largest communities (costs API calls)")
+    graph.add_argument("--max-summaries", type=int, default=12)
+    graph.set_defaults(func=_cmd_graph)
 
     serve_cmd = sub.add_parser("serve", help="launch the 3-panel Web UI & Swarm Visualizer")
     serve_cmd.add_argument("--host", default="127.0.0.1", help="host to bind")

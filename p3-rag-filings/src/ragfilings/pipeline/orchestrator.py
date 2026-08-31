@@ -40,6 +40,7 @@ class OrchestratorState(TypedDict, total=False):
     query: str
     index: Any
     cfg: dict[str, Any]
+    graph_engine: Any
     plan: dict[str, Any]
     hits: list[dict[str, Any]]
     math_result: Optional[dict[str, Any]]
@@ -92,7 +93,8 @@ def build_workflow() -> StateGraph:
             }
 
         res = run_researcher(state["query"], plan, state["index"], state["cfg"],
-                             state["usage"])  # usage accumulated in place
+                             state["usage"],
+                             graph_engine=state.get("graph_engine"))
         hits = res["hits"]
 
         conf = confidence(hits)
@@ -224,6 +226,24 @@ def build_workflow() -> StateGraph:
     return workflow
 
 
+def _load_graph_engine(cfg: dict[str, Any], index: Index) -> Any:
+    """Load the fact graph; build + persist it from the index on first use."""
+    from .. import config as cfg_mod
+    from ..graph import FinancialGraphBuilder, GraphQueryEngine
+
+    path = cfg_mod.ROOT / "corpus" / "graph" / "financial_graph.json"
+    try:
+        builder = FinancialGraphBuilder.load(path)
+        if builder.graph.number_of_nodes() == 0:
+            builder.build_from_chunks(index.chunks)
+            builder.build_communities(index.chunks)
+            builder.save(path)
+        return GraphQueryEngine(builder=builder)
+    except Exception as e:  # noqa: BLE001 — graph is an enhancement, not a gate
+        logger.warning("fact graph unavailable: %s", e)
+        return None
+
+
 class MultiAgentOrchestrator:
     """LangGraph multi-agent pipeline with real usage accounting."""
 
@@ -242,6 +262,7 @@ class MultiAgentOrchestrator:
             "query": query,
             "index": index,
             "cfg": self.cfg,
+            "graph_engine": _load_graph_engine(self.cfg, index),
             "plan": {},
             "hits": [],
             "math_result": None,
