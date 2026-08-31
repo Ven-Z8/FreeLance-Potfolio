@@ -144,6 +144,30 @@ The 7 remaining failures: 3 synthesis (ent-1003/1019 R&D-intensity arithmetic,
 ent-1016 PEP gross-margin refusal) and 4 ambiguities (ent-1040/1041/1042/1045)
 where the model commits to one reading instead of clarifying (issue #3).
 
+## Missing-year clarification (issue #3)
+
+Most ambiguous questions name one company and a recognized metric but give **no
+fiscal year** while the corpus holds several years ("What was Apple's net
+sales?"). The generator used to guess — commit to the latest year or dump all
+years — which is exactly how those cases were scored wrong.
+
+`GraphRescue.missing_year_clarification` detects that shape (single company +
+recognized statement metric + no year + ≥2 years in the graph) and the engine
+returns a deterministic clarifying question instead of routing to the generator:
+"Apple reports net sales for 3 fiscal years in the corpus (FY2023, FY2024,
+FY2025)… Which fiscal year's net sales would you like?" Change-intent questions
+get the "between which fiscal years" variant. It abstains whenever a year is
+present, the metric is unrecognized, or scope spans companies — it fires on zero
+non-ambiguous questions, so it cannot over-trigger.
+
+- **v1: ambiguous 2/10 → 9/10** (overall 85.0% → 96.2% on the post-clarification
+  run, run `…154844…`). The 7 deterministic wins are the missing-year cases
+  (fin-9002…9007, 9010). That run also flipped 2 unanswerables (fin-8003/8007)
+  to correct refusals via ordinary free-model variance — not the clarification —
+  so read 96.2% as a single-run figure; the deterministic gain is the 7 cases.
+- Enterprise: ambiguous 3/7 → 4/7 (ent-1044/1045 now clarify). The rest have a
+  year or a vague metric ("earnings", "cash") and need metric-disambiguation.
+
 ## Reproduce
 
 ```bash

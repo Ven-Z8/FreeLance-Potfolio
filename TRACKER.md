@@ -128,3 +128,29 @@ accepts it.
   margin refusal), 4 ambiguous cases where the model commits to one reading
   instead of clarifying (the known issue #3). Failure notes:
   `p3-rag-filings/docs/graph_augmentation_v1.md`.
+
+### Stage-4 result: missing-year clarification (issue #3, `67aa901`, 2026-08-31)
+
+The dominant ambiguity is a question that names one company and a recognized
+metric but pins **no fiscal year** while the corpus holds several years. The
+generator's prior behavior guessed (committed to the latest year or dumped all
+years) — that is how ambiguous cases scored wrong.
+`GraphRescue.missing_year_clarification` detects that shape (single company +
+recognized statement metric + no year + ≥2 years in the graph) and the engine
+returns a deterministic clarifying question ("which fiscal year / between which
+fiscal years") instead of routing to the generator. It abstains whenever a year
+is present, the metric is unrecognized, or scope spans companies — verified to
+fire on **zero** non-ambiguous questions.
+
+- **v1 set: ambiguous 2/10 → 9/10.** Overall `hybrid_rerank_graph` **85.0% →
+  96.2% (77/80)** on the post-clarification run (`…154844…`), 9 improved / 0
+  regressed vs the pre-clarification run. The 7 deterministic wins are the
+  missing-year ambiguities (fin-9002…9007, 9010). Caveat: the same run also
+  flipped 2 unanswerables (fin-8003/8007) to correct refusals via ordinary
+  free-model run-to-run variance, not the clarification — so treat 96.2% as a
+  single-run figure; the deterministic contribution is the 7 ambiguous cases.
+- Enterprise set: the 2 missing-year ambiguities there now clarify
+  (ent-1044/1045), ambiguous 3/7 → 4/7. The remaining ambiguities have a year
+  or a vague metric ("earnings", "cash") and need metric-disambiguation.
+- 155 tests (5 new clarification tests). Issue #2 (unanswerable
+  hallucinations) and vague-metric ambiguity remain open.
