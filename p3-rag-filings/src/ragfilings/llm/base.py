@@ -19,7 +19,7 @@ class BaseLLMClient(ABC):
     @property
     @abstractmethod
     def provider_name(self) -> str:
-        """Name of the provider (e.g. 'openrouter', 'nvidia', 'openai', 'gemini', 'omniroute')."""
+        """Name of the provider (currently only 'openrouter')."""
         pass
 
     @property

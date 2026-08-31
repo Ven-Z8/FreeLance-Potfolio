@@ -47,9 +47,10 @@ def _complete(
     messages: list[dict[str, str]],
     cfg: dict[str, Any],
     model: str | None = None,
+    client: BaseLLMClient | None = None,
 ) -> tuple[str, dict[str, Any]]:
-    """Chat completion entry point with multi-provider failover."""
-    return complete_with_resilience(messages, cfg, model=model)
+    """Chat completion entry point (OpenRouter). Tests monkeypatch this."""
+    return complete_with_resilience(messages, cfg, model=model, client=client)
 
 
 def answer(
@@ -103,18 +104,7 @@ def answer(
     def _call_model() -> dict[str, Any]:
         nonlocal msgs
         for attempt in range(2):
-            if client is not None:
-                text, u = complete_with_resilience(messages=msgs, cfg=cfg, client=client)
-            else:
-                import sys
-                mod = sys.modules.get(__name__)
-                mod_complete = getattr(mod, "_complete", None) if mod else None
-                if mod_complete and mod_complete != complete_with_resilience and mod_complete != _complete:
-                    text, u = mod_complete(msgs, cfg)
-                elif _complete != complete_with_resilience:
-                    text, u = _complete(msgs, cfg)
-                else:
-                    text, u = complete_with_resilience(messages=msgs, cfg=cfg, client=llm_client)
+            text, u = _complete(msgs, cfg, client=llm_client)
             for k in ("input_tokens", "output_tokens", "cost_usd"):
                 usage[k] += u.get(k, 0)
             usage["calls"] += 1
@@ -205,6 +195,7 @@ def ask(
     index: Index | None = None,
     strategy: str | None = None,
     refusal_log: str | Path = "reports/refusals.jsonl",
+    filters: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """End-to-end RAG pipeline execution."""
     if index is None:
@@ -224,13 +215,15 @@ def ask(
 
     t0 = time.perf_counter()
     top_k = cfg.get("retrieval", {}).get("top_k", 8)
+    rerank_candidates = cfg.get("retrieval", {}).get("rerank_candidates", 25)
 
     if needs_decomposition(query):
         sub_queries = decompose_query(query, cfg)
         hits: list[dict[str, Any]] = []
         seen_ids: set[str] = set()
         for sq in sub_queries:
-            sq_hits = index.search(sq, strat, top_k)
+            sq_hits = index.search(sq, strat, top_k, filters=filters,
+                                   rerank_candidates=rerank_candidates)
             for h in sq_hits:
                 cid = h["chunk"]["id"]
                 if cid not in seen_ids:
@@ -238,7 +231,8 @@ def ask(
                     seen_ids.add(cid)
         hits = sorted(hits, key=lambda x: x["score"], reverse=True)[:top_k]
     else:
-        hits = index.search(query, strat, top_k)
+        hits = index.search(query, strat, top_k, filters=filters,
+                            rerank_candidates=rerank_candidates)
 
     result = answer(query, hits, cfg)
     result["latency_ms"] = (time.perf_counter() - t0) * 1000.0

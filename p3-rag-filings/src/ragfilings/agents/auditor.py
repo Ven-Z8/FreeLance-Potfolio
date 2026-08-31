@@ -1,78 +1,58 @@
-"""Auditor Compliance Guardrail ReAct Agent with Deterministic Verification Tools."""
+"""Auditor agent — LLM claim-vs-citation checking with typed output.
+
+Complements the deterministic numeric verifier: the deterministic layer
+catches misquoted figures, this layer catches misattributed facts, wrong
+years/companies, and narrative claims the chunks don't support.
+"""
 
 from __future__ import annotations
 
-import logging
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any
 
-from langchain_core.tools import tool
-
+from ..llm import complete_structured
 from ..prompts import PromptRegistry
-from ..tools.verification import extract_claims, verify
-
-logger = logging.getLogger(__name__)
+from ..schemas import AuditResult
 
 
-def build_auditor_tools(hits: list[dict[str, Any]]) -> list[Callable]:
-    """Create specialized verification and compliance tools for the Auditor Guardrail."""
-
-    @tool
-    def verify_numerical_claims(draft_answer: str, cited_chunk_ids: list[str]) -> str:
-        """Deterministically verify all numbers and dollar amounts in draft answer against cited chunks."""
-        cited_chunks = [h["chunk"] for h in hits if h["chunk"].get("id") in cited_chunk_ids]
-        check_res = verify(draft_answer, cited_chunks)
-        if check_res.get("verified", True):
-            return "ALL_CLAIMS_VERIFIED"
-        failed = [c["raw"] for c in check_res.get("claims", []) if not c.get("found", True)]
-        return f"FAILED_CLAIMS: {', '.join(failed)}"
-
-    return [verify_numerical_claims]
-
-
-def run_auditor(
-    answer: str,
-    citations: list[str] | None = None,
-    hits: list[dict[str, Any]] | None = None,
-    cfg: dict[str, Any] | None = None,
-    cited_chunks: list[dict[str, Any]] | None = None,
-) -> dict[str, Any]:
-    """Execute Auditor Compliance Guardrail ReAct Agent."""
-    tools = build_auditor_tools(hits or [])
-    system_prompt = PromptRegistry.get_auditor_guardrail()
-
-    if cited_chunks is not None:
-        valid_chunks = cited_chunks
-    elif hits:
-        if citations:
-            valid_chunks = [h["chunk"] for h in hits if h["chunk"].get("id") in citations]
-            if not valid_chunks:
-                valid_chunks = [h["chunk"] for h in hits]
+def audit_answer(
+    query: str,
+    answer_text: str,
+    citations: list[str],
+    hits: list[dict[str, Any]],
+    cfg: dict[str, Any],
+    usage: dict[str, Any],
+    math_result: dict[str, Any] | None = None,
+) -> AuditResult:
+    """Audit a candidate answer against its cited chunks. Adds real usage."""
+    by_id = {h["chunk"]["id"]: h["chunk"] for h in hits}
+    cited_texts = []
+    missing = []
+    for cid in citations:
+        chunk = by_id.get(cid)
+        if chunk is None:
+            missing.append(cid)
         else:
-            valid_chunks = [h["chunk"] for h in hits]
-    else:
-        valid_chunks = []
+            cited_texts.append(f"[{cid}] ({chunk.get('ticker')} FY{chunk.get('fiscal_year')}, "
+                               f"Item {chunk.get('item')})\n{chunk['text']}")
 
-    verification_res = verify(answer, valid_chunks)
-    is_verified = verification_res.get("verified", True)
-    failed = [c["raw"] for c in verification_res.get("claims", []) if not c.get("found", True)]
+    user_parts = [f"Question: {query}", "", f"Candidate answer: {answer_text}"]
+    if cited_texts:
+        user_parts += ["", "Cited 10-K chunks:"] + cited_texts
+    if missing:
+        user_parts.append(f"\nThese cited chunk IDs do not exist: {', '.join(missing)}")
+    if math_result:
+        user_parts.append(
+            f"\nVERIFIED_MATH: {math_result.get('expression')} = "
+            f"{math_result.get('result_value')} — figures derived from this "
+            "computation are acceptable."
+        )
 
-    invalid_citations = []
-    if hits and citations:
-        available_ids = {h["chunk"].get("id") for h in hits}
-        for c in citations:
-            if c not in available_ids:
-                invalid_citations.append(c)
-
-    feedback = None
-    if not is_verified:
-        feedback = f"The following figures were ungrounded in cited chunks: {', '.join(failed)}. Only cite numbers appearing verbatim."
-
-    return {
-        "verified": is_verified,
-        "verification": verification_res,
-        "failed_claims": failed,
-        "correction_guidance": feedback,
-        "invalid_citations": invalid_citations,
-        "audit_feedback": feedback,
-        "usage": {"input_tokens": 100, "output_tokens": 50, "cost_usd": 0.00005, "calls": 1},
-    }
+    messages = [
+        {"role": "system", "content": PromptRegistry.get_auditor()},
+        {"role": "user", "content": "\n".join(user_parts)},
+    ]
+    instance, u = complete_structured(messages, AuditResult, cfg, role="generation")
+    for k in ("input_tokens", "output_tokens", "cost_usd"):
+        usage[k] += u.get(k, 0)
+    usage["calls"] += u.get("calls", 1)
+    return instance

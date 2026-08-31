@@ -69,32 +69,16 @@ class PromptRegistry:
         return cls.get_raw("query_decompose")
 
     @classmethod
-    def get_lead_orchestrator(cls) -> str:
-        return cls.get_raw("lead_orchestrator")
-
-    @classmethod
-    def get_document_analyst(cls) -> str:
-        return cls.get_raw("document_analyst")
+    def get_planner(cls) -> str:
+        return cls.get_raw("planner")
 
     @classmethod
     def get_researcher(cls) -> str:
         return cls.get_raw("researcher")
 
     @classmethod
-    def get_data_analyst(cls) -> str:
-        return cls.get_raw("data_analyst")
-
-    @classmethod
-    def get_synthesis_expert(cls) -> str:
-        return cls.get_raw("synthesis_expert")
-
-    @classmethod
-    def get_auditor_guardrail(cls) -> str:
-        return cls.get_raw("auditor_guardrail")
-
-    @classmethod
-    def get_solo_meta_orchestrator(cls) -> str:
-        return cls.get_raw("solo_meta_orchestrator")
+    def get_auditor(cls) -> str:
+        return cls.get_raw("auditor")
 
 
 def load_prompt(name: str, **kwargs: Any) -> str:

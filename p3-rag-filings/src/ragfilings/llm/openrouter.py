@@ -9,11 +9,25 @@ from .base import BaseLLMClient
 from .types import ChatMessage, LLMResponse, TokenUsage
 
 
+def parse_usage(u: Any) -> TokenUsage:
+    """Extract real token usage + cost from an OpenRouter/OpenAI usage object."""
+    if u is None:
+        return TokenUsage()
+    cost = getattr(u, "cost", None)
+    if cost is None and getattr(u, "model_extra", None):
+        cost = u.model_extra.get("cost")
+    return TokenUsage(
+        input_tokens=getattr(u, "prompt_tokens", 0) or 0,
+        output_tokens=getattr(u, "completion_tokens", 0) or 0,
+        cost_usd=float(cost or 0.0),
+    )
+
+
 class OpenRouterClient(BaseLLMClient):
     """OpenRouter API client with dynamic usage cost parsing."""
 
     DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
-    DEFAULT_MODEL = "minimax/minimax-m3:free"
+    DEFAULT_MODEL = "anthropic/claude-sonnet-4.5"
 
     def __init__(
         self,
@@ -35,6 +49,11 @@ class OpenRouterClient(BaseLLMClient):
 
     def is_available(self) -> bool:
         return bool(self.api_key and self.api_key.startswith("sk-or-"))
+
+    @property
+    def openai_client(self):
+        """The underlying OpenAI-compatible client (for instructor / tool calls)."""
+        return self._get_client()
 
     def _get_client(self):
         if self._client is None:
@@ -67,15 +86,5 @@ class OpenRouterClient(BaseLLMClient):
         choice = resp.choices[0]
         content = choice.message.content or getattr(choice.message, "reasoning", "") or ""
 
-        u = resp.usage
-        cost = getattr(u, "cost", None) if u else 0.0
-        if cost is None and u and getattr(u, "model_extra", None):
-            cost = u.model_extra.get("cost")
-
-        usage = TokenUsage(
-            input_tokens=u.prompt_tokens if u else 0,
-            output_tokens=u.completion_tokens if u else 0,
-            cost_usd=float(cost or 0.0),
-        )
-
-        return LLMResponse(content=content, usage=usage, model=target_model, raw_response=resp)
+        return LLMResponse(content=content, usage=parse_usage(resp.usage),
+                           model=target_model, raw_response=resp)

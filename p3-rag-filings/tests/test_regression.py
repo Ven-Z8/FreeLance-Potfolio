@@ -59,7 +59,8 @@ def test_known_answer_question_retrieves_right_section(real_index, question,
 
 
 class LowConfidenceIndex:
-    def search(self, query, strategy, top_k):
+    def search(self, query, strategy, top_k, reranker_name=None,
+               filters=None, rerank_candidates=25):
         chunk = {"id": "PEP_2025_10K:Item1:c000", "text": "irrelevant filler"}
         return [{"chunk": chunk, "score": 0.05, "dense_sim": 0.05}]
 

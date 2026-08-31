@@ -36,7 +36,7 @@ class MockComplete:
         self.replies = list(replies)
         self.calls = []
 
-    def __call__(self, messages, cfg, model=None):
+    def __call__(self, messages, cfg, model=None, client=None):
         self.calls.append(messages)
         return self.replies.pop(0), {"input_tokens": 100, "output_tokens": 20,
                                      "cost_usd": 0.001}

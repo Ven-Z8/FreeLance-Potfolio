@@ -1,6 +1,6 @@
 from .engine import GenerationError, answer, ask, log_refusal
 from .memory import SessionMemoryManager
-from .orchestrator import MultiAgentOrchestrator, SoloMetaOrchestrator
+from .orchestrator import MultiAgentOrchestrator
 
 __all__ = [
     "ask",
@@ -8,6 +8,5 @@ __all__ = [
     "log_refusal",
     "GenerationError",
     "MultiAgentOrchestrator",
-    "SoloMetaOrchestrator",
     "SessionMemoryManager",
 ]

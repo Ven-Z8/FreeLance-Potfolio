@@ -62,7 +62,7 @@ def compute_financial_math(
     ]
 
     try:
-        text, _ = complete_with_resilience(messages, cfg, client=client)
+        text, usage = complete_with_resilience(messages, cfg, client=client)
         start, end = text.find("{"), text.rfind("}")
         if start != -1 and end > start:
             data = json.loads(text[start : end + 1])
@@ -75,6 +75,7 @@ def compute_financial_math(
                     "result_value": round(val, 4),
                     "formatted": f"{val:.2f}%" if is_pct else f"{val:,.2f}",
                     "explanation": data.get("explanation", ""),
+                    "usage": usage,
                 }
     except Exception:
         pass

@@ -1,365 +1,281 @@
-"""Production 6-Agent LangGraph Swarm with Individual ReAct Agents & SQLite Memory."""
+"""Multi-agent LangGraph orchestrator over the 10-K RAG pipeline.
+
+Graph topology:
+
+    plan ─▶ retrieve ─▶ analyze ─▶ synthesize ─▶ audit ─▶ END
+                                       ▲            │
+                                       └── retry ───┘   (bounded, on audit failure)
+
+Every node is a real step: the planner and auditor are instructor-validated
+structured calls, the researcher is a native tool-calling loop, analyze runs
+the deterministic safe-eval math tool, and synthesize produces a typed cited
+answer. Token/cost usage is accumulated from API-reported usage on every
+call — nothing is estimated.
+"""
 
 from __future__ import annotations
 
 import logging
+import operator
 import time
 import uuid
-from typing import Any, Dict, List, Optional, TypedDict
+from typing import Annotated, Any, Optional, TypedDict
 
 from langgraph.graph import END, StateGraph
 
-from ..agents import (
-    run_auditor,
-    run_data_analyst,
-    run_document_analyst,
-    run_lead_orchestrator,
-    run_researcher,
-    run_synthesis_expert,
-)
-from ..graph.builder import FinancialGraphBuilder
-from ..graph.query import GraphQueryEngine
+from ..agents.auditor import audit_answer
+from ..agents.planner import plan_query
+from ..agents.researcher import run_researcher
+from ..agents.synthesis import synthesize
 from ..retrieval import Index, confidence
+from ..tools import compute_financial_math, needs_decomposition
+from ..tools.verification import verify
 from .memory import SessionMemoryManager
 
 logger = logging.getLogger(__name__)
 
 
-class LangGraphState(TypedDict):
+class OrchestratorState(TypedDict, total=False):
     session_id: str
     query: str
-    cfg: Dict[str, Any]
     index: Any
-    graph_engine: Optional[Any]
-    strategy: str
-    plan: Dict[str, Any]
-    hits: List[dict]
-    graph_facts: List[dict]
-    document_analysis: Dict[str, Any]
-    math_result: Optional[dict]
+    cfg: dict[str, Any]
+    plan: dict[str, Any]
+    hits: list[dict[str, Any]]
+    math_result: Optional[dict[str, Any]]
     answer: Optional[str]
-    citations: List[str]
-    invalid_citations: List[str]
+    citations: list[str]
+    invalid_citations: list[str]
+    feedback: Optional[str]
+    audit: Optional[dict[str, Any]]
+    verification: dict[str, Any]
     verified: bool
-    verification: Dict[str, Any]
-    audit_feedback: Optional[str]
-    retry_count: int
-    usage: Dict[str, Any]
-    latency_ms: float
     refused: bool
     refusal_reason: Optional[str]
+    usage: dict[str, Any]
+    retries_left: int
+    steps: Annotated[list[dict[str, Any]], operator.add]
 
 
-def _build_graph_engine_if_needed(cfg: dict[str, Any], index: Index | None) -> GraphQueryEngine | None:
-    """Build or load in-memory NetworkX knowledge graph."""
-    try:
-        builder = FinancialGraphBuilder.load("corpus/graph/financial_graph.json")
-        if builder.graph.number_of_nodes() == 0 and index and hasattr(index, "chunks"):
-            builder.build_from_chunks(index.chunks)
-            builder.save("corpus/graph/financial_graph.json")
-        return GraphQueryEngine(builder=builder)
-    except Exception:
-        return None
+def _step(agent: str, action: str, input_payload: Any, output_payload: Any) -> dict[str, Any]:
+    return {"agent": agent, "action": action,
+            "input": input_payload, "output": output_payload}
 
 
-def build_langgraph_workflow() -> StateGraph:
-    memory = SessionMemoryManager()
+def _merge_usage(state: OrchestratorState, u: dict[str, Any]) -> None:
+    acc = state["usage"]
+    acc["input_tokens"] += u.get("input_tokens", 0)
+    acc["output_tokens"] += u.get("output_tokens", 0)
+    acc["cost_usd"] += u.get("cost_usd", 0.0)
+    acc["calls"] += u.get("calls", 1)
 
-    def lead_orchestrator_node(state: LangGraphState) -> dict:
-        orch_res = run_lead_orchestrator(state["query"], state["cfg"])
-        plan = orch_res.get("plan", {})
-        u = orch_res.get("usage", {})
 
-        memory.log_step(
-            state["session_id"],
-            1,
-            "LeadOrchestrator",
-            "plan_workflow",
-            plan,
-        )
-
+def build_workflow() -> StateGraph:
+    def plan_node(state: OrchestratorState) -> dict[str, Any]:
+        plan, usage = plan_query(state["query"], state["cfg"], state["index"].chunks)
+        _merge_usage(state, usage)
+        plan_d = plan.model_dump()
         return {
-            "plan": plan,
-            "usage": {
-                "input_tokens": state["usage"]["input_tokens"] + u.get("input_tokens", 0),
-                "output_tokens": state["usage"]["output_tokens"] + u.get("output_tokens", 0),
-                "cost_usd": state["usage"]["cost_usd"] + u.get("cost_usd", 0.0),
-                "calls": state["usage"]["calls"] + 1,
-            },
+            "plan": plan_d,
+            "steps": [_step("Planner", "plan_query", {"query": state["query"]}, plan_d)],
         }
 
-    def researcher_node(state: LangGraphState) -> dict:
-        plan = state.get("plan", {})
-        res = run_researcher(
-            query=state["query"],
-            index=state["index"],
-            cfg=state["cfg"],
-            graph_engine=state.get("graph_engine"),
-            strategy=state.get("strategy", "hybrid_rerank"),
-            top_k=state["cfg"].get("retrieval", {}).get("top_k", 8),
-            target_entities=plan.get("target_entities"),
-            target_section=plan.get("target_section"),
-        )
+    def retrieve_node(state: OrchestratorState) -> dict[str, Any]:
+        from ..schemas import QueryPlan
 
-        hits = res.get("hits", [])
+        plan = QueryPlan(**state["plan"])
+        if plan.intent == "not_in_corpus" and not plan.sub_questions:
+            return {
+                "refused": True,
+                "refusal_reason": f"planner: question outside corpus scope ({plan.reasoning})",
+                "steps": [_step("Researcher", "skipped", {}, "out-of-corpus plan")],
+            }
+
+        res = run_researcher(state["query"], plan, state["index"], state["cfg"],
+                             state["usage"])  # usage accumulated in place
+        hits = res["hits"]
+
         conf = confidence(hits)
         min_conf = state["cfg"].get("verification", {}).get("min_confidence", 0.35)
-
-        refused = False
-        refusal_reason = None
-        if conf < min_conf:
-            refused = True
-            refusal_reason = f"low retrieval confidence: {conf:.3f} < {min_conf}"
-
-        memory.log_step(
-            state["session_id"],
-            2,
-            "Researcher",
-            "retrieve_hybrid_and_graph",
-            {"n_hits": len(hits), "confidence": conf, "graph_facts": len(res.get("graph_facts", []))},
-        )
-
-        return {
+        update: dict[str, Any] = {
             "hits": hits,
-            "graph_facts": res.get("graph_facts", []),
-            "citations": res.get("citations", []),
-            "refused": refused,
-            "refusal_reason": refusal_reason,
+            "steps": [_step("Researcher", "tool_loop",
+                            {"sub_questions": plan.sub_questions,
+                             "ticker": plan.ticker, "fiscal_year": plan.fiscal_year},
+                            {"n_hits": len(hits), "confidence": round(conf, 4),
+                             "tool_calls": res["events"], "notes": res["notes"]})],
         }
+        if not hits or conf < min_conf:
+            reason = ("no retrieval hits" if not hits
+                      else f"low retrieval confidence: {conf:.3f} < {min_conf}")
+            update.update({"refused": True, "refusal_reason": reason})
+        return update
 
-    def document_analyst_node(state: LangGraphState) -> dict:
-        if state.get("refused"):
-            return {}
+    def analyze_node(state: OrchestratorState) -> dict[str, Any]:
+        plan = state.get("plan", {})
+        needs_math = bool(plan.get("needs_math")) or needs_decomposition(state["query"])
+        if not needs_math or not state.get("hits"):
+            return {"steps": [_step("DataAnalyst", "skipped", {}, "no computation needed")]}
 
-        doc_res = run_document_analyst(state["query"], state["hits"], state["cfg"])
-        analysis = doc_res.get("analysis", {})
-        u = doc_res.get("usage", {})
-
-        memory.log_step(
-            state["session_id"],
-            3,
-            "DocumentAnalyst",
-            "analyze_layout_and_tables",
-            {
-                "extracted_tables": len(analysis.get("extracted_tables", [])),
-                "structure_notes": analysis.get("structural_notes", "")[:120],
-            },
-        )
-
-        return {
-            "document_analysis": analysis,
-            "usage": {
-                "input_tokens": state["usage"]["input_tokens"] + u.get("input_tokens", 0),
-                "output_tokens": state["usage"]["output_tokens"] + u.get("output_tokens", 0),
-                "cost_usd": state["usage"]["cost_usd"] + u.get("cost_usd", 0.0),
-                "calls": state["usage"]["calls"] + 1,
-            },
-        }
-
-    def data_analyst_node(state: LangGraphState) -> dict:
-        if state.get("refused"):
-            return {}
-
-        data_res = run_data_analyst(state["query"], state["hits"], state["cfg"])
-        math_res = data_res.get("math_result")
-        u = data_res.get("usage", {})
-
-        memory.log_step(
-            state["session_id"],
-            4,
-            "DataAnalyst",
-            "ast_math_calculation",
-            math_res or {"calculated": False},
-        )
-
+        chunks = [h["chunk"] for h in state["hits"]]
+        math_res = compute_financial_math(state["query"], chunks, state["cfg"])
+        if math_res:
+            _merge_usage(state, math_res.pop("usage", {}))
         return {
             "math_result": math_res,
-            "usage": {
-                "input_tokens": state["usage"]["input_tokens"] + u.get("input_tokens", 0),
-                "output_tokens": state["usage"]["output_tokens"] + u.get("output_tokens", 0),
-                "cost_usd": state["usage"]["cost_usd"] + u.get("cost_usd", 0.0),
-                "calls": state["usage"]["calls"] + 1,
-            },
+            "steps": [_step("DataAnalyst", "safe_eval_math",
+                            {"query": state["query"]},
+                            math_res or {"calculated": False})],
         }
 
-    def synthesis_node(state: LangGraphState) -> dict:
-        if state.get("refused"):
-            return {
-                "answer": None,
-                "citations": [],
-            }
-
-        synth_res = run_synthesis_expert(
-            query=state["query"],
-            hits=state["hits"],
-            graph_facts=state.get("graph_facts", []),
+    def synthesize_node(state: OrchestratorState) -> dict[str, Any]:
+        instance = synthesize(
+            state["query"], state["hits"], state["cfg"], state["usage"],
             math_result=state.get("math_result"),
-            document_analysis=state.get("document_analysis"),
-            cfg=state["cfg"],
-            audit_feedback=state.get("audit_feedback"),
+            feedback=state.get("feedback"),
         )
-
-        ans = synth_res.get("answer")
-        cits = synth_res.get("citations", [])
-        u = synth_res.get("usage", {})
-
-        memory.log_step(
-            state["session_id"],
-            5,
-            "SynthesisExpert",
-            "grounded_synthesis",
-            {"citations_count": len(cits), "answer_len": len(ans) if ans else 0},
-        )
-
         return {
-            "answer": ans,
-            "citations": cits,
-            "usage": {
-                "input_tokens": state["usage"]["input_tokens"] + u.get("input_tokens", 0),
-                "output_tokens": state["usage"]["output_tokens"] + u.get("output_tokens", 0),
-                "cost_usd": state["usage"]["cost_usd"] + u.get("cost_usd", 0.0),
-                "calls": state["usage"]["calls"] + 1,
-            },
+            "answer": instance.answer,
+            "citations": instance.citations,
+            "feedback": None,
+            "steps": [_step("Synthesizer", "grounded_synthesis",
+                            {"n_context": len(state["hits"]),
+                             "retry_feedback": bool(state.get("feedback"))},
+                            {"answer_len": len(instance.answer or ""),
+                             "citations": instance.citations})],
         }
 
-    def auditor_node(state: LangGraphState) -> dict:
+    def audit_node(state: OrchestratorState) -> dict[str, Any]:
         if state.get("refused") or not state.get("answer"):
-            return {
-                "verified": False,
-                "verification": {"verified": False, "claims": []},
-            }
+            if not state.get("refused") and not state.get("answer"):
+                return {
+                    "refused": True,
+                    "refusal_reason": "model could not answer from the retrieved context",
+                    "verified": False,
+                }
+            return {"verified": False}
 
-        audit_res = run_auditor(
-            answer=state["answer"],
-            citations=state.get("citations", []),
-            hits=state["hits"],
-            cfg=state["cfg"],
+        by_id = {h["chunk"]["id"]: h["chunk"] for h in state["hits"]}
+        citations = [c for c in state.get("citations", []) if isinstance(c, str)]
+        valid = [c for c in citations if c in by_id]
+        invalid = [c for c in citations if c not in by_id]
+        cited_chunks = [by_id[c] for c in valid] or [h["chunk"] for h in state["hits"]]
+
+        checked = verify(str(state["answer"]), cited_chunks,
+                         math_result=state.get("math_result"))
+        audit_res = audit_answer(
+            state["query"], str(state["answer"]), citations, state["hits"],
+            state["cfg"], state["usage"], math_result=state.get("math_result"),
         )
+        audit_d = audit_res.model_dump()
+        llm_ok = bool(audit_d.get("verified")) and not audit_d.get("refuse")
 
-        verified = audit_res.get("verified", False)
-        ver_details = audit_res.get("verification", {})
-        invalid_cits = audit_res.get("invalid_citations", [])
-        feedback = audit_res.get("audit_feedback")
-        u = audit_res.get("usage", {})
+        problems: list[str] = []
+        if not checked["verified"]:
+            failed = [c["raw"] for c in checked["claims"] if not c["found"]]
+            problems.append(f"figures not found in cited chunks: {', '.join(failed)}")
+        if invalid:
+            problems.append(f"nonexistent citation ids: {', '.join(invalid)}")
+        for claim in audit_d.get("audit_claims", []):
+            if claim.get("status") == "UNVERIFIED":
+                problems.append(f"auditor: {claim.get('figure')} unverified")
+        if audit_d.get("refuse"):
+            problems.append("auditor: context too thin to answer")
 
-        memory.log_step(
-            state["session_id"],
-            6,
-            "AuditorGuardrail",
-            "audit_verification",
-            {
-                "verified": verified,
-                "claims_audited": len(ver_details.get("claims", [])),
-                "invalid_citations": invalid_cits,
-                "feedback": feedback,
-            },
-        )
-
-        return {
-            "verified": verified,
-            "verification": ver_details,
-            "invalid_citations": invalid_cits,
-            "audit_feedback": feedback,
-            "retry_count": state.get("retry_count", 0) + (0 if verified else 1),
-            "usage": {
-                "input_tokens": state["usage"]["input_tokens"] + u.get("input_tokens", 0),
-                "output_tokens": state["usage"]["output_tokens"] + u.get("output_tokens", 0),
-                "cost_usd": state["usage"]["cost_usd"] + u.get("cost_usd", 0.0),
-                "calls": state["usage"]["calls"] + 1,
-            },
+        all_ok = checked["verified"] and llm_ok and not invalid
+        update: dict[str, Any] = {
+            "invalid_citations": invalid,
+            "verification": checked,
+            "audit": audit_d,
+            "verified": all_ok,
+            "steps": [_step("Auditor", "claim_audit",
+                            {"answer": state["answer"][:200]},
+                            {"deterministic": checked["verified"], "llm": llm_ok,
+                             "problems": problems})],
         }
+        if not all_ok and state.get("retries_left", 0) > 0:
+            update["feedback"] = "; ".join(problems) or "audit failed"
+            update["retries_left"] = state.get("retries_left", 0) - 1
+        return update
 
-    def should_self_correct(state: LangGraphState) -> str:
+    def route_after_audit(state: OrchestratorState) -> str:
         if state.get("refused"):
             return END
         if state.get("verified"):
             return END
-        if state.get("retry_count", 0) >= 1:
-            return END
-        return "synthesis_node"
+        if state.get("feedback"):
+            return "synthesize"
+        return END
 
-    # Build Directed Cyclic StateGraph in LangGraph
-    workflow = StateGraph(LangGraphState)
+    workflow = StateGraph(OrchestratorState)
+    workflow.add_node("plan", plan_node)
+    workflow.add_node("retrieve", retrieve_node)
+    workflow.add_node("analyze", analyze_node)
+    workflow.add_node("synthesize", synthesize_node)
+    workflow.add_node("audit", audit_node)
 
-    workflow.add_node("lead_orchestrator_node", lead_orchestrator_node)
-    workflow.add_node("researcher_node", researcher_node)
-    workflow.add_node("document_analyst_node", document_analyst_node)
-    workflow.add_node("data_analyst_node", data_analyst_node)
-    workflow.add_node("synthesis_node", synthesis_node)
-    workflow.add_node("auditor_node", auditor_node)
-
-    workflow.set_entry_point("lead_orchestrator_node")
-    workflow.add_edge("lead_orchestrator_node", "researcher_node")
-    workflow.add_edge("researcher_node", "document_analyst_node")
-    workflow.add_edge("document_analyst_node", "data_analyst_node")
-    workflow.add_edge("data_analyst_node", "synthesis_node")
-    workflow.add_edge("synthesis_node", "auditor_node")
-
-    workflow.add_conditional_edges("auditor_node", should_self_correct, {
-        "synthesis_node": "synthesis_node",
-        END: END,
-    })
-
+    workflow.set_entry_point("plan")
+    workflow.add_edge("plan", "retrieve")
+    workflow.add_edge("retrieve", "analyze")
+    workflow.add_edge("analyze", "synthesize")
+    workflow.add_edge("synthesize", "audit")
+    workflow.add_conditional_edges("audit", route_after_audit,
+                                   {"synthesize": "synthesize", END: END})
     return workflow
 
 
 class MultiAgentOrchestrator:
-    """Production 6-Agent Swarm Orchestrator with StateGraph."""
+    """LangGraph multi-agent pipeline with real usage accounting."""
 
-    def __init__(self, cfg: dict[str, Any]) -> None:
+    def __init__(self, cfg: dict[str, Any],
+                 memory: SessionMemoryManager | None = None) -> None:
         self.cfg = cfg
-        self.workflow = build_langgraph_workflow().compile()
-        self.memory = SessionMemoryManager()
+        self.memory = memory
+        self.workflow = build_workflow().compile()
 
-    def run(
-        self,
-        query: str,
-        index: Index,
-        strategy: str = "agent_react",
-    ) -> dict[str, Any]:
+    def run(self, query: str, index: Index, strategy: str = "agent_react") -> dict[str, Any]:
         t0 = time.perf_counter()
         session_id = f"sess_{uuid.uuid4().hex[:12]}"
-        graph_engine = _build_graph_engine_if_needed(self.cfg, index)
 
-        initial_state: LangGraphState = {
+        initial_state: OrchestratorState = {
             "session_id": session_id,
             "query": query,
-            "cfg": self.cfg,
             "index": index,
-            "graph_engine": graph_engine,
-            "strategy": strategy,
+            "cfg": self.cfg,
             "plan": {},
             "hits": [],
-            "graph_facts": [],
-            "document_analysis": {},
             "math_result": None,
             "answer": None,
             "citations": [],
             "invalid_citations": [],
+            "feedback": None,
+            "audit": None,
+            "verification": {"verified": False, "claims": []},
             "verified": False,
-            "verification": {},
-            "audit_feedback": None,
-            "retry_count": 0,
-            "usage": {"input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "calls": 0},
-            "latency_ms": 0.0,
             "refused": False,
             "refusal_reason": None,
+            "usage": {"input_tokens": 0, "output_tokens": 0, "cost_usd": 0.0, "calls": 0},
+            "retries_left": self.cfg.get("generation", {}).get("verify_retries", 1),
+            "steps": [],
         }
 
         final_state = self.workflow.invoke(initial_state)
-        latency = (time.perf_counter() - t0) * 1000.0
-        final_state["latency_ms"] = latency
+        latency_ms = (time.perf_counter() - t0) * 1000.0
 
-        # Checkpoint session in SQLite
-        self.memory.save_session(
-            session_id=session_id,
-            query=query,
-            final_answer=final_state.get("answer") or "",
-            verified=final_state.get("verified", False),
-            strategy=strategy,
-            cost_usd=final_state.get("usage", {}).get("cost_usd", 0.0),
-            latency_ms=latency,
-        )
+        steps = final_state.get("steps", [])
+        if self.memory is not None:
+            for i, s in enumerate(steps, start=1):
+                payload = {"input": s.get("input"), "output": s.get("output")}
+                self.memory.log_step(session_id, i, s["agent"], s["action"], payload)
+            self.memory.save_session(
+                session_id=session_id,
+                query=query,
+                final_answer=final_state.get("answer") or "",
+                verified=final_state.get("verified", False),
+                strategy=strategy,
+                cost_usd=final_state.get("usage", {}).get("cost_usd", 0.0),
+                latency_ms=latency_ms,
+            )
 
         return {
             "session_id": session_id,
@@ -370,14 +286,12 @@ class MultiAgentOrchestrator:
             "invalid_citations": final_state.get("invalid_citations", []),
             "verified": final_state.get("verified", False),
             "verification": final_state.get("verification", {}),
+            "audit": final_state.get("audit"),
             "confidence": confidence(final_state.get("hits", [])),
             "hits": final_state.get("hits", []),
             "math_result": final_state.get("math_result"),
-            "graph_facts": final_state.get("graph_facts", []),
+            "plan": final_state.get("plan", {}),
             "usage": final_state.get("usage", {}),
-            "latency_ms": latency,
+            "latency_ms": latency_ms,
+            "agent_history": steps,
         }
-
-
-# Alias for backward compatibility
-SoloMetaOrchestrator = MultiAgentOrchestrator

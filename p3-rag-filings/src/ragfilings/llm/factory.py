@@ -1,17 +1,35 @@
-"""LLM Client Factory and Completion Dispatcher (OpenRouter)."""
+"""LLM Client Factory and Completion Dispatcher (OpenRouter).
+
+Models are resolved per role from config.toml:
+  generation  — synthesis, auditor (frontier-quality)
+  extraction  — planning, graph extraction, tool loops (cheap, high-volume)
+  judge       — eval judging (frontier-quality)
+"""
 
 from __future__ import annotations
 
 import logging
-import os
 import time
 from typing import Any
 
 from .base import BaseLLMClient
 from .openrouter import OpenRouterClient
-from .types import ChatMessage, LLMResponse
+from .types import ChatMessage
 
 logger = logging.getLogger(__name__)
+
+_ROLES = ("generation", "extraction", "judge")
+
+
+def get_model_for_role(cfg: dict[str, Any] | None, role: str = "generation") -> str | None:
+    """Resolve the configured model slug for a role (falls back to generation)."""
+    if not cfg:
+        return None
+    section = cfg.get(role) if role in _ROLES else None
+    model = (section or {}).get("model") if section else None
+    if model is None and role != "generation":
+        model = cfg.get("generation", {}).get("model")
+    return model
 
 
 class LLMFactory:
@@ -20,18 +38,15 @@ class LLMFactory:
     @classmethod
     def create_client(
         cls,
-        provider_name: str | None = None,
         cfg: dict[str, Any] | None = None,
+        role: str = "generation",
         default_model: str | None = None,
     ) -> BaseLLMClient:
-        """Create an OpenRouter client instance."""
+        """Create an OpenRouter client bound to the model for `role`."""
         from .. import config as cfg_mod
         cfg_mod._load_env()
 
-        model = default_model
-        if model is None and cfg and "generation" in cfg:
-            model = cfg["generation"].get("model")
-
+        model = default_model or get_model_for_role(cfg, role)
         return OpenRouterClient(default_model=model)
 
 
@@ -39,9 +54,11 @@ def get_llm_client(
     provider_name: str | None = None,
     cfg: dict[str, Any] | None = None,
     default_model: str | None = None,
+    role: str = "generation",
 ) -> BaseLLMClient:
-    """Convenience functional factory."""
-    return LLMFactory.create_client(provider_name=provider_name, cfg=cfg, default_model=default_model)
+    """Convenience functional factory. provider_name is accepted for
+    backwards compatibility and ignored — OpenRouter routes all providers."""
+    return LLMFactory.create_client(cfg=cfg, role=role, default_model=default_model)
 
 
 def complete_with_resilience(
@@ -51,13 +68,18 @@ def complete_with_resilience(
     client: BaseLLMClient | None = None,
     max_tokens: int | None = None,
     temperature: float = 0.0,
+    role: str = "generation",
 ) -> tuple[str, dict[str, Any]]:
-    """Complete a prompt via OpenRouter with automatic retry."""
+    """Complete a prompt via OpenRouter with one automatic retry.
+
+    Returns (content, usage_dict) where usage_dict carries real
+    input_tokens / output_tokens / cost_usd reported by the API.
+    """
     from .. import config as cfg_mod
     cfg_mod._load_env()
 
     tokens = max_tokens or cfg.get("generation", {}).get("max_tokens", 1200)
-    target_model = model or cfg.get("generation", {}).get("model")
+    target_model = model or get_model_for_role(cfg, role)
 
     active_client = client or get_llm_client(cfg=cfg, default_model=target_model)
 

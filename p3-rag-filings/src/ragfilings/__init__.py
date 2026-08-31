@@ -1,28 +1,34 @@
-"""ragfilings — Enterprise Agentic Multimodal Graph RAG Platform."""
+"""ragfilings — Agentic Graph RAG over SEC 10-K filings, with a DeepEval-proven eval suite."""
 
 from .agents import (
-    run_auditor,
-    run_data_analyst,
-    run_document_analyst,
-    run_lead_orchestrator,
+    audit_answer,
+    corpus_inventory,
+    plan_query,
     run_researcher,
-    run_synthesis_expert,
+    run_tool_loop,
+    synthesize,
 )
 from .graph import FinancialGraphBuilder, GraphQueryEngine
 from .ingestion import Section, parse_file, render_tree
 from .llm import BaseLLMClient, LLMFactory, OpenRouterClient, get_llm_client
-from .pipeline import GenerationError, MultiAgentOrchestrator, SessionMemoryManager, SoloMetaOrchestrator, answer, ask
+from .pipeline import GenerationError, MultiAgentOrchestrator, SessionMemoryManager, answer, ask
 from .prompts import PromptRegistry, load_prompt
-from .tools import compute_financial_math, decompose_query, extract_claims, safe_eval, verify
+from .tools import (
+    compute_financial_math,
+    decompose_query,
+    extract_claims,
+    needs_decomposition,
+    safe_eval,
+    verify,
+)
 
-__version__ = "0.3.0"
+__version__ = "0.4.0"
 
 __all__ = [
     "ask",
     "answer",
     "GenerationError",
     "MultiAgentOrchestrator",
-    "SoloMetaOrchestrator",
     "SessionMemoryManager",
     "FinancialGraphBuilder",
     "GraphQueryEngine",
@@ -41,10 +47,10 @@ __all__ = [
     "decompose_query",
     "extract_claims",
     "verify",
-    "run_lead_orchestrator",
-    "run_document_analyst",
+    "plan_query",
+    "corpus_inventory",
     "run_researcher",
-    "run_data_analyst",
-    "run_synthesis_expert",
-    "run_auditor",
+    "synthesize",
+    "audit_answer",
+    "run_tool_loop",
 ]

@@ -1,17 +1,21 @@
-"""Specialized 6-Agent Swarm Package."""
+"""Agent package — planner, researcher, synthesis, auditor.
 
-from .auditor import run_auditor
-from .data_analyst import run_data_analyst
-from .document_analyst import run_document_analyst
-from .orchestrator import run_lead_orchestrator
+Each agent is a real LLM step: instructor-validated structured outputs or a
+native tool-calling loop, all with API-reported usage accounting.
+"""
+
+from .auditor import audit_answer
+from .planner import corpus_inventory, plan_query
 from .researcher import run_researcher
-from .synthesis import run_synthesis_expert
+from .synthesis import synthesize
+from .tool_loop import add_usage, run_tool_loop
 
 __all__ = [
-    "run_lead_orchestrator",
-    "run_document_analyst",
+    "plan_query",
+    "corpus_inventory",
     "run_researcher",
-    "run_data_analyst",
-    "run_synthesis_expert",
-    "run_auditor",
+    "synthesize",
+    "audit_answer",
+    "run_tool_loop",
+    "add_usage",
 ]
