@@ -119,11 +119,15 @@ def run_regression(
     out_root: str | Path = "reports/evals",
     limit: int | None = None,
     baseline: str | None = None,
+    skip_judge_metrics: bool = False,
 ) -> tuple[Path, dict[str, Any] | None]:
     """Run the suite into a fresh timestamped dir and diff against baseline.
 
     baseline: a run dir name under out_root, or None to auto-pick the latest
     existing run. Returns (run_dir, diff_or_None).
+
+    skip_judge_metrics: omit the complementary DeepEval metrics for a faster
+    accuracy-focused run (see evaluation.run_eval).
     """
     out_root = Path(out_root)
     out_root.mkdir(parents=True, exist_ok=True)
@@ -141,7 +145,8 @@ def run_regression(
     meta = _run_meta(cfg, golden_set, [strategy], cfg.get("eval", {}).get("judge_model", ""))
     run_dir = out_root / f"{stamp}-{meta['git_sha'][:8]}-{strategy}"
 
-    run_eval(cfg, golden_set, [strategy], out_dir=run_dir, limit=limit)
+    run_eval(cfg, golden_set, [strategy], out_dir=run_dir, limit=limit,
+             skip_judge_metrics=skip_judge_metrics)
 
     diff = None
     if baseline_dir is not None and baseline_dir != run_dir:

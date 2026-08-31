@@ -97,9 +97,16 @@ def score_case(
     result: dict[str, Any],
     cfg: dict[str, Any] | None = None,
     scorer: Any = None,
+    include_deepeval_metrics: bool = True,
 ) -> dict[str, Any]:
     """Score one case. `scorer` is a DeepEvalScorer (deepeval_judge.py); it is
-    required for judge-type and ambiguous cases."""
+    required for judge-type and ambiguous cases.
+
+    `include_deepeval_metrics=False` skips the complementary faithfulness /
+    relevancy / contextual-precision judge calls (accuracy scoring — the
+    deterministic checks plus G-Eval correctness — is unaffected). This is the
+    fast path for accuracy-focused regression runs on rate-limited providers.
+    """
     expected = case["expected"]
     tol, unit_eq = _parse_rules(case.get("variation_rules", []))
     hit_ids = [h["chunk"]["id"] for h in result.get("hits", [])]
@@ -155,7 +162,7 @@ def score_case(
         raise ValueError(f"unknown expected.type: {ctype!r}")
 
     scored.update(correct=correct, outcome="answered")
-    if scorer is not None:
+    if scorer is not None and include_deepeval_metrics:
         scored["deepeval"] = scorer.metrics(case, result)
     return scored
 
@@ -330,8 +337,14 @@ def run_eval(
     out_dir: str | Path = "reports",
     limit: int | None = None,
     index=None,
+    skip_judge_metrics: bool = False,
 ) -> dict[str, Any]:
-    """Run golden evaluation suite across retrieval strategies."""
+    """Run golden evaluation suite across retrieval strategies.
+
+    `skip_judge_metrics=True` omits the complementary DeepEval metrics
+    (faithfulness / relevancy / contextual precision) for a faster
+    accuracy-focused run; deterministic scoring + G-Eval correctness still run.
+    """
     from ..retrieval import load_index
     from .deepeval_judge import DeepEvalScorer
 
@@ -342,13 +355,10 @@ def run_eval(
     scorer = DeepEvalScorer(cfg)
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "run_meta.json").write_text(
-        json.dumps(
-            _run_meta(cfg, golden_dir, strategies, scorer.judge.get_model_name()),
-            indent=2,
-        ),
-        encoding="utf-8",
-    )
+    meta = _run_meta(cfg, golden_dir, strategies, scorer.judge.get_model_name())
+    if skip_judge_metrics:
+        meta["deepeval_metrics"] = "skipped (accuracy-focused run)"
+    (out_dir / "run_meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
     all_results: dict[str, Any] = {}
 
     for strategy in strategies:
@@ -368,7 +378,8 @@ def run_eval(
                         strategy=strategy,
                         refusal_log=out_dir / "refusals.jsonl",
                     )
-                    scored = score_case(case, result, cfg, scorer=scorer)
+                    scored = score_case(case, result, cfg, scorer=scorer,
+                                        include_deepeval_metrics=not skip_judge_metrics)
                 except Exception as e:
                     # one failed case must not kill a long run; record it
                     scored = {

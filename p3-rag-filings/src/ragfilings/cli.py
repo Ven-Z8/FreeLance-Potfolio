@@ -103,6 +103,7 @@ def _cmd_regress(args: argparse.Namespace) -> None:
         out_root=args.out_root,
         limit=args.limit,
         baseline=args.baseline,
+        skip_judge_metrics=args.skip_judge_metrics,
     )
     print(f"\nrun: {run_dir}")
     if diff:
@@ -205,6 +206,9 @@ def main() -> None:
                     help="run dir name under --out-root (default: latest existing run)")
     rg.add_argument("--limit", type=int, default=None)
     rg.add_argument("--out-root", default="reports/evals")
+    rg.add_argument("--skip-judge-metrics", action="store_true",
+                    help="skip complementary DeepEval metrics (faithfulness/relevancy/"
+                         "contextual-precision) for a faster accuracy-focused run")
     rg.set_defaults(func=_cmd_regress)
 
     args = p.parse_args()
