@@ -332,6 +332,7 @@ def run_eval(
         results_path = out_dir / f"results_{strategy}.jsonl"
 
         with results_path.open("w", encoding="utf-8") as results_f:
+            consecutive_errors = 0
             for i, case in enumerate(cases, 1):
                 try:
                     result = ask(
@@ -366,6 +367,14 @@ def run_eval(
                         "refusal_reason": None,
                         "citations": [],
                     }
+                    consecutive_errors += 1
+                    if consecutive_errors >= 5:
+                        raise RuntimeError(
+                            "5 consecutive case failures — aborting run "
+                            f"(last error: {scored.get('error')})"
+                        )
+                else:
+                    consecutive_errors = 0
 
                 trace = build_trace(case, result)
                 (trace_dir / f"{case['id']}.json").write_text(
