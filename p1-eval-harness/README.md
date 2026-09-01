@@ -39,8 +39,9 @@ retrieval step is the one thing isolated out) —
 **Judge calibration:** the G-Eval judge agrees with hand labels on
 **45/52 = 86.5%** of cases (Cohen's kappa 0.669) — measured on 52
 (question, system answer) pairs labeled by a human against the filing text,
-not by another LLM. Re-measure with `scripts/calibrate_judge.py`; labels in
-`data/domain_a_financial/judge_calibration_v1.jsonl`.
+not by another LLM; re-measured after the port at **88.5% / kappa 0.723**
+(same labels, same free judge). Re-run with `scripts/calibrate_judge.py`;
+labels in `data/domain_a_financial/judge_calibration_v1.jsonl`.
 
 ## How scoring works
 

@@ -11,6 +11,11 @@
 - **agreement (accuracy): 45/52 = 86.5%**
 - **Cohen's kappa: 0.669**
 
+Re-measured 2026-08-31 after the judge moved to `p1-eval-harness`
+(`p1-eval-harness/scripts/calibrate_judge.py`, same 52 labels, same free
+judge model): **agreement 46/52 = 88.5%, kappa 0.723**. Free-judge
+run-to-run variance is a few labels; both measurements stand.
+
 | human \ judge | correct | incorrect |
 |---|---|---|
 | correct | 34 | 6 |

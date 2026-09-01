@@ -83,9 +83,12 @@ evaluation stack moved here from P3 on 2026-08-31 (P3 is now pure RAG):
 - **CLI**: `eval-harness run --strategy hybrid_rerank_graph
   [--skip-judge-metrics] [--limit N]` and `eval-harness diff BASE NEW`.
   Requires `ragfilings` installed in the same venv (or a sibling checkout).
-- **Scripts**: `scripts/calibrate_judge.py` (judge agreement vs hand labels:
-  86.5% / kappa 0.669), `scripts/benchmark_financebench.py` (external
-  benchmark: 81.3% reasoning-over-evidence).
+- **Scripts**: `scripts/calibrate_judge.py` (judge agreement vs hand labels),
+  `scripts/benchmark_financebench.py` (external benchmark, `--mode evidence`
+  reasoning-over-evidence / `--mode retrieval` end-to-end),
+  `scripts/build_financebench_corpus.py` (downloads FinanceBench's filings —
+  EDGAR-first with fiscal-calendar period matching, HTML + PDF parsing —
+  chunks + indexes them for retrieval mode).
 - **Measured results on P3** (all-free models): golden v1 53.8% →
   92.5% (+graph +clarification), enterprise 37.8% → 84.4%. Write-ups live in
   P3's `docs/` (they document P3's system results).

@@ -227,8 +227,16 @@ ordinary free-model variance; 92.5% is the representative repeat.)
 
 Retrieval-strategy ablation (no graph, v1 set): dense 56.2% · hybrid 46.2% ·
 hybrid + rerank 55.0% — within run-to-run noise; the fact graph, not the
-ranker, is the ~30-point signal. Judge calibration: 86.5% human agreement /
-Cohen's kappa 0.669. Failure analysis and caveats:
+ranker, is the ~30-point signal.
+
+**Re-validation (2026-08-31):** after the eval stack moved to
+`p1-eval-harness`, full re-runs through the ported harness reproduced the
+results — v1 set **93.8%** (75/80), enterprise set **86.7%** (39/45), and the
+G-Eval judge re-calibrated at **88.5% human agreement / Cohen's kappa 0.723**
+(original calibration: 86.5% / 0.669). Free-model run-to-run variance is a
+few cases; the deltas above are that noise, and the numbers reproduce.
+
+Failure analysis and caveats:
 [`p3-rag-filings/docs/graph_augmentation_v1.md`](./p3-rag-filings/docs/graph_augmentation_v1.md).
 
 ---
