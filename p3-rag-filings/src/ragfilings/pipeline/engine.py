@@ -101,12 +101,12 @@ def answer(
         "calls": 0,
     }
 
-    # An under-specified question (one company + a recognized metric but no
-    # fiscal year, with several years in the corpus) is met with a
-    # deterministic clarifying question rather than a guess — guessing is how
-    # ambiguous questions get scored wrong.
+    # An under-specified question (missing fiscal year, a vague metric term,
+    # or no company at all) is met with a deterministic clarifying question
+    # rather than a guess — guessing is how ambiguous questions get scored
+    # wrong.
     if graph_rescue is not None:
-        clarification = graph_rescue.missing_year_clarification(query)
+        clarification = graph_rescue.clarification(query)
         if clarification is not None:
             return {
                 "refused": False,

@@ -68,6 +68,7 @@
     "val:CAT:total_liabilities:2024": "actually 'Total liabilities and shareholders' equity'",
     "val:CAT:total_liabilities:2025": "actually 'Total liabilities and shareholders' equity'",
     "val:DIS:operating_income:2024": "stray value; Disney operating income is ~$15B, not $143M",
-    "val:DIS:operating_income:2025": "stray value; Disney operating income is ~$15B, not $1,327M"
+    "val:DIS:operating_income:2025": "stray value; Disney operating income is ~$15B, not $1,327M",
+    "val:PEP:total_revenue:2025": "Item 7 table fragment read as consolidated: 52 is not PepsiCo's FY2025 net revenue ($93,925M in the Item 8 consolidated statement, PEP_2025_10K:Item8:c000). Poisons ratio denominators. Quarantined 2026-09-01."
   }
 }

@@ -169,6 +169,101 @@ non-ambiguous questions, so it cannot over-trigger.
 - Enterprise: ambiguous 3/7 → 4/7 (ent-1044/1045 now clarify). The rest have a
   year or a vague metric ("earnings", "cash") and need metric-disambiguation.
 
+## Vague-metric and no-company clarification (issue #3, continued, 2026-09-01)
+
+Two residual ambiguity shapes survived the missing-year rule:
+
+1. **Vague metric terms.** "What was Amazon's earnings in fiscal year 2025?",
+   "How much cash does Apple have?", "What was NVIDIA's growth rate…" — the
+   only metric reference is a term that maps to several distinct statement
+   metrics (earnings → net income / operating income / EPS; cash → cash &
+   equivalents / cash-and-investments / operating / free cash flow; growth
+   rate → growth of which line item; profit margin → gross / operating / net;
+   bare "earnings per share" → basic vs diluted). These are under-specified
+   even when a fiscal year IS pinned, so the missing-year rule (which requires
+   a recognized phrase and no year) never fired.
+2. **No company at all.** "What was the net income?", "Which company had the
+   highest net income?" — the old behavior answered corpus-wide, ranking
+   companies across misaligned fiscal years.
+
+`GraphRescue.vague_metric_clarification` and `no_company_clarification`
+(behind one `GraphRescue.clarification` entry point the engine calls first)
+now return deterministic clarifying questions for both shapes. Guard rails:
+
+- the vague-term check abstains whenever the question anchors ANY recognized
+  metric or ratio phrase ("free cash flow", "net profit margin", "revenue
+  growth rate") or matches the CAGR pattern — a vague word modifying a real
+  metric is not a vague reference;
+- the no-company check requires a recognized metric phrase, no year, no
+  sub-period, and zero matched companies;
+- a scan over all 125 golden questions confirms the combined clarification
+  fires on ambiguous cases only (16 of 17; the remaining one, ent-1043 "more
+  profitable", is left to the generator, which presents the interpretations).
+
+Targeted re-run (free models): all 7 previously-failing ambiguous cases in the
+two sets now score correct via the deterministic clarifications — v1 ambiguous
+fin-9001/9005/9008 and enterprise ent-1039/1040/1041/1042 — with zero movement
+on 10 nearby control cases (lookups, table reads, FCF/CAGR/margin synthesis).
+
+## Unanswerable hallucinations (issue #2) and two stale labels
+
+**Prompt + verification.** The synthesis prompt gained an explicit
+`<refusal_rules>` block: refuse unless the exact requested figure is in the
+chunks (or derived by the verified math tool / graph facts); never substitute
+a related figure (revenue is not a unit count, an average production price is
+not an average realized price, a prior year is not the requested year); never
+answer from outside knowledge. The deterministic claim checker
+(`tools/verification.py`) also gained a bare-magnitude pattern: hedged figures
+without a `$` sign ("approximately 1.64 million") previously escaped
+verification entirely — that is how a world-knowledge fabrication passed as a
+grounded answer — and are now checked against the cited chunks like every
+other claim.
+
+**Two golden labels were stale (fixed 2026-09-01).** Chasing the last
+hallucinations showed the model was right and the labels were wrong:
+
+- fin-8012 "How many vehicles did Tesla deliver in fiscal year 2025?" was
+  labeled unanswerable ("verified absent, grep 2026-08-30"), but the filing's
+  Item 7 states verbatim "delivered approximately 1.64 million consumer
+  vehicles" (chunk TSLA_2025_10K:Item7:c001). The grep missed it.
+- fin-8007 "…average realized crude oil price per barrel…" was labeled
+  unanswerable because the filing never says "realized" — but it discloses the
+  identical concept as "Average production prices, Crude oil, per barrel":
+  $65.64 consolidated (chunk XOM_2025_10K:Item2:c011), $76.23 total incl.
+  equity companies (c013). Expected answer is now the consolidated $65.64.
+
+Both cases were re-labeled answerable with chunk-level evidence recorded in
+their `notes`; the v1 set therefore holds 10 unanswerables (was 12), of which
+the refusal-safety measurement remains 100% in the post-fix runs below.
+
+## Grounded derived figures + a third stale label (2026-09-01, enterprise set)
+
+The first post-fix enterprise run improved ambiguous to 7/7 but exposed two
+more issues in the ratio/CAGR shapes:
+
+1. **Refusal wording vs derivation.** The refusal rule's first draft said
+   "refuse unless the exact figure is stated in the chunks", which made the
+   model refuse PepsiCo's gross margin (ent-1016) even though both inputs were
+   right there. The rule now explicitly permits figures derived from stated
+   figures — a margin/ratio/growth whose inputs all appear — because computing
+   those joins IS the enterprise behavior this set measures.
+2. **The model re-derives (and rounds) ratios it was never given.** Rescue
+   grounded ratios only for verification; the synthesis model still had to
+   divide the injected numerator/denominator itself, and free models round
+   ("7%" instead of 6.8%, "15%" instead of 15.2%). Rescue outcomes now carry
+   a `(derived: …)` line naming the exact ratio/CAGR and the source chunks of
+   its inputs; the GRAPH_FACTS prompt rule authorizes those lines. Deterministic
+   beats dice-rolls: the figure the model must state is now in its context.
+3. **A poisoned graph fact** (`val:PEP:total_revenue:2025 = 52`, an Item 7
+   table fragment — PepsiCo's real FY2025 net revenue is $93,925M) had fed the
+   enterprise builder when it derived ent-1016's expected answer (97,805.8%!).
+   The fact is quarantined in `corpus/graph/excluded_facts.json` (now 69
+   facts), which also makes the ratio rescue abort on PEP ratios rather than
+   inject a garbage denominator, and ent-1016 was re-labeled from the true
+   consolidated figures (54.1%). Root-cause fix (the builder's table
+   heuristics, plus the missing "net revenue" singular phrase in KNOWN_METRICS)
+   is noted for a later builder pass.
+
 ## Reproduce
 
 Evaluation runs from the sibling `p1-eval-harness` project (install both

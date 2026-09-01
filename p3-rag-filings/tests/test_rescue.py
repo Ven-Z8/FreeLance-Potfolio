@@ -257,6 +257,33 @@ def test_rescue_cagr_abstains_on_subperiod():
     assert out is None
 
 
+def test_rescue_ratio_outcome_grounds_derived_ratio_line():
+    out = _rescuer().rescue("What was Apple's net profit margin in fiscal year 2025?")
+    assert out is not None
+    lines = [ln for ln in out.facts_block.splitlines() if "(derived:" in ln]
+    assert len(lines) == 1
+    assert "net profit margin FY2025" in lines[0]
+    assert "26.9%" in lines[0]  # 112,010 / 416,161
+    assert STATEMENT_CHUNK["id"] in lines[0]
+
+
+def test_rescue_cagr_outcome_grounds_derived_line():
+    out = _rescuer().rescue(
+        "What was the CAGR of Apple's net sales from fiscal year 2023 to 2025?")
+    assert out is not None
+    lines = [ln for ln in out.facts_block.splitlines() if "(derived:" in ln]
+    assert len(lines) == 1
+    assert "CAGR FY2023→FY2025" in lines[0]
+    assert "4.2%" in lines[0]
+
+
+def test_rescue_ratio_aborts_when_denominator_excluded():
+    # A poisoned revenue fact (see corpus/graph/excluded_facts.json) must
+    # abort the ratio rescue, never feed a garbage denominator.
+    r = _rescuer(excluded=frozenset({"val:AAPL:net_sales:2025"}))
+    assert r.rescue("What was Apple's net profit margin in fiscal year 2025?") is None
+
+
 # ------------------------------------------------------- clarification
 
 def test_clarification_fires_on_missing_year():
@@ -289,6 +316,83 @@ def test_clarification_change_intent_asks_for_period():
         "How did Apple's net sales change?")
     assert clar is not None
     assert "between which fiscal years" in clar.lower()
+
+
+def test_clarification_asks_about_peers_when_peers_unspecified():
+    clar = _rescuer().missing_year_clarification(
+        "What was Apple's net income relative to its peers?")
+    assert clar is not None
+    assert "fiscal year" in clar
+    assert "peer" in clar
+
+
+def test_clarification_no_peers_clause_without_peer_qualifier():
+    clar = _rescuer().missing_year_clarification("What was Apple's net sales?")
+    assert clar is not None
+    assert "peer" not in clar
+
+
+def test_vague_metric_clarification_fires_with_year():
+    clar = _rescuer().vague_metric_clarification(
+        "What was Microsoft's earnings in fiscal year 2025?")
+    assert clar is not None
+    assert "ambiguous" in clar
+    assert "Microsoft" in clar
+    assert "fiscal year 2025" in clar
+
+
+def test_vague_metric_clarification_cash_without_year():
+    clar = _rescuer().vague_metric_clarification("How much cash does Apple have?")
+    assert clar is not None
+    assert "ambiguous" in clar
+    assert "fiscal year" in clar
+    assert "cash & cash equivalents" in clar
+
+
+def test_vague_metric_clarification_abstains_on_anchor_phrase():
+    r = _rescuer()
+    assert r.vague_metric_clarification(
+        "What was Apple's free cash flow in fiscal year 2025?") is None
+    assert r.vague_metric_clarification(
+        "What did Apple report as diluted earnings per share for fiscal year 2025?") is None
+    # a vague term modifying a recognized metric is not a vague reference
+    assert r.vague_metric_clarification(
+        "What was Apple's revenue growth rate in fiscal year 2025?") is None
+
+
+def test_vague_metric_clarification_abstains_on_cagr():
+    assert _rescuer().vague_metric_clarification(
+        "What was the compound annual growth rate of Apple's total net sales "
+        "from fiscal year 2023 to fiscal year 2025?") is None
+
+
+def test_no_company_clarification_fires_without_company_or_year():
+    r = _rescuer()
+    clar = r.no_company_clarification("Which company had the highest net income?")
+    assert clar is not None
+    assert "net income" in clar
+    assert r.no_company_clarification("What was the net income?") is not None
+
+
+def test_no_company_clarification_abstains_with_year_company_or_no_metric():
+    r = _rescuer()
+    assert r.no_company_clarification(
+        "What was the net income in fiscal year 2025?") is None
+    assert r.no_company_clarification("What was Apple's net income?") is None
+    assert r.no_company_clarification("What is the capital of France?") is None
+
+
+def test_clarification_entry_point_routes_and_abstains():
+    r = _rescuer()
+    # missing-year shape wins...
+    assert r.clarification("What was Apple's net sales?") == \
+        r.missing_year_clarification("What was Apple's net sales?")
+    # ...vague-metric shape is next...
+    assert r.clarification(
+        "What was Microsoft's earnings in fiscal year 2025?") is not None
+    # ...and a fully-scoped question reaches synthesis untouched.
+    assert r.clarification(
+        "What was Apple's total net sales for fiscal year 2025?") is None
 
 
 # --------------------------------------------------------- engine wiring

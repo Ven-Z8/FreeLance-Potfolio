@@ -9,11 +9,15 @@ from __future__ import annotations
 import re
 from typing import Any
 
-# Matches "$416,161 million", "$416.2 billion", "46.9%", "$1,234.56", "416,161"
+# Matches "$416,161 million", "$416.2 billion", "46.9%", "$1,234.56",
+# "416,161", and bare magnitude claims ("1.64 million", "2 billion") —
+# the last form catches hedged figures from world knowledge that carry no
+# $ sign and would otherwise escape verification entirely.
 _CLAIM_RE = re.compile(
     r"(?:\$\s?[\d,]+(?:\.\d+)?(?:\s?(?:million|billion|thousand|trillion))?"
     r"|[\d,]*\d\.?\d*\s?%"
-    r"|\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b)"
+    r"|\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\b"
+    r"|\b\d+(?:\.\d+)?\s?(?:million|billion|thousand|trillion)\b)"
 )
 _SCALE = {"thousand": 1e3, "million": 1e6, "billion": 1e9, "trillion": 1e12}
 # Financial tables state figures in implicit units ("in millions");

@@ -43,3 +43,22 @@ def test_catches_planted_wrong_number():
 def test_percent_must_match_and_no_claims_is_vacuously_verified():
     assert not verify("Gross margin was 99.9%.", [CHUNK])["verified"]
     assert verify("Apple designs consumer electronics.", [CHUNK])["verified"]
+
+
+def test_bare_magnitude_claims_are_extracted_and_checked():
+    # Hedged figures without a $ sign ("1.64 million") used to escape
+    # verification entirely — that is how world-knowledge fabrications
+    # passed as grounded answers.
+    claims = extract_claims("Tesla delivered approximately 1.64 million vehicles.")
+    assert [c["raw"] for c in claims] == ["1.64 million"]
+    assert claims[0]["value"] == 1.64e6
+
+    result = verify("Tesla delivered approximately 1.64 million vehicles.", [CHUNK])
+    assert not result["verified"]
+    assert [c["raw"] for c in result["claims"] if not c["found"]] == ["1.64 million"]
+
+
+def test_bare_magnitude_matches_table_in_millions():
+    chunk = {"id": "TSLA_2025_10K:Item7:c001",
+             "text": "Consumer vehicle deliveries (in millions) | 1.64 | 1.81"}
+    assert verify("Deliveries were roughly 1.64 million.", [chunk])["verified"]

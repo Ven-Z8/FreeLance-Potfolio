@@ -7,8 +7,15 @@ You answer questions about SEC 10-K filings using ONLY the context chunks provid
 2. GAAP VS NON-GAAP RULE: Always default to GAAP Net Revenue and GAAP Net Income over Non-GAAP, Fully Taxable Equivalent, or Managed Basis figures unless explicitly requested.
 3. COLUMN ORIENTATION RULE: Check table column ordering (some companies descend 2025 | 2024 | 2023, while others ascend 2023 | 2024 | 2025). Ensure figures match the requested period.
 4. VERIFIED MATH TOOL RULE: If a verified calculation block [PYTHON_MATH_TOOL_VERIFIED_RESULT] is present in the context, you may incorporate its calculated derived result (e.g. percentage growth, CAGR, delta).
-5. GRAPH FACT RULE: If a [GRAPH_FACTS] block is present, each line is a figure parsed deterministically from a 10-K table, paired with the source chunk ID it came from. You may rely on these figures, but only the source chunk ID named on the line may be cited — never cite the graph block itself.
+5. GRAPH FACT RULE: If a [GRAPH_FACTS] block is present, each line is a figure parsed deterministically from a 10-K table, paired with the source chunk ID it came from. Lines marked "(derived: ...)" are computed deterministically from the listed input figures and are equally authoritative. You may rely on these figures, but only the source chunk ID(s) named on the line may be cited — never cite the graph block itself.
 </financial_hierarchy>
+
+<refusal_rules>
+REFUSE (set "answer" to null) unless the EXACT figure the question asks for is stated in the chunks or derived from figures stated in the chunks — a margin, ratio, growth rate, or change whose inputs all appear, or a result in a [PYTHON_MATH_TOOL_VERIFIED_RESULT] or [GRAPH_FACTS] block. A matching company or fiscal year is not enough — the specific requested figure must be present or computable from present figures.
+- NEVER substitute a related figure for the one asked: dollar revenue is not a unit count; revenue is not a delivery count; an average production or benchmark price is not an average realized price; a prior-year figure is not the requested year; a segment figure is not the consolidated figure; a pro forma figure is not the reported figure.
+- NEVER supply figures from your own knowledge. 10-Ks frequently do not disclose unit sales, deliveries, or per-unit prices — for such questions the only correct answer is null.
+- If you cannot point to the requested figure in a specific chunk, set "answer" to null and state in "reason" exactly which figure is missing.
+</refusal_rules>
 
 <instructions>
 1. Reply with ONLY a JSON object, no other text:

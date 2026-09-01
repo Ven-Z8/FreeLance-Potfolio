@@ -12,8 +12,8 @@ Production-grade Agentic AI Systems, RAG Architecture, and Domain-Adaptive Evalu
 
 | Component | Description | Highlights |
 | :--- | :--- | :--- |
-| **[P3: Enterprise RAG Orchestrator](./p3-rag-filings)** | Multi-Agent Agentic **Graph** RAG over messy SEC 10-K filings | Typed fact graph + multi-hop augmentation (ratios/CAGR/comparisons), deterministic missing-year clarification, conversational multi-turn UI, Hybrid + BGE-rerank retrieval, safe Python financial-math tool, LangGraph orchestrator — **53.8% → 92.5%** on the audited golden set |
-| **[P1: Agent Evaluation Harness](./p1-eval-harness)** | "Proving Ground" evaluation harness for Agent & RAG systems | Audited golden datasets, two-tier scoring (deterministic + calibrated G-Eval judge, 86.5% human agreement), full trajectory traces, regression diffs, scorecards — measured P3's 53.8% → 92.5% and 81.3% FinanceBench |
+| **[P3: Enterprise RAG Orchestrator](./p3-rag-filings)** | Multi-Agent Agentic **Graph** RAG over messy SEC 10-K filings | Typed fact graph + multi-hop augmentation (ratios/CAGR/comparisons), deterministic clarification for under-specified questions, conversational multi-turn UI, Hybrid + BGE-rerank retrieval, safe Python financial-math tool, LangGraph orchestrator — **53.8% → 97.5%** on the audited golden set |
+| **[P1: Agent Evaluation Harness](./p1-eval-harness)** | "Proving Ground" evaluation harness for Agent & RAG systems | Audited golden datasets, two-tier scoring (deterministic + calibrated G-Eval judge, 86.5% human agreement), full trajectory traces, regression diffs, scorecards — measured P3's 53.8% → 97.5% and 81.3% FinanceBench |
 | **[Web Portfolio Showcase](./web)** | Interactive Web Dashboard & Scorecard Explorer | Responsive Dark-Mode UI, Live Metric Breakdown, Brutal 20 Stress Test Visualizer |
 
 ---
@@ -235,6 +235,39 @@ results — v1 set **93.8%** (75/80), enterprise set **86.7%** (39/45), and the
 G-Eval judge re-calibrated at **88.5% human agreement / Cohen's kappa 0.723**
 (original calibration: 86.5% / 0.669). Free-model run-to-run variance is a
 few cases; the deltas above are that noise, and the numbers reproduce.
+
+**Post-fix measurement (2026-09-01):** targeted work on the two remaining
+failure classes moved both sets again — v1 set **97.5%** (78/80), enterprise
+set **95.6%** (43/45):
+
+- *Ambiguity*: deterministic clarifications now also cover vague-metric
+  questions ("earnings", "cash", "growth rate", …) and company-less
+  questions — ambiguous cases score **10/10** on v1 and 7/7 on enterprise
+  (was 8/10 and 4/7). The clarifications are scan-verified to fire on
+  ambiguous questions only.
+- *Unanswerable hallucinations*: an explicit refusal rule in the synthesis
+  prompt (never substitute a related figure, never answer from outside
+  knowledge) plus closing a verification gap where hedged magnitudes like
+  "1.64 million" escaped claim-checking. Refusal safety on the genuinely
+  unanswerable cases: **10/10** (v1) and 8/8 (enterprise).
+- *Enterprise multi-hop*: graph-rescue outcomes now carry the exact derived
+  ratio/CAGR as a grounded line, ending free-model rounding drift ("7%" →
+  6.8%, "15%" → 15.2%).
+- *Data integrity*: three golden labels were found stale — the filings DO
+  contain Tesla's FY2025 deliveries (1.64M, Item 7) and Exxon's crude price
+  per barrel ($65.64 consolidated, as "average production prices"), and one
+  enterprise expected value was built on a poisoned graph fact (quarantined;
+  69 facts now excluded). All three were re-labeled with chunk-level
+  evidence; details in the failure-notes doc below.
+- *Remaining failures* (4 across both sets): fin-3003 (synthesis
+  metric-disambiguation), fin-8007 (the model alternates between the filing's
+  two disclosed scopes: $65.64 consolidated vs $76.23 total-incl-equity),
+  ent-1016 (free-model over-refusal of a ratio whose inputs are present), and
+  ent-1019 (rounding drift, 7% vs 6.8%). Free-model noise, not a systematic
+  gap: both sets were re-measured twice post-fix — v1: 79/80 then 78/80
+  (fin-8007's scope flips), enterprise: 43/45 both times (ent-1016 fails in
+  both; the second failure swaps between ent-1019 rounding and ent-1044 judge
+  variance).
 
 Failure analysis and caveats:
 [`p3-rag-filings/docs/graph_augmentation_v1.md`](./p3-rag-filings/docs/graph_augmentation_v1.md).
