@@ -34,14 +34,19 @@ FinanceBench answer (factual equivalence, threshold 0.5).
 
 ## Reproduce
 
+The adapter lives in the sibling `p1-eval-harness` project (it shares the
+judge layer); it needs the P3 pipeline, so install both packages into one
+venv first:
+
 ```bash
-cd p3-rag-filings
+cd ../p1-eval-harness
 uv run python scripts/benchmark_financebench.py          # all 150
 uv run python scripts/benchmark_financebench.py --limit 20   # subset
 ```
 The adapter downloads FinanceBench from HuggingFace
-(`PatronusAI/financebench`, `financebench_merged.jsonl`) on first use and
-writes per-question results to `reports/financebench/`.
+(`PatronusAI/financebench`, `financebench_merged.jsonl`) on first use into
+`p1-eval-harness/data/financebench/` and writes per-question results to
+`p1-eval-harness/reports/financebench/`.
 
 ## Caveats, stated plainly
 

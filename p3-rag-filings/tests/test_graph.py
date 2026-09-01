@@ -1,7 +1,6 @@
 """Tests for the fact graph: deterministic multi-year table extraction,
 provenance, community detection, and the query engine."""
 
-import pytest
 
 from ragfilings.graph import FinancialGraphBuilder, GraphQueryEngine
 

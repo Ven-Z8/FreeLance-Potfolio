@@ -3,8 +3,8 @@
     ragfilings parse corpus/AAPL_2025-10-31_10K.htm   # section tree of one filing
     ragfilings index                                   # parse + chunk + embed corpus
     ragfilings ask "What was Apple's FY2025 net sales?" [--strategy hybrid]
-    ragfilings eval                                    # golden_set_v1.jsonl + scorecard
-    ragfilings eval --strategy all --limit 5           # smoke run over 3 strategies
+
+Evaluation lives in the sibling p1-eval-harness project (`eval-harness run`).
 """
 
 from __future__ import annotations
@@ -17,7 +17,6 @@ from pathlib import Path
 
 from . import config as cfg_mod
 from . import ingestion
-from .eval import run_eval, run_regression, write_scorecard
 from .pipeline import ask
 
 
@@ -79,42 +78,6 @@ def _cmd_ask(args: argparse.Namespace) -> None:
     if not ver["verified"]:
         failed = ", ".join(c["raw"] for c in ver["claims"] if not c["found"])
         print(f"\n⚠️ verification FAILED for: {failed}")
-
-
-def _cmd_eval(args: argparse.Namespace) -> None:
-    cfg = cfg_mod.load(args.config)
-    if args.strategy == "both":
-        strategies = ["dense", "hybrid"]
-    elif args.strategy == "all":
-        strategies = ["dense", "hybrid", "hybrid_rerank"]
-    else:
-        strategies = [args.strategy]
-    results = run_eval(cfg, args.golden_set, strategies, out_dir=args.out, limit=args.limit)
-    md, png = write_scorecard(results, args.out)
-    print(f"\nscorecard: {md}\n           {png}")
-
-
-def _cmd_regress(args: argparse.Namespace) -> None:
-    cfg = cfg_mod.load(args.config)
-    run_dir, diff = run_regression(
-        cfg,
-        args.golden_set,
-        args.strategy,
-        out_root=args.out_root,
-        limit=args.limit,
-        baseline=args.baseline,
-        skip_judge_metrics=args.skip_judge_metrics,
-    )
-    print(f"\nrun: {run_dir}")
-    if diff:
-        print(f"diff vs {diff['baseline']}: "
-              f"improved {len(diff['improved'])}, regressed {len(diff['regressed'])} "
-              f"({diff['common_cases']} common cases)")
-        if diff["regressed"]:
-            print("regressed cases:", ", ".join(diff["regressed"]))
-        print(f"report: {run_dir / 'diff_report.md'}")
-    else:
-        print("no baseline run found — this run becomes the baseline")
 
 
 def _cmd_graph(args: argparse.Namespace) -> None:
@@ -181,35 +144,6 @@ def main() -> None:
     serve_cmd.add_argument("--host", default="127.0.0.1", help="host to bind")
     serve_cmd.add_argument("--port", type=int, default=8000, help="port to bind")
     serve_cmd.set_defaults(func=_cmd_serve)
-
-    ev = sub.add_parser("eval", help="run the golden-set eval + scorecard")
-    ev.add_argument("golden_set", nargs="?", default="golden/golden_set_v1.jsonl")
-    ev.add_argument(
-        "--strategy",
-        choices=["dense", "hybrid", "hybrid_rerank", "agent_react",
-                 "dense_graph", "hybrid_graph", "hybrid_rerank_graph", "both", "all"],
-        default="hybrid_rerank",
-        help="'all' = the three retrieval strategies; agent_react runs the full agent loop; "
-             "*_graph adds fact-graph augmentation",
-    )
-    ev.add_argument("--limit", type=int, default=None, help="only the first N cases (smoke runs)")
-    ev.add_argument("--out", default="reports")
-    ev.set_defaults(func=_cmd_eval)
-
-    rg = sub.add_parser("regress", help="one-command regression run + diff vs baseline")
-    rg.add_argument("--golden-set", default="golden/golden_set_v1.jsonl")
-    rg.add_argument("--strategy", default="hybrid_rerank",
-                    choices=["dense", "hybrid", "hybrid_rerank", "agent_react",
-                             "dense_graph", "hybrid_graph", "hybrid_rerank_graph"],
-                    help="*_graph adds deterministic fact-graph augmentation")
-    rg.add_argument("--baseline", default=None,
-                    help="run dir name under --out-root (default: latest existing run)")
-    rg.add_argument("--limit", type=int, default=None)
-    rg.add_argument("--out-root", default="reports/evals")
-    rg.add_argument("--skip-judge-metrics", action="store_true",
-                    help="skip complementary DeepEval metrics (faithfulness/relevancy/"
-                         "contextual-precision) for a faster accuracy-focused run")
-    rg.set_defaults(func=_cmd_regress)
 
     args = p.parse_args()
     args.func(args)

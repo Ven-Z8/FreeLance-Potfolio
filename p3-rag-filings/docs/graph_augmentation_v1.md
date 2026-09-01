@@ -53,9 +53,10 @@ where none is warranted.
 
 ## Result
 
-`ragfilings regress --strategy hybrid_rerank_graph --skip-judge-metrics`
-(accuracy-focused; complementary DeepEval metrics skipped because the free
-tier is rate-limited — deterministic scoring + G-Eval correctness still ran).
+`eval-harness run --strategy hybrid_rerank_graph --skip-judge-metrics` (run
+from the sibling `p1-eval-harness` project; accuracy-focused — complementary
+DeepEval metrics skipped because the free tier is rate-limited — deterministic
+scoring + G-Eval correctness still ran).
 
 | Category | Baseline (`hybrid_rerank`) | `hybrid_rerank_graph` |
 |---|---|---|
@@ -170,11 +171,15 @@ non-ambiguous questions, so it cannot over-trigger.
 
 ## Reproduce
 
+Evaluation runs from the sibling `p1-eval-harness` project (install both
+packages into one venv):
+
 ```bash
+cd ../p1-eval-harness
 uv sync --extra dev
-uv run ragfilings regress --strategy hybrid_rerank_graph            # full (with metrics)
-uv run ragfilings regress --strategy hybrid_rerank_graph --skip-judge-metrics  # accuracy-only
+uv run eval-harness run --strategy hybrid_rerank_graph            # full (with metrics)
+uv run eval-harness run --strategy hybrid_rerank_graph --skip-judge-metrics  # accuracy-only
 # enterprise set:
-uv run ragfilings regress --golden-set golden/golden_set_enterprise_v1.jsonl --strategy hybrid_rerank_graph --skip-judge-metrics
+uv run eval-harness run --golden-set data/domain_a_financial/golden_set_enterprise_v1.jsonl --strategy hybrid_rerank_graph --skip-judge-metrics
 # diff_report.md in the run dir compares against the latest baseline run.
 ```

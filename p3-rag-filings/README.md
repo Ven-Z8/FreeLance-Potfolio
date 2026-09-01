@@ -16,7 +16,8 @@ orders that flip between companies — **measured, with the failures included.**
 
 ## Headline (measured, 2026-08-31)
 
-On the 80-case audited golden set (`golden/golden_set_v1.jsonl`), accuracy by
+On the 80-case audited golden set (canonical copy in
+`p1-eval-harness/data/domain_a_financial/golden_set_v1.jsonl`), accuracy by
 system configuration:
 
 | Configuration | Accuracy | Notes |
@@ -51,17 +52,26 @@ point of failure.
 
 ## Reproduce the headline result
 
+Building the system (here) and evaluating it (sibling `p1-eval-harness`
+project — install both packages into one venv, see the repo-root README):
+
 ```bash
+# 1) build the system (p3-rag-filings)
 uv sync --extra dev
 uv run python scripts/download_corpus.py     # 25 10-Ks from SEC EDGAR (rate-limited)
 uv run ragfilings index                      # parse + chunk + embed (local model, no key)
 uv run ragfilings graph                      # build the fact graph + communities
-# add OPENROUTER_API_KEY to .env
-uv run ragfilings regress --strategy hybrid_rerank_graph --skip-judge-metrics
-# -> accuracy + diff vs the latest baseline run, in reports/evals/<run>/
+
+# 2) evaluate it (p1-eval-harness)
+cd ../p1-eval-harness
+uv sync --extra dev
+# add OPENROUTER_API_KEY to the repo-root .env
+uv run eval-harness run --strategy hybrid_rerank_graph --skip-judge-metrics
+# -> accuracy + scorecards + diff vs the latest baseline run, in reports/evals/<run>/
 ```
 
-The enterprise set: `--golden-set golden/golden_set_enterprise_v1.jsonl`.
+The enterprise set: `eval-harness run --golden-set
+data/domain_a_financial/golden_set_enterprise_v1.jsonl ...`.
 `--skip-judge-metrics` runs accuracy-only (deterministic numeric matching +
 G-Eval correctness); drop it to also score faithfulness / answer-relevancy /
 contextual-precision.
@@ -137,16 +147,19 @@ DeepEval G-Eval over OpenRouter.
 
 ## Golden datasets
 
-- `golden/golden_set_v1.jsonl` — 80 cases (lookup, table, synthesis,
+Canonical data lives in the sibling eval project
+([`p1-eval-harness/data/domain_a_financial/`](../p1-eval-harness/data/domain_a_financial/)):
+
+- `golden_set_v1.jsonl` — 80 cases (lookup, table, synthesis,
   unanswerable, ambiguous). Every answerable figure proven against filing text.
-- `golden/golden_set_enterprise_v1.jsonl` — 45 multi-hop cases (ratios, CAGR,
-  cross-company, trends, + unanswerables and ambiguities). Built by
-  `scripts/build_golden_enterprise_v1.py`; each derived answer's base figures
-  are chunk-verified.
+- `golden_set_enterprise_v1.jsonl` — 45 multi-hop cases (ratios, CAGR,
+  cross-company, trends, + unanswerables and ambiguities). Built by this
+  project's `scripts/build_golden_enterprise_v1.py`; each derived answer's
+  base figures are chunk-verified.
 - Judge calibration: 86.5% human agreement / Cohen's kappa 0.669 on 52
-  hand-labeled pairs (`golden/judge_calibration_v1.jsonl`,
-  `docs/judge_calibration_v1.md`).
-- Audit evidence: `golden/audit_v1.json`; regenerate with
+  hand-labeled pairs (`judge_calibration_v1.jsonl`,
+  [`docs/judge_calibration_v1.md`](docs/judge_calibration_v1.md)).
+- Audit evidence: `audit_v1.json`; regenerate with
   `scripts/audit_golden.py`.
 
 ## Scope discipline — what this deliberately is NOT

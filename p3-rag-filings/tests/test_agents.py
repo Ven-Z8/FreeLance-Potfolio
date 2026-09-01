@@ -14,7 +14,7 @@ from ragfilings.agents import researcher as researcher_mod
 from ragfilings.agents import synthesis as synthesis_mod
 from ragfilings.agents import auditor as auditor_mod
 from ragfilings.agents.tool_loop import run_tool_loop
-from ragfilings.schemas import AuditClaim, AuditResult, QueryPlan, SynthesizedAnswer
+from ragfilings.schemas import AuditResult, QueryPlan, SynthesizedAnswer
 
 CFG = {
     "generation": {"model": "test/gen", "max_tokens": 512, "verify_retries": 1},

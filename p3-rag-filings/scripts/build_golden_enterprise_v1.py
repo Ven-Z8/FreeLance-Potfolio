@@ -17,7 +17,7 @@ computed figure is arithmetic over them) — the same accepted pattern as the
 v1 synthesis/comparison cases.
 
 Usage: uv run python scripts/build_golden_enterprise_v1.py [--dry-run]
-Emits golden/golden_set_enterprise_v1.jsonl.
+Emits the enterprise set into ../p1-eval-harness/data/domain_a_financial/.
 """
 
 from __future__ import annotations
@@ -33,7 +33,9 @@ sys.path.insert(0, str(ROOT / "src"))
 
 import build_golden_v1 as v1  # noqa: E402  (audited helpers + fact filters)
 
-OUT = ROOT / "golden" / "golden_set_enterprise_v1.jsonl"
+# Canonical golden data lives in the sibling p1-eval-harness project.
+P1_GOLDEN = ROOT.parent / "p1-eval-harness" / "data" / "domain_a_financial"
+OUT = P1_GOLDEN / "golden_set_enterprise_v1.jsonl"
 
 # metric used as the denominator for revenue-based ratios
 REVENUE_METRICS = ("Total Revenue", "Net Sales")

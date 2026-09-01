@@ -1,6 +1,5 @@
 """Tests for FastAPI UI server endpoints."""
 
-import pytest
 from fastapi.testclient import TestClient
 
 from ragfilings.ui.server import app

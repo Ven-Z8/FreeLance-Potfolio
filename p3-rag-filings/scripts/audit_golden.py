@@ -10,7 +10,8 @@ script automates the mechanical part:
 - flags unanswerable/ambiguous/judge cases for manual review
 - validates schema fields (ids unique, enums legal, citations present)
 
-Outputs golden/audit_v1.json (machine-readable) and prints a summary.
+Outputs audit_v1.json into the p1-eval-harness golden data dir
+(machine-readable) and prints a summary.
 Run: uv run python scripts/audit_golden.py
 """
 
@@ -25,7 +26,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from ragfilings.tools import extract_claims  # noqa: E402
 
-GOLDEN_DIR = ROOT / "golden"
+# Canonical golden data lives in the sibling p1-eval-harness project.
+GOLDEN_DIR = ROOT.parent / "p1-eval-harness" / "data" / "domain_a_financial"
 PARSED_DIR = ROOT / "corpus" / "parsed"
 CHUNKS_DIR = ROOT / "corpus" / "chunks"
 

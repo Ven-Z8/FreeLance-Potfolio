@@ -20,8 +20,8 @@ flowchart TD
         V -->|verified| ANS[Answer + citations]
     end
 
-    subgraph Eval["Eval (via P1 harness)"]
-        GS[(Golden set<br/>60+ hand-verified)] --> EV[Eval runner]
+    subgraph Eval["Eval (sibling p1-eval-harness project)"]
+        GS[(Golden sets in p1:<br/>80 audited + 45 multi-hop)] --> EV[Eval runner]
         ANS -.traces.-> EV
         EV --> SC[Scorecard + failure analysis]
     end

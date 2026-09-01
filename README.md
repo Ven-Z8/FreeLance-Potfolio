@@ -13,7 +13,7 @@ Production-grade Agentic AI Systems, RAG Architecture, and Domain-Adaptive Evalu
 | Component | Description | Highlights |
 | :--- | :--- | :--- |
 | **[P3: Enterprise RAG Orchestrator](./p3-rag-filings)** | Multi-Agent Agentic **Graph** RAG over messy SEC 10-K filings | Typed fact graph + multi-hop augmentation (ratios/CAGR/comparisons), deterministic missing-year clarification, conversational multi-turn UI, Hybrid + BGE-rerank retrieval, safe Python financial-math tool, LangGraph orchestrator — **53.8% → 92.5%** on the audited golden set |
-| **[P1: Agent Evaluation Harness](./p1-eval-harness)** | Proving Ground evaluation harness for Agent & RAG systems | Strict Schema Enforcer, Refusal & Hallucination Metrics, Exact/Contains/LLM-Judge Engines, HTML & Markdown Scorecard Generator |
+| **[P1: Agent Evaluation Harness](./p1-eval-harness)** | "Proving Ground" evaluation harness for Agent & RAG systems | Audited golden datasets, two-tier scoring (deterministic + calibrated G-Eval judge, 86.5% human agreement), full trajectory traces, regression diffs, scorecards — measured P3's 53.8% → 92.5% and 81.3% FinanceBench |
 | **[Web Portfolio Showcase](./web)** | Interactive Web Dashboard & Scorecard Explorer | Responsive Dark-Mode UI, Live Metric Breakdown, Brutal 20 Stress Test Visualizer |
 
 ---
@@ -119,17 +119,24 @@ ragfilings serve          # then open http://127.0.0.1:8000
 
 ### 4. Setup Project 1: Agent Evaluation Harness (`p1-eval-harness`)
 
+The harness evaluates P3 through an adapter, so install it into the **same
+venv** you activated for P3:
+
 ```bash
 cd ../p1-eval-harness
 
-# Install evaluation harness package
+# Install the evaluation harness into the active (P3) venv
 uv pip install -e .
 
 # Run pytest unit tests
 pytest tests/
 
-# Execute evaluation benchmark against the golden dataset
-eval-harness run --dataset data/domain_a_financial/all_financial_golden.jsonl --output reports/scorecard_hybrid_rerank.html
+# Evaluate P3 against the audited golden set
+# (writes scorecards + traces + regression diff to reports/evals/<run>/)
+eval-harness run --strategy hybrid_rerank_graph --skip-judge-metrics
+
+# External benchmark: FinanceBench, reasoning-over-evidence (81.3%)
+python scripts/benchmark_financebench.py
 ```
 
 ---
@@ -151,8 +158,8 @@ Open your browser to [http://localhost:8080](http://localhost:8080) to inspect t
 
 Every figure below was measured on 2026-08-31 using free models
 (`minimax/minimax-m3:free` for generation, extraction, and judging). Reproduce
-with `ragfilings regress` (golden set) or
-`python scripts/benchmark_financebench.py` (FinanceBench).
+with `eval-harness run` from `p1-eval-harness` (golden sets) or
+`python scripts/benchmark_financebench.py` there (FinanceBench).
 
 **FinanceBench (150 real public-company questions, external benchmark)** —
 run in *reasoning-over-evidence* mode (each question is given its official
@@ -164,7 +171,7 @@ outside this corpus as PDFs):
 | :--- | :--- | :--- |
 | **FinanceBench** (Patronus AI, 150 open questions) | reasoning-over-evidence | **81.3%** (122/150) |
 
-**80-case audited golden set** (`p3-rag-filings/golden/golden_set_v1.jsonl`):
+**80-case audited golden set** (`p1-eval-harness/data/domain_a_financial/golden_set_v1.jsonl`):
 
 | Configuration | Accuracy | Note |
 | :--- | :--- | :--- |
@@ -200,13 +207,14 @@ FreeLance-Potfolio/
 ├── .env.example                   # Environment keys template
 ├── p3-rag-filings/                # Project 3: Multi-Agent RAG Orchestrator
 │   ├── src/ragfilings/            # Core RAG source code (retrieval, agent, prompts)
-│   ├── golden/                    # Evaluation golden datasets & schemas
-│   ├── scripts/                   # SEC EDGAR downloader & parser scripts
+│   ├── golden/                    # Golden-set drafts & schema (canonical data in p1)
+│   ├── scripts/                   # SEC EDGAR downloader, parser, golden builders
 │   └── pyproject.toml             # Python dependencies & CLI entrypoints
-├── p1-eval-harness/               # Project 1: Domain-Adaptive Eval Harness
-│   ├── src/harness/               # Metric engines, schema validators, reporters
-│   ├── data/                      # Multi-domain golden datasets
-│   └── reports/                   # HTML/Markdown scorecards & JSON traces
+├── p1-eval-harness/               # Project 1: Agent Eval Harness ("Proving Ground")
+│   ├── src/harness/               # Scoring engine, calibrated judge, runner, adapters
+│   ├── data/domain_a_financial/   # Audited golden sets, calibration labels, audit evidence
+│   ├── scripts/                   # Judge calibration, FinanceBench benchmark
+│   └── reports/                   # Scorecards & JSON traces (gitignored)
 ├── web/                           # Portfolio Web UI Showcase
 │   ├── index.html                 # Interactive portfolio homepage
 │   ├── app.js                     # Dashboard interaction logic

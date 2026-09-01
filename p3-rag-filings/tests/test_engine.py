@@ -2,11 +2,10 @@
 
 import json
 
-import pytest
 
 from ragfilings.llm.base import BaseLLMClient
 from ragfilings.llm.types import LLMResponse, TokenUsage
-from ragfilings.pipeline.engine import GenerationError, _parse_json, answer, ask
+from ragfilings.pipeline.engine import _parse_json, answer
 
 CFG = {
     "generation": {"model": "test/model", "max_tokens": 512, "verify_retries": 1},

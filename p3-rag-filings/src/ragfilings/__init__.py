@@ -1,4 +1,8 @@
-"""ragfilings — Agentic Graph RAG over SEC 10-K filings, with a DeepEval-proven eval suite."""
+"""ragfilings — Agentic Graph RAG over SEC 10-K filings.
+
+Evaluation (golden sets, scoring, calibrated judge, regression runs) lives in
+the sibling p1-eval-harness project.
+"""
 
 from .agents import (
     audit_answer,

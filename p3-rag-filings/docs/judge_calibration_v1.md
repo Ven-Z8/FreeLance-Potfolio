@@ -1,8 +1,10 @@
 # Judge calibration v1 — DeepEval G-Eval vs hand labels
 
 - judge: `minimax/minimax-m3:free` (OpenRouter, temperature 0)
-- labeled pairs: 52 (golden/judge_calibration_v1.jsonl)
+- labeled pairs: 52 (`p1-eval-harness/data/domain_a_financial/judge_calibration_v1.jsonl`)
 - labels: written by the portfolio author against the filing text
+- re-measure: `p1-eval-harness/scripts/calibrate_judge.py` (judge layer lives in
+  the sibling `p1-eval-harness` project)
 
 ## Headline numbers
 

@@ -1,11 +1,11 @@
-"""End-to-end regression guards.
+"""End-to-end regression guards for the RAG pipeline.
 
 - Known-answer questions must retrieve the right section from the REAL index
   (skipped when the index hasn't been built — it's gitignored).
 - An unanswerable low-confidence query must refuse without any model call and
   the refusal must be logged with its reason.
-- The scorecard writer must produce both artifacts with the caveat.
 
+Scoring/scorecard behavior lives in the sibling p1-eval-harness project.
 The "verification catches a planted wrong number" requirement is pinned in
 test_verification.py::test_catches_planted_wrong_number and
 test_generation.py::test_planted_wrong_number_triggers_one_corrective_retry.
@@ -16,7 +16,6 @@ from pathlib import Path
 
 import pytest
 
-from ragfilings.eval import report
 from ragfilings.pipeline import engine as generation
 from ragfilings.config import load
 
@@ -79,24 +78,3 @@ def test_unanswerable_low_confidence_refuses_and_logs(tmp_path, monkeypatch):
     entry = json.loads(log.read_text().strip())
     assert entry["reason"] == result["refusal_reason"]
     assert entry["strategy"] == "dense" and "Tesla" in entry["query"]
-
-
-def test_scorecard_writes_md_and_png_with_caveat(tmp_path):
-    metrics = {
-        "n": 80, "accuracy": 0.8, "citation_faithfulness": 0.9,
-        "retrieval_hit_rate": 0.85, "hallucination_rate": 0.1,
-        "refusal_rate": 0.15, "refusal_correctness": 0.7, "verified_rate": 0.95,
-        "deepeval_faithfulness": 0.88, "deepeval_answer_relevancy": 0.9,
-        "deepeval_contextual_precision": 0.7, "deepeval_correctness": 0.82,
-        "latency_p50_ms": 2000.0, "latency_p95_ms": 6000.0,
-        "cost_per_query_usd": 0.003, "judge_cost_usd": 0.05,
-        "model": "test/model", "judge_model": "test/judge",
-        "by_category": {"lookup": {"n": 20, "correct": 18, "accuracy": 0.9}},
-    }
-    results = {"dense": {"metrics": metrics, "rows": []},
-               "hybrid": {"metrics": {**metrics, "accuracy": 0.85}, "rows": []}}
-    md, png = report.write_scorecard(results, tmp_path)
-    text = md.read_text()
-    assert "golden set v1" in text.lower()
-    assert "80%" in text and "85%" in text
-    assert png.exists() and png.stat().st_size > 10_000
