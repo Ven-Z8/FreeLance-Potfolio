@@ -52,6 +52,40 @@ with regression tracking.
 
 ## Dependency
 
-P3 (../p3-rag-filings) produces the golden set for the financial domain pack.
-Design the dataset format FIRST and share it with P3 so its golden set drops in
-unchanged.
+P3 (../p3-rag-filings) is the system under test for the financial domain pack.
+The golden set format was designed FIRST and shared with P3, so its golden set
+drops in unchanged — that is now the canonical data in
+`data/domain_a_financial/`.
+
+## Current state (2026-08-31)
+
+Phase 0 + Phase 1 core + the financial domain pack are done. The entire
+evaluation stack moved here from P3 on 2026-08-31 (P3 is now pure RAG):
+
+- **Data** (`data/domain_a_financial/`): `golden_set_v1.jsonl` (80 audited
+  cases), `golden_set_enterprise_v1.jsonl` (45 multi-hop cases),
+  `judge_calibration_v1.jsonl` (52 hand-labeled judge pairs), `audit_v1.json`
+  (provenance evidence). Golden builders stay in P3 (they need its corpus)
+  and write into this directory.
+- **Scoring** (`src/harness/metrics/`): two-tier — deterministic numeric
+  matching with variation rules + refusal/ambiguity matrix (`engine.py`),
+  complemented by calibrated DeepEval G-Eval judge (`src/harness/judge.py`,
+  judge model in `config.toml`, all calls through the harness's own
+  OpenRouter client with cost ledger).
+- **Runner** (`runner.py`, `regress.py`): timestamped run dirs
+  (`reports/evals/<stamp>-<sha8>-<strategy>/`) with per-case traces,
+  `run_meta.json`, scorecards (md/png/html), and diff vs the latest baseline.
+  Circuit breaker aborts after 5 consecutive case failures.
+- **Adapter**: `adapters/ragfilings_adapter.py` runs P3's `ask()` pipeline
+  and returns the raw result dict unchanged (answer, citations, hits,
+  verification, graph_rescue, usage). Adapters for other domains
+  (legal/biomedical/support) exist but are not wired into the v1 CLI.
+- **CLI**: `eval-harness run --strategy hybrid_rerank_graph
+  [--skip-judge-metrics] [--limit N]` and `eval-harness diff BASE NEW`.
+  Requires `ragfilings` installed in the same venv (or a sibling checkout).
+- **Scripts**: `scripts/calibrate_judge.py` (judge agreement vs hand labels:
+  86.5% / kappa 0.669), `scripts/benchmark_financebench.py` (external
+  benchmark: 81.3% reasoning-over-evidence).
+- **Measured results on P3** (all-free models): golden v1 53.8% →
+  92.5% (+graph +clarification), enterprise 37.8% → 84.4%. Write-ups live in
+  P3's `docs/` (they document P3's system results).

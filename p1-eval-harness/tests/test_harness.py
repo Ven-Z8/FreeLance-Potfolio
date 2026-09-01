@@ -1,7 +1,6 @@
-"""Unit tests for Core Eval Harness Engine."""
+"""Unit tests for the harness schema, report generation, and summary glue."""
 
-import pytest
-from harness import schema, report
+from harness import report, schema
 from harness.metrics import engine
 
 
@@ -18,50 +17,48 @@ def test_schema_models():
     assert case.expected.answer == "$416,161M"
 
 
-def test_deterministic_metric_exact():
+def test_score_case_accepts_schema_dump():
+    """GoldenCase dumps score directly through the engine."""
     case = schema.GoldenCase(
         id="test-002",
         input="What is revenue?",
-        expected=schema.ExpectedOutcome(answer="$100M", citations=["c1"], type="exact"),
+        expected=schema.ExpectedOutcome(answer="$100 million", citations=["c1"], type="exact"),
         variation_rules=["numeric_tolerance:1%"],
         failure_category="lookup",
-        domain="financial"
-    )
-    trace = schema.AgentRunTrace(
-        case_id="test-002",
         domain="financial",
-        strategy="hybrid_rerank",
-        query="What is revenue?",
-        answer="Revenue is $100M",
-        citations=["c1"]
-    )
-    correct, outcome, metrics = engine.Tier1DeterministicMetrics.evaluate(case, trace)
-    assert correct is True
-    assert outcome == "correct_answer"
-    assert metrics["answer_accuracy"] == 1.0
+    ).model_dump()
+    result = {"answer": "Revenue was $100 million.", "refused": False,
+              "citations": ["c1"], "hits": []}
+    scored = engine.score_case(case, result)
+    assert scored["correct"] is True and scored["outcome"] == "answered"
 
 
-def test_deterministic_metric_refusal():
-    case = schema.GoldenCase(
+def test_score_case_refusal_outcomes():
+    unanswerable = schema.GoldenCase(
         id="test-003",
         input="What is revenue in 2030?",
         expected=schema.ExpectedOutcome(answer=None, citations=[], type="exact"),
         failure_category="unanswerable",
-        domain="financial"
-    )
-    trace = schema.AgentRunTrace(
-        case_id="test-003",
         domain="financial",
-        strategy="hybrid_rerank",
-        query="What is revenue in 2030?",
-        answer=None,
-        refused=True,
-        refusal_reason="unanswerable"
-    )
-    correct, outcome, metrics = engine.Tier1DeterministicMetrics.evaluate(case, trace)
-    assert correct is True
-    assert outcome == "correct_refusal"
-    assert metrics["refusal_correctness"] == 1.0
+    ).model_dump()
+    refused = {"answer": None, "refused": True, "refusal_reason": "not in corpus",
+               "citations": [], "hits": []}
+    scored = engine.score_case(unanswerable, refused)
+    assert scored["correct"] is True and scored["outcome"] == "correct_refusal"
+
+
+def test_summary_from_rows_shape():
+    rows = [
+        {"case_id": "a", "correct": True, "outcome": "answered",
+         "input": "q1", "latency_ms": 100.0},
+        {"case_id": "b", "correct": False, "outcome": "hallucination",
+         "input": "q2", "latency_ms": 200.0},
+    ]
+    s = report.summary_from_rows("hybrid_rerank", rows)
+    assert s["strategy"] == "hybrid_rerank"
+    assert s["n"] == 2 and s["correct_count"] == 1
+    assert s["accuracy"] == 0.5
+    assert s["results"][0]["trace"]["query"] == "q1"
 
 
 def test_report_generation(tmp_path):

@@ -5,6 +5,8 @@ Layout under reports/evals/:
       results_<strategy>.jsonl    per-case scores
       traces/<strategy>/<id>.json full agent traces
       run_meta.json               git sha + config snapshot
+      scorecard.md / .png         metric scorecard
+      scorecard_<strategy>.html   interactive case table
       diff_report.md              comparison against the baseline run (if any)
 
 A run is reproducible: run_meta.json pins the git sha, generation/judge
@@ -18,7 +20,7 @@ import time
 from pathlib import Path
 from typing import Any
 
-from .evaluation import run_eval
+from harness.runner import git_sha, run_eval
 
 
 def latest_run(out_root: Path) -> Path | None:
@@ -114,20 +116,21 @@ def write_diff_report(diff: dict[str, Any], out_path: Path) -> None:
 
 def run_regression(
     cfg: dict[str, Any],
+    adapter: Any,
     golden_set: str | Path,
     strategy: str,
     out_root: str | Path = "reports/evals",
     limit: int | None = None,
     baseline: str | None = None,
     skip_judge_metrics: bool = False,
-) -> tuple[Path, dict[str, Any] | None]:
+) -> tuple[Path, dict[str, Any] | None, dict[str, Any]]:
     """Run the suite into a fresh timestamped dir and diff against baseline.
 
     baseline: a run dir name under out_root, or None to auto-pick the latest
-    existing run. Returns (run_dir, diff_or_None).
+    existing run. Returns (run_dir, diff_or_None, all_results).
 
     skip_judge_metrics: omit the complementary DeepEval metrics for a faster
-    accuracy-focused run (see evaluation.run_eval).
+    accuracy-focused run (see runner.run_eval).
     """
     out_root = Path(out_root)
     out_root.mkdir(parents=True, exist_ok=True)
@@ -141,15 +144,15 @@ def run_regression(
         baseline_dir = latest_run(out_root)
 
     stamp = time.strftime("%Y%m%d-%H%M%S")
-    from .evaluation import _run_meta  # git sha resolver
-    meta = _run_meta(cfg, golden_set, [strategy], cfg.get("eval", {}).get("judge_model", ""))
-    run_dir = out_root / f"{stamp}-{meta['git_sha'][:8]}-{strategy}"
+    run_dir = out_root / f"{stamp}-{git_sha()[:8]}-{strategy}"
 
-    run_eval(cfg, golden_set, [strategy], out_dir=run_dir, limit=limit,
-             skip_judge_metrics=skip_judge_metrics)
+    all_results = run_eval(
+        cfg, adapter, golden_set, [strategy], out_dir=run_dir, limit=limit,
+        skip_judge_metrics=skip_judge_metrics,
+    )
 
     diff = None
     if baseline_dir is not None and baseline_dir != run_dir:
         diff = diff_runs(baseline_dir, run_dir)
         write_diff_report(diff, run_dir / "diff_report.md")
-    return run_dir, diff
+    return run_dir, diff, all_results

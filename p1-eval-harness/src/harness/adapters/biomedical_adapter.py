@@ -3,16 +3,14 @@
 from __future__ import annotations
 
 import sys
-import time
 from pathlib import Path
-from typing import Any, Dict
 
 shared_path = Path(__file__).resolve().parents[4] / "shared"
 if str(shared_path) not in sys.path:
     sys.path.insert(0, str(shared_path))
 
-from gemini_client import GeminiClient
-from harness.schema import AgentRunTrace, GoldenCase, TrajectoryStep
+from gemini_client import GeminiClient  # noqa: E402
+from harness.schema import AgentRunTrace, GoldenCase, TrajectoryStep  # noqa: E402
 
 
 class BiomedicalQAAdapter:

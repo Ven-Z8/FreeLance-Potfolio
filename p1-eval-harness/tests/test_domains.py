@@ -1,6 +1,5 @@
 """Unit tests verifying all Project 1 domain datasets and adapters."""
 
-import pytest
 from pathlib import Path
 from harness.datasets.schema import load_jsonl
 from harness.adapters.legal_adapter import LegalExtractionAdapter

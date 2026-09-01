@@ -1,10 +1,11 @@
 """Judge calibration: measure the DeepEval judge's agreement with hand labels.
 
-Stage 3 requirement: publish how often the judge agrees with a human reading
-of the same (question, system answer) pairs. This script re-runs the judge's
-G-Eval correctness verdict on every labeled pair and reports agreement.
+Publish how often the judge agrees with a human reading of the same
+(question, system answer) pairs. This script re-runs the judge's G-Eval
+correctness verdict on every labeled pair and reports agreement.
 
-Labels live in golden/judge_calibration_v1.jsonl (one JSON object per pair):
+Labels live in data/domain_a_financial/judge_calibration_v1.jsonl (one JSON
+object per pair):
   case_id, input, expected_answer, actual_output, human_label (correct |
   incorrect), evidence (what the labeler checked). Labels were written by
   the portfolio author against the filing text, not by another LLM.
@@ -22,10 +23,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from ragfilings import config as cfg_mod  # noqa: E402
-from ragfilings.eval.deepeval_judge import DeepEvalScorer  # noqa: E402
+from harness import config as cfg_mod  # noqa: E402
+from harness.judge import DeepEvalScorer  # noqa: E402
 
-LABELS = ROOT / "golden" / "judge_calibration_v1.jsonl"
+LABELS = ROOT / "data" / "domain_a_financial" / "judge_calibration_v1.jsonl"
 OUT = ROOT / "reports" / "judge_calibration_v1.md"
 
 

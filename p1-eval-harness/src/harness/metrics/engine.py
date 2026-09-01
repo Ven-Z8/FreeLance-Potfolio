@@ -1,125 +1,207 @@
-"""Three-Tier Metric Evaluation Engine.
+"""Two-tier scoring engine.
 
-Tier 1: Deterministic Metrics (Exact match, numerical tolerance, refusal match)
-Tier 2: Statistical & Telemetry Metrics (Citation hit rate, latency p50/p95, cost)
-Tier 3: Calibrated LLM-as-Judge Metrics (Faithfulness & grounded reasoning)
+Tier 1 — deterministic: numeric matching with variation rules, the
+refusal/unanswerable matrix, and citation/retrieval prefix hits. Ground
+truth for exact/contains cases.
+Tier 2 — calibrated LLM-judge (harness/judge.py): G-Eval correctness for
+judge-type and ambiguous cases, plus faithfulness / answer_relevancy /
+contextual_precision on every answered case. Judge scores complement the
+deterministic tier; they never replace ground truth.
 """
 
 from __future__ import annotations
 
+import json
 import re
-from typing import Any, Dict, List, Tuple
-from harness.schema import AgentRunTrace, GoldenCase, MetricScore
+from pathlib import Path
+from typing import Any
+
+import numpy as np
+
+from harness.metrics.claims import extract_claims
+from harness.schema import GoldenCase
+
+_UNIT_RATIOS = (1.0, 1e3, 1e6, 1e9, 1e-3, 1e-6, 1e-9)
+_TOL_RE = re.compile(r"numeric_tolerance:([\d.]+)%")
 
 
-def parse_numeric_tolerance(rules: List[str]) -> float:
-    """Extract percentage numerical tolerance rule if present."""
+def load_cases(golden_dir: str | Path) -> list[dict[str, Any]]:
+    """Load golden test cases and enforce the frozen case schema.
+
+    In directory mode only canonical golden_set_*.jsonl files are used
+    (skeleton templates are excluded). Every line is validated against
+    GoldenCase before scoring, so a malformed case fails loudly at load
+    time instead of corrupting a run.
+    """
+    cases: list[dict[str, Any]] = []
+    golden_path = Path(golden_dir)
+    paths = [golden_path] if golden_path.is_file() else sorted(
+        p for p in golden_path.glob("golden_set_*.jsonl") if "skeleton" not in p.name
+    )
+    for path in paths:
+        with path.open(encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    cases.append(GoldenCase.model_validate(json.loads(line)).model_dump())
+    return cases
+
+
+def _parse_rules(rules: list[str]) -> tuple[float, bool]:
+    tol, unit_eq = 0.0, False
     for r in rules:
-        if r.startswith("numeric_tolerance:"):
-            val_str = r.split(":")[1].rstrip("%")
-            try:
-                return float(val_str) / 100.0
-            except ValueError:
-                pass
-    return 0.005  # Default 0.5% tolerance
+        if m := _TOL_RE.fullmatch(r.strip()):
+            tol = float(m.group(1)) / 100.0
+        elif r.strip() == "unit_equivalence":
+            unit_eq = True
+    return tol, unit_eq
 
 
-def check_numerical_match(expected: str, generated: str, tol: float = 0.01) -> bool:
-    """Compare numerical figures extracted from expected vs generated text (supporting million/billion scale conversions)."""
-    exp_raw = [float(x.replace(",", "")) for x in re.findall(r"\d+(?:\.\d+)?", expected or "")]
-    gen_raw = [float(x.replace(",", "")) for x in re.findall(r"\d+(?:\.\d+)?", generated or "")]
-    exp_nums = [x for x in exp_raw if not (1900 <= x <= 2099 and x.is_integer())]
-    gen_nums = [x for x in gen_raw if not (1900 <= x <= 2099 and x.is_integer())]
-    if not exp_nums or not gen_nums:
-        return False
+def _scale_word(raw: str) -> str | None:
+    for w in ("trillion", "billion", "million", "thousand"):
+        if w in raw.lower():
+            return w
+    return None
 
-    for en in exp_nums:
-        for gn in gen_nums:
-            # Direct match or scale-converted match (e.g., $8.06 billion vs $8,060 million)
-            if abs(gn - en) <= max(abs(en) * tol, 1e-4):
-                return True
-            if abs(gn - (en * 1000.0)) <= max(abs(en * 1000.0) * tol, 1e-4):
-                return True
-            if abs((gn * 1000.0) - en) <= max(abs(en) * tol, 1e-4):
-                return True
 
+def _norm_text(t: str) -> str:
+    return re.sub(r"\s+", " ", t.lower().strip(" .")).strip()
+
+
+def _figures_match(expected_text: str, actual_text: str, tol: float, unit_eq: bool) -> bool:
+    """Does the actual answer state the expected figure within rules?"""
+    exp_claims = extract_claims(expected_text)
+    if not exp_claims:
+        return _norm_text(expected_text) in _norm_text(actual_text)
+
+    exp = exp_claims[0]
+    for act in extract_claims(actual_text):
+        if act["is_pct"] != exp["is_pct"]:
+            continue
+        ratios = _UNIT_RATIOS if (unit_eq and not exp["is_pct"]) else (1.0,)
+        for r in ratios:
+            a, e = act["value"] * r, exp["value"]
+            if e and abs(a - e) / abs(e) <= max(tol, 1e-9):
+                if unit_eq or _scale_word(act["raw"]) == _scale_word(exp["raw"]):
+                    return True
     return False
 
 
+def _prefix_hit(produced: list[str], expected: list[str]) -> bool | None:
+    if not expected:
+        return None
+    return any(p == e or p.startswith(e + ":") or p.startswith(e) for p in produced for e in expected)
 
 
-class Tier1DeterministicMetrics:
-    """Deterministic exact & numeric tolerance evaluation."""
+def score_case(
+    case: dict[str, Any],
+    result: dict[str, Any],
+    cfg: dict[str, Any] | None = None,
+    scorer: Any = None,
+    include_deepeval_metrics: bool = True,
+) -> dict[str, Any]:
+    """Score one case. `scorer` is a DeepEvalScorer (judge.py); it is
+    required for judge-type and ambiguous cases.
 
-    @staticmethod
-    def evaluate(case: GoldenCase, trace: AgentRunTrace) -> Tuple[bool, str, Dict[str, float]]:
-        rules = case.variation_rules
-        tol = parse_numeric_tolerance(rules)
+    `include_deepeval_metrics=False` skips the complementary faithfulness /
+    relevancy / contextual-precision judge calls (accuracy scoring — the
+    deterministic checks plus G-Eval correctness — is unaffected). This is the
+    fast path for accuracy-focused regression runs on rate-limited providers.
+    """
+    expected = case["expected"]
+    tol, unit_eq = _parse_rules(case.get("variation_rules", []))
+    hit_ids = [h["chunk"]["id"] for h in result.get("hits", [])]
+    retrieval_hit = _prefix_hit(hit_ids, expected["citations"])
+    scored: dict[str, Any] = {
+        "case_id": case["id"],
+        "category": case["failure_category"],
+        "difficulty": case.get("difficulty"),
+        "refused": result.get("refused", False),
+        "citation_hit": None,
+        "retrieval_hit": retrieval_hit,
+        "judge_reason": None,
+        "judge_score": None,
+        "deepeval": None,
+    }
 
-        # Refusal Evaluation
-        if case.expected.answer is None or case.expected.type == "exact" and case.expected.answer == "":
-            if trace.refused or trace.answer is None:
-                return True, "correct_refusal", {"refusal_correctness": 1.0, "answer_accuracy": 1.0}
-            else:
-                return False, "incorrect_answer", {"refusal_correctness": 0.0, "answer_accuracy": 0.0}
+    if expected["answer"] is None:
+        if result.get("refused"):
+            scored.update(correct=True, outcome="correct_refusal", retrieval_hit=None)
+            return scored
+        if case["failure_category"] == "ambiguous":
+            # answered without refusing: correct only if the judge agrees the
+            # response surfaces the ambiguity instead of guessing
+            if scorer is None:
+                raise ValueError(f"{case['id']}: ambiguous case needs the DeepEval scorer")
+            verdict = scorer.correctness(case, result)
+            scored.update(
+                correct=bool(verdict["correct"]),
+                outcome="answered",
+                judge_reason=verdict.get("reason"),
+                judge_score=verdict.get("score"),
+            )
+            return scored
+        scored.update(correct=False, outcome="hallucination")
+        return scored
 
-        if trace.refused or not trace.answer:
-            return False, "incorrect_refusal", {"refusal_correctness": 0.0, "answer_accuracy": 0.0}
+    if result.get("refused"):
+        scored.update(correct=False, outcome="incorrect_refusal")
+        return scored
 
-        # Answer String Evaluation
-        ans_str = str(trace.answer).lower().strip()
-        exp_str = str(case.expected.answer).lower().strip()
+    scored["citation_hit"] = _prefix_hit(result.get("citations", []), expected["citations"])
+    ctype = expected["type"]
+    if ctype in ("exact", "contains"):
+        correct = _figures_match(expected["answer"], result.get("answer", ""), tol, unit_eq)
+    elif ctype == "judge":
+        if scorer is None:
+            raise ValueError(f"{case['id']}: judge-type case needs the DeepEval scorer")
+        verdict = scorer.correctness(case, result)
+        correct = bool(verdict["correct"])
+        scored["judge_reason"] = verdict.get("reason")
+        scored["judge_score"] = verdict.get("score")
+    else:
+        raise ValueError(f"unknown expected.type: {ctype!r}")
 
-        # Key phrase / concept overlap for narrative text
-        exp_words = set(re.findall(r"\w+", exp_str)) - {"the", "a", "an", "and", "or", "in", "of", "to", "for", "is", "was", "were", "by"}
-        ans_words = set(re.findall(r"\w+", ans_str))
-        concept_overlap = (len(exp_words.intersection(ans_words)) / len(exp_words)) if exp_words else 0.0
-
-        if case.expected.type == "exact":
-            match = (ans_str == exp_str) or check_numerical_match(exp_str, ans_str, tol)
-        else:  # contains or judge
-            match = (exp_str in ans_str) or check_numerical_match(exp_str, ans_str, tol) or (concept_overlap >= 0.50)
-
-        outcome = "correct_answer" if match else "incorrect_answer"
-        return match, outcome, {"answer_accuracy": 1.0 if match else 0.0, "refusal_correctness": 1.0}
-
-
-
-class Tier2TelemetryMetrics:
-    """Statistical & telemetry metrics (citations, cost, latency)."""
-
-    @staticmethod
-    def evaluate(case: GoldenCase, trace: AgentRunTrace) -> Dict[str, float]:
-        exp_cites = set(case.expected.citations)
-        gen_cites = set(trace.citations)
-
-        if not exp_cites:
-            hit_rate = 1.0
-            precision = 1.0
-        else:
-            overlap = exp_cites.intersection(gen_cites)
-            hit_rate = 1.0 if overlap else 0.0
-            precision = len(overlap) / max(len(gen_cites), 1)
-
-        return {
-            "citation_hit_rate": hit_rate,
-            "citation_precision": precision,
-            "latency_ms": trace.latency_ms,
-            "cost_usd": trace.cost_usd,
-        }
+    scored.update(correct=correct, outcome="answered")
+    if scorer is not None and include_deepeval_metrics:
+        scored["deepeval"] = scorer.metrics(case, result)
+    return scored
 
 
-def evaluate_case(case: GoldenCase, trace: AgentRunTrace) -> Dict[str, Any]:
-    """Run complete three-tier metric evaluation for a test case."""
-    correct, outcome, t1_metrics = Tier1DeterministicMetrics.evaluate(case, trace)
-    t2_metrics = Tier2TelemetryMetrics.evaluate(case, trace)
+def _mean(vals: list) -> float | None:
+    v = [x for x in vals if x is not None]
+    return float(np.mean(v)) if v else None
 
-    all_metrics = {**t1_metrics, **t2_metrics}
 
+def aggregate(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    unanswerable = [r for r in rows if r["category"] == "unanswerable"]
+    refusals = [r for r in rows if r["refused"]]
+    lat = [r["latency_ms"] for r in rows]
+    by_cat: dict[str, dict] = {}
+    for r in rows:
+        c = by_cat.setdefault(r["category"], {"n": 0, "correct": 0})
+        c["n"] += 1
+        c["correct"] += bool(r["correct"])
+    for c in by_cat.values():
+        c["accuracy"] = c["correct"] / c["n"]
+
+    de = [r.get("deepeval") or {} for r in rows]
     return {
-        "case_id": case.id,
-        "correct": correct,
-        "outcome": outcome,
-        "metrics": all_metrics,
-        "trace": trace.model_dump(),
+        "n": len(rows),
+        "accuracy": _mean([r["correct"] for r in rows]),
+        "citation_faithfulness": _mean([r["citation_hit"] for r in rows]),
+        "retrieval_hit_rate": _mean([r["retrieval_hit"] for r in rows]),
+        "hallucination_rate": (
+            _mean([r["outcome"] == "hallucination" for r in unanswerable]) if unanswerable else None
+        ),
+        "refusal_rate": len(refusals) / len(rows) if rows else None,
+        "refusal_correctness": _mean([r["correct"] for r in refusals]),
+        "verified_rate": _mean([r.get("verified") for r in rows]),
+        "deepeval_faithfulness": _mean([d.get("faithfulness") for d in de]),
+        "deepeval_answer_relevancy": _mean([d.get("answer_relevancy") for d in de]),
+        "deepeval_contextual_precision": _mean([d.get("contextual_precision") for d in de]),
+        "deepeval_correctness": _mean([r.get("judge_score") for r in rows]),
+        "latency_p50_ms": float(np.percentile(lat, 50)) if lat else None,
+        "latency_p95_ms": float(np.percentile(lat, 95)) if lat else None,
+        "cost_per_query_usd": _mean([r["cost_usd"] for r in rows]),
+        "by_category": by_cat,
     }

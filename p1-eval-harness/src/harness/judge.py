@@ -1,10 +1,10 @@
 """DeepEval metric layer with an OpenRouter judge.
 
 Every DeepEval metric runs through OpenRouterJudge, which routes judge calls
-through the project's OpenRouter client — never through deepeval's built-in
-providers. Token usage and cost are the API-reported numbers, accumulated in
-a per-run ledger, so eval overhead shows up in the same accounting as
-generation.
+through the harness's own OpenRouter client — never through deepeval's
+built-in providers. Token usage and cost are the API-reported numbers,
+accumulated in a per-run ledger, so eval overhead is visible in the same
+accounting as generation.
 
 Metrics used by the harness:
 - correctness (G-Eval): judge-type cases, factual equivalence vs expected
@@ -13,8 +13,8 @@ Metrics used by the harness:
 - contextual_precision: are the golden-citation chunks ranked first
 
 Deterministic checks (exact/contains numeric matching, refusal correctness)
-stay in evaluation.py; DeepEval scores complement them, they do not replace
-ground truth.
+stay in metrics/engine.py; DeepEval scores complement them, they do not
+replace ground truth.
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ from deepeval.metrics import (  # noqa: E402
 from deepeval.models import DeepEvalBaseLLM  # noqa: E402
 from deepeval.test_case import LLMTestCase, SingleTurnParams  # noqa: E402
 
-from ..llm import complete_with_resilience, get_model_for_role  # noqa: E402
+from harness.llm import complete_with_resilience  # noqa: E402
 
 CORRECTNESS_CRITERIA = (
     "Determine whether the ACTUAL OUTPUT is factually equivalent to the "
@@ -81,13 +81,12 @@ class JudgeLedger:
 
 
 class OpenRouterJudge(DeepEvalBaseLLM):
-    """DeepEval judge backed by the project's OpenRouter client."""
+    """DeepEval judge backed by the harness's OpenRouter client."""
 
     def __init__(self, cfg: dict[str, Any]):
         self._cfg = cfg
-        self._model_name = (
-            cfg.get("eval", {}).get("judge_model") or get_model_for_role(cfg, "judge")
-        )
+        self._model_name = cfg.get("judge", {}).get("model")
+        self._max_tokens = cfg.get("judge", {}).get("max_tokens", 1500)
         self.ledger = JudgeLedger()
         super().__init__(model=self._model_name)
 
@@ -132,7 +131,7 @@ class OpenRouterJudge(DeepEvalBaseLLM):
                 pass
         messages.append({"role": "user", "content": prompt})
         content, usage = complete_with_resilience(
-            messages, self._cfg, model=self._model_name, role="judge"
+            messages, model=self._model_name, max_tokens=self._max_tokens
         )
         self.ledger.add(usage)
         if schema is not None:
@@ -192,7 +191,7 @@ def score_with_deepeval(
 
     Metrics that cannot be computed (missing inputs, provider error) are
     reported as None with a `<name>_error` note instead of failing the run —
-    the deterministic score in evaluation.py remains authoritative.
+    the deterministic score in metrics/engine.py remains authoritative.
     """
     tc = make_test_case(case, result)
     out: dict[str, Any] = {}
@@ -209,7 +208,7 @@ def score_with_deepeval(
 
 
 class DeepEvalScorer:
-    """Facade used by evaluation.py: judge + metric set + scoring entry points."""
+    """Facade used by the runner: judge + metric set + scoring entry points."""
 
     def __init__(self, cfg: dict[str, Any]):
         self.cfg = cfg

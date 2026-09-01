@@ -1,68 +1,63 @@
-"""Adapter connecting p3-rag-filings to the Domain-Adaptive Agent Eval Harness."""
+"""Adapter connecting p3-rag-filings to the Domain-Adaptive Agent Eval Harness.
+
+Protocol for the new runner: `run_case(case, strategy, refusal_log=None)`
+returns the target system's raw result dict (answer, citations, hits,
+verification, refused, usage, latency, graph_rescue, ...) unchanged, so the
+harness scoring engine sees exactly what the system produced.
+
+Requires the `ragfilings` package — either installed in the same venv or
+available as the sibling `../p3-rag-filings` checkout (auto-bootstrapped).
+"""
 
 from __future__ import annotations
 
 import sys
-import time
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
-# Ensure p3-rag-filings package is on python path
-p3_root = Path(__file__).resolve().parents[4] / "p3-rag-filings" / "src"
-if p3_root.exists() and str(p3_root) not in sys.path:
-    sys.path.insert(0, str(p3_root))
+P3_ROOT = Path(__file__).resolve().parents[4] / "p3-rag-filings"
 
-from harness.schema import AgentRunTrace, GoldenCase, TrajectoryStep
+try:
+    import ragfilings  # noqa: F401
+except ImportError:
+    _p3_src = P3_ROOT / "src"
+    if _p3_src.exists() and str(_p3_src) not in sys.path:
+        sys.path.insert(0, str(_p3_src))
 
 
 class RAGFilingsAdapter:
-    """Agent adapter for p3-rag-filings system."""
+    """Runs the p3-rag-filings ask() pipeline for harness scoring."""
 
-    def __init__(self, config_path: str = None):
-        from ragfilings import config as cfg_mod, retrieval
+    name = "ragfilings-v1"
+
+    def __init__(self, config_path: str | None = None):
+        from ragfilings import config as cfg_mod
+        from ragfilings import retrieval
+
         if config_path is None:
-            config_path = str(Path(__file__).resolve().parents[4] / "p3-rag-filings" / "config.toml")
-
+            config_path = str(P3_ROOT / "config.toml")
         self.cfg = cfg_mod.load(config_path)
         index_path = Path(self.cfg["embedding"]["index_dir"])
         if not index_path.is_absolute():
-            index_path = Path(__file__).resolve().parents[4] / "p3-rag-filings" / index_path
-        self.index = retrieval.load_index(
-            str(index_path),
-            self.cfg["embedding"]["model"]
-        )
+            index_path = P3_ROOT / index_path
+        self.index = retrieval.load_index(str(index_path), self.cfg["embedding"]["model"])
 
+    @property
+    def model_name(self) -> str:
+        return self.cfg.get("generation", {}).get("model", "")
 
-    def run_case(self, case: GoldenCase, strategy: str = "hybrid_rerank") -> AgentRunTrace:
-        from ragfilings import ask
+    def run_case(
+        self,
+        case: dict[str, Any],
+        strategy: str = "hybrid_rerank",
+        refusal_log: str | Path | None = None,
+    ) -> dict[str, Any]:
+        from ragfilings.pipeline import ask
 
-        t0 = time.perf_counter()
-        raw_res = ask(
-            case.input, self.cfg, index=self.index, strategy=strategy
-        )
-        latency_ms = (time.perf_counter() - t0) * 1000.0
-
-        steps = []
-        if raw_res.get("agent_history"):
-            for h in raw_res["agent_history"]:
-                steps.append(TrajectoryStep(
-                    agent=h.get("agent", "Agent"),
-                    action=h.get("action", "step"),
-                    input_payload=h.get("input"),
-                    output_payload=h.get("output")
-                ))
-
-        return AgentRunTrace(
-            case_id=case.id,
-            domain=case.domain,
+        return ask(
+            case["input"],
+            self.cfg,
+            index=self.index,
             strategy=strategy,
-            query=case.input,
-            answer=raw_res.get("answer"),
-            citations=raw_res.get("citations") or [],
-            refused=raw_res.get("refused", False),
-            refusal_reason=raw_res.get("refusal_reason"),
-            steps=steps,
-            latency_ms=raw_res.get("latency_ms", latency_ms),
-            cost_usd=raw_res.get("usage", {}).get("cost_usd", 0.0),
-            raw_response=raw_res
+            refusal_log=refusal_log,
         )

@@ -7,7 +7,7 @@ not retrieval, since FinanceBench references filings outside our corpus).
 Scores our answer against the official FinanceBench answer with the calibrated
 G-Eval judge.
 
-Usage: uv run python scripts/benchmark_financebench.py [--limit N] [--strategy S]
+Usage: uv run python scripts/benchmark_financebench.py [--limit N]
 """
 
 from __future__ import annotations
@@ -16,20 +16,37 @@ import argparse
 import json
 import sys
 import time
+import urllib.request
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+P1 = Path(__file__).resolve().parent.parent
+P3 = P1.parent / "p3-rag-filings"
+sys.path.insert(0, str(P1 / "src"))
+sys.path.insert(0, str(P3 / "src"))
 
-from ragfilings.config import load as load_cfg            # noqa: E402
-from ragfilings.eval.deepeval_judge import DeepEvalScorer  # noqa: E402
-from ragfilings.pipeline.engine import answer              # noqa: E402
+from harness import config as harness_cfg                # noqa: E402
+from harness.judge import DeepEvalScorer                 # noqa: E402
+from ragfilings.config import load as load_cfg           # noqa: E402
+from ragfilings.pipeline.engine import answer            # noqa: E402
 
-P3 = Path(__file__).resolve().parent.parent
-FB = P3 / "data" / "financebench" / "financebench_merged.jsonl"
+FB = P1 / "data" / "financebench" / "financebench_merged.jsonl"
+FB_URL = ("https://huggingface.co/datasets/PatronusAI/financebench/"
+          "resolve/main/financebench_merged.jsonl")
 
 
 def load_financebench() -> list[dict]:
-    return [json.loads(l) for l in FB.open() if l.strip()]
+    if not FB.exists():
+        FB.parent.mkdir(parents=True, exist_ok=True)
+        print(f"downloading FinanceBench -> {FB}")
+        try:
+            urllib.request.urlretrieve(FB_URL, FB)
+        except Exception as e:
+            raise SystemExit(
+                f"could not download FinanceBench ({e}); save "
+                f"financebench_merged.jsonl to {FB} manually "
+                "(HuggingFace: PatronusAI/financebench, CC-BY-NC-4.0)"
+            )
+    return [json.loads(line) for line in FB.open() if line.strip()]
 
 
 def evidence_hits(rec: dict) -> list[dict]:
@@ -60,6 +77,8 @@ def main() -> None:
     args = ap.parse_args()
 
     cfg = load_cfg(str(P3 / "config.toml"))
+    # The synthesis pipeline reads p3's config; the judge reads the harness's.
+    cfg["judge"] = harness_cfg.load().get("judge", {})
     recs = load_financebench()
     if args.limit:
         recs = recs[: args.limit]
@@ -67,7 +86,7 @@ def main() -> None:
     scorer = DeepEvalScorer(cfg)
 
     out_path = Path(args.out) if args.out else (
-        P3 / "reports" / "financebench" /
+        P1 / "reports" / "financebench" /
         f"fb_{time.strftime('%Y%m%d-%H%M%S')}.jsonl")
     out_path.parent.mkdir(parents=True, exist_ok=True)
 

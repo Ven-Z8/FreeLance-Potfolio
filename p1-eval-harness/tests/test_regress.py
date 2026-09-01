@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 
-from ragfilings.eval import regress
+from harness import regress
 
 
 def _write_run(root, name, rows):

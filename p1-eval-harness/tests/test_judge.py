@@ -11,16 +11,9 @@ import json
 
 import pytest
 
-from ragfilings.eval import deepeval_judge as dj
+from harness import judge as dj
 
-CFG = {
-    "eval": {"judge_model": "test/judge-model"},
-    "generation": {"model": "test/gen-model", "max_tokens": 100},
-}
-
-
-class FakeResponse:
-    pass
+CFG = {"judge": {"model": "test/judge-model", "max_tokens": 100}}
 
 
 @pytest.fixture()
@@ -28,9 +21,9 @@ def patched_llm(monkeypatch):
     """Returns a recorder standing in for complete_with_resilience."""
     calls = []
 
-    def fake_complete(messages, cfg, model=None, client=None, max_tokens=None,
-                      temperature=0.0, role="generation"):
-        calls.append({"messages": messages, "model": model, "role": role})
+    def fake_complete(messages, model=None, max_tokens=1500, temperature=0.0,
+                      client=None):
+        calls.append({"messages": messages, "model": model})
         return json.dumps({"verdict": "correct", "score": 0.9}), {
             "input_tokens": 100, "output_tokens": 25, "cost_usd": 0.002,
         }
@@ -51,15 +44,13 @@ def test_judge_resolves_model_and_ledger(patched_llm):
     judge.generate("grade again")
     assert judge.ledger.to_dict()["judge_calls"] == 2
     assert judge.ledger.to_dict()["judge_cost_usd"] == pytest.approx(0.004)
-    # routed through the judge role + configured model
-    assert all(c["role"] == "judge" for c in patched_llm)
+    # routed through the configured judge model
     assert all(c["model"] == "test/judge-model" for c in patched_llm)
 
 
-def test_judge_falls_back_to_generation_role_model(patched_llm):
-    cfg = {"generation": {"model": "test/gen-model"}}
-    judge = dj.OpenRouterJudge(cfg)
-    assert judge.get_model_name() == "test/gen-model"
+def test_judge_without_configured_model_reports_default_name(patched_llm):
+    judge = dj.OpenRouterJudge({})
+    assert judge.get_model_name() == "openrouter"
 
 
 def test_judge_injects_schema_system_prompt(patched_llm):

@@ -1,0 +1,7 @@
+# P1 eval-harness config. The judge model scores system answers against golden
+# ground truth; its agreement with human labels is measured by
+# scripts/calibrate_judge.py rather than assumed.
+
+[judge]
+model = "minimax/minimax-m3:free"
+max_tokens = 1500
