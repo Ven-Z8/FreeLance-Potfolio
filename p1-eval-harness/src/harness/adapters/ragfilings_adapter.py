@@ -26,18 +26,29 @@ except ImportError:
 
 
 class RAGFilingsAdapter:
-    """Runs the p3-rag-filings ask() pipeline for harness scoring."""
+    """Runs the p3-rag-filings ask() pipeline for harness scoring.
+
+    The pipeline is domain-agnostic; the domain pack (prompts, fact layer,
+    claim semantics) is selected with ``domain``. Each pack owns its own
+    index — the financial pack uses the corpus index from config.toml, other
+    packs expose an ``index_dir``.
+    """
 
     name = "ragfilings-v1"
 
-    def __init__(self, config_path: str | None = None):
+    def __init__(self, config_path: str | None = None, domain: str = "financial"):
         from ragfilings import config as cfg_mod
         from ragfilings import retrieval
 
         if config_path is None:
             config_path = str(P3_ROOT / "config.toml")
         self.cfg = cfg_mod.load(config_path)
-        index_path = Path(self.cfg["embedding"]["index_dir"])
+        self.domain = domain
+
+        from ragfilings.domains import get_pack
+        pack = get_pack(domain)
+        index_path = Path(getattr(pack, "index_dir", None)
+                          or self.cfg["embedding"]["index_dir"])
         if not index_path.is_absolute():
             index_path = P3_ROOT / index_path
         self.index = retrieval.load_index(str(index_path), self.cfg["embedding"]["model"])
@@ -60,4 +71,5 @@ class RAGFilingsAdapter:
             index=self.index,
             strategy=strategy,
             refusal_log=refusal_log,
+            domain=self.domain,
         )

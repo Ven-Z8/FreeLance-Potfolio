@@ -56,6 +56,33 @@ Production-grade Agentic AI Systems, RAG Architecture, and Domain-Adaptive Evalu
                +-------------------------------------------------------+
 ```
 
+### Domain skill packs
+
+The engine above is **domain-agnostic**: ingestion, hybrid retrieval +
+reranking, the grounded synthesis loop, confidence gating, corrective
+verification retries, and refusal/clarification routing are shared by every
+domain. Everything domain-specific ships as a **skill pack**
+(`p3-rag-filings/src/ragfilings/domains/<name>/`) satisfying one contract
+(`DomainPack`):
+
+| Pack hook | financial (SEC 10-K) | legal (commercial contracts) |
+| :--- | :--- | :--- |
+| Prompts | 10-K synthesis rules (consolidated vs segment, GAAP) | contract synthesis rules (quote the clause, one-agreement rule) |
+| Fact layer | typed fact graph parsed from financial tables (chunk provenance) | deterministic defined-term extraction (913 terms, chunk provenance) |
+| Scope agent | ticker/metric/fiscal-year rescue + clarifications (missing year, vague metric, no company) | contract-code rescue + "which agreement?" clarification |
+| Claim semantics | monetary/percentage figures with unit scaling | quoted language verbatim + money/date claims |
+| Derivation tool | safe Python financial math | — (none in v1) |
+
+The evaluation harness selects a pack with `--domain financial|legal`; each
+domain has its own golden set under `p1-eval-harness/data/domain_*` and its
+own retrieval index. The financial pack is measured end-to-end (below); the
+legal pack runs on the CUAD corpus (102 held-out commercial contracts,
+attorney-annotated, CC-BY-4.0) — first measured baseline **80.4% (45/56)** on
+its 56-case golden set with zero domain-specific tuning (clarifications 6/6;
+remaining failures: clause-extraction misses and 3 unanswerable hallucinations
+— the same failure taxonomy the financial pack started with). The point is
+that adding a domain never touches the engine.
+
 ---
 
 ## 💻 Quickstart & Setup Instructions

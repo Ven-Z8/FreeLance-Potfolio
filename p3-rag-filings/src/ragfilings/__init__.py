@@ -1,4 +1,10 @@
-"""ragfilings — Agentic Graph RAG over SEC 10-K filings.
+"""ragfilings — domain-agnostic Agentic Graph RAG engine + domain skill packs.
+
+The engine (retrieval, grounded synthesis loop, verification, refusal gating)
+is domain-agnostic; each domain supplies a skill pack under
+`ragfilings.domains.<name>` — prompts, deterministic fact layer, scope agent
+(rescue / clarification), claim semantics, and derivation tools. Shipped
+pack: `financial` (SEC 10-K filings).
 
 Evaluation (golden sets, scoring, calibrated judge, regression runs) lives in
 the sibling p1-eval-harness project.
@@ -12,6 +18,7 @@ from .agents import (
     run_tool_loop,
     synthesize,
 )
+from .domains import DomainPack, available_packs, get_pack
 from .graph import FinancialGraphBuilder, GraphQueryEngine
 from .ingestion import Section, parse_file, render_tree
 from .llm import BaseLLMClient, LLMFactory, OpenRouterClient, get_llm_client
@@ -26,7 +33,7 @@ from .tools import (
     verify,
 )
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"
 
 __all__ = [
     "ask",
@@ -34,6 +41,9 @@ __all__ = [
     "GenerationError",
     "MultiAgentOrchestrator",
     "SessionMemoryManager",
+    "DomainPack",
+    "get_pack",
+    "available_packs",
     "FinancialGraphBuilder",
     "GraphQueryEngine",
     "Section",

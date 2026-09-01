@@ -61,7 +61,7 @@ def _cmd_index(args: argparse.Namespace) -> None:
 
 def _cmd_ask(args: argparse.Namespace) -> None:
     cfg = cfg_mod.load(args.config)
-    result = ask(args.question, cfg, strategy=args.strategy)
+    result = ask(args.question, cfg, strategy=args.strategy, domain=args.domain)
     print(
         f"strategy={result['strategy']} confidence={result['confidence']:.3f} "
         f"latency={result['latency_ms']/1000:.1f}s "
@@ -131,6 +131,13 @@ def main() -> None:
                  "dense_graph", "hybrid_graph", "hybrid_rerank_graph"],
         default=None,
         help="override config [retrieval] strategy; *_graph adds fact-graph augmentation",
+    )
+    from .domains import available_packs
+    ask_cmd.add_argument(
+        "--domain",
+        choices=list(available_packs()),
+        default="financial",
+        help="domain skill pack supplying prompts, fact layer, and claim semantics",
     )
     ask_cmd.set_defaults(func=_cmd_ask)
 

@@ -9,7 +9,10 @@ from pathlib import Path
 from typing import Any
 
 _PROMPT_ROOT = Path(__file__).resolve().parent
-_TEMPLATES_DIR = _PROMPT_ROOT / "templates"
+# Prompt templates live with the domain pack that owns them; the financial
+# pack's set is the engine default. Other packs load their own templates via
+# their DomainPack.prompt() implementation.
+_TEMPLATES_DIR = _PROMPT_ROOT.parent / "domains" / "financial" / "prompts"
 
 
 class PromptRegistry:

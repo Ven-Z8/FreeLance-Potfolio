@@ -11,8 +11,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from ..domains import DomainPack, get_pack
 from ..llm import complete_with_resilience
-from ..prompts import PromptRegistry
 
 # How many prior turns to feed the rewriter (kept small for a tight prompt).
 _HISTORY_TURNS = 6
@@ -30,18 +30,20 @@ def _transcript(history: list[dict[str, Any]]) -> str:
 
 
 def rewrite_followup(query: str, history: list[dict[str, Any]],
-                     cfg: dict[str, Any]) -> str:
+                     cfg: dict[str, Any],
+                     pack: DomainPack | None = None) -> str:
     """Return a self-contained version of ``query`` given ``history``.
 
     Falls back to the original query whenever there is no history to resolve
     against or the rewrite call fails — the pipeline still works single-turn.
     """
+    pack = pack or get_pack("financial")
     query = query.strip()
     if not history or not query:
         return query
 
     messages = [
-        {"role": "system", "content": PromptRegistry.get_converse_rewrite()},
+        {"role": "system", "content": pack.prompt("converse_rewrite")},
         {"role": "user",
          "content": (f"Conversation so far:\n{_transcript(history)}\n\n"
                      f"Follow-up question: {query}\n\n"

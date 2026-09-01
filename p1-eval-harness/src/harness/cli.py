@@ -16,20 +16,31 @@ P1_ROOT = Path(__file__).resolve().parents[2]
 STRATEGIES = ["dense", "hybrid", "hybrid_rerank", "agent_react",
               "dense_graph", "hybrid_graph", "hybrid_rerank_graph"]
 
+# domain -> golden-set directory under data/
+DOMAIN_DATA = {
+    "financial": "domain_a_financial",
+    "legal": "domain_b_legal",
+}
+
 
 def _adapter_for(domain: str, ragfilings_config: str | None):
-    if domain == "financial":
+    if domain in DOMAIN_DATA:
         from harness.adapters.ragfilings_adapter import RAGFilingsAdapter
-        return RAGFilingsAdapter(config_path=ragfilings_config)
+        return RAGFilingsAdapter(config_path=ragfilings_config, domain=domain)
     raise SystemExit(
-        f"no adapter wired for domain {domain!r} yet — the v1 harness runs the "
-        "financial domain against p3-rag-filings"
+        f"no adapter wired for domain {domain!r} — shipped packs: "
+        f"{', '.join(DOMAIN_DATA)}"
     )
 
 
 def _cmd_run(args: argparse.Namespace) -> None:
     from harness.regress import run_regression
     from harness.report import generate_reports, summary_from_rows, write_scorecard
+
+    if args.golden_set is None:
+        data_dir = P1_ROOT / "data" / DOMAIN_DATA[args.domain]
+        v1 = data_dir / "golden_set_v1.jsonl"
+        args.golden_set = str(v1 if v1.exists() else data_dir)
 
     cfg = cfg_mod.load(args.config)
     adapter = _adapter_for(args.domain, args.ragfilings_config)
@@ -81,12 +92,12 @@ def main() -> None:
 
     run = sub.add_parser("run", help="run the golden suite + scorecard + regression diff")
     run.add_argument("--domain", default="financial",
-                     choices=["financial", "legal", "biomedical", "support"])
+                     choices=list(DOMAIN_DATA))
     run.add_argument("--strategy", default="hybrid_rerank", choices=STRATEGIES,
                      help="*_graph adds deterministic fact-graph augmentation")
-    run.add_argument("--golden-set",
-                     default=str(P1_ROOT / "data" / "domain_a_financial" / "golden_set_v1.jsonl"),
-                     help="golden JSONL file, or a directory of golden_set_*.jsonl")
+    run.add_argument("--golden-set", default=None,
+                     help="golden JSONL file or directory (default: the domain's "
+                          "golden_set_v1 / golden_set_*.jsonl under data/)")
     run.add_argument("--ragfilings-config", default=None,
                      help="override the target system's config.toml")
     run.add_argument("--limit", type=int, default=None, help="only the first N cases (smoke runs)")

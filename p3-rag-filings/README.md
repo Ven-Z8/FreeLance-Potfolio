@@ -25,6 +25,7 @@ system configuration:
 | Retrieval-only, hybrid + rerank | **53.8%** | baseline: generator refuses figures it actually retrieved |
 | **+ fact-graph augmentation** | **85.0%** | +31.2pp — all 16 incorrect refusals fixed |
 | **+ clarification & company-aware chunks** | **92.5%** | ambiguous 8/10; lookup & table 100% (representative repeat; one run peaked at 96.2% with 2 lucky unanswerable flips) |
+| **+ vague-metric clarification, refusal rules, grounded derived ratios (2026-09-01)** | **97.5%** (78/80; repeat 98.8%) | ambiguous 10/10; refusal safety 10/10; 3 stale labels corrected with chunk evidence |
 
 On a separate 45-case **enterprise multi-hop** set (ratios, CAGR, cross-company
 comparisons, trends — answers that live in *no single chunk*):
@@ -33,9 +34,22 @@ comparisons, trends — answers that live in *no single chunk*):
 |---|---|
 | Retrieval-only (no graph) | 37.8% |
 | **+ fact-graph augmentation** | **84.4%** |
+| **+ 2026-09-01 fixes** | **95.6%** (43/45, reproduced twice) |
 
 The enterprise set is the point: multi-hop answers can't be retrieved from one
 chunk, so retrieval-only fails; the fact graph does the joining.
+
+## Domain skill packs
+
+The pipeline is a **domain-agnostic engine** plus loadable **skill packs**
+(`src/ragfilings/domains/<name>/`, contract: `DomainPack` — prompts, fact
+layer, scope agent, claim semantics, derivation tool). Shipped packs:
+`financial` (this README's system) and `legal` (commercial contracts — CUAD
+corpus, 102 held-out agreements, defined-term fact layer, quoted-language
+claim semantics). `eval-harness run --domain legal` measures the legal pack on
+its own 56-case golden set; first measured baseline **80.4% (45/56)** with
+zero domain-specific tuning (clarifications 6/6). Adding a domain never
+touches the engine.
 
 ## The idea in one paragraph
 

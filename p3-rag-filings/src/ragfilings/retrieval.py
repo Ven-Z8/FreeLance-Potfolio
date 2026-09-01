@@ -50,16 +50,24 @@ def _tokenize(text: str) -> list[str]:
 
 
 def context_header(chunk: dict[str, Any]) -> str:
-    """Readable provenance header for a chunk: company, ticker, fiscal year,
-    form, item and section title.
+    """Readable provenance header for a chunk.
 
-    Most financial-statement table chunks carry no company identifier in their
-    body (only ~31% mention their own company/ticker), so without this header
-    the retriever cannot tell one filer's income statement from another's. The
-    header makes embeddings, BM25, the reranker, and the LLM context all
-    company/section aware without touching the body (which the fact-graph
-    builder parses unchanged).
+    Financial chunks: company, ticker, fiscal year, form, item and section
+    title. Most financial-statement table chunks carry no company identifier
+    in their body (only ~31% mention their own company/ticker), so without
+    this header the retriever cannot tell one filer's income statement from
+    another's. The header makes embeddings, BM25, the reranker, and the LLM
+    context all company/section aware without touching the body (which the
+    fact-graph builder parses unchanged).
+
+    Contract chunks (doc_type == "contract"): contract code + agreement title.
     """
+    if chunk.get("doc_type") == "contract":
+        head = f"Contract {chunk.get('contract', '')}: {chunk.get('contract_title', '')}"
+        title = chunk.get("title") or ""
+        if title and title not in head:
+            head += f" — {title}"
+        return head
     company = chunk.get("company") or ""
     ticker = chunk.get("ticker") or ""
     fy = chunk.get("fiscal_year")

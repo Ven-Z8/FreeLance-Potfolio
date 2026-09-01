@@ -156,6 +156,7 @@ class QueryRequest(BaseModel):
     strategy: str = "hybrid_rerank_graph"
     top_k: int = 8
     session_id: Optional[str] = None
+    domain: str = "financial"
 
 
 @app.post("/api/session/new")
@@ -242,13 +243,16 @@ async def execute_query(req: QueryRequest):
         session_id = session_id or f"conv_{uuid.uuid4().hex[:12]}"
         _CONVERSATIONS.setdefault(session_id, [])
     history = _CONVERSATIONS[session_id]
-    rewritten = rewrite_followup(req.query, history, cfg)
+    from ..domains import get_pack
+    pack = get_pack(req.domain)
+    rewritten = rewrite_followup(req.query, history, cfg, pack=pack)
 
     res = ask(
         query=rewritten,
         cfg=cfg,
         index=index,
         strategy=req.strategy,
+        domain=req.domain,
     )
 
     # The orchestrator (agent_react) has its own session id for trajectories;

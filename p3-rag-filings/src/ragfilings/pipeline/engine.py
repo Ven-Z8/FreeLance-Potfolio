@@ -13,10 +13,9 @@ import time
 from pathlib import Path
 from typing import Any
 
+from ..domains import DomainPack, get_pack
 from ..llm import BaseLLMClient, complete_with_resilience, get_llm_client
-from ..prompts import PromptRegistry
 from ..retrieval import Index, confidence, embed_text, load_index
-from ..tools import compute_financial_math, decompose_query, needs_decomposition, verify
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +70,13 @@ def _is_refusal_text(text: str) -> bool:
     return any(marker in low for marker in _REFUSAL_MARKERS)
 
 
+def _query_to_dict(q: Any) -> dict[str, Any]:
+    """Domain-agnostic serialization of a rescue query (dataclass or dict)."""
+    if isinstance(q, dict):
+        return q
+    return {k: getattr(q, k) for k in getattr(q, "__dataclass_fields__", {})}
+
+
 def _is_real_answer(data: dict[str, Any]) -> bool:
     ans = data.get("answer")
     return ans is not None and not _is_refusal_text(str(ans))
@@ -82,15 +88,19 @@ def answer(
     cfg: dict[str, Any],
     client: BaseLLMClient | None = None,
     graph_rescue: Any = None,
+    pack: DomainPack | None = None,
 ) -> dict[str, Any]:
-    """Execute grounded 10-K answer synthesis with verification and confidence gating.
+    """Execute grounded answer synthesis with verification and confidence gating.
 
-    When `graph_rescue` is provided, a deterministic fact-graph lookup runs up
-    front; for a clean-scope question the exact figure(s) and their provenance
-    chunks are added to the context before synthesis, so a retrieval miss can
-    cause neither a refusal nor a wrong-metric answer. If the model still does
-    not give a grounded answer, synthesis is retried once.
+    Domain-specific behavior (prompts, derivation tool, claim semantics) comes
+    from ``pack`` (defaults to the financial pack). When ``graph_rescue`` is
+    provided, a deterministic fact lookup runs up front; for a clean-scope
+    question the exact figure(s) and their provenance chunks are added to the
+    context before synthesis, so a retrieval miss can cause neither a refusal
+    nor a wrong-metric answer. If the model still does not give a grounded
+    answer, synthesis is retried once.
     """
+    pack = pack or get_pack("financial")
     conf = confidence(hits)
     min_confidence = cfg.get("verification", {}).get("min_confidence", 0.35)
 
@@ -136,8 +146,8 @@ def answer(
         }
 
     math_res = None
-    if needs_decomposition(query):
-        math_res = compute_financial_math(query, [h["chunk"] for h in hits], cfg, client=client)
+    if pack.needs_decomposition(query):
+        math_res = pack.compute(query, [h["chunk"] for h in hits], cfg, client=client)
         if math_res:
             for k in ("input_tokens", "output_tokens", "cost_usd"):
                 usage[k] += math_res["usage"].get(k, 0)
@@ -166,7 +176,7 @@ def answer(
             context += f"\n\n{graph_block}"
 
         msgs = [
-            {"role": "system", "content": PromptRegistry.get_system_synthesis()},
+            {"role": "system", "content": pack.prompt("synthesis")},
             {"role": "user", "content": f"Context chunks:\n\n{context}\n\nQuestion: {query}"},
         ]
 
@@ -204,8 +214,8 @@ def answer(
             invalid = [c for c in raw_citations if c not in by_id]
             cited = [by_id[c] for c in valid] or [h["chunk"] for h in active_hits]
 
-            checked = verify(str(data["answer"]), cited, math_result=math_result,
-                             derived_values=derived_values)
+            checked = pack.verify(str(data["answer"]), cited, math_result=math_result,
+                                  derived_values=derived_values)
             checked["citations"] = valid
             checked["invalid_citations"] = invalid
             if checked["verified"] or retries <= 0:
@@ -214,7 +224,8 @@ def answer(
             retries -= 1
             failed_claims = [c["raw"] for c in checked["claims"] if not c["found"]]
             msgs = msgs + [{"role": "user",
-                            "content": PromptRegistry.get_verification_retry(failed_claims)}]
+                            "content": pack.format_prompt("verification_retry",
+                                                            failed_claims=failed_claims)}]
             data = _call_model()
 
     # --- deterministic graph augmentation ---------------------------------
@@ -235,8 +246,7 @@ def answer(
         aug_block = outcome.facts_block
         aug_derived = outcome.derived_values
         rescue_meta = {
-            "queries": [{"ticker": q.ticker, "metric": q.metric,
-                         "fiscal_year": q.fiscal_year} for q in outcome.queries],
+            "queries": [_query_to_dict(q) for q in outcome.queries],
             "facts": outcome.facts,
             "chunks_added": [c["chunk"]["id"] for c in extra],
             "rescued": False,
@@ -326,8 +336,10 @@ def ask(
     strategy: str | None = None,
     refusal_log: str | Path = "reports/refusals.jsonl",
     filters: dict[str, Any] | None = None,
+    domain: str = "financial",
 ) -> dict[str, Any]:
-    """End-to-end RAG pipeline execution."""
+    """End-to-end RAG pipeline execution for one domain pack."""
+    pack = get_pack(domain)
     if index is None:
         index = load_index(cfg["embedding"]["index_dir"], cfg["embedding"]["model"])
 
@@ -346,15 +358,14 @@ def ask(
 
     rescuer = None
     if use_graph:
-        from ..graph import load_rescue
-        rescuer = load_rescue(cfg, index)
+        rescuer = pack.load_rescue(cfg, index)
 
     t0 = time.perf_counter()
     top_k = cfg.get("retrieval", {}).get("top_k", 8)
     rerank_candidates = cfg.get("retrieval", {}).get("rerank_candidates", 25)
 
-    if needs_decomposition(query):
-        sub_queries = decompose_query(query, cfg)
+    if pack.needs_decomposition(query):
+        sub_queries = pack.decompose_query(query, cfg)
         hits: list[dict[str, Any]] = []
         seen_ids: set[str] = set()
         for sq in sub_queries:
@@ -370,7 +381,7 @@ def ask(
         hits = index.search(query, base_strat, top_k, filters=filters,
                             rerank_candidates=rerank_candidates)
 
-    result = answer(query, hits, cfg, graph_rescue=rescuer)
+    result = answer(query, hits, cfg, graph_rescue=rescuer, pack=pack)
     result["latency_ms"] = (time.perf_counter() - t0) * 1000.0
     result["strategy"] = strat
     result["hits"] = result.pop("hits", hits)
