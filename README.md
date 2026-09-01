@@ -154,24 +154,54 @@ Open your browser to [http://localhost:8080](http://localhost:8080) to inspect t
 
 ---
 
-## 📊 Measured Results (golden set + FinanceBench, all-free models, $0.00)
+## 📊 Measured Results — three evaluation surfaces (all-free models, $0.00)
 
 Every figure below was measured on 2026-08-31 using free models
 (`minimax/minimax-m3:free` for generation, extraction, and judging). Reproduce
 with `eval-harness run` from `p1-eval-harness` (golden sets) or
 `python scripts/benchmark_financebench.py` there (FinanceBench).
 
-**FinanceBench (150 real public-company questions, external benchmark)** —
-run in *reasoning-over-evidence* mode (each question is given its official
-evidence excerpt as context), so this measures grounded synthesis + numeric
-verification + financial math, not retrieval (FinanceBench references filings
-outside this corpus as PDFs):
+### 1 · External benchmark — FinanceBench (150 real public-company questions)
 
 | Benchmark | Mode | Accuracy |
 | :--- | :--- | :--- |
-| **FinanceBench** (Patronus AI, 150 open questions) | reasoning-over-evidence | **81.3%** (122/150) |
+| **FinanceBench** (Patronus AI, [150 open questions](https://huggingface.co/datasets/PatronusAI/financebench), CC-BY-NC-4.0) | reasoning over given evidence | **81.3%** (122/150) |
 
-**80-case audited golden set** (`p1-eval-harness/data/domain_a_financial/golden_set_v1.jsonl`):
+*What "reasoning over evidence" means:* FinanceBench's questions reference
+filings outside this repo's corpus, as PDFs. So each question is handed its
+official evidence excerpt as context, and the system must **ground, verify,
+and compute on top of it** — synthesis, numeric-claim verification, and
+financial math all run for real. The only step isolated out is *finding* the
+evidence (retrieval); the full-retrieval variant is the documented follow-up.
+
+Sample questions from the run (including one failure — honest by design):
+
+| Question (abridged) | Our answer | Verdict |
+| :--- | :--- | :--- |
+| What is the FY2018 capital expenditure amount (in USD millions) for 3M? | $1,577 million | ✅ |
+| Excluding M&A, which segment dragged down 3M's overall growth in 2022? | Consumer — organic sales shrank 0.9% | ✅ |
+| Is 3M a capital-intensive business based on FY2022 data? | Yes — citing $9,178M net PP&E and capex… | ❌ official answer is **No** (capex/revenue only 5.1%) — the system argued the opposite conclusion |
+
+### 2 · Enterprise multi-hop set (45 cases — answers in no single chunk)
+
+| Configuration | Accuracy |
+| :--- | :--- |
+| Retrieval-only (no graph) | 37.8% |
+| **+ fact-graph augmentation** | **84.4%** |
+
+The point of this set: ratios, CAGR, and cross-company comparisons need 2+
+figures from 2+ places, so retrieval-only fails; the fact graph does the
+joining. Samples from
+[`golden_set_enterprise_v1.jsonl`](./p1-eval-harness/data/domain_a_financial/golden_set_enterprise_v1.jsonl):
+
+| Question | Expected (figure joins in bold) |
+| :--- | :--- |
+| What was Microsoft's net profit margin in fiscal year 2025? | 36.1% — **$101,832M ÷ $281,724M** |
+| What was the CAGR of Apple's net sales from FY2023 to FY2025? | 4.2%/yr — **$383,285M → $416,161M** |
+| Which had the higher operating margin in FY2025: Microsoft or Meta? | Microsoft **45.6% vs 41.4%** |
+| How did Microsoft's net profit margin change FY2024 → FY2025? | **36.0% → 36.1%** (+0.2pp) |
+
+### 3 · Audited golden set v1 (80 cases, every answer proven against filing text)
 
 | Configuration | Accuracy | Note |
 | :--- | :--- | :--- |
@@ -179,17 +209,21 @@ outside this corpus as PDFs):
 | **+ fact-graph augmentation** | **85.0%** | +31.2pp — fixes all 16 incorrect refusals |
 | **+ clarification & company-aware chunks** | **92.5%** | ambiguous 8/10; lookup & table 100% |
 
+Samples from
+[`golden_set_v1.jsonl`](./p1-eval-harness/data/domain_a_financial/golden_set_v1.jsonl)
+(one per failure category the set is designed to catch):
+
+| Category | Question | Expected behavior |
+| :--- | :--- | :--- |
+| lookup | What was Coca-Cola's operating income for fiscal year 2025? | $13,762 million |
+| table | What did Tesla report as net cash from operating activities for FY2023? | $13,256 million (from the cash-flow table) |
+| synthesis | How did Microsoft's R&D expense change from FY2024 to FY2025? | $32,488M, up from $29,510M |
+| unanswerable | What was Tesla's total revenue for fiscal year 2022? | **refuse** — FY2022 isn't in the corpus |
+| ambiguous | What was the net income? | **ask which company and year** — never guess |
+
 (The `+clarification` configuration measured as high as 96.2% on one run, but
 that run caught 2 unanswerable questions flipping to correct refusals by
 ordinary free-model variance; 92.5% is the representative repeat.)
-
-**45-case enterprise multi-hop set** (ratios, CAGR, cross-company comparisons,
-trends — answers that live in no single chunk):
-
-| Configuration | Accuracy |
-| :--- | :--- |
-| Retrieval-only (no graph) | 37.8% |
-| **+ fact-graph augmentation** | **84.4%** |
 
 Retrieval-strategy ablation (no graph, v1 set): dense 56.2% · hybrid 46.2% ·
 hybrid + rerank 55.0% — within run-to-run noise; the fact graph, not the

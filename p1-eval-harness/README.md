@@ -31,7 +31,10 @@ trends — answers that live in no single chunk):
 | + fact-graph augmentation | **84.4%** |
 
 **External benchmark:** 81.3% (122/150) on **FinanceBench** in
-reasoning-over-evidence mode — `scripts/benchmark_financebench.py`.
+reasoning-over-evidence mode (each question is handed its official evidence
+excerpt, and the system grounds + verifies + computes on top of it; the
+retrieval step is the one thing isolated out) —
+`scripts/benchmark_financebench.py`.
 
 **Judge calibration:** the G-Eval judge agrees with hand labels on
 **45/52 = 86.5%** of cases (Cohen's kappa 0.669) — measured on 52
