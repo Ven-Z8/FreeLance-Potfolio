@@ -21,3 +21,6 @@ p3-rag-filings/reports/
 # Internal development detail — not part of the public portfolio
 /.dev-notes/
 
+# Third-party benchmark datasets (licensed, downloaded at runtime)
+p3-rag-filings/data/
+

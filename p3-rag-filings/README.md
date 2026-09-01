@@ -10,6 +10,10 @@ on genuinely messy documents — 25 real SEC 10-K filings full of nested tables,
 footnotes, incorporated-by-reference sections, 53-week fiscal years, and column
 orders that flip between companies — **measured, with the failures included.**
 
+> **External benchmark:** 81.3% (122/150) on **FinanceBench** (real
+> public-company questions) in reasoning-over-evidence mode — see
+> [`docs/financebench_v1.md`](docs/financebench_v1.md).
+
 ## Headline (measured, 2026-08-31)
 
 On the 80-case audited golden set (`golden/golden_set_v1.jsonl`), accuracy by

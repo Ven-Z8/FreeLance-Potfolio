@@ -147,13 +147,22 @@ Open your browser to [http://localhost:8080](http://localhost:8080) to inspect t
 
 ---
 
-## 📊 Measured Results (golden set, all-free models, $0.00)
+## 📊 Measured Results (golden set + FinanceBench, all-free models, $0.00)
 
-Every figure below was measured on this repo's audited golden sets on
-2026-08-31 using free models (`minimax/minimax-m3:free` for generation,
-extraction, and judging). No external/proprietary benchmark numbers are
-claimed; public-benchmark adaptation (e.g. FinanceBench-style) is on the
-roadmap. Reproduce with `ragfilings regress`.
+Every figure below was measured on 2026-08-31 using free models
+(`minimax/minimax-m3:free` for generation, extraction, and judging). Reproduce
+with `ragfilings regress` (golden set) or
+`python scripts/benchmark_financebench.py` (FinanceBench).
+
+**FinanceBench (150 real public-company questions, external benchmark)** —
+run in *reasoning-over-evidence* mode (each question is given its official
+evidence excerpt as context), so this measures grounded synthesis + numeric
+verification + financial math, not retrieval (FinanceBench references filings
+outside this corpus as PDFs):
+
+| Benchmark | Mode | Accuracy |
+| :--- | :--- | :--- |
+| **FinanceBench** (Patronus AI, 150 open questions) | reasoning-over-evidence | **81.3%** (122/150) |
 
 **80-case audited golden set** (`p3-rag-filings/golden/golden_set_v1.jsonl`):
 
