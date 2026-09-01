@@ -51,7 +51,7 @@ def _tokenize(text: str) -> list[str]:
 
 def context_header(chunk: dict[str, Any]) -> str:
     """Readable provenance header for a chunk: company, ticker, fiscal year,
-    item and section title.
+    form, item and section title.
 
     Most financial-statement table chunks carry no company identifier in their
     body (only ~31% mention their own company/ticker), so without this header
@@ -63,11 +63,14 @@ def context_header(chunk: dict[str, Any]) -> str:
     company = chunk.get("company") or ""
     ticker = chunk.get("ticker") or ""
     fy = chunk.get("fiscal_year")
+    form = chunk.get("form") or "10-K"
     item = chunk.get("item") or ""
     title = chunk.get("title") or ""
-    head = f"{company} ({ticker}) FY{fy} 10-K — Item {item}"
+    head = f"{company} ({ticker}) FY{fy} {form}"
+    if item:
+        head += f" — Item {item}"
     if title:
-        head += f": {title}"
+        head += f": {title}" if item else f" — {title}"
     return head
 
 

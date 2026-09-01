@@ -355,6 +355,21 @@ def test_pep_statements_carved_out_of_mda():
     assert 50_000 < by["7"].n_chars < 150_000    # MD&A alone (was 241K with statements)
 
 
+def test_sections_from_text_generic_split():
+    # For documents with no Item structure (10-Q/8-K HTML, earnings PDFs) the
+    # generic sectioner groups lines into size-capped sections labelled S1..Sn.
+    from ragfilings.ingestion import sections_from_text
+
+    text = "\n".join([f"line {i} of prose" for i in range(200)])
+    secs = sections_from_text(text, max_section_chars=500)
+    assert len(secs) > 1
+    assert [s.item for s in secs] == [f"S{i}" for i in range(1, len(secs) + 1)]
+    assert all(s.n_chars <= 500 + 40 for s in secs)  # cap holds (± one line)
+    # every line survives exactly once
+    rejoined = "\n".join(s.text for s in secs)
+    assert rejoined == text
+
+
 if __name__ == "__main__":
     test_toc_deduped_and_ordered()
     test_part_grouping()

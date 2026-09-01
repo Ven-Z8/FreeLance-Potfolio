@@ -384,6 +384,43 @@ def parse_file(path: str | Path, min_section_chars: int = 200,
                       min_section_chars, pointer_chars)
 
 
+def parse_pdf(path: str | Path) -> str:
+    """Extract plain text from a PDF filing, page by page (pymupdf)."""
+    import pymupdf
+
+    doc = pymupdf.open(str(path))
+    try:
+        return "\n".join(page.get_text("text") for page in doc)
+    finally:
+        doc.close()
+
+
+def sections_from_text(text: str, max_section_chars: int = 6_000) -> list[Section]:
+    """Generic sectioning for documents with no 10-K Item structure (10-Q/8-K
+    HTML that yielded no items, earnings releases, PDF filings): blank/paragraph
+    lines grouped into size-capped sections."""
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+    sections: list[Section] = []
+    cur: list[str] = []
+    cur_len = 0
+
+    def flush() -> None:
+        nonlocal cur, cur_len
+        if cur:
+            sections.append(Section(item=f"S{len(sections) + 1}", part="I",
+                                    title=f"Part {len(sections) + 1}",
+                                    text="\n".join(cur)))
+            cur, cur_len = [], 0
+
+    for ln in lines:
+        if cur and cur_len + len(ln) > max_section_chars:
+            flush()
+        cur.append(ln)
+        cur_len += len(ln) + 1
+    flush()
+    return sections
+
+
 def render_tree(sections: list[Section]) -> str:
     """Pretty section tree grouped by Part."""
     out: list[str] = []

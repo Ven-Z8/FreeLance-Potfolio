@@ -1,13 +1,22 @@
-"""FinanceBench reasoning-over-evidence benchmark adapter.
+"""FinanceBench benchmark adapter — two modes.
 
-Runs the P3 grounded-synthesis pipeline on FinanceBench's 150 open questions,
-giving each question its official evidence text as the retrieved context
-(reasoning-over-evidence: exercises grounding + verification + financial math,
-not retrieval, since FinanceBench references filings outside our corpus).
-Scores our answer against the official FinanceBench answer with the calibrated
-G-Eval judge.
+evidence (default): reasoning-over-evidence. Each question is handed its
+official evidence excerpt as the retrieved context; the pipeline then does
+grounded synthesis + numeric-claim verification + financial math on top.
+Measures grounding/reasoning with retrieval isolated out (FinanceBench's
+filings are out-of-corpus PDFs).
 
-Usage: uv run python scripts/benchmark_financebench.py [--limit N]
+retrieval: full retrieval. The referenced filings were downloaded (EDGAR
+first) and indexed by scripts/build_financebench_corpus.py; each question
+retrieves its own top-k chunks from that index and answers from them.
+Measures retrieval + grounding + reasoning end-to-end.
+
+Both modes score our answer against the official FinanceBench answer with
+the calibrated G-Eval judge.
+
+Usage:
+  uv run python scripts/benchmark_financebench.py [--limit N]
+  uv run python scripts/benchmark_financebench.py --mode retrieval [--limit N]
 """
 
 from __future__ import annotations
@@ -16,37 +25,19 @@ import argparse
 import json
 import sys
 import time
-import urllib.request
 from pathlib import Path
 
 P1 = Path(__file__).resolve().parent.parent
 P3 = P1.parent / "p3-rag-filings"
 sys.path.insert(0, str(P1 / "src"))
 sys.path.insert(0, str(P3 / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from harness import config as harness_cfg                # noqa: E402
-from harness.judge import DeepEvalScorer                 # noqa: E402
-from ragfilings.config import load as load_cfg           # noqa: E402
-from ragfilings.pipeline.engine import answer            # noqa: E402
-
-FB = P1 / "data" / "financebench" / "financebench_merged.jsonl"
-FB_URL = ("https://huggingface.co/datasets/PatronusAI/financebench/"
-          "resolve/main/financebench_merged.jsonl")
-
-
-def load_financebench() -> list[dict]:
-    if not FB.exists():
-        FB.parent.mkdir(parents=True, exist_ok=True)
-        print(f"downloading FinanceBench -> {FB}")
-        try:
-            urllib.request.urlretrieve(FB_URL, FB)
-        except Exception as e:
-            raise SystemExit(
-                f"could not download FinanceBench ({e}); save "
-                f"financebench_merged.jsonl to {FB} manually "
-                "(HuggingFace: PatronusAI/financebench, CC-BY-NC-4.0)"
-            )
-    return [json.loads(line) for line in FB.open() if line.strip()]
+from financebench_common import FB_DIR, load_financebench  # noqa: E402
+from harness import config as harness_cfg                   # noqa: E402
+from harness.judge import DeepEvalScorer                   # noqa: E402
+from ragfilings.config import load as load_cfg             # noqa: E402
+from ragfilings.pipeline.engine import answer              # noqa: E402
 
 
 def evidence_hits(rec: dict) -> list[dict]:
@@ -70,8 +61,37 @@ def evidence_hits(rec: dict) -> list[dict]:
     return hits
 
 
+def make_retriever(cfg: dict):
+    """Load the FinanceBench index built by build_financebench_corpus.py."""
+    from ragfilings import retrieval
+
+    index_dir = FB_DIR / "index"
+    manifest_path = FB_DIR / "corpus_manifest.json"
+    if not (index_dir / "embeddings.npy").exists():
+        raise SystemExit(
+            f"no FinanceBench index at {index_dir} — run "
+            "scripts/build_financebench_corpus.py first")
+    index = retrieval.load_index(index_dir, cfg["embedding"]["model"])
+    manifest = {}
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    indexed_docs = {name for name, e in manifest.items() if e.get("n_chunks")}
+
+    def retrieve(rec: dict) -> tuple[list[dict], bool]:
+        hits = index.search(
+            rec["question"], "hybrid_rerank",
+            top_k=cfg["retrieval"]["top_k"],
+            reranker_name=cfg["retrieval"]["reranker"],
+            rerank_candidates=cfg["retrieval"]["rerank_candidates"],
+        )
+        return hits, rec["doc_name"] in indexed_docs
+
+    return retrieve, indexed_docs
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--mode", choices=["evidence", "retrieval"], default="evidence")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
@@ -83,11 +103,18 @@ def main() -> None:
     if args.limit:
         recs = recs[: args.limit]
 
+    retrieve, indexed_docs = (None, None)
+    if args.mode == "retrieval":
+        retrieve, indexed_docs = make_retriever(cfg)
+        covered = sum(1 for r in recs if r["doc_name"] in indexed_docs)
+        print(f"retrieval mode: {covered}/{len(recs)} questions have their "
+              f"document in the index ({len(indexed_docs)} docs indexed)")
+
     scorer = DeepEvalScorer(cfg)
 
     out_path = Path(args.out) if args.out else (
         P1 / "reports" / "financebench" /
-        f"fb_{time.strftime('%Y%m%d-%H%M%S')}.jsonl")
+        f"fb_{args.mode}_{time.strftime('%Y%m%d-%H%M%S')}.jsonl")
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     n_correct = 0
@@ -96,10 +123,17 @@ def main() -> None:
             qid = rec["financebench_id"]
             question = rec["question"]
             official = rec["answer"]
-            hits = evidence_hits(rec)
-            if not hits:
-                print(f"[{i+1}/{len(recs)}] {qid}: no evidence, skip")
-                continue
+            doc_unavailable = False
+            hit_ids: list[str] = []
+            if args.mode == "evidence":
+                hits = evidence_hits(rec)
+                if not hits:
+                    print(f"[{i+1}/{len(recs)}] {qid}: no evidence, skip")
+                    continue
+            else:
+                hits, doc_ok = retrieve(rec)
+                doc_unavailable = not doc_ok
+                hit_ids = [h["chunk"]["id"] for h in hits]
             t0 = time.time()
             try:
                 # graph_rescue=None: the graph is built from OUR 25 filings, not
@@ -121,7 +155,7 @@ def main() -> None:
                 "expected": {"answer": official, "type": "judge"},
             }
             result = {"answer": our_answer, "refused": res.get("refused", False),
-                      "citations": res.get("citations", [])}
+                      "citations": res.get("citations", []), "hits": hits}
             try:
                 scored = scorer.correctness(case, result)
                 correct = bool(scored.get("correct"))
@@ -130,22 +164,27 @@ def main() -> None:
                 correct = False
 
             n_correct += int(correct)
+            flag = "" if not doc_unavailable else " [doc-not-indexed]"
             print(f"[{i+1}/{len(recs)}] {qid}: "
-                  f"{'CORRECT' if correct else 'WRONG'} ({dt:.1f}s)")
+                  f"{'CORRECT' if correct else 'WRONG'}{flag} ({dt:.1f}s)")
             out.write(json.dumps({
                 "id": qid,
+                "mode": args.mode,
                 "question": question,
+                "doc_name": rec["doc_name"],
+                "doc_unavailable": doc_unavailable,
                 "official_answer": official,
                 "our_answer": our_answer,
                 "refused": res.get("refused", False),
                 "correct": correct,
                 "citations": res.get("citations", []),
+                "hit_ids": hit_ids,
                 "latency_s": dt,
             }, ensure_ascii=False) + "\n")
             out.flush()
 
     total = len(recs)
-    print(f"\nFinanceBench reasoning-over-evidence: {n_correct}/{total} "
+    print(f"\nFinanceBench ({args.mode}): {n_correct}/{total} "
           f"= {n_correct / total:.1%}")
     print(f"results -> {out_path}")
 
