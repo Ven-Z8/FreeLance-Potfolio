@@ -25,6 +25,7 @@ p1-eval-harness/reports/
 # Third-party benchmark datasets (licensed, downloaded at runtime)
 p3-rag-filings/data/
 p1-eval-harness/data/financebench/
+p1-eval-harness/data/convfinqa/
 
 # Legal domain pack: CUAD downloads + derived corpus artifacts
 # (reproducible via domains/legal/build_corpus.py)
